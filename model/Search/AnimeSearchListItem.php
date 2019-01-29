@@ -2,9 +2,6 @@
 
 namespace Jikan\Model\Search;
 
-use Jikan\Model\Common\MalUrl;
-use Jikan\Parser;
-
 /**
  * Class AnimeSearchListItem
  *
@@ -76,44 +73,6 @@ class AnimeSearchListItem
      * @var ?string
      */
     private $rated;
-
-    /**
-     * @param Parser\Search\AnimeSearchListItemParser $parser
-     *
-     * @return AnimeSearchListItem
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     */
-    public static function fromParser(Parser\Search\AnimeSearchListItemParser $parser): self
-    {
-        $instance = new self();
-
-        $instance->url = $parser->getUrl();
-        $instance->malId = \Jikan\Helper\Parser::idFromUrl($instance->url);
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->title = $parser->getTitle();
-        $instance->synopsis = $parser->getSynopsis();
-        $instance->type = $parser->getType();
-        $instance->episodes = $parser->getEpisodes();
-        $instance->score = $parser->getScore();
-        $instance->startDate = $parser->getStartDate();
-        $instance->endDate = $parser->getEndDate();
-        $instance->members = $parser->getMembers();
-        $instance->rated = $parser->getRated();
-        $instance->airing =
-            null === $instance->endDate
-            && null !== $instance->startDate
-            &&
-            (
-                new \DateTimeImmutable(
-                    'now',
-                    new \DateTimeZone('UTC')
-                ) > $instance->startDate
-            );
-
-        return $instance;
-    }
 
     /**
      * @return int

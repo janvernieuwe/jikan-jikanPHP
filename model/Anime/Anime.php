@@ -4,7 +4,6 @@ namespace Jikan\Model\Anime;
 
 use Jikan\Model\Common\DateRange;
 use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\Anime\AnimeParser;
 
 /**
  * Class AnimeParser
@@ -13,7 +12,6 @@ use Jikan\Parser\Anime\AnimeParser;
  */
 class Anime
 {
-
     /**
      * @var int
      */
@@ -178,55 +176,6 @@ class Anime
      * @var string[]
      */
     private $endingThemes = [];
-
-    /**
-     * Create an instance from an AnimeParser parser
-     *
-     * @param AnimeParser $parser
-     *
-     * @return Anime
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(AnimeParser $parser): Anime
-    {
-        $instance = new self();
-        $instance->trailerUrl = $parser->getPreview();
-        $instance->title = $parser->getTitle();
-        $instance->url = $parser->getURL();
-        $instance->malId = $parser->getId();
-        $instance->imageUrl = $parser->getImageURL();
-        $instance->synopsis = $parser->getSynopsis();
-        $instance->titleEnglish = $parser->getTitleEnglish();
-        $instance->titleSynonyms = $parser->getTitleSynonyms();
-        $instance->titleJapanese = $parser->getTitleJapanese();
-        $instance->type = $parser->getType();
-        $instance->episodes = $parser->getEpisodes();
-        $instance->status = $parser->getStatus();
-        $instance->airing = $instance->status === 'Currently Airing';
-        $instance->aired = $parser->getAired();
-        $instance->premiered = $parser->getPremiered();
-        $instance->broadcast = $parser->getBroadcast();
-        $instance->producers = $parser->getProducers();
-        $instance->licensors = $parser->getLicensors();
-        $instance->studios = $parser->getStudios();
-        $instance->source = $parser->getSource();
-        $instance->genres = $parser->getGenres();
-        $instance->duration = $parser->getDuration();
-        $instance->rating = $parser->getRating();
-        $instance->score = $parser->getScore();
-        $instance->scoredBy = $parser->getScoredBy();
-        $instance->rank = $parser->getRank();
-        $instance->popularity = $parser->getPopularity();
-        $instance->members = $parser->getMembers();
-        $instance->favorites = $parser->getFavorites();
-        $instance->related = $parser->getRelated();
-        $instance->openingThemes = $parser->getOpeningThemes();
-        $instance->endingThemes = $parser->getEndingThemes();
-        $instance->background = $parser->getBackground();
-
-        return $instance;
-    }
 
     /**
      * @return int

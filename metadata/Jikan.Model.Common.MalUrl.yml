@@ -1,0 +1,6 @@
+Jikan\Model\Common\MalUrl:
+    properties:
+        name:
+            type: string
+        url:
+            type: string

@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Anime;
 
-use Jikan\Parser\Anime\EpisodesParser;
-
 /**
  * Class Episodes
  *
@@ -20,21 +18,6 @@ class Episodes
      * @var EpisodeListItem[]
      */
     private $episodes;
-
-    /**
-     * @param EpisodesParser $parser
-     *
-     * @return Episodes
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(EpisodesParser $parser): self
-    {
-        $instance = new self();
-        $instance->episodes = $parser->getEpisodes();
-        $instance->episodesLastPage = $parser->getEpisodesLastPage();
-
-        return $instance;
-    }
 
     /**
      * @return EpisodeListItem[]

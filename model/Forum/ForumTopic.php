@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Forum;
 
-use Jikan\Parser\Forum\ForumTopicParser;
-
 /**
  * Class ForumPost
  *
@@ -50,27 +48,6 @@ class ForumTopic
      * @var ForumPost
      */
     private $lastPost;
-
-    /**
-     * @param ForumTopicParser $parser
-     *
-     * @return ForumTopic
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(ForumTopicParser $parser): self
-    {
-        $instance = new self();
-        $instance->topicId = $parser->getTopicId();
-        $instance->url = $parser->getUrl();
-        $instance->title = $parser->getTitle();
-        $instance->datePosted = $parser->getPostDate();
-        $instance->replies = $parser->getReplies();
-        $instance->authorName = $parser->getAuthorName();
-        $instance->authorUrl = $parser->getAuthorUrl();
-        $instance->lastPost = $parser->getLastPost();
-
-        return $instance;
-    }
 
     /**
      * @return string

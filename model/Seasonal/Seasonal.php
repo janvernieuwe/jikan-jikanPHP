@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Seasonal;
 
-use Jikan\Parser\Seasonal\SeasonalParser;
-
 /**
  * Class Seasonal
  *
@@ -28,28 +26,11 @@ class Seasonal
     public $anime = [];
 
     /**
-     * @param SeasonalParser $parser
-     *
-     * @return Seasonal
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
-    public static function fromParser(SeasonalParser $parser): self
-    {
-        $instance = new self();
-        $instance->seasonName = $parser->getSeasonName();
-        $instance->seasonYear = $parser->getSeasonYear();
-        $instance->anime = $parser->getSeasonalAnime();
-
-        return $instance;
-    }
-
-    /**
      * @return string
      */
     public function getSeason(): string
     {
-        return $this->seasonName . " " . $this->seasonYear;
+        return $this->seasonName .' '. $this->seasonYear;
     }
 
     /**

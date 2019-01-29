@@ -2,10 +2,16 @@
 
 namespace Jikan\JikanPHP;
 
+use Jikan\JikanPHP\Serializer\SerializerFactory;
 use Jikan\Request;
 use JMS\Serializer\Serializer;
 
-class Client
+/**
+ * Class JikanPHPClient
+ *
+ * @package Jikan\JikanPHP
+ */
+class JikanPHPClient
 {
     /**
      * @var \GuzzleHttp\Client
@@ -18,13 +24,14 @@ class Client
     private $serializer;
 
     /**
-     * Client constructor.
+     * JikanPHPClient constructor.
      *
      * @param \GuzzleHttp\Client|null $guzzle
      */
     public function __construct(\GuzzleHttp\Client $guzzle = null)
     {
         $this->guzzle = $guzzle ?? new \GuzzleHttp\Client();
+        $this->serializer = SerializerFactory::create();
     }
 
     /**

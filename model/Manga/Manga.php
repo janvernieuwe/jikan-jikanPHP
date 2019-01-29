@@ -10,7 +10,6 @@ namespace Jikan\Model\Manga;
 
 use Jikan\Model\Common\DateRange;
 use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\Manga\MangaParser;
 
 /**
  * Class Manga
@@ -144,49 +143,6 @@ class Manga
      * @var MalUrl[]
      */
     private $serializations = [];
-
-
-    /**
-     * Create an instance from an MangaParser parser
-     *
-     * @param MangaParser $parser
-     *
-     * @return Manga
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(MangaParser $parser): Manga
-    {
-        $instance = new self();
-
-        $instance->title = $parser->getMangaTitle();
-        $instance->url = $parser->getMangaURL();
-        $instance->malId = $parser->getMangaId();
-        $instance->imageUrl = $parser->getMangaImageURL();
-        $instance->synopsis = $parser->getMangaSynopsis();
-        $instance->titleEnglish = $parser->getMangaTitleEnglish();
-        $instance->titleSynonyms = $parser->getMangaTitleSynonyms();
-        $instance->titleJapanese = $parser->getMangaTitleJapanese();
-        $instance->type = $parser->getMangaType();
-        $instance->chapters = $parser->getMangaChapters();
-        $instance->volumes = $parser->getMangaVolumes();
-        $instance->status = $parser->getMangaStatus();
-        $instance->publishing = $instance->status === 'Publishing';
-        $instance->published = $parser->getPublished();
-        $instance->genres = $parser->getMangaGenre();
-        $instance->score = $parser->getMangaScore();
-        $instance->scoredBy = $parser->getMangaScoredBy();
-        $instance->rank = $parser->getMangaRank();
-        $instance->popularity = $parser->getMangaPopularity();
-        $instance->members = $parser->getMangaMembers();
-        $instance->favorites = $parser->getMangaFavorites();
-        $instance->related = $parser->getMangaRelated();
-        $instance->background = $parser->getMangaBackground();
-        $instance->authors = $parser->getMangaAuthors();
-        $instance->serializations = $parser->getMangaSerialization();
-
-        return $instance;
-    }
 
     /**
      * @return int

@@ -3,7 +3,6 @@
 namespace Jikan\Model\Club;
 
 use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\Club\ClubParser;
 
 /**
  * Class Club
@@ -77,32 +76,6 @@ class Club
      * @var MalUrl[]
      */
     private $characterRelations;
-
-    /**
-     * @param ClubParser $parser
-     * @return Club
-     * @throws \Exception
-     */
-    public static function fromParser(ClubParser $parser): Club
-    {
-        $instance = new self();
-
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getUrl();
-        $instance->title = $parser->getTitle();
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->membersCount = $parser->getMembersCount();
-        $instance->picturesCount = $parser->getPicturesCount();
-        $instance->category = $parser->getCategory();
-        $instance->created = $parser->getCreated();
-        $instance->animeRelations = $parser->getAnimeRelations();
-        $instance->mangaRelations = $parser->getMangaRelations();
-        $instance->characterRelations = $parser->getCharacterRelations();
-        $instance->type = $parser->getType();
-        $instance->staff = $parser->getStaff();
-
-        return $instance;
-    }
 
     /**
      * @return int

@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Search;
 
-use Jikan\Parser;
-
 /**
  * Class AnimeSearch
  *
@@ -21,25 +19,6 @@ class AnimeSearch
      * @var int
      */
     private $lastPage;
-
-
-    /**
-     * @param Parser\Search\AnimeSearchParser $parser
-     *
-     * @return AnimeSearch
-     * @throws \Exception
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(Parser\Search\AnimeSearchParser $parser): self
-    {
-        $instance = new self();
-
-        $instance->results = $parser->getResults();
-        $instance->lastPage = $parser->getLastPage();
-
-        return $instance;
-    }
 
     /**
      * @return AnimeSearchListItem[]

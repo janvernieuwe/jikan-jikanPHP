@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Character;
 
-use Jikan\Parser\Character\CharacterListItemParser;
-
 /**
  * Class CharacterParser
  *
@@ -40,26 +38,6 @@ class CharacterListItem
      * @var VoiceActor[]
      */
     public $voiceActors = [];
-
-    /**
-     * @param CharacterListItemParser $parser
-     *
-     * @return CharacterListItem
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(CharacterListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->voiceActors = $parser->getVoiceActors();
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getCharacterUrl();
-        $instance->name = $parser->getName();
-        $instance->role = $parser->getRole();
-        $instance->imageUrl = $parser->getImage();
-
-        return $instance;
-    }
 
     /**
      * @return string

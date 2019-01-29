@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Common;
 
-use Jikan\Helper\Parser;
-
 /**
  * Class Recommendation
  *
@@ -41,26 +39,6 @@ class Recommendation
      * @var int
      */
     private $recommendationCount;
-
-    /**
-     * @param \Jikan\Parser\Common\Recommendation $parser
-     *
-     * @return self
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(\Jikan\Parser\Common\Recommendation $parser): self
-    {
-        $instance = new self();
-
-        $instance->url = $parser->getUrl();
-        $instance->malId = Parser::idFromUrl($instance->url);
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->recommendationUrl = $parser->getRecommendationurl();
-        $instance->title = $parser->getTitle();
-        $instance->recommendationCount = $parser->getRecommendationCount();
-
-        return $instance;
-    }
 
     /**
      * @return int

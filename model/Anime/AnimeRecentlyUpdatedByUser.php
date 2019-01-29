@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Anime;
 
-use Jikan\Parser\Anime\AnimeRecentlyUpdatedByUsersListParser;
-
 /**
  * Class AnimeRecentlyUpdatedByUser
  *
@@ -50,28 +48,6 @@ class AnimeRecentlyUpdatedByUser
      * @var \DateTimeImmutable
      */
     private $date;
-
-    /**
-     * @param AnimeRecentlyUpdatedByUsersListParser $parser
-     *
-     * @return self
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(AnimeRecentlyUpdatedByUsersListParser $parser): self
-    {
-        $instance = new self();
-
-        $instance->username = $parser->getUsername();
-        $instance->url = $parser->getUrl();
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->score = $parser->getScore();
-        $instance->status = $parser->getStatus();
-        $instance->episodesSeen = $parser->getEpisodesSeen();
-        $instance->episodesTotal = $parser->getEpisodesTotal();
-        $instance->date = $parser->getDate();
-
-        return $instance;
-    }
 
     /**
      * @return string

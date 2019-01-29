@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Manga;
 
-use Jikan\Parser\Character\CharacterListItemParser;
-
 /**
  * Class CharacterParser
  *
@@ -35,24 +33,6 @@ class CharacterListItem
      * @var string
      */
     private $role;
-
-    /**
-     * @param CharacterListItemParser $parser
-     *
-     * @return CharacterListItem
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(CharacterListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->role = $parser->getRole();
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getCharacterUrl();
-        $instance->name = $parser->getName();
-        $instance->imageUrl = $parser->getImage();
-
-        return $instance;
-    }
 
     /**
      * @return string

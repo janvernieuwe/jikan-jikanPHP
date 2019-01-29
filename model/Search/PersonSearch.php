@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Search;
 
-use Jikan\Parser;
-
 /**
  * Class PersonSearch
  *
@@ -21,25 +19,6 @@ class PersonSearch
      * @var int
      */
     private $lastPage;
-
-
-    /**
-     * @param Parser\Search\PersonSearchParser $parser
-     *
-     * @return PersonSearch
-     * @throws \Exception
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(Parser\Search\PersonSearchParser $parser): self
-    {
-        $instance = new self();
-
-        $instance->results = $parser->getResults();
-        $instance->lastPage = $parser->getLastPage();
-
-        return $instance;
-    }
 
     /**
      * @return PersonSearchListItem[]

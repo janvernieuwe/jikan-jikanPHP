@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\User;
 
-use Jikan\Parser\User\Profile\FavoritesParser;
-
 /**
  * Class Favorites
  *
@@ -31,23 +29,6 @@ class Favorites
      * @var array
      */
     private $people;
-
-    /**
-     * @param FavoritesParser $parser
-     *
-     * @return Favorites
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(FavoritesParser $parser): Favorites
-    {
-        $instance = new self();
-        $instance->anime = $parser->getAnime();
-        $instance->manga = $parser->getManga();
-        $instance->characters = $parser->getCharacters();
-        $instance->people = $parser->getPeople();
-
-        return $instance;
-    }
 
     /**
      * @return array

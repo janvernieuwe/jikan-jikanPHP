@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Person;
 
-use Jikan\Parser\Person\PersonParser;
-
 /**
  * Class Person
  *
@@ -80,35 +78,6 @@ class Person
      * @var PublishedManga[]
      */
     public $publishedManga = [];
-
-    /**
-     * @param PersonParser $parser
-     *
-     * @return Person
-     * @throws \Exception
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(PersonParser $parser): self
-    {
-        $instance = new self();
-        $instance->malId = $parser->getPersonId();
-        $instance->url = $parser->getPersonURL();
-        $instance->imageUrl = $parser->getPersonImageUrl();
-        $instance->name = $parser->getPersonName();
-        $instance->givenName = $parser->getPersonGivenName();
-        $instance->familyName = $parser->getPersonFamilyName();
-        $instance->alternateNames = $parser->getPersonAlternateNames();
-        $instance->websiteUrl = $parser->getPersonWebsite();
-        $instance->birthday = $parser->getPersonBirthday();
-        $instance->about = $parser->getPersonAbout();
-        $instance->memberFavorites = $parser->getPersonFavorites();
-        $instance->voiceActingRoles = $parser->getPersonVoiceActingRoles();
-        $instance->animeStaffPositions = $parser->getPersonAnimeStaffPositions();
-        $instance->publishedManga = $parser->getPersonPublishedManga();
-
-        return $instance;
-    }
 
     /**
      * @return int

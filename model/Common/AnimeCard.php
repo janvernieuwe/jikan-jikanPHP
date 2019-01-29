@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Common;
 
-use Jikan\Parser;
-
 /**
  * Class AnimeCardParser
  *
@@ -90,48 +88,6 @@ class AnimeCard
      * @var bool
      */
     protected $kids;
-
-    /**
-     * @param Parser\Common\AnimeCardParser $parser
-     *
-     * @return AnimeCard
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function parseAnimeCard(Parser\Common\AnimeCardParser $parser): AnimeCard
-    {
-        $instance = new self();
-        self::setProperties($parser, $instance);
-
-        return $instance;
-    }
-
-    /**
-     * @param Parser\Common\AnimeCardParser $parser
-     * @param AnimeCard                     $instance
-     *
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
-    protected static function setProperties(Parser\Common\AnimeCardParser $parser, $instance): void
-    {
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getAnimeUrl();
-        $instance->title = $parser->getTitle();
-        $instance->imageUrl = $parser->getAnimeImage();
-        $instance->synopsis = $parser->getDescription();
-        $instance->type = $parser->getType();
-        $instance->airingStart = $parser->getAirDates();
-        $instance->episodes = $parser->getEpisodes();
-        $instance->members = $parser->getMembers();
-        $instance->genres = $parser->getGenres();
-        $instance->source = $parser->getSource();
-        $instance->producers = $parser->getProducer();
-        $instance->score = $parser->getAnimeScore();
-        $instance->licensors = $parser->getLicensors();
-        $instance->r18 = $parser->isR18();
-        $instance->kids = $parser->isKids();
-    }
 
     /**
      * @return string

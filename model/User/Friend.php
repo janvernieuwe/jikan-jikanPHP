@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\User;
 
-use Jikan\Parser\User\Friends\FriendParser;
-
 /**
  * Class Friend
  *
@@ -36,24 +34,6 @@ class Friend
      * @var \DateTimeImmutable
      */
     private $friendsSince;
-
-    /**
-     * @param FriendParser $parser
-     *
-     * @return Friend
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(FriendParser $parser): Friend
-    {
-        $instance = new self();
-        $instance->url = $parser->getUrl();
-        $instance->username = $parser->getName();
-        $instance->imageUrl = $parser->getAvatar();
-        $instance->friendsSince = $parser->getFriendsSince();
-        $instance->lastOnline = $parser->getLastOnline();
-
-        return $instance;
-    }
 
     /**
      * @return string

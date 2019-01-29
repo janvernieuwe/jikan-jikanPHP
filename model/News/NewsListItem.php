@@ -2,9 +2,6 @@
 
 namespace Jikan\Model\News;
 
-use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\News\NewsListItemParser;
-
 /**
  * Class AnimeParser
  *
@@ -56,28 +53,6 @@ class NewsListItem
      * @var string
      */
     private $intro;
-
-    /**
-     * @param NewsListItemParser $parser
-     *
-     * @return NewsListItem
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(NewsListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->url = $parser->getUrl();
-        $instance->title = $parser->getTitle();
-        $instance->date = $parser->getDate();
-        $instance->authorName = $parser->getAuthor()->getName();
-        $instance->authorUrl = $parser->getAuthor()->getUrl();
-        $instance->forumUrl = $parser->getDiscussionLink();
-        $instance->imageUrl = $parser->getImage();
-        $instance->comments = $parser->getComments();
-        $instance->intro = $parser->getIntro();
-
-        return $instance;
-    }
 
     /**
      * @return string

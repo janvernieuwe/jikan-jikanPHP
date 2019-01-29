@@ -3,7 +3,6 @@
 namespace Jikan\Model\Producer;
 
 use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\Producer\ProducerParser;
 
 /**
  * Class Producer
@@ -22,22 +21,6 @@ class Producer
      * @var array|ProducerAnime[]
      */
     public $anime = [];
-
-    /**
-     * @param ProducerParser $parser
-     *
-     * @return Producer
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
-    public static function fromParser(ProducerParser $parser): self
-    {
-        $instance = new self();
-        $instance->malUrl = $parser->getUrl();
-        $instance->anime = $parser->getProducerAnime();
-
-        return $instance;
-    }
 
     /**
      * @return MalUrl

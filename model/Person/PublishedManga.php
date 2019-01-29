@@ -3,7 +3,6 @@
 namespace Jikan\Model\Person;
 
 use Jikan\Model\Common\MangaMeta;
-use Jikan\Parser\Person\PublishedMangaParser;
 
 /**
  * Class PublishedManga
@@ -21,23 +20,6 @@ class PublishedManga
      * @var mangaMeta
      */
     private $mangaMeta;
-
-
-    /**
-     * @param PublishedMangaParser $parser
-     *
-     * @return PublishedManga
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
-    public static function fromParser(PublishedMangaParser $parser): PublishedManga
-    {
-        $instance = new self();
-        $instance->position = $parser->getPosition();
-        $instance->mangaMeta = $parser->getMangaMeta();
-
-        return $instance;
-    }
 
     /**
      * @return string

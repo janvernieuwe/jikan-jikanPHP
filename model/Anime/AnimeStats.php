@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Anime;
 
-use Jikan\Parser\Anime\AnimeStatsParser;
-
 /**
  * Class AnimeStats
  *
@@ -45,26 +43,6 @@ class AnimeStats
      * @var int
      */
     private $scores;
-
-    /**
-     * @param AnimeStatsParser $parser
-     *
-     * @return AnimeStats
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(AnimeStatsParser $parser): AnimeStats
-    {
-        $instance = new self();
-        $instance->watching = $parser->getWatching();
-        $instance->completed = $parser->getCompleted();
-        $instance->onHold = $parser->getOnHold();
-        $instance->dropped = $parser->getDropped();
-        $instance->planToWatch = $parser->getPlanToWatch();
-        $instance->total = $parser->getTotal();
-        $instance->scores = $parser->getScores();
-
-        return $instance;
-    }
 
     /**
      * @return int

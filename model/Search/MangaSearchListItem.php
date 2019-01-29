@@ -2,9 +2,6 @@
 
 namespace Jikan\Model\Search;
 
-use Jikan\Model\Common\MalUrl;
-use Jikan\Parser;
-
 /**
  * Class MangaSearchListItem
  *
@@ -78,45 +75,6 @@ class MangaSearchListItem
      * @var int
      */
     private $members;
-
-    /**
-     * @param Parser\Search\MangaSearchListItemParser $parser
-     *
-     * @return MangaSearchListItem
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \Exception
-     */
-    public static function fromParser(Parser\Search\MangaSearchListItemParser $parser): self
-    {
-        $instance = new self();
-
-        $instance->url = $parser->getUrl();
-        $instance->malId = \Jikan\Helper\Parser::idFromUrl($instance->url);
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->title = $parser->getTitle();
-        $instance->synopsis = $parser->getSynopsis();
-        $instance->type = $parser->getType();
-        $instance->volumes = $parser->getVolumes();
-        $instance->chapters = $parser->getChapters();
-        $instance->score = $parser->getScore();
-        $instance->startDate = $parser->getStartDate();
-        $instance->endDate = $parser->getEndDate();
-        $instance->members = $parser->getMembers();
-        $instance->publishing =
-            null === $instance->endDate
-            && null !== $instance->startDate
-            &&
-            (
-                new \DateTimeImmutable(
-                    'now',
-                    new \DateTimeZone('UTC')
-                ) > $instance->startDate
-            );
-
-        return $instance;
-    }
-
 
     /**
      * @return int

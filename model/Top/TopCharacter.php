@@ -3,7 +3,6 @@
 namespace Jikan\Model\Top;
 
 use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\Top\TopListItemParser;
 
 /**
  * Class TopCharacter
@@ -56,31 +55,6 @@ class TopCharacter
      * @var string
      */
     private $imageUrl;
-
-    /**
-     * Create an instance from an AnimeParser parser
-     *
-     * @param TopListItemParser $parser
-     *
-     * @return self
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(TopListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->rank = $parser->getRank();
-        $instance->malId = $parser->getMalUrl()->getMalId();
-        $instance->title = $parser->getMalUrl()->getTitle();
-        $instance->url = $parser->getMalUrl()->getUrl();
-        $instance->nameKanji = $parser->getKanjiName();
-        $instance->animeography = $parser->getAnimeography();
-        $instance->mangaography = $parser->getMangaography();
-        $instance->favorites = $parser->getFavorites();
-        $instance->imageUrl = $parser->getImage();
-
-        return $instance;
-    }
 
     /**
      * @return string

@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Common;
 
-use Jikan\Parser\Common\MalUrlParser;
-
 /**
  * Class MalUrl
  *
@@ -46,7 +44,8 @@ class MalUrl
      */
     public function getMalId(): int
     {
-        return MalUrlParser::parseId($this->url);
+        //return MalUrlParser::parseId($this->url);
+        // TODO: see if this is needed
     }
 
     /**

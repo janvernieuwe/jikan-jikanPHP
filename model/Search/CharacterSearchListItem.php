@@ -2,9 +2,6 @@
 
 namespace Jikan\Model\Search;
 
-use Jikan\Model\Common\MalUrl;
-use Jikan\Parser;
-
 /**
  * Class CharacterSearchListItem
  *
@@ -47,29 +44,6 @@ class CharacterSearchListItem
      * @var \Jikan\Model\Common\MalUrl[]
      */
     private $manga;
-
-    /**
-     * @param Parser\Search\CharacterSearchListItemParser $parser
-     *
-     * @return CharacterSearchListItem
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(Parser\Search\CharacterSearchListItemParser $parser): self
-    {
-        $instance = new self();
-
-        $instance->url = $parser->getUrl();
-        $instance->malId = \Jikan\Helper\Parser::idFromUrl($instance->url);
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->name = $parser->getName();
-        $instance->alternativeNames = $parser->getAlternativeNames();
-        $instance->anime = $parser->getAnime();
-        $instance->manga = $parser->getManga();
-
-        return $instance;
-    }
-
 
     /**
      * @return int

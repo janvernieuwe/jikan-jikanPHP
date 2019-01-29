@@ -1,13 +1,10 @@
 <phpunit bootstrap="./test/bootstrap.php" colors="true">
-    <listeners>
-        <listener class="VCR\PHPUnit\TestListener\VCRTestListener" file="vendor/php-vcr/phpunit-testlistener-vcr/src/VCRTestListener.php" />
-    </listeners>
+    <!--<listeners>-->
+        <!--<listener class="VCR\PHPUnit\TestListener\VCRTestListener" file="vendor/php-vcr/phpunit-testlistener-vcr/src/VCRTestListener.php" />-->
+    <!--</listeners>-->
     <testsuites>
         <testsuite name="Unit">
-            <directory>./test/JikanTest</directory>
-        </testsuite>
-        <testsuite name="Fast">
-            <directory>./test/JikanTest/JikanTest.php</directory>
+            <directory>./test/JikanPHPClient</directory>
         </testsuite>
     </testsuites>
     <filter>

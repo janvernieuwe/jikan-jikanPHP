@@ -2,9 +2,6 @@
 
 namespace Jikan\Model\Top;
 
-use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\Top\TopListItemParser;
-
 /**
  * Class TopPerson
  *
@@ -51,30 +48,6 @@ class TopPerson
      * @var \DateTimeImmutable|null
      */
     private $birthday;
-
-    /**
-     * Create an instance from an AnimeParser parser
-     *
-     * @param TopListItemParser $parser
-     *
-     * @return self
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(TopListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->rank = $parser->getRank();
-        $instance->malId = $parser->getMalUrl()->getMalId();
-        $instance->title = $parser->getMalUrl()->getTitle();
-        $instance->url = $parser->getMalUrl()->getUrl();
-        $instance->nameKanji = $parser->getKanjiName();
-        $instance->favorites = $parser->getPeopleFavorites();
-        $instance->imageUrl = $parser->getImage();
-        $instance->birthday = $parser->getBirthday();
-
-        return $instance;
-    }
 
     /**
      * @return string

@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Anime;
 
-use Jikan\Parser;
-
 /**
  * Class AnimeReviewScores
  *
@@ -41,26 +39,6 @@ class AnimeReviewScores
      * @var int
      */
     private $enjoyment;
-
-    /**
-     * @param Parser\Anime\AnimeReviewScoresParser $parser
-     *
-     * @return AnimeReviewScores
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(Parser\Anime\AnimeReviewScoresParser $parser): AnimeReviewScores
-    {
-        $instance = new self();
-
-        $instance->overall = $parser->getOverallScore();
-        $instance->story = $parser->getStoryScore();
-        $instance->animation = $parser->getAnimationScore();
-        $instance->sound = $parser->getSoundScore();
-        $instance->character = $parser->getCharacterScore();
-        $instance->enjoyment = $parser->getEnjoymentScore();
-
-        return $instance;
-    }
 
     /**
      * @return int

@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Anime;
 
-use Jikan\Parser\Anime\PromoListItemParser;
-
 /**
  * Class PromoListItem
  *
@@ -25,22 +23,6 @@ class PromoListItem
      * @var string
      */
     public $videoUrl;
-
-    /**
-     * @param PromoListItemParser $parser
-     *
-     * @return PromoListItem
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(PromoListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->title = $parser->getTitle();
-        $instance->videoUrl = $parser->getVideoUrl();
-        $instance->imageUrl = $parser->getImageUrl();
-
-        return $instance;
-    }
 
     /**
      * @return string

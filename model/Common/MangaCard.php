@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Common;
 
-use Jikan\Parser;
-
 /**
  * Class MangaCardParser
  *
@@ -75,46 +73,6 @@ class MangaCard
      * @var string[]|null
      */
     protected $serialization;
-
-    /**
-     * @param Parser\Common\MangaCardParser $parser
-     *
-     * @return MangaCard
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function parseMangaCard(Parser\Common\MangaCardParser $parser): MangaCard
-    {
-        $instance = new self();
-        self::setProperties($parser, $instance);
-
-        return $instance;
-    }
-
-    /**
-     * @param Parser\Common\MangaCardParser $parser
-     * @param MangaCard                     $instance
-     *
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
-    protected static function setProperties(Parser\Common\MangaCardParser $parser, $instance): void
-    {
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getMangaUrl();
-        $instance->title = $parser->getTitle();
-        $instance->imageUrl = $parser->getMangaImage();
-        $instance->synopsis = $parser->getDescription();
-        $instance->type = $parser->getType();
-        $instance->publishingStart = $parser->getPublishDates();
-        $instance->volumes = $parser->getVolumes();
-        $instance->members = $parser->getMembers();
-        $instance->genres = $parser->getGenres();
-        $instance->type = $parser->getType();
-        $instance->authors = $parser->getAuthor();
-        $instance->score = $parser->getMangaScore();
-        $instance->serialization = $parser->getSerialization();
-    }
 
     /**
      * @return string

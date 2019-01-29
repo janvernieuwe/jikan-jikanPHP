@@ -3,7 +3,6 @@
 namespace Jikan\Model\Anime;
 
 use Jikan\Model\Common\DateRange;
-use Jikan\Parser\Anime\EpisodeListItemParser;
 
 /**
  * Class EpisodeParser
@@ -56,28 +55,6 @@ class EpisodeListItem
      * @var string
      */
     public $forumUrl;
-
-    /**
-     * @param EpisodeListItemParser $parser
-     *
-     * @return EpisodeListItem
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(EpisodeListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->episodeId = $parser->getEpisodeId();
-        $instance->title = $parser->getTitle();
-        $instance->titleJapanese = $parser->getTitleJapanese();
-        $instance->titleRomanji = $parser->getTitleRomanji();
-        $instance->aired = $parser->getAired();
-        $instance->filler = $parser->getFiller();
-        $instance->recap = $parser->getRecap();
-        $instance->videoUrl = $parser->getVideoUrl();
-        $instance->forumUrl = $parser->getForumUrl();
-
-        return $instance;
-    }
 
     /**
      * @return int

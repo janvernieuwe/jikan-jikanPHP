@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\User;
 
-use Jikan\Parser\User\Profile\MangaStatsParser;
-
 /**
  * Class MangaStats
  *
@@ -65,30 +63,6 @@ class MangaStats
      * @var int
      */
     private $volumesRead;
-
-    /**
-     * @param MangaStatsParser $parser
-     *
-     * @return MangaStats
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(MangaStatsParser $parser): MangaStats
-    {
-        $instance = new self();
-        $instance->daysRead = $parser->getDaysRead();
-        $instance->meanScore = $parser->getMeanScore();
-        $instance->reading = $parser->getReading();
-        $instance->completed = $parser->getCompleted();
-        $instance->onHold = $parser->getOnHold();
-        $instance->dropped = $parser->getDropped();
-        $instance->planToRead = $parser->getPlanToRead();
-        $instance->totalEntries = $parser->getTotalEntries();
-        $instance->reread = $parser->getReread();
-        $instance->chaptersRead = $parser->getChaptersRead();
-        $instance->volumesRead = $parser->getVolumesRead();
-
-        return $instance;
-    }
 
     /**
      * @return float

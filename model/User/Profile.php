@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\User;
 
-use Jikan\Parser\User\Profile\UserProfileParser;
-
 /**
  * Class Profile
  *
@@ -71,32 +69,6 @@ class Profile
      * @var string|null
      */
     private $about;
-
-    /**
-     * @param UserProfileParser $parser
-     *
-     * @return Profile
-     * @throws \Exception
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(UserProfileParser $parser): self
-    {
-        $instance = new self();
-        $instance->username = $parser->getUsername();
-        $instance->url = $parser->getProfileUrl();
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->joined = $parser->getJoinDate();
-        $instance->lastOnline = $parser->getLastOnline();
-        $instance->gender = $parser->getGender();
-        $instance->birthday = $parser->getBirthday();
-        $instance->location = $parser->getLocation();
-        $instance->animeStats = $parser->getAnimeStats();
-        $instance->mangaStats = $parser->getMangaStats();
-        $instance->about = $parser->getAbout();
-        $instance->favorites = $parser->getFavorites();
-
-        return $instance;
-    }
 
     /**
      * @return string

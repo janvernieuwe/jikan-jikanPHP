@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Common;
 
-use Jikan\Parser\Character\OgraphyParser;
-
 /**
  * Class Ography
  *
@@ -35,21 +33,6 @@ abstract class Ography
      * @var string
      */
     private $role;
-
-    /**
-     * @param OgraphyParser $parser
-     * @param               $instance
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected static function setProperties($parser, $instance): void
-    {
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getUrl();
-        $instance->name = $parser->getName();
-        $instance->imageUrl = $parser->getImage();
-        $instance->role = $parser->getRole();
-    }
 
     /**
      * @return int

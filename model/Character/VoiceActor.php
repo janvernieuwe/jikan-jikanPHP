@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Character;
 
-use Jikan\Parser\Character\VoiceActorParser;
-
 /**
  * Class VoiceActors
  *
@@ -35,26 +33,6 @@ class VoiceActor
      * @var string
      */
     private $language;
-
-    /**
-     * @param VoiceActorParser $parser
-     *
-     * @return VoiceActor
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(VoiceActorParser $parser): VoiceActor
-    {
-        $instance = new self();
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getUrl();
-        $instance->name = $parser->getName();
-        $instance->imageUrl = $parser->getImage();
-        $instance->language = $parser->getLanguage();
-        $instance->url = $parser->getUrl();
-
-        return $instance;
-    }
 
     /**
      * @return string

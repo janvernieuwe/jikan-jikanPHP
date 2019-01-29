@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Anime;
 
-use Jikan\Parser\Anime\StaffListItemParser;
-
 /**
  * Class CharacterParser
  *
@@ -35,24 +33,6 @@ class StaffListItem
      * @var string[]
      */
     public $positions = [];
-
-    /**
-     * @param StaffListItemParser $parser
-     *
-     * @return StaffListItem
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(StaffListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->positions = $parser->getPositions();
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getUrl();
-        $instance->name = $parser->getName();
-        $instance->imageUrl = $parser->getImage();
-
-        return $instance;
-    }
 
     /**
      * @return int

@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\SeasonList;
 
-use Jikan\Parser\SeasonList\SeasonListItemParser;
-
 /**
  * Class SeasonListItem
  *
@@ -20,21 +18,6 @@ class SeasonListItem
      * @var string[]
      */
     public $seasons;
-
-    /**
-     * @param SeasonListItemParser $parser
-     *
-     * @return SeasonListItem
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(SeasonListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->year = $parser->getYear();
-        $instance->seasons = $parser->getSeasons();
-
-        return $instance;
-    }
 
     /**
      * @return int

@@ -3,7 +3,6 @@
 namespace Jikan\Model\Manga;
 
 use Jikan\Model\Common\Reviewer;
-use Jikan\Parser\Manga\MangaReviewerParser;
 
 /**
  * Class MangaReviewer
@@ -22,25 +21,6 @@ class MangaReviewer extends Reviewer
      * @var MangaReviewScores
      */
     private $scores;
-
-    /**
-     * @param MangaReviewerParser $parser
-     *
-     * @return MangaReviewer
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(MangaReviewerParser $parser): MangaReviewer
-    {
-        $instance = new self();
-
-        $instance->url= $parser->getUrl();
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->username = $parser->getUsername();
-        $instance->chaptersRead = $parser->getChaptersRead();
-        $instance->scores = $parser->getMangaScores();
-
-        return $instance;
-    }
 
     /**
      * @return int

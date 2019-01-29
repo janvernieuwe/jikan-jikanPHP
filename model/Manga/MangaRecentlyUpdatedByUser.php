@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Manga;
 
-use Jikan\Parser\Manga\MangaRecentlyUpdatedByUsersListParser;
-
 /**
  * Class MangaRecentlyUpdatedByUser
  *
@@ -60,30 +58,6 @@ class MangaRecentlyUpdatedByUser
      * @var \DateTimeImmutable
      */
     private $date;
-
-    /**
-     * @param MangaRecentlyUpdatedByUsersListParser $parser
-     *
-     * @return self
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(MangaRecentlyUpdatedByUsersListParser $parser): self
-    {
-        $instance = new self();
-
-        $instance->username = $parser->getUsername();
-        $instance->url = $parser->getUrl();
-        $instance->imageUrl = $parser->getImageUrl();
-        $instance->score = $parser->getScore();
-        $instance->status = $parser->getStatus();
-        $instance->volumesRead = $parser->getVolumesRead();
-        $instance->volumesTotal = $parser->getVolumesTotal();
-        $instance->chaptersRead = $parser->getChaptersRead();
-        $instance->chaptersTotal = $parser->getChaptersTotal();
-        $instance->date = $parser->getDate();
-
-        return $instance;
-    }
 
     /**
      * @return string

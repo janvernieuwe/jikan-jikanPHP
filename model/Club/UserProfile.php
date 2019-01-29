@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Club;
 
-use Jikan\Parser\Club\UserProfileParser;
-
 /**
  * Class UserProfile
  *
@@ -25,21 +23,6 @@ class UserProfile
      * @var string
      */
     private $imageUrl;
-
-    /**
-     * @param UserProfileParser $parser
-     *
-     * @return UserProfile
-     */
-    public static function fromParser(UserProfileParser $parser): self
-    {
-        $instance = new self();
-        $instance->username = $parser->getUsername();
-        $instance->imageUrl = $parser->getImage();
-        $instance->url = $parser->getUrl();
-
-        return $instance;
-    }
 
     /**
      * @return string

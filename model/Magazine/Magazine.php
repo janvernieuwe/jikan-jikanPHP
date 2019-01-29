@@ -3,7 +3,6 @@
 namespace Jikan\Model\Magazine;
 
 use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\Magazine\MagazineParser;
 
 /**
  * Class Magazine
@@ -22,22 +21,6 @@ class Magazine
      * @var array|MagazineManga[]
      */
     public $manga = [];
-
-    /**
-     * @param MagazineParser $parser
-     *
-     * @return Magazine
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
-    public static function fromParser(MagazineParser $parser): self
-    {
-        $instance = new self();
-        $instance->malUrl = $parser->getUrl();
-        $instance->manga = $parser->getMagazineManga();
-
-        return $instance;
-    }
 
     /**
      * @return \Jikan\Model\Common\MalUrl

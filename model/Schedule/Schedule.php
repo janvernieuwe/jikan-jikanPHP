@@ -3,7 +3,6 @@
 namespace Jikan\Model\Schedule;
 
 use Jikan\Model\Common\AnimeCard;
-use Jikan\Parser\Schedule\ScheduleParser;
 
 /**
  * Class Schedule
@@ -58,28 +57,6 @@ class Schedule
      */
     public $unknown = [];
 
-    /**
-     * @param ScheduleParser $parser
-     *
-     * @return Schedule
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(ScheduleParser $parser): self
-    {
-        $instance = new self();
-        $instance->monday = $parser->getShedule('monday');
-        $instance->tuesday = $parser->getShedule('tuesday');
-        $instance->wednesday = $parser->getShedule('wednesday');
-        $instance->thursday = $parser->getShedule('thursday');
-        $instance->friday = $parser->getShedule('friday');
-        $instance->saturday = $parser->getShedule('saturday');
-        $instance->sunday = $parser->getShedule('sunday');
-        $instance->other = $parser->getShedule('other');
-        $instance->unknown = $parser->getShedule('unknown');
-
-        return $instance;
-    }
 
     /**
      * @return AnimeCard[]

@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Club;
 
-use Jikan\Parser\Club\UserListParser;
-
 /**
  * Class UserList
  *
@@ -17,15 +15,10 @@ class UserList
     private $profiles = [];
 
     /**
-     * @param UserListParser $parser
-     *
-     * @return UserList
+     * @return UserProfile[]
      */
-    public static function fromParser(UserListParser $parser): self
+    public function getProfiles(): array
     {
-        $instance = new self();
-        $instance->profiles = $parser->getResults();
-
-        return $instance;
+        return $this->profiles;
     }
 }

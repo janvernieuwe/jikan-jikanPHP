@@ -2,9 +2,6 @@
 
 namespace Jikan\Model\Top;
 
-use Jikan\Model\Common\MalUrl;
-use Jikan\Parser\Top\TopListItemParser;
-
 /**
  * Class TopManga
  *
@@ -66,33 +63,6 @@ class TopManga
      * @var string
      */
     private $imageUrl;
-
-    /**
-     * Create an instance from an AnimeParser parser
-     *
-     * @param TopListItemParser $parser
-     *
-     * @return self
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(TopListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->rank = $parser->getRank();
-        $instance->malId = $parser->getMalUrl()->getMalId();
-        $instance->title = $parser->getMalUrl()->getTitle();
-        $instance->url = $parser->getMalUrl()->getUrl();
-        $instance->type = $parser->getType();
-        $instance->volumes = $parser->getVolumes();
-        $instance->startDate = $parser->getStartDate();
-        $instance->endDate = $parser->getEndDate();
-        $instance->members = $parser->getMembers();
-        $instance->score = $parser->getScore();
-        $instance->imageUrl = $parser->getImage();
-
-        return $instance;
-    }
 
     /**
      * @return string

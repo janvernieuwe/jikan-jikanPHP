@@ -3,7 +3,6 @@
 namespace Jikan\Model\Person;
 
 use Jikan\Model\Common\AnimeMeta;
-use Jikan\Parser\Person\AnimeStaffPositionParser;
 
 /**
  * Class AnimeStaffPosition
@@ -21,22 +20,6 @@ class AnimeStaffPosition
      * @var AnimeMeta
      */
     private $animeMeta;
-
-    /**
-     * @param AnimeStaffPositionParser $parser
-     *
-     * @return AnimeStaffPosition
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(AnimeStaffPositionParser $parser): AnimeStaffPosition
-    {
-        $instance = new self();
-        $instance->position = $parser->getPosition();
-        $instance->animeMeta = $parser->getAnimeMeta();
-
-        return $instance;
-    }
 
     /**
      * @return string

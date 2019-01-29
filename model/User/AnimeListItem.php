@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\User;
 
-use Jikan\Helper\Constants;
-use Jikan\Helper\Parser;
 use Jikan\Model\Common\LicensorMeta;
 use Jikan\Model\Common\StudioMeta;
 
@@ -151,71 +149,14 @@ class AnimeListItem
     private $addedToList;
 
     /**
-     * @var array
+     * @var StudioMeta[]
      */
     private $studios = [];
 
     /**
-     * @var array
+     * @var LicensorMeta[]
      */
     private $licensors = [];
-
-    /**
-     * @param \stdClass $parser
-     *
-     * @return AnimeListItem
-     * @throws \Exception
-     * @throws \InvalidArgumentException
-     */
-    public static function factory(\stdClass $item): self
-    {
-        $instance = new self();
-
-        $instance->malId = $item->anime_id;
-        $instance->title = $item->anime_title;
-        $instance->imageUrl = Parser::parseImageQuality($item->anime_image_path);
-        $instance->url = Constants::BASE_URL . $item->anime_url;
-        $instance->videoUrl = Constants::BASE_URL . $item->video_url;
-        $instance->watchingStatus = $item->status;
-        $instance->score = $item->score;
-        $instance->tags = empty($item->tags) ? null : $item->tags;
-        $instance->isRewatching = (bool) $item->is_rewatching;
-        $instance->watchedEpisodes = $item->num_watched_episodes;
-        $instance->totalEpisodes = $item->anime_num_episodes;
-        $instance->airingStatus = $item->anime_airing_status;
-        $instance->hasEpisodeVideo = $item->has_episode_video;
-        $instance->hasPromoVideo = $item->has_promotion_video;
-        $instance->hasVideo = $item->has_video;
-        $instance->type = $item->anime_media_type_string;
-        $instance->rating = $item->anime_mpaa_rating_string;
-        $instance->startDate = Parser::parseDateDMY($item->anime_start_date_string);
-        $instance->endDate = Parser::parseDateDMY($item->anime_end_date_string);
-        $instance->watchStartDate = Parser::parseDateDMY($item->start_date_string);
-        $instance->watchEndDate = Parser::parseDateDMY($item->finish_date_string);
-        $instance->days = $item->days_string;
-        $instance->storage = empty($item->storage_string) ? null : $item->storage_string;
-        $instance->priority = $item->priority_string;
-        $instance->addedToList = $item->is_added_to_list;
-
-        if (isset($item->anime_season->season)) {
-            $instance->seasonName = $item->anime_season->season;
-            $instance->seasonYear = $item->anime_season->year;
-        }
-
-        if (!is_null($item->anime_studios)) {
-            foreach ($item->anime_studios as $studio) {
-                $instance->studios[] = new StudioMeta($studio->id, $studio->name);
-            }
-        }
-
-        if (!is_null($item->anime_licensors)) {
-            foreach ($item->anime_licensors as $licensor) {
-                $instance->licensors[] = new LicensorMeta($licensor->id, $licensor->name);
-            }
-        }
-
-        return $instance;
-    }
 
     /**
      * @return int
@@ -439,5 +380,13 @@ class AnimeListItem
     public function getLicensors(): array
     {
         return $this->licensors;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAddedToList(): bool
+    {
+        return $this->addedToList;
     }
 }

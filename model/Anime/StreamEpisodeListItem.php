@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Anime;
 
-use Jikan\Parser\Anime\StreamEpisodeListItemParser;
-
 /**
  * Class StreamEpisodeListItemParser
  *
@@ -30,23 +28,6 @@ class StreamEpisodeListItem
      * @var string
      */
     public $imageUrl;
-
-    /**
-     * @param StreamEpisodeListItemParser $parser
-     *
-     * @return StreamEpisodeListItem
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(StreamEpisodeListItemParser $parser): self
-    {
-        $instance = new self();
-        $instance->title = $parser->getTitle();
-        $instance->episode = $parser->getEpisode();
-        $instance->url = $parser->getUrl();
-        $instance->imageUrl = $parser->getImageUrl();
-
-        return $instance;
-    }
 
     /**
      * @return string

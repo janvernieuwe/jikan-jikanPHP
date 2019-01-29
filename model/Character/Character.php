@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Character;
 
-use Jikan\Parser;
-
 /**
  * Class CharacterParser
  *
@@ -65,31 +63,6 @@ class Character
      * @var VoiceActor[]
      */
     public $voiceActors = [];
-
-    /**
-     * @param Parser\Character\CharacterParser $parser
-     *
-     * @return Character
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public static function fromParser(Parser\Character\CharacterParser $parser): self
-    {
-        $instance = new self();
-        $instance->animeography = $parser->getAnimeography();
-        $instance->mangaography = $parser->getMangaography();
-        $instance->voiceActors = $parser->getVoiceActors();
-        $instance->malId = $parser->getMalId();
-        $instance->url = $parser->getCharacterUrl();
-        $instance->name = $parser->getName();
-        $instance->nameKanji = $parser->getNameKanji();
-        $instance->nicknames = $parser->getNameNicknames();
-        $instance->about = $parser->getAbout();
-        $instance->memberFavorites = $parser->getMemberFavorites();
-        $instance->imageUrl = $parser->getImage();
-
-        return $instance;
-    }
 
     /**
      * @return int

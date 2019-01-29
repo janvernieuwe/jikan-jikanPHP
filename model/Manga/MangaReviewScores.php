@@ -2,8 +2,6 @@
 
 namespace Jikan\Model\Manga;
 
-use Jikan\Parser;
-
 /**
  * Class MangaReviewScores
  *
@@ -36,19 +34,6 @@ class MangaReviewScores
      * @var int
      */
     private $enjoyment;
-
-    public static function fromParser(Parser\Manga\MangaReviewScoresParser $parser): MangaReviewScores
-    {
-        $instance = new self();
-
-        $instance->overall = $parser->getOverallScore();
-        $instance->story = $parser->getStoryScore();
-        $instance->art = $parser->getArtScore();
-        $instance->character = $parser->getCharacterScore();
-        $instance->enjoyment = $parser->getEnjoymentScore();
-
-        return $instance;
-    }
 
     /**
      * @return int
