@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP;
 
+use GuzzleHttp\Client;
 use Jikan\JikanPHP\Serializer\SerializerFactory;
+use Jikan\Model;
 use Jikan\Request;
 use JMS\Serializer\Serializer;
 
@@ -14,7 +16,7 @@ use JMS\Serializer\Serializer;
 class JikanPHPClient
 {
     /**
-     * @var \GuzzleHttp\Client
+     * @var Client
      */
     private $guzzle;
 
@@ -26,26 +28,26 @@ class JikanPHPClient
     /**
      * JikanPHPClient constructor.
      *
-     * @param \GuzzleHttp\Client|null $guzzle
+     * @param Client|null $guzzle
      */
-    public function __construct(\GuzzleHttp\Client $guzzle = null)
+    public function __construct(Client $guzzle = null)
     {
-        $this->guzzle = $guzzle ?? new \GuzzleHttp\Client();
+        $this->guzzle = $guzzle ?? new Client();
         $this->serializer = SerializerFactory::create();
     }
 
     /**
      * @param Request\Anime\AnimeRequest $request
      *
-     * @return \Jikan\Model\Anime\Anime
+     * @return Model\Anime\Anime
      */
-    public function getAnime(Request\Anime\AnimeRequest $request): \Jikan\Model\Anime\Anime
+    public function getAnime(Request\Anime\AnimeRequest $request): Model\Anime\Anime
     {
         $response = $this->guzzle->get($request->getPath());
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
-            \Jikan\Model\Anime\Anime::class,
+            Model\Anime\Anime::class,
             'json'
         );
     }
@@ -54,16 +56,16 @@ class JikanPHPClient
     /**
      * @param Request\Anime\AnimeEpisodesRequest $request
      *
-     * @return \Jikan\Model\Anime\Episodes
+     * @return Model\Anime\Episodes
      * @throws \HttpResponseException
      */
-    public function getAnimeEpisodes(Request\Anime\AnimeEpisodesRequest $request): \Jikan\Model\Anime\Episodes
+    public function getAnimeEpisodes(Request\Anime\AnimeEpisodesRequest $request): Model\Anime\Episodes
     {
         $response = $this->guzzle->get($request->getPath());
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
-            \Jikan\Model\Anime\Episodes::class,
+            Model\Anime\Episodes::class,
             'json'
         );
     }
@@ -71,16 +73,16 @@ class JikanPHPClient
     /**
      * @param Request\Anime\AnimeVideosRequest $request
      *
-     * @return \Jikan\Model\Anime\AnimeVideos
+     * @return Model\Anime\AnimeVideos
      * @throws \HttpResponseException
      */
-    public function getAnimeVideos(Request\Anime\AnimeVideosRequest $request): \Jikan\Model\Anime\AnimeVideos
+    public function getAnimeVideos(Request\Anime\AnimeVideosRequest $request): Model\Anime\AnimeVideos
     {
         $response = $this->guzzle->get($request->getPath());
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
-            \Jikan\Model\Anime\AnimeVideos::class,
+            Model\Anime\AnimeVideos::class,
             'json'
         );
     }
@@ -88,842 +90,725 @@ class JikanPHPClient
     /**
      * @param Request\Manga\MangaRequest $request
      *
-     * @return \Jikan\Model\Manga\Manga
-     * @throws ParserException
+     * @return Model\Manga\Manga
      * @throws \HttpResponseException
      */
-    public function getManga(Request\Manga\MangaRequest $request): \Jikan\Model\Manga\Manga
+    public function getManga(Request\Manga\MangaRequest $request): Model\Manga\Manga
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Manga\MangaParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Manga\Manga::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Character\CharacterRequest $request
      *
-     * @return \Jikan\Model\Character\Character
-     * @throws ParserException
+     * @return Model\Character\Character
      * @throws \HttpResponseException
      */
-    public function getCharacter(Request\Character\CharacterRequest $request): \Jikan\Model\Character\Character
+    public function getCharacter(Request\Character\CharacterRequest $request): Model\Character\Character
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Character\CharacterParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Character\Character::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Person\PersonRequest $request
      *
-     * @return \Jikan\Model\Person\Person
-     * @throws ParserException
+     * @return Model\Person\Person
      * @throws \HttpResponseException
      */
-    public function getPerson(Request\Person\PersonRequest $request): \Jikan\Model\Person\Person
+    public function getPerson(Request\Person\PersonRequest $request): Model\Person\Person
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Person\PersonParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Person\Person::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\User\UserProfileRequest $request
      *
-     * @return \Jikan\Model\User\Profile
-     * @throws ParserException
+     * @return Model\User\Profile
      * @throws \HttpResponseException
      */
-    public function getUserProfile(Request\User\UserProfileRequest $request): \Jikan\Model\User\Profile
+    public function getUserProfile(Request\User\UserProfileRequest $request): Model\User\Profile
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\User\Profile\UserProfileParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\User\Profile::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\User\UserFriendsRequest $request
      *
      * @return array
-     * @throws ParserException
      * @throws \HttpResponseException
      */
     public function getUserFriends(Request\User\UserFriendsRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\User\Friends\FriendsParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Request\User\UserFriendsRequest::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Seasonal\SeasonalRequest $request
      *
-     * @return \Jikan\Model\Seasonal\Seasonal
-     * @throws ParserException
+     * @return Model\Seasonal\Seasonal
      * @throws \HttpResponseException
      */
-    public function getSeasonal(Request\Seasonal\SeasonalRequest $request): \Jikan\Model\Seasonal\Seasonal
+    public function getSeasonal(Request\Seasonal\SeasonalRequest $request): Model\Seasonal\Seasonal
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Seasonal\SeasonalParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Seasonal\Seasonal::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Producer\ProducerRequest $request
      *
-     * @return \Jikan\Model\Producer\Producer
-     * @throws ParserException
+     * @return Model\Producer\Producer
      * @throws \HttpResponseException
      */
-    public function getProducer(Request\Producer\ProducerRequest $request): \Jikan\Model\Producer\Producer
+    public function getProducer(Request\Producer\ProducerRequest $request): Model\Producer\Producer
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Producer\ProducerParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Producer\Producer::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Magazine\MagazineRequest $request
      *
-     * @return \Jikan\Model\Magazine\Magazine
-     * @throws ParserException
+     * @return Model\Magazine\Magazine
      * @throws \HttpResponseException
      */
-    public function getMagazine(Request\Magazine\MagazineRequest $request): \Jikan\Model\Magazine\Magazine
+    public function getMagazine(Request\Magazine\MagazineRequest $request): Model\Magazine\Magazine
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Magazine\MagazineParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Magazine\Magazine::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Genre\AnimeGenreRequest $request
      *
-     * @return \Jikan\Model\Genre\AnimeGenre
-     * @throws ParserException
+     * @return Model\Genre\AnimeGenre
      * @throws \HttpResponseException
      */
-    public function getAnimeGenre(Request\Genre\AnimeGenreRequest $request): \Jikan\Model\Genre\AnimeGenre
+    public function getAnimeGenre(Request\Genre\AnimeGenreRequest $request): Model\Genre\AnimeGenre
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Genre\AnimeGenreParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Genre\AnimeGenre::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Genre\MangaGenreRequest $request
      *
-     * @return \Jikan\Model\Genre\MangaGenre
-     * @throws ParserException
+     * @return Model\Genre\MangaGenre
      * @throws \HttpResponseException
      */
-    public function getMangaGenre(Request\Genre\MangaGenreRequest $request): \Jikan\Model\Genre\MangaGenre
+    public function getMangaGenre(Request\Genre\MangaGenreRequest $request): Model\Genre\MangaGenre
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Genre\MangaGenreParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Genre\MangaGenre::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Schedule\ScheduleRequest $request
      *
-     * @return \Jikan\Model\Schedule\Schedule
-     * @throws ParserException
+     * @return Model\Schedule\Schedule
      * @throws \HttpResponseException
      */
-    public function getSchedule(Request\Schedule\ScheduleRequest $request): \Jikan\Model\Schedule\Schedule
+    public function getSchedule(Request\Schedule\ScheduleRequest $request): Model\Schedule\Schedule
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Schedule\ScheduleParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Schedule\Schedule::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Anime\AnimeCharactersAndStaffRequest $request
      *
-     * @return \Jikan\Model\Anime\AnimeCharactersAndStaff
-     * @throws ParserException
+     * @return Model\Anime\AnimeCharactersAndStaff
      * @throws \HttpResponseException
      */
     public function getAnimeCharactersAndStaff(
         Request\Anime\AnimeCharactersAndStaffRequest $request
-    ): \Jikan\Model\Anime\AnimeCharactersAndStaff {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Anime\CharactersAndStaffParser($crawler);
+    ): Model\Anime\AnimeCharactersAndStaff {
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Anime\AnimeCharactersAndStaff::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Anime\AnimePicturesRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Common\Picture[]
      * @throws \HttpResponseException
      */
     public function getAnimePictures(Request\Anime\AnimePicturesRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Common\PicturesPageParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Common\Picture::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Manga\MangaPicturesRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Common\Picture[]
      * @throws \HttpResponseException
      */
     public function getMangaPictures(Request\Manga\MangaPicturesRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Common\PicturesPageParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Common\Picture::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Character\CharacterPicturesRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Common\Picture[]
      * @throws \HttpResponseException
      */
     public function getCharacterPictures(Request\Character\CharacterPicturesRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Common\PicturesPageParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Common\Picture::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Person\PersonPicturesRequest $request
      *
-     * @return \Jikan\Model\Common\Picture[]
-     * @throws ParserException
+     * @return Model\Common\Picture[]
      */
     public function getPersonPictures(Request\Person\PersonPicturesRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Common\PicturesPageParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Common\Picture::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\RequestInterface $request
      *
-     * @return \Jikan\Model\News\NewsListItem[]
-     * @throws ParserException
+     * @return Model\News\NewsListItem[]
      */
     public function getNewsList(Request\RequestInterface $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\News\NewsListParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\News\NewsListItem::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Search\AnimeSearchRequest $request
      *
-     * @return \Jikan\Model\Search\AnimeSearch
-     * @throws ParserException
+     * @return Model\Search\AnimeSearch
      */
-    public function getAnimeSearch(Request\Search\AnimeSearchRequest $request): \Jikan\Model\Search\AnimeSearch
+    public function getAnimeSearch(Request\Search\AnimeSearchRequest $request): Model\Search\AnimeSearch
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Search\AnimeSearchParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Search\AnimeSearch::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Search\MangaSearchRequest $request
      *
-     * @return \Jikan\Model\Search\MangaSearch
-     * @throws ParserException
+     * @return Model\Search\MangaSearch
      */
-    public function getMangaSearch(Request\Search\MangaSearchRequest $request): \Jikan\Model\Search\MangaSearch
+    public function getMangaSearch(Request\Search\MangaSearchRequest $request): Model\Search\MangaSearch
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Search\MangaSearchParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Search\MangaSearch::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Search\CharacterSearchRequest $request
      *
-     * @return \Jikan\Model\Search\CharacterSearch
-     * @throws ParserException
+     * @return Model\Search\CharacterSearch
      */
-    public function getCharacterSearch(Request\Search\CharacterSearchRequest $request): \Jikan\Model\Search\CharacterSearch
+    public function getCharacterSearch(Request\Search\CharacterSearchRequest $request): Model\Search\CharacterSearch
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Search\CharacterSearchParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Search\CharacterSearch::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Search\PersonSearchRequest $request
      *
-     * @return \Jikan\Model\Search\PersonSearch
-     * @throws ParserException
+     * @return Model\Search\PersonSearch
      */
-    public function getPersonSearch(Request\Search\PersonSearchRequest $request): \Jikan\Model\Search\PersonSearch
+    public function getPersonSearch(Request\Search\PersonSearchRequest $request): Model\Search\PersonSearch
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Search\PersonSearchParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Search\PersonSearch::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Manga\MangaCharactersRequest $request
      *
-     * @return \Jikan\Model\Manga\CharacterListItem[]
-     * @throws ParserException
+     * @return Model\Manga\CharacterListItem[]
      */
     public function getMangaCharacters(Request\Manga\MangaCharactersRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Manga\CharactersParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getCharacters();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Manga\CharacterListItem::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Top\TopAnimeRequest $request
      *
-     * @return \Jikan\Model\Top\TopAnime[]
-     * @throws ParserException
+     * @return Model\Top\TopAnime[]
      */
     public function getTopAnime(Request\Top\TopAnimeRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Top\TopAnimeParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getTopAnime();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Top\TopAnime::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Top\TopMangaRequest $request
      *
-     * @return \Jikan\Model\Top\TopManga[]
-     * @throws ParserException
+     * @return Model\Top\TopManga[]
      */
     public function getTopManga(Request\Top\TopMangaRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Top\TopMangaParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getTopManga();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Top\TopManga::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Top\TopCharactersRequest $request
      *
-     * @return \Jikan\Model\Top\TopCharacter[]
-     * @throws ParserException
+     * @return Model\Top\TopCharacter[]
      */
     public function getTopCharacters(Request\Top\TopCharactersRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Top\TopCharactersParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getTopCharacters();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Top\TopCharacter::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Top\TopPeopleRequest $request
      *
-     * @return \Jikan\Model\Top\TopPerson[]
-     * @throws ParserException
+     * @return Model\Top\TopPerson[]
      */
     public function getTopPeople(Request\Top\TopPeopleRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Top\TopPeopleParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getTopPeople();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Top\TopPerson::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Anime\AnimeStatsRequest $request
      *
-     * @return \Jikan\Model\Anime\AnimeStats
-     * @throws ParserException
+     * @return Model\Anime\AnimeStats
      */
-    public function getAnimeStats(Request\Anime\AnimeStatsRequest $request): \Jikan\Model\Anime\AnimeStats
+    public function getAnimeStats(Request\Anime\AnimeStatsRequest $request): Model\Anime\AnimeStats
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Anime\AnimeStatsParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Anime\AnimeStats::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Manga\MangaStatsRequest $request
      *
-     * @return \Jikan\Model\Manga\MangaStats
-     * @throws ParserException
+     * @return Model\Manga\MangaStats
      * @throws \HttpResponseException
      */
-    public function getMangaStats(Request\Manga\MangaStatsRequest $request): \Jikan\Model\Manga\MangaStats
+    public function getMangaStats(Request\Manga\MangaStatsRequest $request): Model\Manga\MangaStats
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Manga\MangaStatsParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Manga\MangaStats::class,
+            'json'
+        );
     }
 
     /**
      * @param Request\Anime\AnimeForumRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Forum\ForumTopic[]
      * @throws \HttpResponseException
      */
     public function getAnimeForum(Request\Anime\AnimeForumRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Forum\ForumPageParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getTopics();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Forum\ForumTopic::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Manga\MangaForumRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Forum\ForumTopic[]
      * @throws \HttpResponseException
      */
     public function getMangaForum(Request\Manga\MangaForumRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Forum\ForumPageParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getTopics();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Forum\ForumTopic::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Anime\AnimeMoreInfoRequest $request
      *
      * @return string|null
-     * @throws ParserException
      * @throws \HttpResponseException
      */
     public function getAnimeMoreInfo(Request\Anime\AnimeMoreInfoRequest $request): ?string
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Anime\MoreInfoParser($crawler);
-
-            return $parser->getModel()->getMoreInfo();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        // TODO: see what this returns
+        return null; // ???
     }
 
     /**
      * @param Request\Manga\MangaMoreInfoRequest $request
      *
      * @return string|null
-     * @throws ParserException
      * @throws \HttpResponseException
      */
     public function getMangaMoreInfo(Request\Manga\MangaMoreInfoRequest $request): ?string
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Manga\MoreInfoParser($crawler);
-
-            return $parser->getModel()->getMoreInfo();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        // TODO: see what this returns
+        return null; // ???
     }
 
     /**
      * @param Request\SeasonList\SeasonListRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\SeasonList\SeasonListItem[]
      * @throws \HttpResponseException
      */
     public function getSeasonList(Request\SeasonList\SeasonListRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\SeasonList\SeasonListParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\SeasonList\SeasonListItem::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\User\UserHistoryRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\User\History[]
      * @throws \HttpResponseException
      */
     public function getUserHistory(Request\User\UserHistoryRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\User\History\HistoryParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\User\History::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\User\UserAnimeListRequest $request
      *
-     * @return \Jikan\Model\User\AnimeListItem[]
-     * @throws ParserException
+     * @return Model\User\AnimeListItem[]
      */
     public function getUserAnimeList(Request\User\UserAnimeListRequest $request): array
     {
-        $client = new \GuzzleHttp\Client();
+        $response = $this->guzzle->get($request->getPath());
 
-        try {
-            $response = $client->get($request->getPath());
-            $list = json_decode($response->getBody()->getContents());
-
-            $model = [];
-            foreach ($list as $item) {
-                $model[] = Model\User\AnimeListItem::factory($item);
-            }
-
-            return $model;
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\User\AnimeListItem::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\User\UserMangaListRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\User\MangaListItem[]
      */
     public function getUserMangaList(Request\User\UserMangaListRequest $request): array
     {
-        $client = new \GuzzleHttp\Client();
+        $response = $this->guzzle->get($request->getPath());
 
-        try {
-            $response = $client->get($request->getPath());
-            $list = json_decode($response->getBody()->getContents());
-
-            $model = [];
-            foreach ($list as $item) {
-                $model[] = Model\User\MangaListItem::factory($item);
-            }
-
-            return $model;
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\User\MangaListItem::class),
+            'json'
+        );
     }
-
 
     /**
      * @param Request\Anime\AnimeRecentlyUpdatedByUsersRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\User\AnimeListItem[]
      * @throws \HttpResponseException
      */
     public function getAnimeRecentlyUpdatedByUsers(Request\Anime\AnimeRecentlyUpdatedByUsersRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Anime\AnimeRecentlyUpdatedByUsersParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\User\AnimeListItem::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Manga\MangaRecentlyUpdatedByUsersRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\User\MangaListItem[]
      * @throws \HttpResponseException
      */
     public function getMangaRecentlyUpdatedByUsers(Request\Manga\MangaRecentlyUpdatedByUsersRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Manga\MangaRecentlyUpdatedByUsersParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\User\MangaListItem::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Anime\AnimeRecommendationsRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Common\Recommendation[]
      * @throws \HttpResponseException
      */
     public function getAnimeRecommendations(Request\Anime\AnimeRecommendationsRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Common\Recommendations($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Common\Recommendation::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Manga\MangaRecommendationsRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Common\Recommendation[]
      * @throws \HttpResponseException
      */
     public function getMangaRecommendations(Request\Manga\MangaRecommendationsRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
+        $response = $this->guzzle->get($request->getPath());
 
-        try {
-            $parser = new Parser\Common\Recommendations($crawler);
-
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Common\Recommendation::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Club\UserListRequest $request
      *
-     * @return \Jikan\Model\Club\UserProfile[]
-     * @throws ParserException
+     * @return Model\Club\UserProfile[]
      * @throws \HttpResponseException
      */
     public function getClubUsers(Request\Club\UserListRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
+        $response = $this->guzzle->get($request->getPath());
 
-        try {
-            $parser = new Parser\Club\UserListParser($crawler);
-
-            return $parser->getResults();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Club\UserProfile::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Anime\AnimeReviewsRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Anime\AnimeReview[]
      * @throws \HttpResponseException
      */
     public function getAnimeReviews(Request\Anime\AnimeReviewsRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
-        try {
-            $parser = new Parser\Anime\AnimeReviewsParser($crawler);
+        $response = $this->guzzle->get($request->getPath());
 
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Anime\AnimeReview::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Manga\MangaReviewsRequest $request
      *
-     * @return array
-     * @throws ParserException
+     * @return Model\Manga\MangaReview[]
      * @throws \HttpResponseException
      */
     public function getMangaReviews(Request\Manga\MangaReviewsRequest $request): array
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
+        $response = $this->guzzle->get($request->getPath());
 
-        try {
-            $parser = new Parser\Manga\MangaReviewsParser($crawler);
-
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            sprintf('array<%s>', Model\Manga\MangaReview::class),
+            'json'
+        );
     }
 
     /**
      * @param Request\Club\ClubRequest $request
      *
-     * @return \Jikan\Model\Club\Club
-     * @throws ParserException
+     * @return Model\Club\Club
      * @throws \HttpResponseException
      */
-    public function getClub(Request\Club\ClubRequest $request): \Jikan\Model\Club\Club
+    public function getClub(Request\Club\ClubRequest $request): Model\Club\Club
     {
-        $crawler = $this->ghoutte->request('GET', $request->getPath());
+        $response = $this->guzzle->get($request->getPath());
 
-        try {
-            $parser = new Parser\Club\ClubParser($crawler);
-
-            return $parser->getModel();
-        } catch (\Exception $e) {
-            throw ParserException::fromRequest($request, $e);
-        }
+        return $this->serializer->deserialize(
+            (string)$response->getBody()->getContents(),
+            Model\Club\Club::class,
+            'json'
+        );
     }
 }

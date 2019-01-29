@@ -32,6 +32,6 @@ class MangaRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/manga/%s/', $this->id);
+        return sprintf('https://api.jikan.moe/v3/manga/%s', $this->id);
     }
 }
