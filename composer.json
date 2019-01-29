@@ -30,6 +30,8 @@
     "require-dev": {
         "phpunit/phpunit": "6.3",
         "symfony/console": "^4.2",
-        "symfony/var-dumper": "^4.2"
+        "symfony/var-dumper": "^4.2",
+        "symfony/finder": "^4.2",
+        "funkyproject/reflection-file": "^0.1.0"
     }
 }

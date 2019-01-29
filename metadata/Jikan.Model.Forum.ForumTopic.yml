@@ -1,0 +1,18 @@
+Jikan\Model\Forum\ForumTopic:
+    properties:
+        topicId:
+            type: int
+        url:
+            type: string
+        title:
+            type: string
+        datePosted:
+            type: DateTimeImmutable
+        authorName:
+            type: string
+        authorUrl:
+            type: string
+        replies:
+            type: int
+        lastPost:
+            type: Jikan\Model\Forum\ForumPost

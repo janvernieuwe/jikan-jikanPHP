@@ -39,6 +39,6 @@ class AnimeEpisodesRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/anime/%s/_/episode?offset=%s', $this->id, $this->page);
+        return sprintf('https://api.jikan.moe/v3/anime/%s/episodes', $this->id);
     }
 }

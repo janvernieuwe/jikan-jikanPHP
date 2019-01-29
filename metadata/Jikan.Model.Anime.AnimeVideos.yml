@@ -1,0 +1,6 @@
+Jikan\Model\Anime\AnimeVideos:
+    properties:
+        promo:
+            type: array<Jikan\Model\Anime\PromoListItem>
+        episodes:
+            type: array<Jikan\Model\Anime\StreamEpisodeListItem>

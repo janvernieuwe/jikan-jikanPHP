@@ -1,0 +1,10 @@
+Jikan\Model\User\Favorites:
+    properties:
+        anime:
+            type: array
+        manga:
+            type: array
+        characters:
+            type: array
+        people:
+            type: array

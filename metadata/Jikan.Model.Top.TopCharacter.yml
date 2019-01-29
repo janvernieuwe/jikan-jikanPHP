@@ -1,0 +1,20 @@
+Jikan\Model\Top\TopCharacter:
+    properties:
+        malId:
+            type: int
+        rank:
+            type: int
+        title:
+            type: string
+        url:
+            type: string
+        nameKanji:
+            type: string
+        animeography:
+            type: array<Jikan\Model\Common\MalUrl>
+        mangaography:
+            type: array<Jikan\Model\Common\MalUrl>
+        favorites:
+            type: int
+        imageUrl:
+            type: string

@@ -1,0 +1,10 @@
+Jikan\Model\Forum\ForumPost:
+    properties:
+        url:
+            type: string
+        authorName:
+            type: string
+        authorUrl:
+            type: string
+        datePosted:
+            type: DateTimeImmutable

@@ -1,0 +1,20 @@
+Jikan\Model\News\NewsListItem:
+    properties:
+        url:
+            type: string
+        title:
+            type: string
+        date:
+            type: DateTimeImmutable
+        authorName:
+            type: string
+        authorUrl:
+            type: string
+        forumUrl:
+            type: string
+        imageUrl:
+            type: string
+        comments:
+            type: int
+        intro:
+            type: string

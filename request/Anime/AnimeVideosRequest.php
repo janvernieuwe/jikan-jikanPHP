@@ -31,6 +31,6 @@ class AnimeVideosRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/anime/%d/_/video', $this->id);
+        return sprintf('https://api.jikan.moe/v3/anime/%s/videos', $this->id);
     }
 }

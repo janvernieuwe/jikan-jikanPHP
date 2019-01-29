@@ -1,0 +1,20 @@
+Jikan\Model\Schedule\Schedule:
+    properties:
+        monday:
+            type: array<Jikan\Model\Common\AnimeCard>
+        tuesday:
+            type: array<Jikan\Model\Common\AnimeCard>
+        wednesday:
+            type: array<Jikan\Model\Common\AnimeCard>
+        thursday:
+            type: array<Jikan\Model\Common\AnimeCard>
+        friday:
+            type: array<Jikan\Model\Common\AnimeCard>
+        saturday:
+            type: array<Jikan\Model\Common\AnimeCard>
+        sunday:
+            type: array<Jikan\Model\Common\AnimeCard>
+        other:
+            type: array<Jikan\Model\Common\AnimeCard>
+        unknown:
+            type: array<Jikan\Model\Common\AnimeCard>

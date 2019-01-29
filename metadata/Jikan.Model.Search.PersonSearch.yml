@@ -1,0 +1,6 @@
+Jikan\Model\Search\PersonSearch:
+    properties:
+        results:
+            type: array<Jikan\Model\Search\PersonSearchListItem>
+        lastPage:
+            type: int

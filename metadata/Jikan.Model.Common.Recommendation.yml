@@ -1,0 +1,14 @@
+Jikan\Model\Common\Recommendation:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        recommendationUrl:
+            type: string
+        title:
+            type: string
+        recommendationCount:
+            type: int

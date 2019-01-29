@@ -1,0 +1,6 @@
+Jikan\Model\Search\CharacterSearch:
+    properties:
+        results:
+            type: array<Jikan\Model\Search\CharacterSearchListItem>
+        lastPage:
+            type: int

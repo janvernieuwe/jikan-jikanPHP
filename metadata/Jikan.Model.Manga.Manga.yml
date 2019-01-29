@@ -1,42 +1,36 @@
-Jikan\Model\Anime\Anime:
+Jikan\Model\Manga\Manga:
     properties:
         malId:
             type: int
         url:
             type: string
-        imageUrl:
-            type: string
-        trailerUrl:
-            type: string
         title:
             type: string
         titleEnglish:
             type: string
-        titleJapanese:
-            type: string
         titleSynonyms:
             type: array
-        type:
+        titleJapanese:
             type: string
-        source:
-            type: string
-        episodes:
-            type: int
         status:
             type: string
-        airing:
+        imageUrl:
+            type: string
+        type:
+            type: string
+        volumes:
+            type: int
+        chapters:
+            type: int
+        publishing:
             type: bool
-        aired:
+        published:
             type: Jikan\Model\Common\DateRange
-        duration:
-            type: string
-        rating:
-            type: string
+        rank:
+            type: int
         score:
             type: float
         scoredBy:
-            type: int
-        rank:
             type: int
         popularity:
             type: int
@@ -48,21 +42,11 @@ Jikan\Model\Anime\Anime:
             type: string
         background:
             type: string
-        premiered:
-            type: string
-        broadcast:
-            type: string
         related:
-            type: array<Jikan\Model\Common\MalUrl>
-        producers:
-            type: array<Jikan\Model\Common\MalUrl>
-        licensors:
-            type: array<Jikan\Model\Common\MalUrl>
-        studios:
             type: array<Jikan\Model\Common\MalUrl>
         genres:
             type: array<Jikan\Model\Common\MalUrl>
-        openingThemes:
-            type: array
-        endingThemes:
-            type: array
+        authors:
+            type: array<Jikan\Model\Common\MalUrl>
+        serializations:
+            type: array<Jikan\Model\Common\MalUrl>

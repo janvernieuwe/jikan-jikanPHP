@@ -1,0 +1,18 @@
+Jikan\Model\Top\TopPerson:
+    properties:
+        malId:
+            type: int
+        rank:
+            type: int
+        title:
+            type: string
+        url:
+            type: string
+        nameKanji:
+            type: string
+        favorites:
+            type: int
+        imageUrl:
+            type: string
+        birthday:
+            type: DateTimeImmutable

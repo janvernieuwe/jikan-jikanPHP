@@ -1,0 +1,6 @@
+Jikan\Model\Search\Search:
+    properties:
+        result:
+            type: ''
+        result_last_page:
+            type: ''

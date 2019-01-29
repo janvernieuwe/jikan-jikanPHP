@@ -1,0 +1,12 @@
+Jikan\Model\Manga\CharacterListItem:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        name:
+            type: string
+        role:
+            type: string

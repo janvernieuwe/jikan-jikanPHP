@@ -1,0 +1,6 @@
+Jikan\Model\Common\ItemBasicMeta:
+    properties:
+        malId:
+            type: int
+        name:
+            type: string

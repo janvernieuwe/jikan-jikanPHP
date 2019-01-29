@@ -1,0 +1,28 @@
+Jikan\Model\Club\Club:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        title:
+            type: string
+        membersCount:
+            type: int
+        picturesCount:
+            type: int
+        category:
+            type: string
+        created:
+            type: DateTimeImmutable
+        type:
+            type: string
+        staff:
+            type: array<Jikan\Model\Common\MalUrl>
+        animeRelations:
+            type: array<Jikan\Model\Common\MalUrl>
+        mangaRelations:
+            type: array<Jikan\Model\Common\MalUrl>
+        characterRelations:
+            type: array<Jikan\Model\Common\MalUrl>

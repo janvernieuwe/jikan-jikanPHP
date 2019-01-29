@@ -1,0 +1,12 @@
+Jikan\Model\Anime\AnimeReviewer:
+    properties:
+        episodesSeen:
+            type: int
+        scores:
+            type: Jikan\Model\Anime\AnimeReviewScores
+        url:
+            type: string
+        imageUrl:
+            type: string
+        username:
+            type: string

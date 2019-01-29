@@ -1,0 +1,6 @@
+Jikan\Model\Anime\AnimeCharactersAndStaff:
+    properties:
+        characters:
+            type: array<Jikan\Model\Manga\CharacterListItem>
+        staff:
+            type: array<Jikan\Model\Anime\StaffListItem>

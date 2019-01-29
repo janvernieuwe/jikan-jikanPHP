@@ -1,0 +1,12 @@
+Jikan\Model\Manga\MangaReviewer:
+    properties:
+        chaptersRead:
+            type: int
+        scores:
+            type: Jikan\Model\Manga\MangaReviewScores
+        url:
+            type: string
+        imageUrl:
+            type: string
+        username:
+            type: string

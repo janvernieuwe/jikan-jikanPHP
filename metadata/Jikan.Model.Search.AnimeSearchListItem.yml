@@ -1,0 +1,28 @@
+Jikan\Model\Search\AnimeSearchListItem:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        title:
+            type: string
+        airing:
+            type: bool
+        synopsis:
+            type: string
+        type:
+            type: string
+        episodes:
+            type: int
+        score:
+            type: float
+        startDate:
+            type: "/**\n     * @var ?\\DateTimeImmutable\n     */"
+        endDate:
+            type: "/**\n     * @var ?\\DateTimeImmutable\n     */"
+        members:
+            type: int
+        rated:
+            type: "/**\n     * @var ?string\n     */"

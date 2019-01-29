@@ -1,0 +1,6 @@
+Jikan\Model\Person\AnimeStaffPosition:
+    properties:
+        position:
+            type: string
+        animeMeta:
+            type: Jikan\Model\Common\AnimeMeta

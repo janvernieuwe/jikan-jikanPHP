@@ -1,0 +1,8 @@
+Jikan\Model\Person\VoiceActingRole:
+    properties:
+        role:
+            type: string
+        animeMeta:
+            type: Jikan\Model\Common\AnimeMeta
+        characterMeta:
+            type: Jikan\Model\Common\CharacterMeta
