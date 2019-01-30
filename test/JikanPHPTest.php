@@ -32,6 +32,7 @@ class JikanPHPTest extends TestCase
 
     /**
      * @test
+     * @vcr anime.yaml
      */
     public function it_gets_anime()
     {
@@ -42,6 +43,7 @@ class JikanPHPTest extends TestCase
 
     /**
      * @test
+     * @vcr anime_episodes.yaml
      */
     public function it_gets_anime_episodes()
     {
@@ -53,6 +55,7 @@ class JikanPHPTest extends TestCase
 
     /**
      * @test
+     * @vcr anime_videos.yaml
      */
     public function it_gets_anime_videos()
     {
@@ -64,6 +67,7 @@ class JikanPHPTest extends TestCase
 
     /**
      * @test
+     * @vcr manga.yaml
      */
     public function it_gets_manga()
     {

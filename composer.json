@@ -1,11 +1,29 @@
 {
     "name": "jikan/jikan-php",
+    "license": "MIT",
     "type": "library",
-    "licence": "MIT",
+    "description": "PHP client for jikan rest",
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/janvernieuwe/jikanPHP-fixtures.git"
+        }
+    ],
     "require": {
         "guzzlehttp/guzzle": "~6",
         "jms/serializer": "^1.13",
-        "symfony/yaml": "^4.2"
+        "symfony/yaml": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.3",
+        "symfony/console": "^4.2",
+        "symfony/var-dumper": "^4.2",
+        "symfony/finder": "^4.2",
+        "funkyproject/reflection-file": "^0.1.0",
+        "jikan/jikanphp-fixtures": "dev-master",
+        "php-vcr/php-vcr": "~1.3.2",
+        "php-vcr/phpunit-testlistener-vcr": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -26,12 +44,5 @@
                 "test"
             ]
         }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "6.3",
-        "symfony/console": "^4.2",
-        "symfony/var-dumper": "^4.2",
-        "symfony/finder": "^4.2",
-        "funkyproject/reflection-file": "^0.1.0"
     }
 }
