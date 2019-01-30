@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Search;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -57,15 +58,12 @@ class CharacterSearchRequest implements RequestInterface
         $query = http_build_query(
             [
                 'q'      => $this->query,
-                'show'   => ($this->page !== 1) ? 50 * ($this->page - 1) : null,
-                'letter' => $this->char,
+                'show'   => $this->page,
+//                'letter' => $this->char, // not implemented todo
             ]
         );
 
-        return sprintf(
-            'https://myanimelist.net/character.php?%s',
-            $query
-        );
+        return Constants::BASE_URL.'/search/character?'.$query;
     }
 
     /**

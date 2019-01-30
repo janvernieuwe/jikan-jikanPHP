@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Search;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -58,14 +59,14 @@ class AnimeSearchRequest implements RequestInterface
     private $rated = 0;
 
     /**
-     * @var int[]
+     * @var \DateTime
      */
-    private $startDate = [0, 0, 0];
+    private $startDate;
 
     /**
-     * @var int[]
+     * @var \DateTime
      */
-    private $endDate = [0, 0, 0];
+    private $endDate;
 
     /**
      * @var int[]
@@ -102,20 +103,16 @@ class AnimeSearchRequest implements RequestInterface
         $query = http_build_query(
             [
                 'q'      => $this->query,
-                'show'   => ($this->page !== 1) ? 50 * ($this->page - 1) : null,
-                'letter' => $this->char,
+                'page'   => $this->page,
+//                'letter' => $this->char, // not implemented :thinking: todo
                 'type'   => $this->type,
                 'score'  => $this->score,
                 'status' => $this->status,
-                'p'      => $this->producer,
-                'r'      => $this->rated,
-                'sd'     => $this->startDate[0],
-                'sm'     => $this->startDate[1],
-                'sy'     => $this->startDate[2],
-                'ed'     => $this->endDate[0],
-                'em'     => $this->endDate[1],
-                'ey'     => $this->endDate[2],
-                'gx'     => (int)$this->genreExclude,
+//                'p'      => $this->producer, // not implemented todo
+                'rated'      => $this->rated,
+                'start_date'     => $this->startDate->format(DATE_ATOM) ?? null,
+                'end_date'     => $this->endDate->format(DATE_ATOM) ?? null,
+                'genre_exclude'     => (int) $this->genreExclude,
             ]
         );
 
@@ -126,10 +123,7 @@ class AnimeSearchRequest implements RequestInterface
             }
         }
 
-        return sprintf(
-            'https://myanimelist.net/anime.php?%s&c[]=a&c[]=b&c[]=c&c[]=f&c[]=d&c[]=e&c[]=g',
-            $query
-        );
+        return Constants::BASE_URL.'/search/anime?'.$query;
     }
 
     /**
@@ -230,29 +224,23 @@ class AnimeSearchRequest implements RequestInterface
     }
 
     /**
-     * @param int $day , int $month, int $year
-     * @param int $month
-     * @param int $year
-     *
-     * @return $this
+     * @param \DateTime $date
+     * @return AnimeSearchRequest
      */
-    public function setStartDate(int $day, int $month, int $year): self
+    public function setStartDate(\DateTime $date): self
     {
-        $this->startDate = [$day, $month, $year];
+        $this->startDate = $date;
 
         return $this;
     }
 
     /**
-     * @param int $day , int $month, int $year
-     * @param int $month
-     * @param int $year
-     *
-     * @return $this
+     * @param \DateTime $date
+     * @return AnimeSearchRequest
      */
-    public function setEndDate(int $day, int $month, int $year): self
+    public function setEndDate(\DateTime $date): self
     {
-        $this->endDate = [$day, $month, $year];
+        $this->endDate = $date;
 
         return $this;
     }
