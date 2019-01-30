@@ -63,11 +63,6 @@ class TopMangaRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return 'https://myanimelist.net/topmanga.php?'.http_build_query(
-            [
-                    'limit' => 50 * ($this->page - 1),
-                    'type'  => $this->type,
-                ]
-        );
+        return sprintf(Constants::BASE_URL.'/top/manga/%s/%d', $this->type, $this->page);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Manga;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -37,6 +38,6 @@ class MangaRecentlyUpdatedByUsersRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/manga/%d/jikan/stats?show=%d', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/manga/%d/userupdates/%d', $this->id, $this->page);
     }
 }

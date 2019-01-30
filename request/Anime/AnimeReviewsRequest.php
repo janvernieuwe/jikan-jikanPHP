@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Anime;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -38,6 +39,6 @@ class AnimeReviewsRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf(Constants::BASE_URL.'/anime/%s/reviews/%d', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/anime/%d/reviews/%d', $this->id, $this->page);
     }
 }

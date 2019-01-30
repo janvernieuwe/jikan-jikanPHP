@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Club;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 class ClubRequest implements RequestInterface
@@ -30,9 +31,6 @@ class ClubRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf(
-            'https://myanimelist.net/clubs.php?cid=%s',
-            $this->clubId
-        );
+        return sprintf(Constants::BASE_URL.'/club/%d', $this->clubId);
     }
 }

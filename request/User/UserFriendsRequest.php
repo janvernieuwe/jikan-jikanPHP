@@ -38,11 +38,6 @@ class UserFriendsRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        $query = '';
-        if ($this->page) {
-            $query = '?'.http_build_query(['offset' => ($this->page - 1) * 100]);
-        }
-
-        return sprintf('https://myanimelist.net/profile/%s/friends%s', $this->username, $query);
+        return sprintf(Constants::BASE_URL.'/user/%s/friends/%d', $this->username, $this->page);
     }
 }

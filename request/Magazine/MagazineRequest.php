@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Magazine;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -39,6 +40,6 @@ class MagazineRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/manga/magazine/%s?page=%s', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/genre/magazine/%d/%d', $this->id, $this->page);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Seasonal;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -51,13 +52,14 @@ class SeasonalRequest implements RequestInterface
     public function getPath(): string
     {
         if ($this->later) {
-            return sprintf('https://myanimelist.net/anime/season/later');
+            return Constants::BASE_URL.'/season/later';
         }
 
         if (is_null($this->year) || is_null($this->season)) {
-            return sprintf('https://myanimelist.net/anime/season');
+            return Constants::BASE_URL.'/season';
         }
 
-        return sprintf('https://myanimelist.net/anime/season/%s/%s', $this->year, $this->season);
+        return sprintf(Constants::BASE_URL.'/season/%d/%d', $this->year, $this->season);
+
     }
 }

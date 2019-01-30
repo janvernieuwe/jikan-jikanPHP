@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\SeasonList;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -16,6 +17,6 @@ class SeasonListRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return 'https://myanimelist.net/anime/season/archive';
+        return Constants::BASE_URL.'/season/archive';
     }
 }

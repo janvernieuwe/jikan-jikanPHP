@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Person;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -31,7 +32,6 @@ class PersonPicturesRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        // MyAnimeList wants <something> after /<id>/... it happily accepts jikan as a valid parameter though
-        return sprintf('https://myanimelist.net/people/%d/jikan/pictures', $this->id);
+        return sprintf(Constants::BASE_URL.'/person/%d/pictures', $this->id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Genre;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -39,6 +40,7 @@ class AnimeGenreRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/anime/genre/%s?page=%s', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/genre/anime/%d/%d', $this->id, $this->page);
+
     }
 }

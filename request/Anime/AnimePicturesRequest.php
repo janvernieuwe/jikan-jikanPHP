@@ -32,6 +32,6 @@ class AnimePicturesRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf(Constants::BASE_URL.'/anime/%s/pictures', $this->id);
+        return sprintf(Constants::BASE_URL.'/anime/%d/pictures', $this->id);
     }
 }

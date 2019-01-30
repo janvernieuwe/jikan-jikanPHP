@@ -32,6 +32,6 @@ class AnimeRecommendationsRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf(Constants::BASE_URL.'/anime/%s/recommendations', $this->id);
+        return sprintf(Constants::BASE_URL.'/anime/%d/recommendations', $this->id);
     }
 }

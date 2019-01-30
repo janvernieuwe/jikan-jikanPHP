@@ -63,11 +63,6 @@ class TopAnimeRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return 'https://myanimelist.net/topanime.php?'.http_build_query(
-            [
-                    'limit' => 50 * ($this->page - 1),
-                    'type'  => $this->type,
-                ]
-        );
+        return sprintf(Constants::BASE_URL.'/top/anime/%s/%d', $this->type, $this->page);
     }
 }

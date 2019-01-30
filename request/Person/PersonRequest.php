@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Person;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -33,6 +34,6 @@ class PersonRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/people/%s', $this->id);
+        return sprintf(Constants::BASE_URL.'/person/%d', $this->id);
     }
 }

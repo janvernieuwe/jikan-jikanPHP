@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Producer;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -39,6 +40,6 @@ class ProducerRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/anime/producer/%s?page=%s', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/genre/producer/%d/%d', $this->id, $this->page);
     }
 }

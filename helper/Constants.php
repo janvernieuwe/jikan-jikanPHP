@@ -165,19 +165,19 @@ class Constants
     public const GENRE_MANGA_DOUJINSHI = 43;
     public const GENRE_MANGA_GENDER_BENDER = 44;
 
-    public const USER_ANIME_LIST_ALL = 7;
-    public const USER_ANIME_LIST_WATCHING = 1;
-    public const USER_ANIME_LIST_COMPLETED = 2;
-    public const USER_ANIME_LIST_ONHOLD = 3;
-    public const USER_ANIME_LIST_DROPPED = 4;
-    public const USER_ANIME_LIST_PTW = 6;
-    public const USER_ANIME_LIST_PLANTOWATCH = 6;
+    public const USER_ANIME_LIST_ALL = 'all';
+    public const USER_ANIME_LIST_WATCHING = 'watching';
+    public const USER_ANIME_LIST_COMPLETED = 'completed';
+    public const USER_ANIME_LIST_ONHOLD = 'onhold';
+    public const USER_ANIME_LIST_DROPPED = 'dropped';
+    public const USER_ANIME_LIST_PTW = 'plantowatch';
+    public const USER_ANIME_LIST_PLANTOWATCH = 'plantowatch';
 
-    public const USER_MANGA_LIST_ALL = 7;
-    public const USER_MANGA_LIST_READING = 1;
-    public const USER_MANGA_LIST_COMPLETED = 2;
-    public const USER_MANGA_LIST_ONHOLD = 3;
-    public const USER_MANGA_LIST_DROPPED = 4;
-    public const USER_MANGA_LIST_PTR = 6;
-    public const USER_MANGA_LIST_PLANTOREAD = 6;
+    public const USER_MANGA_LIST_ALL = 'all';
+    public const USER_MANGA_LIST_READING = 'reading';
+    public const USER_MANGA_LIST_COMPLETED = 'completed';
+    public const USER_MANGA_LIST_ONHOLD = 'onhold';
+    public const USER_MANGA_LIST_DROPPED = 'dropped';
+    public const USER_MANGA_LIST_PTR = 'plantoread';
+    public const USER_MANGA_LIST_PLANTOREAD = 'plantoread';
 }

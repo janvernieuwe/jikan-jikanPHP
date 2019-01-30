@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Manga;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -38,6 +39,6 @@ class MangaReviewsRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/manga/%d/jikan/reviews?p=%d', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/manga/%d/reviews/%d', $this->id, $this->page);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\User;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -30,10 +31,9 @@ class UserHistoryRequest implements RequestInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(string $username, $type = null)
+    public function __construct(string $username, $type = "") // "" means empty string so get all history anime+manga
     {
         $this->username = $username;
-
 
         if (null !== $type) {
             if (!\in_array($type, ['anime', 'manga'])) {
@@ -49,6 +49,6 @@ class UserHistoryRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/history/%s/%s', $this->username, $this->type);
+        return sprintf(Constants::BASE_URL.'/user/%s/history/%s', $this->username, $this->type);
     }
 }

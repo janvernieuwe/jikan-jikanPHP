@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\User;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -33,7 +34,7 @@ class UserAnimeListRequest implements RequestInterface
      * @param string $username
      * @param int $page
      */
-    public function __construct(string $username, int $page = 1, int $status = 7)
+    public function __construct(string $username, int $page = 1, int $status = Constants::USER_ANIME_LIST_ALL)
     {
         $this->username = $username;
         $this->page = ($page - 1) * 300;
@@ -45,10 +46,6 @@ class UserAnimeListRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        $query = '?'.http_build_query([
-            'offset' => $this->page,
-            'status' => $this->status
-        ]);
-        return sprintf('https://myanimelist.net/animelist/%s/load.json%s', $this->username, $query);
+        return sprintf(Constants::BASE_URL.'/user/%s/animelist/%d/%d', $this->username, $this->status, $this->page);
     }
 }

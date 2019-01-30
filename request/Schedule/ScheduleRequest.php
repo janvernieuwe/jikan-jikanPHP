@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Schedule;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -16,6 +17,6 @@ class ScheduleRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return 'https://myanimelist.net/anime/season/schedule';
+        return Constants::BASE_URL.'/schedule';
     }
 }

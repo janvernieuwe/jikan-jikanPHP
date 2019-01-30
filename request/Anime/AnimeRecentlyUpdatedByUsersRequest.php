@@ -38,6 +38,6 @@ class AnimeRecentlyUpdatedByUsersRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf(Constants::BASE_URL.'/anime/%s/userupdates/%d', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/anime/%d/userupdates/%d', $this->id, $this->page);
     }
 }

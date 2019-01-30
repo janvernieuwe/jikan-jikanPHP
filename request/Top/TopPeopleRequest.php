@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Top;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -33,6 +34,6 @@ class TopPeopleRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return 'https://myanimelist.net/people.php?'.http_build_query(['limit' => 50 * ($this->page-1)]);
+        return sprintf(Constants::BASE_URL.'/top/people/%d', $this->page);
     }
 }

@@ -43,11 +43,7 @@ class MangaForumRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        $query = '';
-        if ($this->topic !== null && \in_array($this->topic, self::$validTypes, true)) {
-            $query = '?'.http_build_query(['topic' => $this->topic]);
-        }
-
-        return sprintf('https://myanimelist.net/manga/%s/_/forum%s', $this->id, $query);
+        // TODO: add support for filtering once it's added in the REST API
+        return sprintf(Constants::BASE_URL.'/manga/%d/forum', $this->id);
     }
 }
