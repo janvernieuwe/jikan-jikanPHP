@@ -100,6 +100,7 @@ class AnimeSearchRequest implements RequestInterface
     public function getPath(): string
     {
 
+        // todo add `limit` (int)
         $query = http_build_query(
             [
                 'q'      => $this->query,
