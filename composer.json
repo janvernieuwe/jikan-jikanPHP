@@ -35,6 +35,9 @@
             ],
             "Jikan\\Request\\": [
                 "request"
+            ],
+            "Jikan\\Helper\\": [
+                "helper"
             ]
         }
     },

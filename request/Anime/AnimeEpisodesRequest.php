@@ -2,6 +2,8 @@
 
 namespace Jikan\Request\Anime;
 
+
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -39,6 +41,6 @@ class AnimeEpisodesRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://api.jikan.moe/v3/anime/%s/episodes', $this->id);
+        return sprintf(Constants::BASE_URL.'/anime/%s/episodes/%d', $this->id, $this->page);
     }
 }

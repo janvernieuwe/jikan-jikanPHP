@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Anime;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -31,7 +32,6 @@ class AnimeStatsRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        // MyAnimeList wants <something> after /<id>/... it happily accepts jikan as a valid parameter though
-        return sprintf('https://myanimelist.net/anime/%d/jikan/stats', $this->id);
+        return sprintf(Constants::BASE_URL.'/anime/%s/stats', $this->id);
     }
 }

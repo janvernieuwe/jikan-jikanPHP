@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Anime;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
@@ -31,6 +32,6 @@ class AnimeCharactersAndStaffRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/anime/%s/_/characters', $this->id);
+        return sprintf(Constants::BASE_URL.'/anime/%s/characters_staff', $this->id);
     }
 }

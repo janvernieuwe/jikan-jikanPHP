@@ -48,6 +48,7 @@ class AnimeForumRequest implements RequestInterface
             $query = '?'.http_build_query(['topic' => $this->topic]);
         }
 
-        return sprintf('https://myanimelist.net/anime/%s/_/forum%s', $this->id, $query);
+        // TODO: add support for filtering once it's added in the REST API
+        return sprintf(Constants::BASE_URL.'/anime/%s/forum', $this->id);
     }
 }

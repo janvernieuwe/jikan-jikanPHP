@@ -38,6 +38,6 @@ class AnimeReviewsRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf('https://myanimelist.net/anime/%d/jikan/reviews?p=%d', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/anime/%s/reviews/%d', $this->id, $this->page);
     }
 }
