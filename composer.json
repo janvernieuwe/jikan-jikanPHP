@@ -11,19 +11,19 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "~6",
-        "jms/serializer": "^1.13",
-        "symfony/yaml": "^3.0"
+        "jms/serializer": "~1",
+        "guzzlehttp/guzzle": "~6"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.3",
-        "symfony/console": "^4.2",
-        "symfony/var-dumper": "^4.2",
-        "symfony/finder": "^4.2",
-        "funkyproject/reflection-file": "^0.1.0",
         "jikan/jikanphp-fixtures": "dev-master",
+        "phpunit/phpunit": "^6.3",
         "php-vcr/php-vcr": "~1.3.2",
-        "php-vcr/phpunit-testlistener-vcr": "^3.0"
+        "php-vcr/phpunit-testlistener-vcr": "^3.0",
+        "symfony/console": "^4.2",
+        "symfony/finder": "^4.2",
+        "symfony/var-dumper": "^4.2",
+        "symfony/yaml": "~3.0",
+        "funkyproject/reflection-file": "^0.1.0"
     },
     "autoload": {
         "psr-4": {
@@ -44,5 +44,8 @@
                 "test"
             ]
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
