@@ -40,40 +40,41 @@ class Constants
     public const TOP_BY_POPULARITY = 'bypopularity';
     public const TOP_BY_FAVORITES = 'favorite';
 
-    public const SEARCH_ANIME_TV = 1;
-    public const SEARCH_ANIME_OVA = 2;
-    public const SEARCH_ANIME_MOVIE = 3;
-    public const SEARCH_ANIME_SPECIAL = 4;
-    public const SEARCH_ANIME_ONA = 5;
-    public const SEARCH_ANIME_MUSIC = 6;
+    public const SEARCH_ANIME_TV = 'tv';
+    public const SEARCH_ANIME_OVA = 'ova';
+    public const SEARCH_ANIME_MOVIE = 'movie';
+    public const SEARCH_ANIME_SPECIAL = 'special';
+    public const SEARCH_ANIME_ONA = 'ona';
+    public const SEARCH_ANIME_MUSIC = 'music';
 
-    public const SEARCH_MANGA_MANGA = 1;
-    public const SEARCH_MANGA_NOVEL = 2;
-    public const SEARCH_MANGA_ONESHOT = 3;
-    public const SEARCH_MANGA_DOUJIN = 4;
-    public const SEARCH_MANGA_MANHWA = 5;
-    public const SEARCH_MANGA_MANHUA = 6;
+    public const SEARCH_MANGA_MANGA = 'manga';
+    public const SEARCH_MANGA_NOVEL = 'novel';
+    public const SEARCH_MANGA_ONESHOT = 'oneshot';
+    public const SEARCH_MANGA_DOUJIN = 'doujin';
+    public const SEARCH_MANGA_MANHWA = 'manhwa';
+    public const SEARCH_MANGA_MANHUA = 'manhua';
 
-    public const SEARCH_ANIME_STATUS_AIRING = 1;
-    public const SEARCH_ANIME_STATUS_FINISHED_AIRING = 2;
-    public const SEARCH_ANIME_STATUS_COMPLETED = 2; // alias
-    public const SEARCH_ANIME_STATUS_TO_BE_AIRD = 3;
-    public const SEARCH_ANIME_STATUS_TBA = 3; // alias
+    public const SEARCH_ANIME_STATUS_AIRING = 'airing';
+    public const SEARCH_ANIME_STATUS_FINISHED_AIRING = 'complete';
+    public const SEARCH_ANIME_STATUS_COMPLETED = 'completed'; // alias
+    public const SEARCH_ANIME_STATUS_TO_BE_AIRD = 'upcoming'; // bad constant name todo check parser for this issue
+    public const SEARCH_ANIME_STATUS_TBA = 'upcoming'; // alias
 
-    public const SEARCH_MANGA_STATUS_PUBLISHING = 1;
-    public const SEARCH_MANGA_STATUS_FINISHED_PUBLISHING = 2;
-    public const SEARCH_MANGA_STATUS_COMPLETED = 2; // alias
-    public const SEARCH_MANGA_STATUS_TO_BE_PUBLISHED = 3;
-    public const SEARCH_MANGA_STATUS_TBP = 3; // alias
+    //todo rest api docs dont have status listed for manga
+    public const SEARCH_MANGA_STATUS_PUBLISHING = 'publishing';
+    public const SEARCH_MANGA_STATUS_FINISHED_PUBLISHING = 'publishing';
+    public const SEARCH_MANGA_STATUS_COMPLETED = 'complete'; // alias
+    public const SEARCH_MANGA_STATUS_TO_BE_PUBLISHED = 'upcoming'; //todo gotta confirm this
+    public const SEARCH_MANGA_STATUS_TBP = 3; // alias //todo as above
 
-    public const SEARCH_ANIME_RATING_G = 1;
-    public const SEARCH_ANIME_RATING_ALL = 1; // alias
-    public const SEARCH_ANIME_RATING_PG = 2;
-    public const SEARCH_ANIME_RATING_PG13 = 3;
-    public const SEARCH_ANIME_RATING_R17 = 4;
-    public const SEARCH_ANIME_RATING_R = 5;
-    public const SEARCH_ANIME_RATING_RX = 6;
-    public const SEARCH_ANIME_RATING_HENTAI = 6; // alias
+    public const SEARCH_ANIME_RATING_G = 'g';
+    public const SEARCH_ANIME_RATING_ALL = 'g'; // alias
+    public const SEARCH_ANIME_RATING_PG = 'pg';
+    public const SEARCH_ANIME_RATING_PG13 = 'pg13';
+    public const SEARCH_ANIME_RATING_R17 = 'r17';
+    public const SEARCH_ANIME_RATING_R = 'r';
+    public const SEARCH_ANIME_RATING_RX = 'rx';
+    public const SEARCH_ANIME_RATING_HENTAI = 'rx'; // alias
 
     public const GENRE_ANIME_ACTION = 1;
     public const GENRE_ANIME_ADVENTURE = 2;
