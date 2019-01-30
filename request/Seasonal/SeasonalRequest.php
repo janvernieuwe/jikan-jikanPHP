@@ -55,11 +55,10 @@ class SeasonalRequest implements RequestInterface
             return Constants::BASE_URL.'/season/later';
         }
 
-        if (is_null($this->year) || is_null($this->season)) {
+        if (null === $this->year || null === $this->season) {
             return Constants::BASE_URL.'/season';
         }
 
-        return sprintf(Constants::BASE_URL.'/season/%d/%d', $this->year, $this->season);
-
+        return sprintf(Constants::BASE_URL.'/season/%d/%s', $this->year, $this->season);
     }
 }

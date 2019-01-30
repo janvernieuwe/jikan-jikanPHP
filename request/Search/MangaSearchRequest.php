@@ -105,8 +105,8 @@ class MangaSearchRequest implements RequestInterface
                 'status' => $this->status,
 //                'mid'      => $this->magazine, // not implemented todo
 //                'rated'      => $this->rated, // not in manga
-                'start_date'     => $this->startDate->format(DATE_ATOM) ?? null,
-                'end_date'     => $this->endDate->format(DATE_ATOM) ?? null,
+                //'start_date'     => $this->startDate->format(DATE_ATOM) ?? null,
+                //'end_date'     => $this->endDate->format(DATE_ATOM) ?? null,
                 'genre_exclude'     => (int) $this->genreExclude,
             ]
         );

@@ -21,8 +21,8 @@ Jikan\Model\Search\MangaSearchListItem:
         score:
             type: float
         startDate:
-            type: "/**\n     * @var ?\\DateTimeImmutable\n     */"
+            type: DateTimeImmutable
         endDate:
-            type: "/**\n     * @var ?\\DateTimeImmutable\n     */"
+            type: DateTimeImmutable
         members:
             type: int

@@ -12,8 +12,6 @@ class SerializerFactory
         $builder = new SerializerBuilder();
         $builder->addMetadataDir(__DIR__.'/../../metadata/');
 
-        //$serializer->setSerializationContextFactory(new SerializationContextFactory());
-
         return $builder->build();
     }
 }

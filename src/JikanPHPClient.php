@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Jikan\JikanPHP\Serializer\SerializerFactory;
 use Jikan\Model;
 use Jikan\Request;
+use JMS\Serializer\Exception\UnsupportedFormatException;
 use JMS\Serializer\Serializer;
 
 /**
@@ -164,10 +165,11 @@ class JikanPHPClient
     public function getUserFriends(Request\User\UserFriendsRequest $request): array
     {
         $response = $this->guzzle->get($request->getPath());
+        $friends = json_decode((string)$response->getBody()->getContents());
 
         return $this->serializer->deserialize(
-            (string)$response->getBody()->getContents(),
-            Request\User\UserFriendsRequest::class,
+            json_encode($friends->friends),
+            sprintf('array<%s>', Model\User\Friend::class),
             'json'
         );
     }
@@ -301,9 +303,10 @@ class JikanPHPClient
     public function getAnimePictures(Request\Anime\AnimePicturesRequest $request): array
     {
         $response = $this->guzzle->get($request->getPath());
+        $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
-            (string)$response->getBody()->getContents(),
+            json_encode($data->pictures),
             sprintf('array<%s>', Model\Common\Picture::class),
             'json'
         );
@@ -318,9 +321,10 @@ class JikanPHPClient
     public function getMangaPictures(Request\Manga\MangaPicturesRequest $request): array
     {
         $response = $this->guzzle->get($request->getPath());
+        $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
-            (string)$response->getBody()->getContents(),
+            json_encode($data->pictures),
             sprintf('array<%s>', Model\Common\Picture::class),
             'json'
         );
@@ -335,9 +339,10 @@ class JikanPHPClient
     public function getCharacterPictures(Request\Character\CharacterPicturesRequest $request): array
     {
         $response = $this->guzzle->get($request->getPath());
+        $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
-            (string)$response->getBody()->getContents(),
+            json_encode($data->pictures),
             sprintf('array<%s>', Model\Common\Picture::class),
             'json'
         );
@@ -351,26 +356,11 @@ class JikanPHPClient
     public function getPersonPictures(Request\Person\PersonPicturesRequest $request): array
     {
         $response = $this->guzzle->get($request->getPath());
+        $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
-            (string)$response->getBody()->getContents(),
+            json_encode($data->pictures),
             sprintf('array<%s>', Model\Common\Picture::class),
-            'json'
-        );
-    }
-
-    /**
-     * @param Request\RequestInterface $request
-     *
-     * @return Model\News\NewsListItem[]
-     */
-    public function getNewsList(Request\RequestInterface $request): array
-    {
-        $response = $this->guzzle->get($request->getPath());
-
-        return $this->serializer->deserialize(
-            (string)$response->getBody()->getContents(),
-            sprintf('array<%s>', Model\News\NewsListItem::class),
             'json'
         );
     }

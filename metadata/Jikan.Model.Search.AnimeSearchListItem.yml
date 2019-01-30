@@ -19,10 +19,10 @@ Jikan\Model\Search\AnimeSearchListItem:
         score:
             type: float
         startDate:
-            type: "/**\n     * @var ?\\DateTimeImmutable\n     */"
+            type: DateTimeImmutable
         endDate:
-            type: "/**\n     * @var ?\\DateTimeImmutable\n     */"
+            type: DateTimeImmutable
         members:
             type: int
         rated:
-            type: "/**\n     * @var ?string\n     */"
+            type: string

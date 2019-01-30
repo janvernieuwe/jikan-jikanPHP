@@ -89,7 +89,7 @@ class AnimeSearchRequest implements RequestInterface
         $this->query = $query;
         $this->page = $page;
 
-        $this->query = $this->query ?? "";
+        $this->query = $this->query ?? '';
     }
 
     /**
@@ -111,8 +111,8 @@ class AnimeSearchRequest implements RequestInterface
                 'status' => $this->status,
 //                'p'      => $this->producer, // not implemented todo
                 'rated'      => $this->rated,
-                'start_date'     => $this->startDate->format(DATE_ATOM) ?? null,
-                'end_date'     => $this->endDate->format(DATE_ATOM) ?? null,
+                //'start_date'     => $this->startDate->format(DATE_ATOM) ?? null,
+                //'end_date'     => $this->endDate->format(DATE_ATOM) ?? null,
                 'genre_exclude'     => (int) $this->genreExclude,
             ]
         );
@@ -135,7 +135,7 @@ class AnimeSearchRequest implements RequestInterface
     public function setQuery(?string $query = null): self
     {
         $this->query = $query;
-        $this->query = $this->query ?? "";
+        $this->query = $this->query ?? '';
 
         return $this;
     }

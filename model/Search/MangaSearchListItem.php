@@ -62,12 +62,12 @@ class MangaSearchListItem
     private $score;
 
     /**
-     * @var ?\DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     private $startDate;
 
     /**
-     * @var ?\DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     private $endDate;
 

@@ -40,6 +40,6 @@ class MagazineRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf(Constants::BASE_URL.'/genre/magazine/%d/%d', $this->id, $this->page);
+        return sprintf(Constants::BASE_URL.'/magazine/%d/%d', $this->id, $this->page);
     }
 }

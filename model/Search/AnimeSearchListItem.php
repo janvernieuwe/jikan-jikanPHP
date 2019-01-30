@@ -55,12 +55,12 @@ class AnimeSearchListItem
     private $score;
 
     /**
-     * @var ?\DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     private $startDate;
 
     /**
-     * @var ?\DateTimeImmutable
+     * @var \DateTimeImmutable
      */
     private $endDate;
 
@@ -70,7 +70,7 @@ class AnimeSearchListItem
     private $members;
 
     /**
-     * @var ?string
+     * @var string
      */
     private $rated;
 

@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\User;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**
