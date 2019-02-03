@@ -1,3 +1,7 @@
+[![Latest Stable Version](https://poser.pugx.org/jikan/jikan-php/v/stable)](https://packagist.org/packages/jikan/jikan-php)
+[![Total Downloads](https://poser.pugx.org/jikan/jikan-php/downloads)](https://packagist.org/packages/jikan/jikan-php)
+[![License](https://poser.pugx.org/jikan/jikan-php/license)](https://packagist.org/packages/jikan/jikan-php)
+
 # jikan-jikanPHP
 Jikan rest api PHP client
 
