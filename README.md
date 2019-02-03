@@ -9,3 +9,6 @@ Install it with composer:
 
 Instantiate `\Jikan\JikanPHP\JikanPHPClient` and pass the appropriate Request instances.
 Use autocomplete on your IDE for the best results!
+
+You can pass an instance of a guzzle client configured with any of the middlewares / configuration you want!
+
