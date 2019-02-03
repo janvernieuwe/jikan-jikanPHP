@@ -2,6 +2,7 @@
 
 namespace Jikan\Request\Anime;
 
+use Jikan\Helper\Constants;
 use Jikan\Request\RequestInterface;
 
 /**

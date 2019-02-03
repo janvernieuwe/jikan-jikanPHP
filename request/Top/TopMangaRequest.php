@@ -63,6 +63,6 @@ class TopMangaRequest implements RequestInterface
      */
     public function getPath(): string
     {
-        return sprintf(Constants::BASE_URL.'/top/manga/%s/%d', $this->type, $this->page);
+        return sprintf(Constants::BASE_URL.'/top/manga/%d/%s', $this->page, $this->type);
     }
 }

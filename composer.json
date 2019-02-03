@@ -12,10 +12,12 @@
         }
     ],
     "require": {
+        "php": "^7.2",
         "doctrine/annotations": "~1",
         "guzzlehttp/guzzle": "~6",
         "jms/serializer": "~1",
-        "symfony/yaml": "~2.1|^3.0"
+        "symfony/yaml": "~2.1|^3.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "jikan/jikanphp-fixtures": "dev-master",

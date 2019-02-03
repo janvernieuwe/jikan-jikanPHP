@@ -31,7 +31,7 @@ class UserHistoryRequest implements RequestInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(string $username, $type = "") // "" means empty string so get all history anime+manga
+    public function __construct(string $username, $type = '') // "" means empty string so get all history anime+manga
     {
         $this->username = $username;
 
