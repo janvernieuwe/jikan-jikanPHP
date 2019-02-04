@@ -3,16 +3,40 @@
 [![License](https://poser.pugx.org/jikan/jikan-php/license)](https://packagist.org/packages/jikan/jikan-php)
 
 # jikan-jikanPHP
-Jikan rest api PHP client
-
-PHP Client for the unofficial myanimelist api
+[Jikan rest](https://github.com/jikan-me/jikan) api PHP client, PHP Client for the unofficial myanimelist api
 
 Install it with composer:
 
-`composer require jikan/jikan-php`
+```
+composer require jikan/jikan-php
+```
 
-Instantiate `\Jikan\JikanPHP\JikanPHPClient` and pass the appropriate Request instances.
-Use autocomplete on your IDE for the best results!
+# Getting Started
 
-You can pass an instance of a guzzle client configured with any of the middlewares / configuration you want!
+## Instantiate the client
 
+```php
+$jikan = new \Jikan\JikanPHP\JikanPHPClient();
+```
+
+## Use it to request MAL data
+
+```php
+$request = new Request\Anime\AnimeRequest(1);
+$anime = $this->jikan->getAnime($request);
+```
+
+All responses are converted to PHP classes.
+
+# Customize guzzle
+
+```php
+$guzzle = new GuzzleHttp\Client();
+// Add middlewares to the client, of configs
+$jikan = new \Jikan\JikanPHP\JikanPHPClient($guzzle);
+// The configured client is now used internally
+```
+
+Using the client should be self-explanatory since it is fully type-hinted.
+
+If you experience any issues, open an issue, or even better a Pull Request!
