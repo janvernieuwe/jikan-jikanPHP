@@ -5,12 +5,6 @@
     "description": "PHP client for jikan rest",
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/janvernieuwe/jikanPHP-fixtures.git"
-        }
-    ],
     "require": {
         "php": "^7.2",
         "doctrine/annotations": "~1",
