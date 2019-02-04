@@ -32,7 +32,7 @@ All responses are converted to PHP classes.
 
 ```php
 $guzzle = new GuzzleHttp\Client();
-// Add middlewares to the client, of configs
+// Add middlewares to the client, or configs
 $jikan = new \Jikan\JikanPHP\JikanPHPClient($guzzle);
 // The configured client is now used internally
 ```
