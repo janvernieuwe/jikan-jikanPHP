@@ -8,8 +8,8 @@
     "require": {
         "php": "^7.2",
         "doctrine/annotations": "~1",
-        "guzzlehttp/guzzle": "~6",
-        "jms/serializer": "~1",
+        "guzzlehttp/guzzle": "^6.3",
+        "jms/serializer": "^1.13",
         "symfony/yaml": "~2.1|^3.0",
         "ext-json": "*"
     },
