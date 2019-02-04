@@ -105,11 +105,11 @@ class AnimeSearchRequest implements RequestInterface
             [
                 'q'      => $this->query,
                 'page'   => $this->page,
-//                'letter' => $this->char, // not implemented :thinking: todo
+            //                'letter' => $this->char, // not implemented :thinking: todo
                 'type'   => $this->type,
                 'score'  => $this->score,
                 'status' => $this->status,
-//                'p'      => $this->producer, // not implemented todo
+            //                'p'      => $this->producer, // not implemented todo
                 'rated'      => $this->rated,
                 //'start_date'     => $this->startDate->format(DATE_ATOM) ?? null,
                 //'end_date'     => $this->endDate->format(DATE_ATOM) ?? null,

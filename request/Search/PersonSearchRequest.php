@@ -59,7 +59,7 @@ class PersonSearchRequest implements RequestInterface
             [
                 'q'      => $this->query,
                 'show'   => $this->page,
-//                'letter' => $this->char, // not implemented todo
+            //                'letter' => $this->char, // not implemented todo
             ]
         );
 

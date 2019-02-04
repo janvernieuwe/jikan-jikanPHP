@@ -41,6 +41,5 @@ class AnimeGenreRequest implements RequestInterface
     public function getPath(): string
     {
         return sprintf(Constants::BASE_URL.'/genre/anime/%d/%d', $this->id, $this->page);
-
     }
 }
