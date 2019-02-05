@@ -1,8 +1,8 @@
 {
     "name": "jikan/jikan-php",
-    "license": "MIT",
-    "type": "library",
     "description": "PHP client for jikan rest",
+    "type": "library",
+    "license": "MIT",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
@@ -14,6 +14,7 @@
         "ext-json": "*"
     },
     "require-dev": {
+        "composer/composer": "^1.8",
         "funkyproject/reflection-file": "^0.1.0",
         "jakub-onderka/php-parallel-lint": "^1.0",
         "jikan/jikanphp-fixtures": "dev-master",
