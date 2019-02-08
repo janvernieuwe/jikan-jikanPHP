@@ -23,7 +23,7 @@ $jikan = new \Jikan\JikanPHP\JikanPHPClient();
 
 ```php
 $request = new Request\Anime\AnimeRequest(1);
-$anime = $this->jikan->getAnime($request);
+$anime = $jikan->getAnime($request);
 ```
 
 All responses are converted to PHP classes.
