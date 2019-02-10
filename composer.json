@@ -6,7 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.2",
+        "php": "^7.2|^8",
         "doctrine/annotations": "~1",
         "guzzlehttp/guzzle": "^6.3",
         "jms/serializer": "^1.13|^2.0",
