@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Anime;
+namespace JikanPHP\Model\Anime;
 
-use Jikan\Model\Character\CharacterListItem;
+use JikanPHP\Model\Character\CharacterListItem;
 
 /**
  * Class AnimeCharactersAndStaff
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class AnimeCharactersAndStaff
 {
@@ -22,7 +22,7 @@ class AnimeCharactersAndStaff
     private $staff;
 
     /**
-     * @return \Jikan\Model\Character\CharacterListItem[]
+     * @return \JikanPHP\Model\Character\CharacterListItem[]
      */
     public function getCharacters(): array
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Manga;
+namespace JikanPHP\Model\Manga;
 
 /**
  * Class MangaMoreInfo
  *
- * @package Jikan\Model\Manga
+ * @package JikanPHP\Model\Manga
  */
 class MangaMoreInfo
 {

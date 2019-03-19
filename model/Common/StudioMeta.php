@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Common;
+namespace JikanPHP\Model\Common;
 
 /**
  * Class StudioMeta
  *
- * @package Jikan\Model\Common
+ * @package JikanPHP\Model\Common
  */
 class StudioMeta extends ItemBasicMeta
 {

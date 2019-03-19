@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Jikan\Model\Forum;
+namespace JikanPHP\Model\Forum;
 
 /**
  * Class ForumPost
  *
- * @package Jikan\Model\Forum
+ * @package JikanPHP\Model\Forum
  */
 class ForumPost
 {

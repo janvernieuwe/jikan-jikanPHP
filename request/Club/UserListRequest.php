@@ -1,9 +1,9 @@
 <?php
 
-namespace Jikan\Request\Club;
+namespace JikanPHP\Request\Club;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 class UserListRequest implements RequestInterface
 {

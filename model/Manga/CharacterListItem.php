@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Manga;
+namespace JikanPHP\Model\Manga;
 
 /**
  * Class CharacterParser
  *
- * @package Jikan\Model\Manga\Manga
+ * @package JikanPHP\Model\Manga\Manga
  */
 class CharacterListItem
 {

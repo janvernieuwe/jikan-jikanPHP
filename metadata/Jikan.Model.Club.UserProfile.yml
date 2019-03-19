@@ -1,8 +1,0 @@
-Jikan\Model\Club\UserProfile:
-    properties:
-        username:
-            type: string
-        url:
-            type: string
-        imageUrl:
-            type: string

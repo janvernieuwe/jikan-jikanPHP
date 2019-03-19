@@ -1,0 +1,4 @@
+JikanPHP\Model\Common\DateRange:
+    properties:
+        date:
+            type: string

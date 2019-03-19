@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Search;
+namespace JikanPHP\Model\Search;
 
 /**
  * Class CharacterSearchListItem
  *
- * @package Jikan\Model\Search\Search
+ * @package JikanPHP\Model\Search\Search
  */
 class CharacterSearchListItem
 {
@@ -36,12 +36,12 @@ class CharacterSearchListItem
     private $alternativeNames;
 
     /**
-     * @var \Jikan\Model\Common\MalUrl[]
+     * @var \JikanPHP\Model\Common\MalUrl[]
      */
     private $anime;
 
     /**
-     * @var \Jikan\Model\Common\MalUrl[]
+     * @var \JikanPHP\Model\Common\MalUrl[]
      */
     private $manga;
 
@@ -86,7 +86,7 @@ class CharacterSearchListItem
     }
 
     /**
-     * @return \Jikan\Model\Common\MalUrl[]
+     * @return \JikanPHP\Model\Common\MalUrl[]
      */
     public function getAnime(): array
     {
@@ -94,7 +94,7 @@ class CharacterSearchListItem
     }
 
     /**
-     * @return \Jikan\Model\Common\MalUrl[]
+     * @return \JikanPHP\Model\Common\MalUrl[]
      */
     public function getManga(): array
     {

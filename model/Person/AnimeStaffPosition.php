@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Person;
+namespace JikanPHP\Model\Person;
 
-use Jikan\Model\Common\AnimeMeta;
+use JikanPHP\Model\Common\AnimeMeta;
 
 /**
  * Class AnimeStaffPosition
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class AnimeStaffPosition
 {

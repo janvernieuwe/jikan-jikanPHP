@@ -1,0 +1,8 @@
+JikanPHP\Model\User\History:
+    properties:
+        malUrl:
+            type: JikanPHP\Model\Common\MalUrl
+        increment:
+            type: int
+        date:
+            type: DateTimeImmutable

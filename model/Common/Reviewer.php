@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Common;
+namespace JikanPHP\Model\Common;
 
 /**
  * Class Reviewer
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 abstract class Reviewer
 {

@@ -1,6 +1,0 @@
-Jikan\Model\Search\MangaSearch:
-    properties:
-        results:
-            type: array<Jikan\Model\Search\MangaSearchListItem>
-        lastPage:
-            type: int

@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\Schedule;
+namespace JikanPHP\Request\Schedule;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class ScheduleRequest
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 class ScheduleRequest implements RequestInterface
 {

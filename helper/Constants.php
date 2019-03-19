@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Helper;
+namespace JikanPHP\Helper;
 
 /**
  * Keep constants here
  *
  * Class Constants
  *
- * @package Jikan\Helper
+ * @package JikanPHP\Helper
  */
 class Constants
 {

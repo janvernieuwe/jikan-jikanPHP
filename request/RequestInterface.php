@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Request;
+namespace JikanPHP\Request;
 
 /**
  * Interface RequestInterface
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 interface RequestInterface
 {

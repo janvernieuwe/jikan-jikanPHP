@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\Magazine;
+namespace JikanPHP\Request\Magazine;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class MagazineRequest
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 class MagazineRequest implements RequestInterface
 {

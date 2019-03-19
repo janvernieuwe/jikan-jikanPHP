@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Model\User;
+namespace JikanPHP\Model\User;
 
-use Jikan\Model\Common\LicensorMeta;
-use Jikan\Model\Common\StudioMeta;
+use JikanPHP\Model\Common\LicensorMeta;
+use JikanPHP\Model\Common\StudioMeta;
 
 /**
  * Class AnimeListItem
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class AnimeListItem
 {

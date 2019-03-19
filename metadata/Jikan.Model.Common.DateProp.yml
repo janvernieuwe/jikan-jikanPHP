@@ -1,8 +1,0 @@
-Jikan\Model\Common\DateProp:
-    properties:
-        day:
-            type: ''
-        month:
-            type: ''
-        year:
-            type: ''

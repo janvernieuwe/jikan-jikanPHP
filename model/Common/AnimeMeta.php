@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Common;
+namespace JikanPHP\Model\Common;
 
 /**
  * Class AnimeMeta
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class AnimeMeta extends ItemMeta
 {

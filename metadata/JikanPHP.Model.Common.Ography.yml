@@ -1,0 +1,12 @@
+JikanPHP\Model\Common\Ography:
+    properties:
+        malId:
+            type: int
+        name:
+            type: string
+        url:
+            type: string
+        imageUrl:
+            type: string
+        role:
+            type: string

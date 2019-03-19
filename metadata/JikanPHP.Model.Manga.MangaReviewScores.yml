@@ -1,0 +1,12 @@
+JikanPHP\Model\Manga\MangaReviewScores:
+    properties:
+        overall:
+            type: int
+        story:
+            type: int
+        art:
+            type: int
+        character:
+            type: int
+        enjoyment:
+            type: int

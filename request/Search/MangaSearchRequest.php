@@ -1,15 +1,15 @@
 <?php
 
-namespace Jikan\Request\Search;
+namespace JikanPHP\Request\Search;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class MangaSearchRequest
  *
  *
- * @package Jikan\Request\Search
+ * @package JikanPHP\Request\Search
  */
 class MangaSearchRequest implements RequestInterface
 {

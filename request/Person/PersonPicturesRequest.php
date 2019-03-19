@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\Person;
+namespace JikanPHP\Request\Person;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class PersonPicturesRequest
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 class PersonPicturesRequest implements RequestInterface
 {

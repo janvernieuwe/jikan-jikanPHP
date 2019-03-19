@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Anime;
+namespace JikanPHP\Model\Anime;
 
-use Jikan\Model\Common\DateRange;
+use JikanPHP\Model\Common\DateRange;
 
 /**
  * Class EpisodeParser
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class EpisodeListItem
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\Character;
+namespace JikanPHP\Request\Character;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class Character
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 class CharacterRequest implements RequestInterface
 {

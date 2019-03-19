@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Common;
+namespace JikanPHP\Model\Common;
 
 /**
  * Class Ography
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 abstract class Ography
 {

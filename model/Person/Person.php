@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Person;
+namespace JikanPHP\Model\Person;
 
 /**
  * Class Person
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Person
 {

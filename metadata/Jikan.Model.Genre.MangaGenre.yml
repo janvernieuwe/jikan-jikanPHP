@@ -1,8 +1,0 @@
-Jikan\Model\Genre\MangaGenre:
-    properties:
-        malUrl:
-            type: Jikan\Model\Common\MalUrl
-        itemCount:
-            type: int
-        manga:
-            type: array

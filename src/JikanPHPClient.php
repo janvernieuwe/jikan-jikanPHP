@@ -4,8 +4,8 @@ namespace Jikan\JikanPHP;
 
 use GuzzleHttp\Client;
 use Jikan\JikanPHP\Serializer\SerializerFactory;
-use Jikan\Model;
-use Jikan\Request;
+use JikanPHP\Model;
+use JikanPHP\Request;
 use JMS\Serializer\Serializer;
 
 /**

@@ -1,0 +1,8 @@
+JikanPHP\Model\Seasonal\Seasonal:
+    properties:
+        seasonName:
+            type: string
+        seasonYear:
+            type: int
+        anime:
+            type: array

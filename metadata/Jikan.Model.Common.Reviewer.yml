@@ -1,8 +1,0 @@
-Jikan\Model\Common\Reviewer:
-    properties:
-        url:
-            type: string
-        imageUrl:
-            type: string
-        username:
-            type: string

@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\Anime;
+namespace JikanPHP\Request\Anime;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class AnimeRecentlyUpdatedByUsersRequest
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 class AnimeRecentlyUpdatedByUsersRequest implements RequestInterface
 {

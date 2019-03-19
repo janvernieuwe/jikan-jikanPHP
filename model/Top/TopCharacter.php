@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Top;
+namespace JikanPHP\Model\Top;
 
-use Jikan\Model\Common\MalUrl;
+use JikanPHP\Model\Common\MalUrl;
 
 /**
  * Class TopCharacter
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class TopCharacter
 {
@@ -37,7 +37,7 @@ class TopCharacter
     private $nameKanji;
 
     /**
-     * @var \Jikan\Model\Common\MalUrl[]
+     * @var \JikanPHP\Model\Common\MalUrl[]
      */
     private $animeography;
 
@@ -105,7 +105,7 @@ class TopCharacter
     }
 
     /**
-     * @return \Jikan\Model\Common\MalUrl[]
+     * @return \JikanPHP\Model\Common\MalUrl[]
      */
     public function getAnimeography(): array
     {

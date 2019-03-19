@@ -1,0 +1,52 @@
+JikanPHP\Model\Manga\Manga:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        title:
+            type: string
+        titleEnglish:
+            type: string
+        titleSynonyms:
+            type: array
+        titleJapanese:
+            type: string
+        status:
+            type: string
+        imageUrl:
+            type: string
+        type:
+            type: string
+        volumes:
+            type: int
+        chapters:
+            type: int
+        publishing:
+            type: bool
+        published:
+            type: JikanPHP\Model\Common\DateRange
+        rank:
+            type: int
+        score:
+            type: float
+        scoredBy:
+            type: int
+        popularity:
+            type: int
+        members:
+            type: int
+        favorites:
+            type: int
+        synopsis:
+            type: string
+        background:
+            type: string
+        related:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        genres:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        authors:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        serializations:
+            type: array<JikanPHP\Model\Common\MalUrl>

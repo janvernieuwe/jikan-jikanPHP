@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Producer;
+namespace JikanPHP\Model\Producer;
 
-use Jikan\Model\Common\AnimeCard;
+use JikanPHP\Model\Common\AnimeCard;
 
 /**
  * Class ProducerAnime
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class ProducerAnime extends AnimeCard
 {

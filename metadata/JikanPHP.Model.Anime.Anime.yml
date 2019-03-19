@@ -1,0 +1,68 @@
+JikanPHP\Model\Anime\Anime:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        trailerUrl:
+            type: string
+        title:
+            type: string
+        titleEnglish:
+            type: string
+        titleJapanese:
+            type: string
+        titleSynonyms:
+            type: array
+        type:
+            type: string
+        source:
+            type: string
+        episodes:
+            type: int
+        status:
+            type: string
+        airing:
+            type: bool
+        aired:
+            type: JikanPHP\Model\Common\DateRange
+        duration:
+            type: string
+        rating:
+            type: string
+        score:
+            type: float
+        scoredBy:
+            type: int
+        rank:
+            type: int
+        popularity:
+            type: int
+        members:
+            type: int
+        favorites:
+            type: int
+        synopsis:
+            type: string
+        background:
+            type: string
+        premiered:
+            type: string
+        broadcast:
+            type: string
+        related:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        producers:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        licensors:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        studios:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        genres:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        openingThemes:
+            type: array
+        endingThemes:
+            type: array

@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Common;
+namespace JikanPHP\Model\Common;
 
 /**
  * Class AnimeCardParser
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class AnimeCard
 {
@@ -55,7 +55,7 @@ class AnimeCard
     protected $members;
 
     /**
-     * @var \Jikan\Model\Common\MalUrl[]
+     * @var \JikanPHP\Model\Common\MalUrl[]
      */
     protected $genres;
 
@@ -65,7 +65,7 @@ class AnimeCard
     protected $source;
 
     /**
-     * @var \Jikan\Model\Common\MalUrl[]
+     * @var \JikanPHP\Model\Common\MalUrl[]
      */
     protected $producers;
 
@@ -170,7 +170,7 @@ class AnimeCard
     }
 
     /**
-     * @return \Jikan\Model\Common\MalUrl[]
+     * @return \JikanPHP\Model\Common\MalUrl[]
      */
     public function getGenres(): array
     {
@@ -186,7 +186,7 @@ class AnimeCard
     }
 
     /**
-     * @return \Jikan\Model\Common\MalUrl[]
+     * @return \JikanPHP\Model\Common\MalUrl[]
      */
     public function getProducers(): array
     {

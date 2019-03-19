@@ -1,0 +1,4 @@
+JikanPHP\Model\Club\UserList:
+    properties:
+        profiles:
+            type: array<JikanPHP\Model\Club\UserProfile>

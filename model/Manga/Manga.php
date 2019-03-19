@@ -1,20 +1,20 @@
 <?php
 
-namespace Jikan\Model\Manga;
+namespace JikanPHP\Model\Manga;
 
 /**
  * Class Manga
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 
-use Jikan\Model\Common\DateRange;
-use Jikan\Model\Common\MalUrl;
+use JikanPHP\Model\Common\DateRange;
+use JikanPHP\Model\Common\MalUrl;
 
 /**
  * Class Manga
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Manga
 {

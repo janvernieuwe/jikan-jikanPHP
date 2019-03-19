@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Club;
+namespace JikanPHP\Model\Club;
 
 /**
  * Class UserProfile
  *
- * @package Jikan\Model\Club
+ * @package JikanPHP\Model\Club
  */
 class UserProfile
 {

@@ -1,0 +1,12 @@
+JikanPHP\Model\Anime\StaffListItem:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        name:
+            type: string
+        imageUrl:
+            type: string
+        positions:
+            type: array

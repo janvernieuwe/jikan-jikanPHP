@@ -1,4 +1,0 @@
-Jikan\Model\Club\UserList:
-    properties:
-        profiles:
-            type: array<Jikan\Model\Club\UserProfile>

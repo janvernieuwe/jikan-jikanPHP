@@ -1,19 +1,19 @@
 <?php
 
-namespace Jikan\Model\Magazine;
+namespace JikanPHP\Model\Magazine;
 
-use Jikan\Model\Common\MalUrl;
+use JikanPHP\Model\Common\MalUrl;
 
 /**
  * Class Magazine
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Magazine
 {
 
     /**
-     * @var \Jikan\Model\Common\MalUrl
+     * @var \JikanPHP\Model\Common\MalUrl
      */
     public $malUrl;
 
@@ -23,7 +23,7 @@ class Magazine
     public $manga = [];
 
     /**
-     * @return \Jikan\Model\Common\MalUrl
+     * @return \JikanPHP\Model\Common\MalUrl
      */
     public function getMalUrl(): MalUrl
     {

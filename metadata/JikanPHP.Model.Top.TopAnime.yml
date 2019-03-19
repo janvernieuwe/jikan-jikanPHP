@@ -1,0 +1,24 @@
+JikanPHP\Model\Top\TopAnime:
+    properties:
+        malId:
+            type: int
+        rank:
+            type: int
+        title:
+            type: string
+        url:
+            type: string
+        imageUrl:
+            type: string
+        type:
+            type: string
+        episodes:
+            type: int
+        startDate:
+            type: string
+        endDate:
+            type: string
+        members:
+            type: int
+        score:
+            type: float

@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Top;
+namespace JikanPHP\Model\Top;
 
 /**
  * Class TopManga
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class TopManga
 {

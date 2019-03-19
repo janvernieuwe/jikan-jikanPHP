@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Character;
+namespace JikanPHP\Model\Character;
 
 /**
  * Class VoiceActors
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class VoiceActor
 {

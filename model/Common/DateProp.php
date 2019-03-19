@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Common;
+namespace JikanPHP\Model\Common;
 
 /**
  * Class DateProp
  *
- * @package Jikan\Model\Common
+ * @package JikanPHP\Model\Common
  */
 class DateProp
 {

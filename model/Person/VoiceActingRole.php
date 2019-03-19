@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Model\Person;
+namespace JikanPHP\Model\Person;
 
-use Jikan\Model\Common\AnimeMeta;
-use Jikan\Model\Common\CharacterMeta;
+use JikanPHP\Model\Common\AnimeMeta;
+use JikanPHP\Model\Common\CharacterMeta;
 
 /**
  * Class VoiceActingRole
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class VoiceActingRole
 {

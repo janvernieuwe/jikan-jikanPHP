@@ -2,10 +2,10 @@
 
 namespace JikanPHP\Test;
 
-use Jikan\Helper\Constants;
 use Jikan\JikanPHP\JikanPHPClient;
-use Jikan\Model;
-use Jikan\Request;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Model;
+use JikanPHP\Request;
 use PHPUnit\Framework\TestCase;
 
 /**

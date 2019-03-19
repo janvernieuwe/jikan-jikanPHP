@@ -1,8 +1,0 @@
-Jikan\Model\Genre\AnimeGenre:
-    properties:
-        malUrl:
-            type: Jikan\Model\Common\MalUrl
-        itemCount:
-            type: int
-        anime:
-            type: array

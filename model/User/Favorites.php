@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\User;
+namespace JikanPHP\Model\User;
 
 /**
  * Class Favorites
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Favorites
 {

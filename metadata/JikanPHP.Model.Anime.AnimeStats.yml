@@ -1,0 +1,16 @@
+JikanPHP\Model\Anime\AnimeStats:
+    properties:
+        watching:
+            type: int
+        completed:
+            type: int
+        onHold:
+            type: int
+        dropped:
+            type: int
+        planToWatch:
+            type: int
+        total:
+            type: int
+        scores:
+            type: int

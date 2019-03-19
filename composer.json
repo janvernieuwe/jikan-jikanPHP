@@ -32,13 +32,13 @@
             "Jikan\\JikanPHP\\": [
                 "src"
             ],
-            "Jikan\\Model\\": [
+            "JikanPHP\\Model\\": [
                 "model"
             ],
-            "Jikan\\Request\\": [
+            "JikanPHP\\Request\\": [
                 "request"
             ],
-            "Jikan\\Helper\\": [
+            "JikanPHP\\Helper\\": [
                 "helper"
             ]
         }

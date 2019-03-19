@@ -1,0 +1,6 @@
+JikanPHP\Model\Search\CharacterSearch:
+    properties:
+        results:
+            type: array<JikanPHP\Model\Search\CharacterSearchListItem>
+        lastPage:
+            type: int

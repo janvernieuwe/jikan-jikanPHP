@@ -1,0 +1,18 @@
+JikanPHP\Model\Anime\AnimeRecentlyUpdatedByUser:
+    properties:
+        username:
+            type: string
+        url:
+            type: string
+        imageUrl:
+            type: string
+        score:
+            type: int
+        status:
+            type: string
+        episodesSeen:
+            type: int
+        episodesTotal:
+            type: int
+        date:
+            type: DateTimeImmutable

@@ -1,0 +1,20 @@
+JikanPHP\Model\Top\TopCharacter:
+    properties:
+        malId:
+            type: int
+        rank:
+            type: int
+        title:
+            type: string
+        url:
+            type: string
+        nameKanji:
+            type: string
+        animeography:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        mangaography:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        favorites:
+            type: int
+        imageUrl:
+            type: string

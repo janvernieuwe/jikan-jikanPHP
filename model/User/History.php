@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\User;
+namespace JikanPHP\Model\User;
 
-use Jikan\Model\Common\MalUrl;
+use JikanPHP\Model\Common\MalUrl;
 
 /**
  * Class History
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class History
 {

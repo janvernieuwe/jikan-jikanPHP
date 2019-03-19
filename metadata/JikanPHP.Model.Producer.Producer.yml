@@ -1,0 +1,6 @@
+JikanPHP\Model\Producer\Producer:
+    properties:
+        malUrl:
+            type: JikanPHP\Model\Common\MalUrl
+        anime:
+            type: array

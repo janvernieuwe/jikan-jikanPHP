@@ -1,21 +1,21 @@
 <?php
 
-namespace Jikan\Model\Genre;
+namespace JikanPHP\Model\Genre;
 
-use Jikan\Model\Common\AnimeCard;
-use Jikan\Model\Common\MalUrl;
+use JikanPHP\Model\Common\AnimeCard;
+use JikanPHP\Model\Common\MalUrl;
 
 /**
  * Class AnimeGenre
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class AnimeGenre
 {
 
 
     /**
-     * @var \Jikan\Model\Common\MalUrl
+     * @var \JikanPHP\Model\Common\MalUrl
      */
     public $malUrl;
 
@@ -30,7 +30,7 @@ class AnimeGenre
     public $anime = [];
 
     /**
-     * @return \Jikan\Model\Common\MalUrl
+     * @return \JikanPHP\Model\Common\MalUrl
      */
     public function getMalUrl(): MalUrl
     {

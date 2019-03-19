@@ -1,0 +1,6 @@
+JikanPHP\Model\SeasonList\SeasonListItem:
+    properties:
+        year:
+            type: int
+        seasons:
+            type: array

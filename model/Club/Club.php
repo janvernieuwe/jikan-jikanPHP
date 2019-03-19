@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Club;
+namespace JikanPHP\Model\Club;
 
-use Jikan\Model\Common\MalUrl;
+use JikanPHP\Model\Common\MalUrl;
 
 /**
  * Class Club
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Club
 {

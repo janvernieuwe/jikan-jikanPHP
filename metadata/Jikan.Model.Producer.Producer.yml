@@ -1,6 +1,0 @@
-Jikan\Model\Producer\Producer:
-    properties:
-        malUrl:
-            type: Jikan\Model\Common\MalUrl
-        anime:
-            type: array

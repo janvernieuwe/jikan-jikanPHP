@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Search;
+namespace JikanPHP\Model\Search;
 
 /**
  * Class Search
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Search
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\Seasonal;
+namespace JikanPHP\Request\Seasonal;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class SeasonalRequest
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 class SeasonalRequest implements RequestInterface
 {

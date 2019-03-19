@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Model\Anime;
+namespace JikanPHP\Model\Anime;
 
-use Jikan\Model\Common\DateRange;
-use Jikan\Model\Common\MalUrl;
+use JikanPHP\Model\Common\DateRange;
+use JikanPHP\Model\Common\MalUrl;
 
 /**
  * Class AnimeParser
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Anime
 {
@@ -148,7 +148,7 @@ class Anime
     private $related = [];
 
     /**
-     * @var \Jikan\Model\Common\MalUrl[]
+     * @var \JikanPHP\Model\Common\MalUrl[]
      */
     private $producers = [];
 
@@ -282,7 +282,7 @@ class Anime
     }
 
     /**
-     * @return \Jikan\Model\Common\DateRange
+     * @return \JikanPHP\Model\Common\DateRange
      */
     public function getAired(): DateRange
     {
@@ -394,7 +394,7 @@ class Anime
     }
 
     /**
-     * @return \Jikan\Model\Common\MalUrl[]
+     * @return \JikanPHP\Model\Common\MalUrl[]
      */
     public function getProducers(): array
     {
@@ -410,7 +410,7 @@ class Anime
     }
 
     /**
-     * @return \Jikan\Model\Common\MalUrl[]
+     * @return \JikanPHP\Model\Common\MalUrl[]
      */
     public function getStudios(): array
     {

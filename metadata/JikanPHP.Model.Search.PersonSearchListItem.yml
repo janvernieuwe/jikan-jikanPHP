@@ -1,0 +1,12 @@
+JikanPHP\Model\Search\PersonSearchListItem:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        name:
+            type: string
+        alternativeNames:
+            type: array

@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\Manga;
+namespace JikanPHP\Request\Manga;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class MangaMoreInfoRequest
  *
- * @package Jikan\Request\Manga
+ * @package JikanPHP\Request\Manga
  */
 class MangaMoreInfoRequest implements RequestInterface
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\Forum;
+namespace JikanPHP\Model\Forum;
 
 /**
  * Class ForumPost
  *
- * @package Jikan\Model\Anime\Anime
+ * @package JikanPHP\Model\Anime\Anime
  */
 class ForumTopic
 {

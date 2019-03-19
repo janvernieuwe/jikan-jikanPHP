@@ -1,0 +1,4 @@
+JikanPHP\Model\Anime\AnimeMoreInfo:
+    properties:
+        moreInfo:
+            type: string

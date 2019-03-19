@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\SeasonList;
+namespace JikanPHP\Model\SeasonList;
 
 /**
  * Class SeasonListItem
  *
- * @package Jikan\Model\SeasonListItem
+ * @package JikanPHP\Model\SeasonListItem
  */
 class SeasonListItem
 {

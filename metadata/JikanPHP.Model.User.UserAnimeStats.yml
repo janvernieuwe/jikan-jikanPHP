@@ -1,0 +1,22 @@
+JikanPHP\Model\User\UserAnimeStats:
+    properties:
+        daysWatched:
+            type: float
+        meanScore:
+            type: float
+        watching:
+            type: int
+        completed:
+            type: int
+        onHold:
+            type: int
+        dropped:
+            type: int
+        planToWatch:
+            type: int
+        totalEntries:
+            type: int
+        rewatched:
+            type: int
+        episodesWatched:
+            type: int

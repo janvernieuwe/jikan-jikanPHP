@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Schedule;
+namespace JikanPHP\Model\Schedule;
 
-use Jikan\Model\Common\AnimeCard;
+use JikanPHP\Model\Common\AnimeCard;
 
 /**
  * Class Schedule
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Schedule
 {

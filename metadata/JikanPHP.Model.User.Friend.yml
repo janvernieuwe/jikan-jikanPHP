@@ -1,0 +1,12 @@
+JikanPHP\Model\User\Friend:
+    properties:
+        url:
+            type: string
+        username:
+            type: string
+        imageUrl:
+            type: string
+        lastOnline:
+            type: DateTimeImmutable
+        friendsSince:
+            type: DateTimeImmutable

@@ -1,6 +1,0 @@
-Jikan\Model\Magazine\Magazine:
-    properties:
-        malUrl:
-            type: Jikan\Model\Common\MalUrl
-        manga:
-            type: array

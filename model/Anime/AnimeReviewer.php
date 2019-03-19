@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Anime;
+namespace JikanPHP\Model\Anime;
 
-use Jikan\Model\Common\Reviewer;
+use JikanPHP\Model\Common\Reviewer;
 
 /**
  * Class AnimeReviewScores
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class AnimeReviewer extends Reviewer
 {

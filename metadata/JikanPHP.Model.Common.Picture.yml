@@ -1,0 +1,6 @@
+JikanPHP\Model\Common\Picture:
+    properties:
+        large:
+            type: string
+        small:
+            type: string

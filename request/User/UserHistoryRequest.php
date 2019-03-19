@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\User;
+namespace JikanPHP\Request\User;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class UserHistoryRequest
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 class UserHistoryRequest implements RequestInterface
 {

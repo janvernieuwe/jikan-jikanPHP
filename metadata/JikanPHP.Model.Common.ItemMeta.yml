@@ -1,0 +1,10 @@
+JikanPHP\Model\Common\ItemMeta:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        name:
+            type: string

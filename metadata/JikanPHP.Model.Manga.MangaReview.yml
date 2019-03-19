@@ -1,0 +1,14 @@
+JikanPHP\Model\Manga\MangaReview:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        helpfulCount:
+            type: int
+        date:
+            type: DateTimeImmutable
+        reviewer:
+            type: JikanPHP\Model\Manga\MangaReviewer
+        content:
+            type: string

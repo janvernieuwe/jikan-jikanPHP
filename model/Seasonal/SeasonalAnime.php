@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Seasonal;
+namespace JikanPHP\Model\Seasonal;
 
-use Jikan\Model\Common\AnimeCard;
+use JikanPHP\Model\Common\AnimeCard;
 
 /**
  * Class SeasonalAnime
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class SeasonalAnime extends AnimeCard
 {

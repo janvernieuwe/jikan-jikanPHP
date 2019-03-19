@@ -1,14 +1,14 @@
 <?php
 
-namespace Jikan\Request\Producer;
+namespace JikanPHP\Request\Producer;
 
-use Jikan\Helper\Constants;
-use Jikan\Request\RequestInterface;
+use JikanPHP\Helper\Constants;
+use JikanPHP\Request\RequestInterface;
 
 /**
  * Class ProducerRequest
  *
- * @package Jikan\Request
+ * @package JikanPHP\Request
  */
 class ProducerRequest implements RequestInterface
 {

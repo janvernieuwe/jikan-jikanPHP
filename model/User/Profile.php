@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\User;
+namespace JikanPHP\Model\User;
 
 /**
  * Class Profile
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Profile
 {
@@ -51,12 +51,12 @@ class Profile
     private $joined;
 
     /**
-     * @var AnimeStats
+     * @var UserAnimeStats
      */
     private $animeStats;
 
     /**
-     * @var MangaStats
+     * @var UserMangaStats
      */
     private $mangaStats;
 
@@ -119,17 +119,17 @@ class Profile
     }
 
     /**
-     * @return AnimeStats
+     * @return UserAnimeStats
      */
-    public function getAnimeStats(): AnimeStats
+    public function getAnimeStats(): UserAnimeStats
     {
         return $this->animeStats;
     }
 
     /**
-     * @return MangaStats
+     * @return UserMangaStats
      */
-    public function getMangaStats(): MangaStats
+    public function getMangaStats(): UserMangaStats
     {
         return $this->mangaStats;
     }

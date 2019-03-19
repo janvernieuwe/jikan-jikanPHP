@@ -1,0 +1,6 @@
+JikanPHP\Model\Search\AnimeSearch:
+    properties:
+        results:
+            type: array<JikanPHP\Model\Search\AnimeSearchListItem>
+        lastPage:
+            type: int

@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Producer;
+namespace JikanPHP\Model\Producer;
 
-use Jikan\Model\Common\MalUrl;
+use JikanPHP\Model\Common\MalUrl;
 
 /**
  * Class Producer
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Producer
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Person;
+namespace JikanPHP\Model\Person;
 
-use Jikan\Model\Common\MangaMeta;
+use JikanPHP\Model\Common\MangaMeta;
 
 /**
  * Class PublishedManga
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class PublishedManga
 {

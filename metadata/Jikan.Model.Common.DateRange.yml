@@ -1,4 +1,0 @@
-Jikan\Model\Common\DateRange:
-    properties:
-        date:
-            type: string

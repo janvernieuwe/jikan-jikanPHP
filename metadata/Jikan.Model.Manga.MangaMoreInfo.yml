@@ -1,4 +1,0 @@
-Jikan\Model\Manga\MangaMoreInfo:
-    properties:
-        moreInfo:
-            type: string

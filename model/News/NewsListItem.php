@@ -1,11 +1,11 @@
 <?php
 
-namespace Jikan\Model\News;
+namespace JikanPHP\Model\News;
 
 /**
  * Class AnimeParser
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class NewsListItem
 {

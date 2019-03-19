@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Magazine;
+namespace JikanPHP\Model\Magazine;
 
-use Jikan\Model\Common\MangaCard;
+use JikanPHP\Model\Common\MangaCard;
 
 /**
  * Class MagazineManga
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class MagazineManga extends MangaCard
 {

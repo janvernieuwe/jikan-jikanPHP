@@ -1,0 +1,16 @@
+JikanPHP\Model\Search\CharacterSearchListItem:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        name:
+            type: string
+        alternativeNames:
+            type: array
+        anime:
+            type: array<JikanPHP\Model\Common\MalUrl>
+        manga:
+            type: array<JikanPHP\Model\Common\MalUrl>

@@ -1,13 +1,13 @@
 <?php
 
-namespace Jikan\Model\Character;
+namespace JikanPHP\Model\Character;
 
-use Jikan\Model\Common\Ography;
+use JikanPHP\Model\Common\Ography;
 
 /**
  * Class MangaographyParser
  *
- * @package Jikan\Model
+ * @package JikanPHP\Model
  */
 class Mangaography extends Ography
 {

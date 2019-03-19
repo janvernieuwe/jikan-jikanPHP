@@ -1,0 +1,28 @@
+JikanPHP\Model\Search\AnimeSearchListItem:
+    properties:
+        malId:
+            type: int
+        url:
+            type: string
+        imageUrl:
+            type: string
+        title:
+            type: string
+        airing:
+            type: bool
+        synopsis:
+            type: string
+        type:
+            type: string
+        episodes:
+            type: int
+        score:
+            type: float
+        startDate:
+            type: DateTimeImmutable
+        endDate:
+            type: DateTimeImmutable
+        members:
+            type: int
+        rated:
+            type: string
