@@ -22,7 +22,7 @@ $jikan = new \Jikan\JikanPHP\JikanPHPClient();
 ## Use it to request MAL data
 
 ```php
-$request = new Request\Anime\AnimeRequest(1);
+$request = new  \JikanPHP\Request\Anime\AnimeRequest(1);
 $anime = $jikan->getAnime($request);
 ```
 
