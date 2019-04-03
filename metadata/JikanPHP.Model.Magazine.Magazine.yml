@@ -3,4 +3,4 @@ JikanPHP\Model\Magazine\Magazine:
         malUrl:
             type: JikanPHP\Model\Common\MalUrl
         manga:
-            type: array
+            type: array<JikanPHP\Model\Magazine\MagazineManga>

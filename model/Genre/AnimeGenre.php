@@ -25,7 +25,7 @@ class AnimeGenre
     public $itemCount;
 
     /**
-     * @var array|AnimeCard[]
+     * @var AnimeCard[]
      */
     public $anime = [];
 
@@ -46,7 +46,7 @@ class AnimeGenre
     }
 
     /**
-     * @return array|AnimeCard[]
+     * @return AnimeCard[]
      */
     public function getAnime(): array
     {

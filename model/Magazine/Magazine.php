@@ -18,7 +18,7 @@ class Magazine
     public $malUrl;
 
     /**
-     * @var array|MagazineManga[]
+     * @var MagazineManga[]
      */
     public $manga = [];
 
@@ -31,7 +31,7 @@ class Magazine
     }
 
     /**
-     * @return array|MagazineManga[]
+     * @return MagazineManga[]
      */
     public function getManga(): array
     {

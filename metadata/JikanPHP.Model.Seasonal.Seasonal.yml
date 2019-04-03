@@ -5,4 +5,4 @@ JikanPHP\Model\Seasonal\Seasonal:
         seasonYear:
             type: int
         anime:
-            type: array
+            type: array<JikanPHP\Model\Seasonal\SeasonalAnime>

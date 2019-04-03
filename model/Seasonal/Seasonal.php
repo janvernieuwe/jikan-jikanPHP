@@ -21,7 +21,7 @@ class Seasonal
     public $seasonYear;
 
     /**
-     * @var array|SeasonalAnime[]
+     * @var SeasonalAnime[]
      */
     public $anime = [];
 
@@ -50,7 +50,7 @@ class Seasonal
     }
 
     /**
-     * @return array|SeasonalAnime[]
+     * @return SeasonalAnime[]
      */
     public function getAnime(): array
     {

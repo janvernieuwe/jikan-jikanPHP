@@ -23,7 +23,7 @@ class MangaGenre
     public $itemCount;
 
     /**
-     * @var array|MangaGenre[]
+     * @var MangaGenre[]
      */
     public $manga = [];
 
@@ -44,7 +44,7 @@ class MangaGenre
     }
 
     /**
-     * @return array|MangaGenre[]
+     * @return MangaGenre[]
      */
     public function getManga(): array
     {

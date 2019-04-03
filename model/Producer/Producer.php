@@ -18,7 +18,7 @@ class Producer
     public $malUrl;
 
     /**
-     * @var array|ProducerAnime[]
+     * @var ProducerAnime[]
      */
     public $anime = [];
 
@@ -31,7 +31,7 @@ class Producer
     }
 
     /**
-     * @return array|ProducerAnime[]
+     * @return ProducerAnime[]
      */
     public function getAnime(): array
     {

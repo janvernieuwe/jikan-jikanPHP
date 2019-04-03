@@ -125,6 +125,7 @@ class JikanPHPTest extends TestCase
         $request = new Request\Seasonal\SeasonalRequest(2018, 'winter');
         $response = $this->jikan->getSeasonal($request);
         self::assertInstanceOf(Model\Seasonal\Seasonal::class, $response);
+        self::assertContainsOnlyInstancesOf(Model\Seasonal\SeasonalAnime::class, $response->getAnime());
     }
 
     /**

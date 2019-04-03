@@ -5,4 +5,4 @@ JikanPHP\Model\Genre\AnimeGenre:
         itemCount:
             type: int
         anime:
-            type: array
+            type: array<JikanPHP\Model\Common\AnimeCard>
