@@ -1,4 +1,10 @@
 JikanPHP\Model\Common\DateRange:
     properties:
-        date:
+        string:
             type: string
+        from:
+            type: string
+        to:
+            type: string
+        prop:
+            type: array<JikanPHP\Model\Common\DateProp>
