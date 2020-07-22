@@ -9,7 +9,7 @@ JikanPHP\Model\Anime\EpisodeListItem:
         titleRomanji:
             type: string
         aired:
-            type: JikanPHP\Model\Common\DateRange
+            type: DateTimeImmutable
         filler:
             type: bool
         recap:

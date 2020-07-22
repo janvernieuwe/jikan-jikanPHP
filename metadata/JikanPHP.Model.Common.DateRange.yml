@@ -3,8 +3,8 @@ JikanPHP\Model\Common\DateRange:
         string:
             type: string
         from:
-            type: string
+            type: DateTimeImmutable
         to:
-            type: string
+            type: DateTimeImmutable
         prop:
             type: array<JikanPHP\Model\Common\DateProp>
