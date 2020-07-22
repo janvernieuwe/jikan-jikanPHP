@@ -53,7 +53,9 @@ JikanPHP\Model\Anime\Anime:
         broadcast:
             type: string
         related:
-            type: array<JikanPHP\Model\Common\MalUrl>
+            type: array
+            accessor:
+              setter: setRelated
         producers:
             type: array<JikanPHP\Model\Common\MalUrl>
         licensors:

@@ -2,6 +2,7 @@
 
 namespace JikanPHP\Model\Anime;
 
+use JikanPHP\Helper\StringNormalizer;
 use JikanPHP\Model\Common\DateRange;
 use JikanPHP\Model\Common\MalUrl;
 
@@ -439,5 +440,22 @@ class Anime
     public function getEndingThemes(): array
     {
         return $this->endingThemes;
+    }
+
+    /**
+     * @param array $relationsArray
+     * @return Relations
+     */
+    public function setRelated($relationsArray)
+    {
+        $relations = new Relations();
+        foreach ($relationsArray as $relationName => $relation) {
+            $propName = StringNormalizer::normalizeName($relationName);
+            $relations->$propName = array_map(function ($item) {
+                return new MalUrl($item['name'], $item['url']);
+            }, $relation);
+        }
+
+        return $this->related = $relations;
     }
 }
