@@ -11,7 +11,7 @@ namespace JikanPHP\Helper;
 
 class StringNormalizer
 {
-    public static function normalizeName(string $name):string
+    public static function normalizePropName(string $name):string
     {
         return str_replace([' ', '-'], ['_', '_'], strtolower($name));
     }

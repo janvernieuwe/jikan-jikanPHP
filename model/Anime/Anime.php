@@ -144,7 +144,7 @@ class Anime
     private $broadcast;
 
     /**
-     * @var MalUrl[]
+     * @var Relations
      */
     private $related = [];
 
@@ -387,9 +387,9 @@ class Anime
     }
 
     /**
-     * @return MalUrl[]
+     * @return Relations
      */
-    public function getRelated(): array
+    public function getRelated(): Relations
     {
         return $this->related;
     }
@@ -450,7 +450,7 @@ class Anime
     {
         $relations = new Relations();
         foreach ($relationsArray as $relationName => $relation) {
-            $propName = StringNormalizer::normalizeName($relationName);
+            $propName = StringNormalizer::normalizePropName($relationName);
             $relations->$propName = array_map(function ($item) {
                 return new MalUrl($item['name'], $item['url']);
             }, $relation);

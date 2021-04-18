@@ -24,7 +24,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getAlternativeSetting(): array
+    public function getAlternativeSetting(): ?array
     {
         return $this->alternative_setting;
     }
@@ -32,7 +32,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getAlternativeVersion(): array
+    public function getAlternativeVersion(): ?array
     {
         return $this->alternative_version;
     }
@@ -40,7 +40,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getSideStory(): array
+    public function getSideStory(): ?array
     {
         return $this->side_story;
     }
@@ -48,7 +48,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getSummary(): array
+    public function getSummary(): ?array
     {
         return $this->summary;
     }
@@ -56,7 +56,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getFullStory(): array
+    public function getFullStory(): ?array
     {
         return $this->full_story;
     }
@@ -64,7 +64,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getParentStory(): array
+    public function getParentStory(): ?array
     {
         return $this->parent_story;
     }
@@ -72,7 +72,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getSpinOff(): array
+    public function getSpinOff(): ?array
     {
         return $this->spin_off;
     }
@@ -80,7 +80,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getCharacter(): array
+    public function getCharacter(): ?array
     {
         return $this->character;
     }
@@ -88,7 +88,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getOther(): array
+    public function getOther(): ?array
     {
         return $this->other;
     }
@@ -96,7 +96,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getSequel(): array
+    public function getSequel(): ?array
     {
         return $this->sequel;
     }
@@ -104,7 +104,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getPrequel(): array
+    public function getPrequel(): ?array
     {
         return $this->prequel;
     }
@@ -112,7 +112,7 @@ class Relations
     /**
      * @return MalUrl[]
      */
-    public function getAdaptation(): array
+    public function getAdaptation(): ?array
     {
         return $this->adaptation;
     }
