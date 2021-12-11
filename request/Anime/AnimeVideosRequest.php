@@ -30,8 +30,8 @@ class AnimeVideosRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/anime/%d/videos', $this->id);
+        return sprintf('%s/anime/%d/videos', $baseUrl, $this->id);
     }
 }

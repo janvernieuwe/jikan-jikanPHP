@@ -38,8 +38,8 @@ class AnimeGenreRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/genre/anime/%d/%d', $this->id, $this->page);
+        return sprintf('%s/genre/anime/%d/%d', $baseUrl, $this->id, $this->page);
     }
 }

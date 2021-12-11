@@ -30,8 +30,8 @@ class MangaStatsRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/manga/%d/stats', $this->id);
+        return sprintf('%s/manga/%d/stats', $baseUrl, $this->id);
     }
 }

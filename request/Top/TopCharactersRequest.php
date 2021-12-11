@@ -32,8 +32,8 @@ class TopCharactersRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/top/characters/%d', $this->page);
+        return sprintf('%s/top/characters/%d', $baseUrl, $this->page);
     }
 }

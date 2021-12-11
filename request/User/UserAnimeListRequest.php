@@ -45,8 +45,8 @@ class UserAnimeListRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/user/%s/animelist/%s/%d', $this->username, $this->status, $this->page);
+        return sprintf('%s/user/%s/animelist/%s/%d', $baseUrl, $this->username, $this->status, $this->page);
     }
 }

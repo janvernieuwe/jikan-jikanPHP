@@ -38,8 +38,8 @@ class MangaGenreRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/genre/manga/%d/%d', $this->id, $this->page);
+        return sprintf('%s/genre/manga/%d/%d', $baseUrl, $this->id, $this->page);
     }
 }

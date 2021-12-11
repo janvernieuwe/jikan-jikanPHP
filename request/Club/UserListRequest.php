@@ -35,8 +35,8 @@ class UserListRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/club/%d/members/%d', $this->clubId, $this->page);
+        return sprintf('%s/club/%d/members/%d', $baseUrl, $this->clubId, $this->page);
     }
 }

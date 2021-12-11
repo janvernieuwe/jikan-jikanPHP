@@ -47,8 +47,8 @@ class UserHistoryRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/user/%s/history/%s', $this->username, $this->type);
+        return sprintf('%s/user/%s/history/%s', $baseUrl, $this->username, $this->type);
     }
 }

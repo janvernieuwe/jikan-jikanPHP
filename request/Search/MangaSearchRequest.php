@@ -92,7 +92,7 @@ class MangaSearchRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
 
         $query = http_build_query(
@@ -118,7 +118,7 @@ class MangaSearchRequest implements RequestInterface
             }
         }
 
-        return Constants::BASE_URL.'/search/manga?'.$query;
+        return sprintf('%s/search/manga?%s', $baseUrl, $query);
     }
 
     /**

@@ -42,9 +42,9 @@ class MangaForumRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
         // TODO: add support for filtering once it's added in the REST API
-        return sprintf(Constants::BASE_URL.'/manga/%d/forum', $this->id);
+        return sprintf('%s/manga/%d/forum', $baseUrl, $this->id);
     }
 }

@@ -97,7 +97,7 @@ class AnimeSearchRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
 
         // todo add `limit` (int)
@@ -124,7 +124,7 @@ class AnimeSearchRequest implements RequestInterface
             }
         }
 
-        return Constants::BASE_URL.'/search/anime?'.$query;
+        return sprintf('%s/search/anime?%s', $baseUrl, $query);
     }
 
     /**

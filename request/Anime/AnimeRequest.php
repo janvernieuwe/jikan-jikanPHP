@@ -30,8 +30,8 @@ class AnimeRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/anime/%d', $this->id);
+        return sprintf('%s/anime/%d', $baseUrl, $this->id);
     }
 }

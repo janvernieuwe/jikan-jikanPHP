@@ -37,8 +37,8 @@ class UserFriendsRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/user/%s/friends/%d', $this->username, $this->page);
+        return sprintf('%s/user/%s/friends/%d', $baseUrl, $this->username, $this->page);
     }
 }

@@ -52,7 +52,7 @@ class PersonSearchRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
 
         $query = http_build_query(
@@ -63,7 +63,7 @@ class PersonSearchRequest implements RequestInterface
             ]
         );
 
-        return Constants::BASE_URL.'/search/people?'.$query;
+        return sprintf('%s/search/people?%s', $baseUrl, $query);
     }
 
     /**

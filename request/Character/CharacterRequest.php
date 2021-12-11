@@ -32,8 +32,8 @@ class CharacterRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/character/%d', $this->id);
+        return sprintf('%s/character/%d', $baseUrl, $this->id);
     }
 }

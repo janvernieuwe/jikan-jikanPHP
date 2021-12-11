@@ -31,8 +31,8 @@ class UserProfileRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/user/%s', $this->username);
+        return sprintf('%s/user/%s', $baseUrl, $this->username);
     }
 }

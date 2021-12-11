@@ -38,8 +38,8 @@ class ProducerRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/producer/%d/%d', $this->id, $this->page);
+        return sprintf('%s/producer/%d/%d', $baseUrl, $this->id, $this->page);
     }
 }

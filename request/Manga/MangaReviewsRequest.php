@@ -37,8 +37,8 @@ class MangaReviewsRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/manga/%d/reviews/%d', $this->id, $this->page);
+        return sprintf('%s/manga/%d/reviews/%d', $baseUrl, $this->id, $this->page);
     }
 }

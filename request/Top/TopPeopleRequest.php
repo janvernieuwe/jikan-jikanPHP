@@ -32,8 +32,8 @@ class TopPeopleRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/top/people/%d', $this->page);
+        return sprintf('%s/top/people/%d', $baseUrl, $this->page);
     }
 }

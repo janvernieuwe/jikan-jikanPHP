@@ -36,8 +36,8 @@ class MangaRecentlyUpdatedByUsersRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/manga/%d/userupdates/%d', $this->id, $this->page);
+        return sprintf('%s/manga/%d/userupdates/%d', $baseUrl, $this->id, $this->page);
     }
 }
