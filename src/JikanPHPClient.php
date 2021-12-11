@@ -35,6 +35,7 @@ class JikanPHPClient
      * JikanPHPClient constructor.
      *
      * @param Client|null $guzzle
+     * @param string $baseUrl
      */
     public function __construct(Client $guzzle = null, $baseUrl = Constants::BASE_URL)
     {
