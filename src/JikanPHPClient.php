@@ -45,6 +45,14 @@ class JikanPHPClient
     }
 
     /**
+     * @return string
+     */
+    public function getBaseUrl() : string
+    {
+        return $this->baseUrl;
+    }
+
+    /**
      * @param Request\Anime\AnimeRequest $request
      *
      * @return Model\Anime\Anime
