@@ -42,7 +42,7 @@ class AnimeForumRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
         $query = '';
         if ($this->topic !== null && \in_array($this->topic, self::$validTypes, true)) {
@@ -50,6 +50,6 @@ class AnimeForumRequest implements RequestInterface
         }
 
         // TODO: add support for filtering once it's added in the REST API
-        return sprintf(Constants::BASE_URL.'/anime/%d/forum', $this->id);
+        return sprintf('%s/anime/%d/forum', $baseUrl, $this->id);
     }
 }

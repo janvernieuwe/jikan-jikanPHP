@@ -30,8 +30,8 @@ class AnimeCharactersAndStaffRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/anime/%d/characters_staff', $this->id);
+        return sprintf('%s/anime/%d/characters_staff', $baseUrl, $this->id);
     }
 }

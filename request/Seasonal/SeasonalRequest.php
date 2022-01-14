@@ -49,16 +49,16 @@ class SeasonalRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
         if ($this->later) {
-            return Constants::BASE_URL.'/season/later';
+            return sprintf('%s/season/later', $baseUrl);
         }
 
         if (null === $this->year || null === $this->season) {
-            return Constants::BASE_URL.'/season';
+            return sprintf('%s/season', $baseUrl);
         }
 
-        return sprintf(Constants::BASE_URL.'/season/%d/%s', $this->year, $this->season);
+        return sprintf('%s/season/%d/%s', $baseUrl, $this->year, $this->season);
     }
 }

@@ -61,8 +61,8 @@ class TopAnimeRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/top/anime/%d/%s', $this->page, $this->type);
+        return sprintf('%s/top/anime/%d/%s', $baseUrl, $this->page, $this->type);
     }
 }

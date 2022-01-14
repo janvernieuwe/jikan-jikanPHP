@@ -15,8 +15,8 @@ class ScheduleRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return Constants::BASE_URL.'/schedule';
+        return sprintf('%s/schedule', $baseUrl);
     }
 }

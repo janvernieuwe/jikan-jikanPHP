@@ -32,8 +32,8 @@ class PersonRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/person/%d', $this->id);
+        return sprintf('%s/person/%d', $baseUrl, $this->id);
     }
 }

@@ -4,6 +4,7 @@ namespace Jikan\JikanPHP;
 
 use GuzzleHttp\Client;
 use Jikan\JikanPHP\Serializer\SerializerFactory;
+use JikanPHP\Helper\Constants;
 use JikanPHP\Model;
 use JikanPHP\Request;
 use JMS\Serializer\Serializer;
@@ -26,14 +27,29 @@ class JikanPHPClient
     private $serializer;
 
     /**
+     * @var string
+     */  
+    private $baseUrl;
+
+    /**
      * JikanPHPClient constructor.
      *
      * @param Client|null $guzzle
+     * @param string $baseUrl
      */
-    public function __construct(Client $guzzle = null)
+    public function __construct(Client $guzzle = null, $baseUrl = Constants::BASE_URL)
     {
         $this->guzzle = $guzzle ?? new Client();
         $this->serializer = SerializerFactory::create();
+        $this->baseUrl = $baseUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseUrl() : string
+    {
+        return $this->baseUrl;
     }
 
     /**
@@ -43,7 +59,7 @@ class JikanPHPClient
      */
     public function getAnime(Request\Anime\AnimeRequest $request): Model\Anime\Anime
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -60,7 +76,7 @@ class JikanPHPClient
      */
     public function getAnimeEpisodes(Request\Anime\AnimeEpisodesRequest $request): Model\Anime\Episodes
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -76,7 +92,7 @@ class JikanPHPClient
      */
     public function getAnimeVideos(Request\Anime\AnimeVideosRequest $request): Model\Anime\AnimeVideos
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -92,7 +108,7 @@ class JikanPHPClient
      */
     public function getManga(Request\Manga\MangaRequest $request): Model\Manga\Manga
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -108,7 +124,7 @@ class JikanPHPClient
      */
     public function getCharacter(Request\Character\CharacterRequest $request): Model\Character\Character
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -124,7 +140,7 @@ class JikanPHPClient
      */
     public function getPerson(Request\Person\PersonRequest $request): Model\Person\Person
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -140,7 +156,7 @@ class JikanPHPClient
      */
     public function getUserProfile(Request\User\UserProfileRequest $request): Model\User\Profile
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -156,7 +172,7 @@ class JikanPHPClient
      */
     public function getUserFriends(Request\User\UserFriendsRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $friends = json_decode((string)$response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -173,7 +189,7 @@ class JikanPHPClient
      */
     public function getSeasonal(Request\Seasonal\SeasonalRequest $request): Model\Seasonal\Seasonal
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -189,7 +205,7 @@ class JikanPHPClient
      */
     public function getProducer(Request\Producer\ProducerRequest $request): Model\Producer\Producer
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -205,7 +221,7 @@ class JikanPHPClient
      */
     public function getMagazine(Request\Magazine\MagazineRequest $request): Model\Magazine\Magazine
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -221,7 +237,7 @@ class JikanPHPClient
      */
     public function getAnimeGenre(Request\Genre\AnimeGenreRequest $request): Model\Genre\AnimeGenre
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -237,7 +253,7 @@ class JikanPHPClient
      */
     public function getMangaGenre(Request\Genre\MangaGenreRequest $request): Model\Genre\MangaGenre
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -253,7 +269,7 @@ class JikanPHPClient
      */
     public function getSchedule(Request\Schedule\ScheduleRequest $request): Model\Schedule\Schedule
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -270,7 +286,7 @@ class JikanPHPClient
     public function getAnimeCharactersAndStaff(
         Request\Anime\AnimeCharactersAndStaffRequest $request
     ): Model\Anime\AnimeCharactersAndStaff {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -286,7 +302,7 @@ class JikanPHPClient
      */
     public function getAnimePictures(Request\Anime\AnimePicturesRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -304,7 +320,7 @@ class JikanPHPClient
      */
     public function getMangaPictures(Request\Manga\MangaPicturesRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -321,7 +337,7 @@ class JikanPHPClient
      */
     public function getCharacterPictures(Request\Character\CharacterPicturesRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -338,7 +354,7 @@ class JikanPHPClient
      */
     public function getPersonPictures(Request\Person\PersonPicturesRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -355,7 +371,7 @@ class JikanPHPClient
      */
     public function getAnimeSearch(Request\Search\AnimeSearchRequest $request): Model\Search\AnimeSearch
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -371,7 +387,7 @@ class JikanPHPClient
      */
     public function getMangaSearch(Request\Search\MangaSearchRequest $request): Model\Search\MangaSearch
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -387,7 +403,7 @@ class JikanPHPClient
      */
     public function getCharacterSearch(Request\Search\CharacterSearchRequest $request): Model\Search\CharacterSearch
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -403,7 +419,7 @@ class JikanPHPClient
      */
     public function getPersonSearch(Request\Search\PersonSearchRequest $request): Model\Search\PersonSearch
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -419,7 +435,7 @@ class JikanPHPClient
      */
     public function getMangaCharacters(Request\Manga\MangaCharactersRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -436,7 +452,7 @@ class JikanPHPClient
      */
     public function getTopAnime(Request\Top\TopAnimeRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -453,7 +469,7 @@ class JikanPHPClient
      */
     public function getTopManga(Request\Top\TopMangaRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -470,7 +486,7 @@ class JikanPHPClient
      */
     public function getTopCharacters(Request\Top\TopCharactersRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -487,7 +503,7 @@ class JikanPHPClient
      */
     public function getTopPeople(Request\Top\TopPeopleRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -504,7 +520,7 @@ class JikanPHPClient
      */
     public function getAnimeStats(Request\Anime\AnimeStatsRequest $request): Model\Anime\AnimeStats
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -520,7 +536,7 @@ class JikanPHPClient
      */
     public function getMangaStats(Request\Manga\MangaStatsRequest $request): Model\Manga\MangaStats
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),
@@ -536,7 +552,7 @@ class JikanPHPClient
      */
     public function getAnimeForum(Request\Anime\AnimeForumRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -553,7 +569,7 @@ class JikanPHPClient
      */
     public function getMangaForum(Request\Manga\MangaForumRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -570,7 +586,7 @@ class JikanPHPClient
      */
     public function getAnimeMoreInfo(Request\Anime\AnimeMoreInfoRequest $request): ?string
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return json_decode($response->getBody()->getContents())->moreinfo ?? null;
     }
@@ -582,7 +598,7 @@ class JikanPHPClient
      */
     public function getMangaMoreInfo(Request\Manga\MangaMoreInfoRequest $request): ?string
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return json_decode($response->getBody()->getContents())->moreinfo ?? null;
     }
@@ -594,7 +610,7 @@ class JikanPHPClient
      */
     public function getSeasonList(Request\SeasonList\SeasonListRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -611,7 +627,7 @@ class JikanPHPClient
      */
     public function getUserHistory(Request\User\UserHistoryRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -628,7 +644,7 @@ class JikanPHPClient
      */
     public function getUserAnimeList(Request\User\UserAnimeListRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -645,7 +661,7 @@ class JikanPHPClient
      */
     public function getUserMangaList(Request\User\UserMangaListRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -662,7 +678,7 @@ class JikanPHPClient
      */
     public function getAnimeRecentlyUpdatedByUsers(Request\Anime\AnimeRecentlyUpdatedByUsersRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -679,7 +695,7 @@ class JikanPHPClient
      */
     public function getMangaRecentlyUpdatedByUsers(Request\Manga\MangaRecentlyUpdatedByUsersRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -696,7 +712,7 @@ class JikanPHPClient
      */
     public function getAnimeRecommendations(Request\Anime\AnimeRecommendationsRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -713,7 +729,7 @@ class JikanPHPClient
      */
     public function getMangaRecommendations(Request\Manga\MangaRecommendationsRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -730,7 +746,7 @@ class JikanPHPClient
      */
     public function getClubUsers(Request\Club\UserListRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -747,7 +763,7 @@ class JikanPHPClient
      */
     public function getAnimeReviews(Request\Anime\AnimeReviewsRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -764,7 +780,7 @@ class JikanPHPClient
      */
     public function getMangaReviews(Request\Manga\MangaReviewsRequest $request): array
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
         $data = json_decode((string) $response->getBody()->getContents());
 
         return $this->serializer->deserialize(
@@ -781,7 +797,7 @@ class JikanPHPClient
      */
     public function getClub(Request\Club\ClubRequest $request): Model\Club\Club
     {
-        $response = $this->guzzle->get($request->getPath());
+        $response = $this->guzzle->get($request->getPath($this->baseUrl));
 
         return $this->serializer->deserialize(
             (string)$response->getBody()->getContents(),

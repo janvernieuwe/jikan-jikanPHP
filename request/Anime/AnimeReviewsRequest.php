@@ -37,8 +37,8 @@ class AnimeReviewsRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/anime/%d/reviews/%d', $this->id, $this->page);
+        return sprintf('%s/anime/%d/reviews/%d', $baseUrl, $this->id, $this->page);
     }
 }

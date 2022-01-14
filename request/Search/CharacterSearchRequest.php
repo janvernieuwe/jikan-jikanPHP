@@ -52,7 +52,7 @@ class CharacterSearchRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
 
         $query = http_build_query(
@@ -63,7 +63,7 @@ class CharacterSearchRequest implements RequestInterface
             ]
         );
 
-        return Constants::BASE_URL.'/search/character?'.$query;
+        return sprintf('%s/search/character?%s', $baseUrl, $query);
     }
 
     /**

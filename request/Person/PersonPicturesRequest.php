@@ -30,8 +30,8 @@ class PersonPicturesRequest implements RequestInterface
     /**
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/person/%d/pictures', $this->id);
+        return sprintf('%s/person/%d/pictures', $baseUrl, $this->id);
     }
 }

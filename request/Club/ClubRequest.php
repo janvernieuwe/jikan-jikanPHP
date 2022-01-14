@@ -29,8 +29,8 @@ class ClubRequest implements RequestInterface
      *
      * @return string
      */
-    public function getPath(): string
+    public function getPath($baseUrl): string
     {
-        return sprintf(Constants::BASE_URL.'/club/%d', $this->clubId);
+        return sprintf('%s/club/%d', $baseUrl, $this->clubId);
     }
 }
