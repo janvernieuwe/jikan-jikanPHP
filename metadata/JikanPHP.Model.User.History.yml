@@ -1,7 +1,7 @@
 JikanPHP\Model\User\History:
     properties:
-        malUrl:
-            type: JikanPHP\Model\Common\MalUrl
+        meta:
+            type: JikanPHP\Model\Common\HistoryMeta
         increment:
             type: int
         date:
