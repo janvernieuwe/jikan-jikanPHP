@@ -2,7 +2,7 @@
 
 namespace JikanPHP\Model\User;
 
-use JikanPHP\Model\Common\MalUrl;
+use JikanPHP\Model\Common\HistoryMeta;
 
 /**
  * Class History
@@ -11,11 +11,10 @@ use JikanPHP\Model\Common\MalUrl;
  */
 class History
 {
-
     /**
-     * @var MalUrl
+     * @var HistoryMeta
      */
-    private $malUrl;
+    private HistoryMeta $meta;
 
     /**
      * @var int
@@ -26,14 +25,6 @@ class History
      * @var \DateTimeImmutable
      */
     private $date;
-
-    /**
-     * @return MalUrl
-     */
-    public function getMalUrl(): MalUrl
-    {
-        return $this->malUrl;
-    }
 
     /**
      * @return int
@@ -49,5 +40,13 @@ class History
     public function getDate(): \DateTimeImmutable
     {
         return $this->date;
+    }
+
+    /**
+     * @return HistoryMeta
+     */
+    public function getMeta(): HistoryMeta
+    {
+        return $this->meta;
     }
 }
