@@ -29,8 +29,9 @@ $jikan = Client::create();
 ## Use it to request MAL data
 Check the client for the correct type hint
 ```php
-/** @var AnimeIdGetResponse200 $anime */ 
-$anime = $jikan->getAnimeById(5114);
+/** @var AnimeIdGetResponse200 $response */
+$response = $jikan->getAnimeById(5114);
+$anime = $response->getData();
 ```
 
 If you experience any issues, open an issue, or even better a Pull Request!

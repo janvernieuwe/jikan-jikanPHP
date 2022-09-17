@@ -10,8 +10,9 @@ class ClientTest extends TestCase
     {
         self::markTestSkipped('will perform actual request');
         $jikan = Client::create();
-        /** @var AnimeIdGetResponse200 $anime */
-        $anime = $jikan->getAnimeById(5114);
-        self::assertEquals('Fullmetal Alchemist: Brotherhood', $anime->getData()->getTitle());
+        /** @var AnimeIdGetResponse200 $response */
+        $response = $jikan->getAnimeById(5114);
+        $anime = $response->getData();
+        self::assertEquals('Fullmetal Alchemist: Brotherhood', $anime->getTitle());
     }
 }
