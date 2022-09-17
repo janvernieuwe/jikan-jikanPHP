@@ -1,6 +1,0 @@
-JikanPHP\Model\Anime\AnimeCharactersAndStaff:
-    properties:
-        characters:
-            type: array<JikanPHP\Model\Manga\CharacterListItem>
-        staff:
-            type: array<JikanPHP\Model\Anime\StaffListItem>

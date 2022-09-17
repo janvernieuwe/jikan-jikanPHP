@@ -1,6 +1,0 @@
-JikanPHP\Model\Person\PublishedManga:
-    properties:
-        position:
-            type: string
-        mangaMeta:
-            type: mangaMeta

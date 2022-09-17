@@ -1,8 +1,0 @@
-JikanPHP\Model\Genre\AnimeGenre:
-    properties:
-        malUrl:
-            type: JikanPHP\Model\Common\MalUrl
-        itemCount:
-            type: int
-        anime:
-            type: array<JikanPHP\Model\Common\AnimeCard>

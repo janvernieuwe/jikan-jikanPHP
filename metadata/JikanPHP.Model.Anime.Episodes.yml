@@ -1,6 +1,0 @@
-JikanPHP\Model\Anime\Episodes:
-    properties:
-        episodesLastPage:
-            type: int
-        episodes:
-            type: array<JikanPHP\Model\Anime\EpisodeListItem>

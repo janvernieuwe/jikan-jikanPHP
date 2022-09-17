@@ -1,8 +1,0 @@
-JikanPHP\Model\User\History:
-    properties:
-        meta:
-            type: JikanPHP\Model\Common\HistoryMeta
-        increment:
-            type: int
-        date:
-            type: DateTimeImmutable

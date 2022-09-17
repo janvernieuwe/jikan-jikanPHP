@@ -1,0 +1,211 @@
+<?php declare(strict_types=1);
+
+namespace Jikan\JikanPHP\Model;
+
+class AnimeStatisticsData
+{
+    /**
+     * Number of users watching the resource.
+     *
+     * @var int
+     */
+    protected $watching;
+    /**
+     * Number of users who have completed the resource.
+     *
+     * @var int
+     */
+    protected $completed;
+    /**
+     * Number of users who have put the resource on hold.
+     *
+     * @var int
+     */
+    protected $onHold;
+    /**
+     * Number of users who have dropped the resource.
+     *
+     * @var int
+     */
+    protected $dropped;
+    /**
+     * Number of users who have planned to watch the resource.
+     *
+     * @var int
+     */
+    protected $planToWatch;
+    /**
+     * Total number of users who have the resource added to their lists.
+     *
+     * @var int
+     */
+    protected $total;
+    /**
+     * @var AnimeStatisticsDataScoresItem[]
+     */
+    protected $scores;
+
+    /**
+     * Number of users watching the resource.
+     *
+     * @return int
+     */
+    public function getWatching(): int
+    {
+        return $this->watching;
+    }
+
+    /**
+     * Number of users watching the resource.
+     *
+     * @param int $watching
+     *
+     * @return self
+     */
+    public function setWatching(int $watching): self
+    {
+        $this->watching = $watching;
+
+        return $this;
+    }
+
+    /**
+     * Number of users who have completed the resource.
+     *
+     * @return int
+     */
+    public function getCompleted(): int
+    {
+        return $this->completed;
+    }
+
+    /**
+     * Number of users who have completed the resource.
+     *
+     * @param int $completed
+     *
+     * @return self
+     */
+    public function setCompleted(int $completed): self
+    {
+        $this->completed = $completed;
+
+        return $this;
+    }
+
+    /**
+     * Number of users who have put the resource on hold.
+     *
+     * @return int
+     */
+    public function getOnHold(): int
+    {
+        return $this->onHold;
+    }
+
+    /**
+     * Number of users who have put the resource on hold.
+     *
+     * @param int $onHold
+     *
+     * @return self
+     */
+    public function setOnHold(int $onHold): self
+    {
+        $this->onHold = $onHold;
+
+        return $this;
+    }
+
+    /**
+     * Number of users who have dropped the resource.
+     *
+     * @return int
+     */
+    public function getDropped(): int
+    {
+        return $this->dropped;
+    }
+
+    /**
+     * Number of users who have dropped the resource.
+     *
+     * @param int $dropped
+     *
+     * @return self
+     */
+    public function setDropped(int $dropped): self
+    {
+        $this->dropped = $dropped;
+
+        return $this;
+    }
+
+    /**
+     * Number of users who have planned to watch the resource.
+     *
+     * @return int
+     */
+    public function getPlanToWatch(): int
+    {
+        return $this->planToWatch;
+    }
+
+    /**
+     * Number of users who have planned to watch the resource.
+     *
+     * @param int $planToWatch
+     *
+     * @return self
+     */
+    public function setPlanToWatch(int $planToWatch): self
+    {
+        $this->planToWatch = $planToWatch;
+
+        return $this;
+    }
+
+    /**
+     * Total number of users who have the resource added to their lists.
+     *
+     * @return int
+     */
+    public function getTotal(): int
+    {
+        return $this->total;
+    }
+
+    /**
+     * Total number of users who have the resource added to their lists.
+     *
+     * @param int $total
+     *
+     * @return self
+     */
+    public function setTotal(int $total): self
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    /**
+     * @return AnimeStatisticsDataScoresItem[]
+     */
+    public function getScores(): array
+    {
+        return $this->scores;
+    }
+
+    /**
+     * @param AnimeStatisticsDataScoresItem[] $scores
+     *
+     * @return self
+     */
+    public function setScores(array $scores): self
+    {
+        $this->scores = $scores;
+
+        return $this;
+    }
+}

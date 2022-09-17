@@ -1,15 +1,28 @@
 parameters:
     git_dir: .
     bin_dir: vendor/bin
+grumphp:
     tasks:
         phpunit: ~
-        phpcs:
-            standard: PSR2
-            ignore_patterns:
-                - test/*
+#        phpstan:
+#            level: "%phpstan.level%"
+#            configuration: "%phpstan.config%"
+#            ignore_patterns: "%phpstan.ignore%"
+#            metadata:
+#                priority: 200
+        phpcsfixer2:
+            allow_risky: true
+            cache_file: ~
+            config: ".php-cs-fixer.dist.php"
+            using_cache: ~
+            config_contains_finder: true
+            verbose: true
+            diff: false
+            triggered_by: ['php']
+            metadata:
+                priority: 200
         composer:
             no_check_lock: true
         yamllint:
             ignore_patterns:
                 - "#test/(.*).yml#"
-        phplint: ~

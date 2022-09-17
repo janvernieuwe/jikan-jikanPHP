@@ -1,6 +1,0 @@
-JikanPHP\Model\Search\PersonSearch:
-    properties:
-        results:
-            type: array<JikanPHP\Model\Search\PersonSearchListItem>
-        lastPage:
-            type: int

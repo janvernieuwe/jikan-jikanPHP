@@ -1,8 +1,0 @@
-JikanPHP\Model\Person\VoiceActingRole:
-    properties:
-        role:
-            type: string
-        animeMeta:
-            type: JikanPHP\Model\Common\AnimeMeta
-        characterMeta:
-            type: JikanPHP\Model\Common\CharacterMeta

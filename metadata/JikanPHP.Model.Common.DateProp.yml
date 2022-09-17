@@ -1,8 +1,0 @@
-JikanPHP\Model\Common\DateProp:
-    properties:
-        day:
-            type: integer
-        month:
-            type: integer
-        year:
-            type: integer
