@@ -18,6 +18,7 @@ For example
 ```sh
  composer require php-http/guzzle7-adapter
 ```
+For more clients & adapters check https://docs.php-http.org/en/latest/clients.html
 
 ## Instantiate the client
 
