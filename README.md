@@ -13,30 +13,23 @@ composer require jikan/jikan-php
 
 # Getting Started
 
+## Require your client implementation
+For example
+```sh
+ composer require php-http/guzzle7-adapter
+```
+
 ## Instantiate the client
 
 ```php
-$jikan = new \Jikan\JikanPHP\JikanPHPClient();
+$jikan = Client::create();
 ```
 
 ## Use it to request MAL data
-
+Check the client for the correct type hint
 ```php
-$request = new  \JikanPHP\Request\Anime\AnimeRequest(1);
-$anime = $jikan->getAnime($request);
+/** @var AnimeIdGetResponse200 $anime */ 
+$anime = $jikan->getAnimeById(5114);
 ```
-
-All responses are converted to PHP classes.
-
-# Customize guzzle
-
-```php
-$guzzle = new GuzzleHttp\Client();
-// Add middlewares to the client, or configs
-$jikan = new \Jikan\JikanPHP\JikanPHPClient($guzzle);
-// The configured client is now used internally
-```
-
-Using the client should be self-explanatory since it is fully type-hinted.
 
 If you experience any issues, open an issue, or even better a Pull Request!
