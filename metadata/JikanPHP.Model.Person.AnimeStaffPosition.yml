@@ -1,6 +1,0 @@
-JikanPHP\Model\Person\AnimeStaffPosition:
-    properties:
-        position:
-            type: string
-        animeMeta:
-            type: JikanPHP\Model\Common\AnimeMeta

@@ -1,10 +1,7 @@
-<phpunit bootstrap="./test/bootstrap.php" colors="true">
-    <listeners>
-        <listener class="VCR\PHPUnit\TestListener\VCRTestListener" file="vendor/php-vcr/phpunit-testlistener-vcr/src/VCRTestListener.php" />
-    </listeners>
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
     <testsuites>
         <testsuite name="Unit">
-            <directory>./test/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>

@@ -1,8 +1,0 @@
-JikanPHP\Model\Anime\PromoListItem:
-    properties:
-        title:
-            type: string
-        imageUrl:
-            type: string
-        videoUrl:
-            type: string
