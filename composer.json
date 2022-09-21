@@ -48,5 +48,5 @@
             "php vendor/bin/php-cs-fixer -q --allow-risky=yes --config=config/.php-cs-fixer.dist.php fix",
             "php vendor/bin/grumphp run"
         ]
-    },
+    }
 }
