@@ -35,3 +35,11 @@ $anime = $response->getData();
 ```
 
 If you experience any issues, open an issue, or even better a Pull Request!
+
+# Contribute
+Has jikan been updated?
+You can update the client by using this command:
+```shell
+composer update-jikan
+```
+Then make a PR to merge it into the master branch.
