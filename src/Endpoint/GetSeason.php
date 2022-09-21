@@ -13,9 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetSeason extends BaseEndpoint implements Endpoint
 {
     /**
-     * @param int    $year
-     * @param string $season
-     * @param array  $queryParameters {
+     * @param array $queryParameters {
      *
      *     @var int $page
      * }

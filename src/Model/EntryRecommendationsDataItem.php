@@ -4,20 +4,14 @@ namespace Jikan\JikanPHP\Model;
 
 class EntryRecommendationsDataItem
 {
-    /**
-     * @var mixed
-     */
     protected $entry;
 
-    /**
-     * @return mixed
-     */
     public function getEntry()
     {
         return $this->entry;
     }
 
-    public function setEntry(mixed $entry): self
+    public function setEntry($entry): self
     {
         $this->entry = $entry;
 

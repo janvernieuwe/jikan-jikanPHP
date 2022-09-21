@@ -2,14 +2,10 @@
 
 declare(strict_types=1);
 
-use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\CodeQuality\Rector\ClassMethod\ReturnTypeFromStrictScalarReturnExprRector;
 use Rector\CodeQuality\Rector\New_\NewStaticToNewSelfRector;
-use Rector\CodingStyle\Rector\Property\InlineSimplePropertyAnnotationRector;
-use Rector\Compatibility\Rector\Class_\AttributeCompatibleAnnotationRector;
 use Rector\Config\RectorConfig;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
-use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\Php80\Rector\FunctionLike\UnionTypesRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;

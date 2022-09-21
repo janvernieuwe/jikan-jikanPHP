@@ -30,11 +30,7 @@ class GenreNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     }
 
     /**
-     * @param mixed      $data
-     * @param mixed      $class
      * @param null|mixed $format
-     *
-     * @return mixed
      */
     public function denormalize($data, $class, $format = null, array $context = []): Reference|Genre
     {
@@ -71,7 +67,6 @@ class GenreNormalizer implements DenormalizerInterface, NormalizerInterface, Den
     }
 
     /**
-     * @param mixed      $object
      * @param null|mixed $format
      *
      * @return array|string|int|float|bool|ArrayObject|null

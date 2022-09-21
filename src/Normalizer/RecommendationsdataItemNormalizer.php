@@ -31,11 +31,7 @@ class RecommendationsdataItemNormalizer implements DenormalizerInterface, Normal
     }
 
     /**
-     * @param mixed      $data
-     * @param mixed      $class
      * @param null|mixed $format
-     *
-     * @return mixed
      */
     public function denormalize($data, $class, $format = null, array $context = []): Reference|RecommendationsdataItem
     {
@@ -77,7 +73,6 @@ class RecommendationsdataItemNormalizer implements DenormalizerInterface, Normal
     }
 
     /**
-     * @param mixed      $object
      * @param null|mixed $format
      *
      * @return array|string|int|float|bool|ArrayObject|null

@@ -31,11 +31,7 @@ class AnimeIdEpisodesEpisodeGetResponse200Normalizer implements DenormalizerInte
     }
 
     /**
-     * @param mixed      $data
-     * @param mixed      $class
      * @param null|mixed $format
-     *
-     * @return mixed
      */
     public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeIdEpisodesEpisodeGetResponse200
     {
@@ -60,7 +56,6 @@ class AnimeIdEpisodesEpisodeGetResponse200Normalizer implements DenormalizerInte
     }
 
     /**
-     * @param mixed      $object
      * @param null|mixed $format
      *
      * @return array|string|int|float|bool|ArrayObject|null

@@ -34,11 +34,7 @@ class UserFavoritesNormalizer implements DenormalizerInterface, NormalizerInterf
     }
 
     /**
-     * @param mixed      $data
-     * @param mixed      $class
      * @param null|mixed $format
-     *
-     * @return mixed
      */
     public function denormalize($data, $class, $format = null, array $context = []): Reference|UserFavorites
     {
@@ -95,7 +91,6 @@ class UserFavoritesNormalizer implements DenormalizerInterface, NormalizerInterf
     }
 
     /**
-     * @param mixed      $object
      * @param null|mixed $format
      *
      * @return array|string|int|float|bool|ArrayObject|null

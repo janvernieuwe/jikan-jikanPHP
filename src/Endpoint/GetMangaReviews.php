@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetMangaReviews extends BaseEndpoint implements Endpoint
 {
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page

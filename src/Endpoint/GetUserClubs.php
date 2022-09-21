@@ -13,8 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class GetUserClubs extends BaseEndpoint implements Endpoint
 {
     /**
-     * @param string $username
-     * @param array  $queryParameters {
+     * @param array $queryParameters {
      *
      *     @var int $page
      * }
