@@ -47,12 +47,7 @@ jobs:
               run: |
                   git config --global user.email "you@example.com"
                   git config --global user.name "Your Name"
-            - name: Run the tests on Windows
-              if: runner.os == 'Windows'
-              run: php vendor/bin/grumphp run --no-interaction --testsuite=windows
             - name: Run the tests on unix
               if: runner.os != 'Windows'
-              run: php vendor/bin/grumphp run --no-interaction --testsuite=ci
+              run: php vendor/bin/grumphp run --no-interaction
               continue-on-error: ${{ matrix.php-versions == '8.1' && matrix.composer-options == '--prefer-lowest' }}
-            - name: Run paratest outside of grumphp
-              run: php ./vendor/bin/paratest --testsuite=E2E -f --verbose
