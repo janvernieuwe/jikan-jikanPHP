@@ -11,7 +11,7 @@ jobs:
             matrix:
                 operating-system: [ubuntu-latest]
                 php-versions: ['8.0', '8.1']
-                composer-options: ['']
+                composer-options: ['', '--prefer-lowest']
                 composer-versions: ['composer:v2']
             fail-fast: false
         name: PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }} with ${{ matrix.composer-versions }} ${{ matrix.composer-options }}
@@ -50,4 +50,4 @@ jobs:
             - name: Run the tests on unix
               if: runner.os != 'Windows'
               run: php vendor/bin/grumphp run --no-interaction
-              continue-on-error: ${{ matrix.php-versions == '8.1' && matrix.composer-options == '--prefer-lowest' }}
+              continue-on-error: ${{ matrix.composer-options == '--prefer-lowest' }}
