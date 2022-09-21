@@ -6,7 +6,7 @@ grumphp:
         phpunit: ~
         phpstan:
             level: 1
-            configuration: "phpstan.neon"
+            configuration: "config/phpstan.neon"
             ignore_patterns:
                 - src/Runtime/Client/BaseEndpoint.php
             metadata:
@@ -14,7 +14,7 @@ grumphp:
         phpcsfixer2:
             allow_risky: true
             cache_file: ~
-            config: ".php-cs-fixer.dist.php"
+            config: "config/.php-cs-fixer.dist.php"
             using_cache: ~
             config_contains_finder: true
             verbose: true

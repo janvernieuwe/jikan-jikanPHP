@@ -6,8 +6,8 @@ return (new PhpCsFixer\Config())
     ->setFinder(
         (new PhpCsFixer\Finder())
             ->in([
-                getcwd().'/src',
-                getcwd().'/tests',
+                getcwd() . '/src',
+                getcwd() . '/tests',
             ])
             ->exclude([
                 'var',
