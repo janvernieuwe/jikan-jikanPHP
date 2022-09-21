@@ -2,18 +2,19 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetAnimeRelations extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $id;
+use Jikan\JikanPHP\Model\AnimeIdRelationsGetResponse200;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\Serializer\SerializerInterface;
 
-    /**
-     * @param int $id
-     */
-    public function __construct(int $id)
+class GetAnimeRelations extends BaseEndpoint implements Endpoint
+{
+    public function __construct(protected int $id)
     {
-        $this->id = $id;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -25,12 +26,12 @@ class GetAnimeRelations extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impl
         return str_replace(['{id}'], [$this->id], '/anime/{id}/relations');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
@@ -38,12 +39,12 @@ class GetAnimeRelations extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impl
     /**
      * {@inheritdoc}
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeIdRelationsGetResponse200
+     * @return null|AnimeIdRelationsGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\AnimeIdRelationsGetResponse200', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, AnimeIdRelationsGetResponse200::class, 'json');
         }
     }
 

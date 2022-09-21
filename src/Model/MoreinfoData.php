@@ -13,8 +13,6 @@ class MoreinfoData
 
     /**
      * Additional information on the entry.
-     *
-     * @return string|null
      */
     public function getMoreinfo(): ?string
     {
@@ -23,10 +21,6 @@ class MoreinfoData
 
     /**
      * Additional information on the entry.
-     *
-     * @param string|null $moreinfo
-     *
-     * @return self
      */
     public function setMoreinfo(?string $moreinfo): self
     {

@@ -9,22 +9,14 @@ class UserStatistics
      */
     protected $data;
 
-    /**
-     * @return UserStatisticsData
-     */
     public function getData(): UserStatisticsData
     {
         return $this->data;
     }
 
-    /**
-     * @param UserStatisticsData $data
-     *
-     * @return self
-     */
-    public function setData(UserStatisticsData $data): self
+    public function setData(UserStatisticsData $userStatisticsData): self
     {
-        $this->data = $data;
+        $this->data = $userStatisticsData;
 
         return $this;
     }

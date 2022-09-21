@@ -10,12 +10,14 @@ class UserMeta
      * @var string
      */
     protected $username;
+
     /**
      * MyAnimeList Profile URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var UserImages
      */
@@ -23,8 +25,6 @@ class UserMeta
 
     /**
      * MyAnimeList Username.
-     *
-     * @return string
      */
     public function getUsername(): string
     {
@@ -33,10 +33,6 @@ class UserMeta
 
     /**
      * MyAnimeList Username.
-     *
-     * @param string $username
-     *
-     * @return self
      */
     public function setUsername(string $username): self
     {
@@ -47,8 +43,6 @@ class UserMeta
 
     /**
      * MyAnimeList Profile URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -57,10 +51,6 @@ class UserMeta
 
     /**
      * MyAnimeList Profile URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -69,22 +59,14 @@ class UserMeta
         return $this;
     }
 
-    /**
-     * @return UserImages
-     */
     public function getImages(): UserImages
     {
         return $this->images;
     }
 
-    /**
-     * @param UserImages $images
-     *
-     * @return self
-     */
-    public function setImages(UserImages $images): self
+    public function setImages(UserImages $userImages): self
     {
-        $this->images = $images;
+        $this->images = $userImages;
 
         return $this;
     }

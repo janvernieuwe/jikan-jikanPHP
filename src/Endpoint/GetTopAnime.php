@@ -2,7 +2,15 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetTopAnime extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
+use Jikan\JikanPHP\Exception\GetTopAnimeBadRequestException;
+use Jikan\JikanPHP\Model\AnimeSearch;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
+
+class GetTopAnime extends BaseEndpoint implements Endpoint
 {
     /**
      * @param array $queryParameters {
@@ -17,7 +25,8 @@ class GetTopAnime extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements
     {
         $this->queryParameters = $queryParameters;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -29,17 +38,17 @@ class GetTopAnime extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements
         return '/top/anime';
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['type', 'filter', 'page', 'limit']);
@@ -56,17 +65,18 @@ class GetTopAnime extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetTopAnimeBadRequestException
+     * @throws GetTopAnimeBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeSearch
+     * @return null|AnimeSearch
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\AnimeSearch', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, AnimeSearch::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetTopAnimeBadRequestException();
+            throw new GetTopAnimeBadRequestException();
         }
     }
 

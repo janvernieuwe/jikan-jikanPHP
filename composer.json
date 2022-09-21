@@ -16,6 +16,7 @@
         "php-http/guzzle7-adapter": "^1.0",
         "phpro/grumphp": "^1.13",
         "phpunit/phpunit": "^9.5",
+        "rector/rector": "^0.14.2",
         "squizlabs/php_codesniffer": "^3.7"
     },
     "autoload": {
@@ -34,5 +35,15 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "update-jikan": [
+            "rm -rf src/*",
+            "php vendor/bin/jane-openapi generate --config-file=config/jikan.php",
+            "php vendor/bin/php-cs-fixer -q --allow-risky=yes --config=.php-cs-fixer.dist.php fix",
+            "php vendor/bin/rector --no-diffs",
+            "php vendor/bin/php-cs-fixer -q --allow-risky=yes --config=.php-cs-fixer.dist.php fix",
+            "php vendor/bin/grumphp run"
+        ]
     }
 }

@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\PeopleImages;
+use Jikan\JikanPHP\Model\PeopleImagesJpg;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class PeopleImagesNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\PeopleImages' === $type;
+        return PeopleImages::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\PeopleImages' === get_class($data);
+        return is_object($data) && $data instanceof PeopleImages;
     }
 
     /**
@@ -34,32 +37,35 @@ class PeopleImagesNormalizer implements DenormalizerInterface, NormalizerInterfa
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|PeopleImages
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\PeopleImages();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('jpg', $data)) {
-            $object->setJpg($this->denormalizer->denormalize($data['jpg'], 'Jikan\\JikanPHP\\Model\\PeopleImagesJpg', 'json', $context));
+
+        $peopleImages = new PeopleImages();
+        if (null === $data || !\is_array($data)) {
+            return $peopleImages;
         }
 
-        return $object;
+        if (\array_key_exists('jpg', $data)) {
+            $peopleImages->setJpg($this->denormalizer->denormalize($data['jpg'], PeopleImagesJpg::class, 'json', $context));
+        }
+
+        return $peopleImages;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getJpg()) {

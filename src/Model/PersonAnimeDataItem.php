@@ -10,6 +10,7 @@ class PersonAnimeDataItem
      * @var string
      */
     protected $position;
+
     /**
      * @var AnimeMeta
      */
@@ -17,8 +18,6 @@ class PersonAnimeDataItem
 
     /**
      * Person's position.
-     *
-     * @return string
      */
     public function getPosition(): string
     {
@@ -27,10 +26,6 @@ class PersonAnimeDataItem
 
     /**
      * Person's position.
-     *
-     * @param string $position
-     *
-     * @return self
      */
     public function setPosition(string $position): self
     {
@@ -39,22 +34,14 @@ class PersonAnimeDataItem
         return $this;
     }
 
-    /**
-     * @return AnimeMeta
-     */
     public function getAnime(): AnimeMeta
     {
         return $this->anime;
     }
 
-    /**
-     * @param AnimeMeta $anime
-     *
-     * @return self
-     */
-    public function setAnime(AnimeMeta $anime): self
+    public function setAnime(AnimeMeta $animeMeta): self
     {
-        $this->anime = $anime;
+        $this->anime = $animeMeta;
 
         return $this;
     }

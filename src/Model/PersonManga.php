@@ -7,7 +7,7 @@ class PersonManga
     /**
      * @var PersonMangaDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return PersonMangaDataItem[]
@@ -19,8 +19,6 @@ class PersonManga
 
     /**
      * @param PersonMangaDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

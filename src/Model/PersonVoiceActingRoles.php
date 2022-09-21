@@ -7,7 +7,7 @@ class PersonVoiceActingRoles
     /**
      * @var PersonVoiceActingRolesDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return PersonVoiceActingRolesDataItem[]
@@ -19,8 +19,6 @@ class PersonVoiceActingRoles
 
     /**
      * @param PersonVoiceActingRolesDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

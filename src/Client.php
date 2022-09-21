@@ -2,58 +2,343 @@
 
 namespace Jikan\JikanPHP;
 
+use Http\Client\Common\Plugin\AddHostPlugin;
+use Http\Client\Common\Plugin\AddPathPlugin;
+use Http\Client\Common\PluginClient;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
+use Jikan\JikanPHP\Endpoint\GetAnimeById;
+use Jikan\JikanPHP\Endpoint\GetAnimeCharacters;
+use Jikan\JikanPHP\Endpoint\GetAnimeEpisodeById;
+use Jikan\JikanPHP\Endpoint\GetAnimeEpisodes;
+use Jikan\JikanPHP\Endpoint\GetAnimeExternal;
+use Jikan\JikanPHP\Endpoint\GetAnimeForum;
+use Jikan\JikanPHP\Endpoint\GetAnimeFullById;
+use Jikan\JikanPHP\Endpoint\GetAnimeGenres;
+use Jikan\JikanPHP\Endpoint\GetAnimeMoreInfo;
+use Jikan\JikanPHP\Endpoint\GetAnimeNews;
+use Jikan\JikanPHP\Endpoint\GetAnimePictures;
+use Jikan\JikanPHP\Endpoint\GetAnimeRecommendations;
+use Jikan\JikanPHP\Endpoint\GetAnimeRelations;
+use Jikan\JikanPHP\Endpoint\GetAnimeReviews;
+use Jikan\JikanPHP\Endpoint\GetAnimeSearch;
+use Jikan\JikanPHP\Endpoint\GetAnimeStaff;
+use Jikan\JikanPHP\Endpoint\GetAnimeStatistics;
+use Jikan\JikanPHP\Endpoint\GetAnimeStreaming;
+use Jikan\JikanPHP\Endpoint\GetAnimeThemes;
+use Jikan\JikanPHP\Endpoint\GetAnimeUserUpdates;
+use Jikan\JikanPHP\Endpoint\GetAnimeVideos;
+use Jikan\JikanPHP\Endpoint\GetAnimeVideosEpisodes;
+use Jikan\JikanPHP\Endpoint\GetCharacterAnime;
+use Jikan\JikanPHP\Endpoint\GetCharacterById;
+use Jikan\JikanPHP\Endpoint\GetCharacterFullById;
+use Jikan\JikanPHP\Endpoint\GetCharacterManga;
+use Jikan\JikanPHP\Endpoint\GetCharacterPictures;
+use Jikan\JikanPHP\Endpoint\GetCharactersSearch;
+use Jikan\JikanPHP\Endpoint\GetCharacterVoiceActors;
+use Jikan\JikanPHP\Endpoint\GetClubMembers;
+use Jikan\JikanPHP\Endpoint\GetClubRelations;
+use Jikan\JikanPHP\Endpoint\GetClubsById;
+use Jikan\JikanPHP\Endpoint\GetClubsSearch;
+use Jikan\JikanPHP\Endpoint\GetClubStaff;
+use Jikan\JikanPHP\Endpoint\GetMagazines;
+use Jikan\JikanPHP\Endpoint\GetMangaById;
+use Jikan\JikanPHP\Endpoint\GetMangaCharacters;
+use Jikan\JikanPHP\Endpoint\GetMangaExternal;
+use Jikan\JikanPHP\Endpoint\GetMangaFullById;
+use Jikan\JikanPHP\Endpoint\GetMangaGenres;
+use Jikan\JikanPHP\Endpoint\GetMangaMoreInfo;
+use Jikan\JikanPHP\Endpoint\GetMangaNews;
+use Jikan\JikanPHP\Endpoint\GetMangaPictures;
+use Jikan\JikanPHP\Endpoint\GetMangaRecommendations;
+use Jikan\JikanPHP\Endpoint\GetMangaRelations;
+use Jikan\JikanPHP\Endpoint\GetMangaReviews;
+use Jikan\JikanPHP\Endpoint\GetMangaSearch;
+use Jikan\JikanPHP\Endpoint\GetMangaStatistics;
+use Jikan\JikanPHP\Endpoint\GetMangaTopics;
+use Jikan\JikanPHP\Endpoint\GetMangaUserUpdates;
+use Jikan\JikanPHP\Endpoint\GetPeopleSearch;
+use Jikan\JikanPHP\Endpoint\GetPersonAnime;
+use Jikan\JikanPHP\Endpoint\GetPersonById;
+use Jikan\JikanPHP\Endpoint\GetPersonFullById;
+use Jikan\JikanPHP\Endpoint\GetPersonManga;
+use Jikan\JikanPHP\Endpoint\GetPersonPictures;
+use Jikan\JikanPHP\Endpoint\GetPersonVoices;
+use Jikan\JikanPHP\Endpoint\GetProducerById;
+use Jikan\JikanPHP\Endpoint\GetProducerExternal;
+use Jikan\JikanPHP\Endpoint\GetProducerFullById;
+use Jikan\JikanPHP\Endpoint\GetProducers;
+use Jikan\JikanPHP\Endpoint\GetRandomAnime;
+use Jikan\JikanPHP\Endpoint\GetRandomCharacters;
+use Jikan\JikanPHP\Endpoint\GetRandomManga;
+use Jikan\JikanPHP\Endpoint\GetRandomPeople;
+use Jikan\JikanPHP\Endpoint\GetRandomUsers;
+use Jikan\JikanPHP\Endpoint\GetRecentAnimeRecommendations;
+use Jikan\JikanPHP\Endpoint\GetRecentAnimeReviews;
+use Jikan\JikanPHP\Endpoint\GetRecentMangaRecommendations;
+use Jikan\JikanPHP\Endpoint\GetRecentMangaReviews;
+use Jikan\JikanPHP\Endpoint\GetSchedules;
+use Jikan\JikanPHP\Endpoint\GetSeason;
+use Jikan\JikanPHP\Endpoint\GetSeasonNow;
+use Jikan\JikanPHP\Endpoint\GetSeasonsList;
+use Jikan\JikanPHP\Endpoint\GetSeasonUpcoming;
+use Jikan\JikanPHP\Endpoint\GetTopAnime;
+use Jikan\JikanPHP\Endpoint\GetTopCharacters;
+use Jikan\JikanPHP\Endpoint\GetTopManga;
+use Jikan\JikanPHP\Endpoint\GetTopPeople;
+use Jikan\JikanPHP\Endpoint\GetTopReviews;
+use Jikan\JikanPHP\Endpoint\GetUserAbout;
+use Jikan\JikanPHP\Endpoint\GetUserAnimelist;
+use Jikan\JikanPHP\Endpoint\GetUserById;
+use Jikan\JikanPHP\Endpoint\GetUserClubs;
+use Jikan\JikanPHP\Endpoint\GetUserExternal;
+use Jikan\JikanPHP\Endpoint\GetUserFavorites;
+use Jikan\JikanPHP\Endpoint\GetUserFriends;
+use Jikan\JikanPHP\Endpoint\GetUserFullProfile;
+use Jikan\JikanPHP\Endpoint\GetUserHistory;
+use Jikan\JikanPHP\Endpoint\GetUserMangaList;
+use Jikan\JikanPHP\Endpoint\GetUserProfile;
+use Jikan\JikanPHP\Endpoint\GetUserRecommendations;
+use Jikan\JikanPHP\Endpoint\GetUserReviews;
+use Jikan\JikanPHP\Endpoint\GetUsersSearch;
+use Jikan\JikanPHP\Endpoint\GetUserStatistics;
+use Jikan\JikanPHP\Endpoint\GetUserUpdates;
+use Jikan\JikanPHP\Endpoint\GetWatchPopularEpisodes;
+use Jikan\JikanPHP\Endpoint\GetWatchPopularPromos;
+use Jikan\JikanPHP\Endpoint\GetWatchRecentEpisodes;
+use Jikan\JikanPHP\Endpoint\GetWatchRecentPromos;
+use Jikan\JikanPHP\Exception\GetAnimeByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeCharactersBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeEpisodeByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeEpisodesBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeExternalBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeForumBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeFullByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeGenresBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeMoreInfoBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeNewsBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimePicturesBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeRecommendationsBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeReviewsBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeSearchBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeStaffBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeStatisticsBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeStreamingBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeThemesBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeUserUpdatesBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeVideosBadRequestException;
+use Jikan\JikanPHP\Exception\GetAnimeVideosEpisodesBadRequestException;
+use Jikan\JikanPHP\Exception\GetCharacterAnimeBadRequestException;
+use Jikan\JikanPHP\Exception\GetCharacterByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetCharacterFullByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetCharacterMangaBadRequestException;
+use Jikan\JikanPHP\Exception\GetCharacterPicturesBadRequestException;
+use Jikan\JikanPHP\Exception\GetCharactersSearchBadRequestException;
+use Jikan\JikanPHP\Exception\GetCharacterVoiceActorsBadRequestException;
+use Jikan\JikanPHP\Exception\GetClubMembersBadRequestException;
+use Jikan\JikanPHP\Exception\GetClubRelationsBadRequestException;
+use Jikan\JikanPHP\Exception\GetClubsByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetClubsSearchBadRequestException;
+use Jikan\JikanPHP\Exception\GetClubStaffBadRequestException;
+use Jikan\JikanPHP\Exception\GetMagazinesBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaCharactersBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaExternalBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaFullByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaGenresBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaMoreInfoBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaNewsBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaPicturesBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaRecommendationsBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaRelationsBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaReviewsBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaSearchBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaStatisticsBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaTopicsBadRequestException;
+use Jikan\JikanPHP\Exception\GetMangaUserUpdatesBadRequestException;
+use Jikan\JikanPHP\Exception\GetPeopleSearchBadRequestException;
+use Jikan\JikanPHP\Exception\GetPersonAnimeBadRequestException;
+use Jikan\JikanPHP\Exception\GetPersonByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetPersonFullByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetPersonMangaBadRequestException;
+use Jikan\JikanPHP\Exception\GetPersonPicturesBadRequestException;
+use Jikan\JikanPHP\Exception\GetPersonVoicesBadRequestException;
+use Jikan\JikanPHP\Exception\GetProducerByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetProducerExternalBadRequestException;
+use Jikan\JikanPHP\Exception\GetProducerFullByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetProducersBadRequestException;
+use Jikan\JikanPHP\Exception\GetRandomAnimeBadRequestException;
+use Jikan\JikanPHP\Exception\GetRandomCharactersBadRequestException;
+use Jikan\JikanPHP\Exception\GetRandomMangaBadRequestException;
+use Jikan\JikanPHP\Exception\GetRandomPeopleBadRequestException;
+use Jikan\JikanPHP\Exception\GetRandomUsersBadRequestException;
+use Jikan\JikanPHP\Exception\GetRecentAnimeRecommendationsBadRequestException;
+use Jikan\JikanPHP\Exception\GetRecentAnimeReviewsBadRequestException;
+use Jikan\JikanPHP\Exception\GetRecentMangaRecommendationsBadRequestException;
+use Jikan\JikanPHP\Exception\GetRecentMangaReviewsBadRequestException;
+use Jikan\JikanPHP\Exception\GetSchedulesBadRequestException;
+use Jikan\JikanPHP\Exception\GetSeasonBadRequestException;
+use Jikan\JikanPHP\Exception\GetSeasonNowBadRequestException;
+use Jikan\JikanPHP\Exception\GetSeasonsListBadRequestException;
+use Jikan\JikanPHP\Exception\GetSeasonUpcomingBadRequestException;
+use Jikan\JikanPHP\Exception\GetTopAnimeBadRequestException;
+use Jikan\JikanPHP\Exception\GetTopCharactersBadRequestException;
+use Jikan\JikanPHP\Exception\GetTopMangaBadRequestException;
+use Jikan\JikanPHP\Exception\GetTopPeopleBadRequestException;
+use Jikan\JikanPHP\Exception\GetTopReviewsBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserAboutBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserAnimelistBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserByIdBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserClubsBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserExternalBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserFavoritesBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserFriendsBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserFullProfileBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserHistoryBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserMangaListBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserProfileBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserRecommendationsBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserReviewsBadRequestException;
+use Jikan\JikanPHP\Exception\GetUsersSearchBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserStatisticsBadRequestException;
+use Jikan\JikanPHP\Exception\GetUserUpdatesBadRequestException;
+use Jikan\JikanPHP\Exception\GetWatchPopularEpisodesBadRequestException;
+use Jikan\JikanPHP\Exception\GetWatchPopularPromosBadRequestException;
+use Jikan\JikanPHP\Exception\GetWatchRecentEpisodesBadRequestException;
+use Jikan\JikanPHP\Exception\GetWatchRecentPromosBadRequestException;
+use Jikan\JikanPHP\Model\AnimeCharacters;
+use Jikan\JikanPHP\Model\AnimeEpisodes;
+use Jikan\JikanPHP\Model\AnimeIdEpisodesEpisodeGetResponse200;
+use Jikan\JikanPHP\Model\AnimeIdFullGetResponse200;
+use Jikan\JikanPHP\Model\AnimeIdGetResponse200;
+use Jikan\JikanPHP\Model\AnimeIdRelationsGetResponse200;
+use Jikan\JikanPHP\Model\AnimeNews;
+use Jikan\JikanPHP\Model\AnimeReviews;
+use Jikan\JikanPHP\Model\AnimeSearch;
+use Jikan\JikanPHP\Model\AnimeStaff;
+use Jikan\JikanPHP\Model\AnimeStatistics;
+use Jikan\JikanPHP\Model\AnimeThemes;
+use Jikan\JikanPHP\Model\AnimeUserupdates;
+use Jikan\JikanPHP\Model\AnimeVideos;
+use Jikan\JikanPHP\Model\AnimeVideosEpisodes;
+use Jikan\JikanPHP\Model\CharacterAnime;
+use Jikan\JikanPHP\Model\CharacterManga;
+use Jikan\JikanPHP\Model\CharacterPictures;
+use Jikan\JikanPHP\Model\CharactersIdFullGetResponse200;
+use Jikan\JikanPHP\Model\CharactersIdGetResponse200;
+use Jikan\JikanPHP\Model\CharactersSearch;
+use Jikan\JikanPHP\Model\CharacterVoiceActors;
+use Jikan\JikanPHP\Model\ClubRelations;
+use Jikan\JikanPHP\Model\ClubsIdGetResponse200;
+use Jikan\JikanPHP\Model\ClubsIdMembersGetResponse200;
+use Jikan\JikanPHP\Model\ClubsSearch;
+use Jikan\JikanPHP\Model\ClubStaff;
+use Jikan\JikanPHP\Model\EntryRecommendations;
+use Jikan\JikanPHP\Model\ExternalLinks;
+use Jikan\JikanPHP\Model\Forum;
+use Jikan\JikanPHP\Model\Genres;
+use Jikan\JikanPHP\Model\Magazines;
+use Jikan\JikanPHP\Model\MangaCharacters;
+use Jikan\JikanPHP\Model\MangaIdFullGetResponse200;
+use Jikan\JikanPHP\Model\MangaIdGetResponse200;
+use Jikan\JikanPHP\Model\MangaIdRelationsGetResponse200;
+use Jikan\JikanPHP\Model\MangaNews;
+use Jikan\JikanPHP\Model\MangaPictures;
+use Jikan\JikanPHP\Model\MangaReviews;
+use Jikan\JikanPHP\Model\MangaSearch;
+use Jikan\JikanPHP\Model\MangaStatistics;
+use Jikan\JikanPHP\Model\MangaUserupdates;
+use Jikan\JikanPHP\Model\Moreinfo;
+use Jikan\JikanPHP\Model\PeopleIdFullGetResponse200;
+use Jikan\JikanPHP\Model\PeopleIdGetResponse200;
+use Jikan\JikanPHP\Model\PeopleSearch;
+use Jikan\JikanPHP\Model\PersonAnime;
+use Jikan\JikanPHP\Model\PersonManga;
+use Jikan\JikanPHP\Model\PersonPictures;
+use Jikan\JikanPHP\Model\PersonVoiceActingRoles;
+use Jikan\JikanPHP\Model\PicturesVariants;
+use Jikan\JikanPHP\Model\Producers;
+use Jikan\JikanPHP\Model\ProducersIdFullGetResponse200;
+use Jikan\JikanPHP\Model\ProducersIdGetResponse200;
+use Jikan\JikanPHP\Model\RandomAnimeGetResponse200;
+use Jikan\JikanPHP\Model\RandomCharactersGetResponse200;
+use Jikan\JikanPHP\Model\RandomMangaGetResponse200;
+use Jikan\JikanPHP\Model\RandomPeopleGetResponse200;
+use Jikan\JikanPHP\Model\RandomUsersGetResponse200;
+use Jikan\JikanPHP\Model\Recommendations;
+use Jikan\JikanPHP\Model\Schedules;
+use Jikan\JikanPHP\Model\Seasons;
+use Jikan\JikanPHP\Model\TopReviewsGetResponse200;
+use Jikan\JikanPHP\Model\UserAbout;
+use Jikan\JikanPHP\Model\UserClubs;
+use Jikan\JikanPHP\Model\UserFriends;
+use Jikan\JikanPHP\Model\UserHistory;
+use Jikan\JikanPHP\Model\UsersSearch;
+use Jikan\JikanPHP\Model\UserStatistics;
+use Jikan\JikanPHP\Model\UsersUserbyidIdGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameFavoritesGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameFullGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameReviewsGetResponse200;
+use Jikan\JikanPHP\Model\UserUpdates;
+use Jikan\JikanPHP\Model\WatchEpisodes;
+use Jikan\JikanPHP\Model\WatchPromos;
+use Jikan\JikanPHP\Normalizer\JaneObjectNormalizer;
+use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 class Client extends \Jikan\JikanPHP\Runtime\Client\Client
 {
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeFullByIdBadRequestException
+     * @throws GetAnimeFullByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeIdFullGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeIdFullGetResponse200|ResponseInterface
      */
     public function getAnimeFullById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeFullById($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeFullById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeByIdBadRequestException
+     * @throws GetAnimeByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeIdGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeIdGetResponse200|ResponseInterface
      */
     public function getAnimeById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeById($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeCharactersBadRequestException
+     * @throws GetAnimeCharactersBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeCharacters|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeCharacters|ResponseInterface
      */
     public function getAnimeCharacters(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeCharacters($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeCharacters($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeStaffBadRequestException
+     * @throws GetAnimeStaffBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeStaff|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeStaff|ResponseInterface
      */
     public function getAnimeStaff(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeStaff($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeStaff($id), $fetch);
     }
 
     /**
@@ -65,27 +350,25 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeEpisodesBadRequestException
+     * @throws GetAnimeEpisodesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeEpisodes|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeEpisodes|ResponseInterface
      */
     public function getAnimeEpisodes(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeEpisodes($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetAnimeEpisodes($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
-     * @param int    $episode
-     * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeEpisodeByIdBadRequestException
+     * @throws GetAnimeEpisodeByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeIdEpisodesEpisodeGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeIdEpisodesEpisodeGetResponse200|ResponseInterface
      */
     public function getAnimeEpisodeById(int $id, int $episode, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeEpisodeById($id, $episode), $fetch);
+        return $this->executeEndpoint(new GetAnimeEpisodeById($id, $episode), $fetch);
     }
 
     /**
@@ -97,17 +380,16 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeNewsBadRequestException
+     * @throws GetAnimeNewsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeNews|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeNews|ResponseInterface
      */
     public function getAnimeNews(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeNews($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetAnimeNews($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var string $filter Filter topics
@@ -115,26 +397,25 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeForumBadRequestException
+     * @throws GetAnimeForumBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Forum|\Psr\Http\Message\ResponseInterface
+     * @return null|Forum|ResponseInterface
      */
     public function getAnimeForum(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeForum($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetAnimeForum($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeVideosBadRequestException
+     * @throws GetAnimeVideosBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeVideos|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeVideos|ResponseInterface
      */
     public function getAnimeVideos(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeVideos($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeVideos($id), $fetch);
     }
 
     /**
@@ -146,65 +427,61 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeVideosEpisodesBadRequestException
+     * @throws GetAnimeVideosEpisodesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeVideosEpisodes|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeVideosEpisodes|ResponseInterface
      */
     public function getAnimeVideosEpisodes(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeVideosEpisodes($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetAnimeVideosEpisodes($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimePicturesBadRequestException
+     * @throws GetAnimePicturesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PicturesVariants|\Psr\Http\Message\ResponseInterface
+     * @return null|PicturesVariants|ResponseInterface
      */
     public function getAnimePictures(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimePictures($id), $fetch);
+        return $this->executeEndpoint(new GetAnimePictures($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeStatisticsBadRequestException
+     * @throws GetAnimeStatisticsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeStatistics|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeStatistics|ResponseInterface
      */
     public function getAnimeStatistics(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeStatistics($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeStatistics($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeMoreInfoBadRequestException
+     * @throws GetAnimeMoreInfoBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Moreinfo|\Psr\Http\Message\ResponseInterface
+     * @return null|Moreinfo|ResponseInterface
      */
     public function getAnimeMoreInfo(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeMoreInfo($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeMoreInfo($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeRecommendationsBadRequestException
+     * @throws GetAnimeRecommendationsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\EntryRecommendations|\Psr\Http\Message\ResponseInterface
+     * @return null|EntryRecommendations|ResponseInterface
      */
     public function getAnimeRecommendations(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeRecommendations($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeRecommendations($id), $fetch);
     }
 
     /**
@@ -216,13 +493,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeUserUpdatesBadRequestException
+     * @throws GetAnimeUserUpdatesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeUserupdates|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeUserupdates|ResponseInterface
      */
     public function getAnimeUserUpdates(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeUserUpdates($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetAnimeUserUpdates($id, $queryParameters), $fetch);
     }
 
     /**
@@ -234,154 +511,143 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeReviewsBadRequestException
+     * @throws GetAnimeReviewsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeReviews|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeReviews|ResponseInterface
      */
     public function getAnimeReviews(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeReviews($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetAnimeReviews($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeIdRelationsGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeIdRelationsGetResponse200|ResponseInterface
      */
     public function getAnimeRelations(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeRelations($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeRelations($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeThemesBadRequestException
+     * @throws GetAnimeThemesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeThemes|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeThemes|ResponseInterface
      */
     public function getAnimeThemes(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeThemes($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeThemes($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeExternalBadRequestException
+     * @throws GetAnimeExternalBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ExternalLinks|\Psr\Http\Message\ResponseInterface
+     * @return null|ExternalLinks|ResponseInterface
      */
     public function getAnimeExternal(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeExternal($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeExternal($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeStreamingBadRequestException
+     * @throws GetAnimeStreamingBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ExternalLinks|\Psr\Http\Message\ResponseInterface
+     * @return null|ExternalLinks|ResponseInterface
      */
     public function getAnimeStreaming(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeStreaming($id), $fetch);
+        return $this->executeEndpoint(new GetAnimeStreaming($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetCharacterFullByIdBadRequestException
+     * @throws GetCharacterFullByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharactersIdFullGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|CharactersIdFullGetResponse200|ResponseInterface
      */
     public function getCharacterFullById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetCharacterFullById($id), $fetch);
+        return $this->executeEndpoint(new GetCharacterFullById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetCharacterByIdBadRequestException
+     * @throws GetCharacterByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharactersIdGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|CharactersIdGetResponse200|ResponseInterface
      */
     public function getCharacterById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetCharacterById($id), $fetch);
+        return $this->executeEndpoint(new GetCharacterById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetCharacterAnimeBadRequestException
+     * @throws GetCharacterAnimeBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharacterAnime|\Psr\Http\Message\ResponseInterface
+     * @return null|CharacterAnime|ResponseInterface
      */
     public function getCharacterAnime(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetCharacterAnime($id), $fetch);
+        return $this->executeEndpoint(new GetCharacterAnime($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetCharacterMangaBadRequestException
+     * @throws GetCharacterMangaBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharacterManga|\Psr\Http\Message\ResponseInterface
+     * @return null|CharacterManga|ResponseInterface
      */
     public function getCharacterManga(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetCharacterManga($id), $fetch);
+        return $this->executeEndpoint(new GetCharacterManga($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetCharacterVoiceActorsBadRequestException
+     * @throws GetCharacterVoiceActorsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharacterVoiceActors|\Psr\Http\Message\ResponseInterface
+     * @return null|CharacterVoiceActors|ResponseInterface
      */
     public function getCharacterVoiceActors(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetCharacterVoiceActors($id), $fetch);
+        return $this->executeEndpoint(new GetCharacterVoiceActors($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetCharacterPicturesBadRequestException
+     * @throws GetCharacterPicturesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharacterPictures|\Psr\Http\Message\ResponseInterface
+     * @return null|CharacterPictures|ResponseInterface
      */
     public function getCharacterPictures(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetCharacterPictures($id), $fetch);
+        return $this->executeEndpoint(new GetCharacterPictures($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetClubsByIdBadRequestException
+     * @throws GetClubsByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ClubsIdGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|ClubsIdGetResponse200|ResponseInterface
      */
     public function getClubsById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetClubsById($id), $fetch);
+        return $this->executeEndpoint(new GetClubsById($id), $fetch);
     }
 
     /**
@@ -393,39 +659,37 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetClubMembersBadRequestException
+     * @throws GetClubMembersBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ClubsIdMembersGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|ClubsIdMembersGetResponse200|ResponseInterface
      */
     public function getClubMembers(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetClubMembers($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetClubMembers($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetClubStaffBadRequestException
+     * @throws GetClubStaffBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ClubStaff|\Psr\Http\Message\ResponseInterface
+     * @return null|ClubStaff|ResponseInterface
      */
     public function getClubStaff(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetClubStaff($id), $fetch);
+        return $this->executeEndpoint(new GetClubStaff($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetClubRelationsBadRequestException
+     * @throws GetClubRelationsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ClubRelations|\Psr\Http\Message\ResponseInterface
+     * @return null|ClubRelations|ResponseInterface
      */
     public function getClubRelations(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetClubRelations($id), $fetch);
+        return $this->executeEndpoint(new GetClubRelations($id), $fetch);
     }
 
     /**
@@ -436,13 +700,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeGenresBadRequestException
+     * @throws GetAnimeGenresBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Genres|\Psr\Http\Message\ResponseInterface
+     * @return null|Genres|ResponseInterface
      */
     public function getAnimeGenres(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeGenres($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetAnimeGenres($queryParameters), $fetch);
     }
 
     /**
@@ -453,13 +717,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaGenresBadRequestException
+     * @throws GetMangaGenresBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Genres|\Psr\Http\Message\ResponseInterface
+     * @return null|Genres|ResponseInterface
      */
     public function getMangaGenres(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaGenres($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetMangaGenres($queryParameters), $fetch);
     }
 
     /**
@@ -475,52 +739,49 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMagazinesBadRequestException
+     * @throws GetMagazinesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Magazines|\Psr\Http\Message\ResponseInterface
+     * @return null|Magazines|ResponseInterface
      */
     public function getMagazines(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMagazines($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetMagazines($queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaFullByIdBadRequestException
+     * @throws GetMangaFullByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaIdFullGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaIdFullGetResponse200|ResponseInterface
      */
     public function getMangaFullById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaFullById($id), $fetch);
+        return $this->executeEndpoint(new GetMangaFullById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaByIdBadRequestException
+     * @throws GetMangaByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaIdGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaIdGetResponse200|ResponseInterface
      */
     public function getMangaById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaById($id), $fetch);
+        return $this->executeEndpoint(new GetMangaById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaCharactersBadRequestException
+     * @throws GetMangaCharactersBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaCharacters|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaCharacters|ResponseInterface
      */
     public function getMangaCharacters(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaCharacters($id), $fetch);
+        return $this->executeEndpoint(new GetMangaCharacters($id), $fetch);
     }
 
     /**
@@ -532,17 +793,16 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaNewsBadRequestException
+     * @throws GetMangaNewsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaNews|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaNews|ResponseInterface
      */
     public function getMangaNews(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaNews($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetMangaNews($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var string $filter Filter topics
@@ -550,65 +810,61 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaTopicsBadRequestException
+     * @throws GetMangaTopicsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Forum|\Psr\Http\Message\ResponseInterface
+     * @return null|Forum|ResponseInterface
      */
     public function getMangaTopics(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaTopics($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetMangaTopics($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaPicturesBadRequestException
+     * @throws GetMangaPicturesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaPictures|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaPictures|ResponseInterface
      */
     public function getMangaPictures(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaPictures($id), $fetch);
+        return $this->executeEndpoint(new GetMangaPictures($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaStatisticsBadRequestException
+     * @throws GetMangaStatisticsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaStatistics|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaStatistics|ResponseInterface
      */
     public function getMangaStatistics(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaStatistics($id), $fetch);
+        return $this->executeEndpoint(new GetMangaStatistics($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaMoreInfoBadRequestException
+     * @throws GetMangaMoreInfoBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Moreinfo|\Psr\Http\Message\ResponseInterface
+     * @return null|Moreinfo|ResponseInterface
      */
     public function getMangaMoreInfo(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaMoreInfo($id), $fetch);
+        return $this->executeEndpoint(new GetMangaMoreInfo($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaRecommendationsBadRequestException
+     * @throws GetMangaRecommendationsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\EntryRecommendations|\Psr\Http\Message\ResponseInterface
+     * @return null|EntryRecommendations|ResponseInterface
      */
     public function getMangaRecommendations(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaRecommendations($id), $fetch);
+        return $this->executeEndpoint(new GetMangaRecommendations($id), $fetch);
     }
 
     /**
@@ -620,13 +876,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaUserUpdatesBadRequestException
+     * @throws GetMangaUserUpdatesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaUserupdates|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaUserupdates|ResponseInterface
      */
     public function getMangaUserUpdates(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaUserUpdates($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetMangaUserUpdates($id, $queryParameters), $fetch);
     }
 
     /**
@@ -638,216 +894,205 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaReviewsBadRequestException
+     * @throws GetMangaReviewsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaReviews|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaReviews|ResponseInterface
      */
     public function getMangaReviews(int $id, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaReviews($id, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetMangaReviews($id, $queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaRelationsBadRequestException
+     * @throws GetMangaRelationsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaIdRelationsGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaIdRelationsGetResponse200|ResponseInterface
      */
     public function getMangaRelations(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaRelations($id), $fetch);
+        return $this->executeEndpoint(new GetMangaRelations($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaExternalBadRequestException
+     * @throws GetMangaExternalBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ExternalLinks|\Psr\Http\Message\ResponseInterface
+     * @return null|ExternalLinks|ResponseInterface
      */
     public function getMangaExternal(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaExternal($id), $fetch);
+        return $this->executeEndpoint(new GetMangaExternal($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetPersonFullByIdBadRequestException
+     * @throws GetPersonFullByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PeopleIdFullGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|PeopleIdFullGetResponse200|ResponseInterface
      */
     public function getPersonFullById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetPersonFullById($id), $fetch);
+        return $this->executeEndpoint(new GetPersonFullById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetPersonByIdBadRequestException
+     * @throws GetPersonByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PeopleIdGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|PeopleIdGetResponse200|ResponseInterface
      */
     public function getPersonById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetPersonById($id), $fetch);
+        return $this->executeEndpoint(new GetPersonById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetPersonAnimeBadRequestException
+     * @throws GetPersonAnimeBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PersonAnime|\Psr\Http\Message\ResponseInterface
+     * @return null|PersonAnime|ResponseInterface
      */
     public function getPersonAnime(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetPersonAnime($id), $fetch);
+        return $this->executeEndpoint(new GetPersonAnime($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetPersonVoicesBadRequestException
+     * @throws GetPersonVoicesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PersonVoiceActingRoles|\Psr\Http\Message\ResponseInterface
+     * @return null|PersonVoiceActingRoles|ResponseInterface
      */
     public function getPersonVoices(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetPersonVoices($id), $fetch);
+        return $this->executeEndpoint(new GetPersonVoices($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetPersonMangaBadRequestException
+     * @throws GetPersonMangaBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PersonManga|\Psr\Http\Message\ResponseInterface
+     * @return null|PersonManga|ResponseInterface
      */
     public function getPersonManga(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetPersonManga($id), $fetch);
+        return $this->executeEndpoint(new GetPersonManga($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetPersonPicturesBadRequestException
+     * @throws GetPersonPicturesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PersonPictures|\Psr\Http\Message\ResponseInterface
+     * @return null|PersonPictures|ResponseInterface
      */
     public function getPersonPictures(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetPersonPictures($id), $fetch);
+        return $this->executeEndpoint(new GetPersonPictures($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetProducerByIdBadRequestException
+     * @throws GetProducerByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ProducersIdGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|ProducersIdGetResponse200|ResponseInterface
      */
     public function getProducerById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetProducerById($id), $fetch);
+        return $this->executeEndpoint(new GetProducerById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetProducerFullByIdBadRequestException
+     * @throws GetProducerFullByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ProducersIdFullGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|ProducersIdFullGetResponse200|ResponseInterface
      */
     public function getProducerFullById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetProducerFullById($id), $fetch);
+        return $this->executeEndpoint(new GetProducerFullById($id), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetProducerExternalBadRequestException
+     * @throws GetProducerExternalBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ExternalLinks|\Psr\Http\Message\ResponseInterface
+     * @return null|ExternalLinks|ResponseInterface
      */
     public function getProducerExternal(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetProducerExternal($id), $fetch);
+        return $this->executeEndpoint(new GetProducerExternal($id), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRandomAnimeBadRequestException
+     * @throws GetRandomAnimeBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\RandomAnimeGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|RandomAnimeGetResponse200|ResponseInterface
      */
     public function getRandomAnime(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRandomAnime(), $fetch);
+        return $this->executeEndpoint(new GetRandomAnime(), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRandomMangaBadRequestException
+     * @throws GetRandomMangaBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\RandomMangaGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|RandomMangaGetResponse200|ResponseInterface
      */
     public function getRandomManga(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRandomManga(), $fetch);
+        return $this->executeEndpoint(new GetRandomManga(), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRandomCharactersBadRequestException
+     * @throws GetRandomCharactersBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\RandomCharactersGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|RandomCharactersGetResponse200|ResponseInterface
      */
     public function getRandomCharacters(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRandomCharacters(), $fetch);
+        return $this->executeEndpoint(new GetRandomCharacters(), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRandomPeopleBadRequestException
+     * @throws GetRandomPeopleBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\RandomPeopleGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|RandomPeopleGetResponse200|ResponseInterface
      */
     public function getRandomPeople(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRandomPeople(), $fetch);
+        return $this->executeEndpoint(new GetRandomPeople(), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRandomUsersBadRequestException
+     * @throws GetRandomUsersBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\RandomUsersGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|RandomUsersGetResponse200|ResponseInterface
      */
     public function getRandomUsers(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRandomUsers(), $fetch);
+        return $this->executeEndpoint(new GetRandomUsers(), $fetch);
     }
 
     /**
@@ -858,13 +1103,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRecentAnimeRecommendationsBadRequestException
+     * @throws GetRecentAnimeRecommendationsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Recommendations|\Psr\Http\Message\ResponseInterface
+     * @return null|Recommendations|ResponseInterface
      */
     public function getRecentAnimeRecommendations(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRecentAnimeRecommendations($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetRecentAnimeRecommendations($queryParameters), $fetch);
     }
 
     /**
@@ -875,13 +1120,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRecentMangaRecommendationsBadRequestException
+     * @throws GetRecentMangaRecommendationsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Recommendations|\Psr\Http\Message\ResponseInterface
+     * @return null|Recommendations|ResponseInterface
      */
     public function getRecentMangaRecommendations(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRecentMangaRecommendations($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetRecentMangaRecommendations($queryParameters), $fetch);
     }
 
     /**
@@ -892,13 +1137,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRecentAnimeReviewsBadRequestException
+     * @throws GetRecentAnimeReviewsBadRequestException
      *
-     * @return null|\Psr\Http\Message\ResponseInterface
+     * @return null|ResponseInterface
      */
     public function getRecentAnimeReviews(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRecentAnimeReviews($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetRecentAnimeReviews($queryParameters), $fetch);
     }
 
     /**
@@ -909,13 +1154,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRecentMangaReviewsBadRequestException
+     * @throws GetRecentMangaReviewsBadRequestException
      *
-     * @return null|\Psr\Http\Message\ResponseInterface
+     * @return null|ResponseInterface
      */
     public function getRecentMangaReviews(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetRecentMangaReviews($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetRecentMangaReviews($queryParameters), $fetch);
     }
 
     /**
@@ -930,13 +1175,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetSchedulesBadRequestException
+     * @throws GetSchedulesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Schedules|\Psr\Http\Message\ResponseInterface
+     * @return null|Schedules|ResponseInterface
      */
     public function getSchedules(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetSchedules($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetSchedules($queryParameters), $fetch);
     }
 
     /**
@@ -964,13 +1209,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeSearchBadRequestException
+     * @throws GetAnimeSearchBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeSearch|ResponseInterface
      */
     public function getAnimeSearch(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetAnimeSearch($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetAnimeSearch($queryParameters), $fetch);
     }
 
     /**
@@ -997,13 +1242,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaSearchBadRequestException
+     * @throws GetMangaSearchBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaSearch|ResponseInterface
      */
     public function getMangaSearch(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetMangaSearch($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetMangaSearch($queryParameters), $fetch);
     }
 
     /**
@@ -1019,13 +1264,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetPeopleSearchBadRequestException
+     * @throws GetPeopleSearchBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PeopleSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|PeopleSearch|ResponseInterface
      */
     public function getPeopleSearch(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetPeopleSearch($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetPeopleSearch($queryParameters), $fetch);
     }
 
     /**
@@ -1041,13 +1286,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetCharactersSearchBadRequestException
+     * @throws GetCharactersSearchBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharactersSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|CharactersSearch|ResponseInterface
      */
     public function getCharactersSearch(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetCharactersSearch($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetCharactersSearch($queryParameters), $fetch);
     }
 
     /**
@@ -1064,26 +1309,25 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUsersSearchBadRequestException
+     * @throws GetUsersSearchBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UsersSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|UsersSearch|ResponseInterface
      */
     public function getUsersSearch(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUsersSearch($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetUsersSearch($queryParameters), $fetch);
     }
 
     /**
-     * @param int    $id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserByIdBadRequestException
+     * @throws GetUserByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UsersUserbyidIdGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|UsersUserbyidIdGetResponse200|ResponseInterface
      */
     public function getUserById(int $id, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserById($id), $fetch);
+        return $this->executeEndpoint(new GetUserById($id), $fetch);
     }
 
     /**
@@ -1101,13 +1345,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetClubsSearchBadRequestException
+     * @throws GetClubsSearchBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ClubsSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|ClubsSearch|ResponseInterface
      */
     public function getClubsSearch(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetClubsSearch($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetClubsSearch($queryParameters), $fetch);
     }
 
     /**
@@ -1123,13 +1367,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetProducersBadRequestException
+     * @throws GetProducersBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Producers|\Psr\Http\Message\ResponseInterface
+     * @return null|Producers|ResponseInterface
      */
     public function getProducers(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetProducers($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetProducers($queryParameters), $fetch);
     }
 
     /**
@@ -1142,13 +1386,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetSeasonBadRequestException
+     * @throws GetSeasonBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeSearch|ResponseInterface
      */
     public function getSeason(int $year, string $season, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetSeason($year, $season, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetSeason($year, $season, $queryParameters), $fetch);
     }
 
     /**
@@ -1159,25 +1403,25 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetSeasonNowBadRequestException
+     * @throws GetSeasonNowBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeSearch|ResponseInterface
      */
     public function getSeasonNow(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetSeasonNow($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetSeasonNow($queryParameters), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetSeasonsListBadRequestException
+     * @throws GetSeasonsListBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Seasons|\Psr\Http\Message\ResponseInterface
+     * @return null|Seasons|ResponseInterface
      */
     public function getSeasonsList(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetSeasonsList(), $fetch);
+        return $this->executeEndpoint(new GetSeasonsList(), $fetch);
     }
 
     /**
@@ -1188,13 +1432,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetSeasonUpcomingBadRequestException
+     * @throws GetSeasonUpcomingBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeSearch|ResponseInterface
      */
     public function getSeasonUpcoming(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetSeasonUpcoming($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetSeasonUpcoming($queryParameters), $fetch);
     }
 
     /**
@@ -1208,13 +1452,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetTopAnimeBadRequestException
+     * @throws GetTopAnimeBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|AnimeSearch|ResponseInterface
      */
     public function getTopAnime(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetTopAnime($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetTopAnime($queryParameters), $fetch);
     }
 
     /**
@@ -1228,13 +1472,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetTopMangaBadRequestException
+     * @throws GetTopMangaBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|MangaSearch|ResponseInterface
      */
     public function getTopManga(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetTopManga($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetTopManga($queryParameters), $fetch);
     }
 
     /**
@@ -1246,13 +1490,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetTopPeopleBadRequestException
+     * @throws GetTopPeopleBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\PeopleSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|PeopleSearch|ResponseInterface
      */
     public function getTopPeople(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetTopPeople($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetTopPeople($queryParameters), $fetch);
     }
 
     /**
@@ -1264,13 +1508,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetTopCharactersBadRequestException
+     * @throws GetTopCharactersBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharactersSearch|\Psr\Http\Message\ResponseInterface
+     * @return null|CharactersSearch|ResponseInterface
      */
     public function getTopCharacters(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetTopCharacters($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetTopCharacters($queryParameters), $fetch);
     }
 
     /**
@@ -1281,91 +1525,85 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetTopReviewsBadRequestException
+     * @throws GetTopReviewsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\TopReviewsGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|TopReviewsGetResponse200|ResponseInterface
      */
     public function getTopReviews(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetTopReviews($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetTopReviews($queryParameters), $fetch);
     }
 
     /**
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserFullProfileBadRequestException
+     * @throws GetUserFullProfileBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UsersUsernameFullGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|UsersUsernameFullGetResponse200|ResponseInterface
      */
     public function getUserFullProfile(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserFullProfile($username), $fetch);
+        return $this->executeEndpoint(new GetUserFullProfile($username), $fetch);
     }
 
     /**
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserProfileBadRequestException
+     * @throws GetUserProfileBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UsersUsernameGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|UsersUsernameGetResponse200|ResponseInterface
      */
     public function getUserProfile(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserProfile($username), $fetch);
+        return $this->executeEndpoint(new GetUserProfile($username), $fetch);
     }
 
     /**
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserStatisticsBadRequestException
+     * @throws GetUserStatisticsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UserStatistics|\Psr\Http\Message\ResponseInterface
+     * @return null|UserStatistics|ResponseInterface
      */
     public function getUserStatistics(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserStatistics($username), $fetch);
+        return $this->executeEndpoint(new GetUserStatistics($username), $fetch);
     }
 
     /**
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserFavoritesBadRequestException
+     * @throws GetUserFavoritesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UsersUsernameFavoritesGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|UsersUsernameFavoritesGetResponse200|ResponseInterface
      */
     public function getUserFavorites(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserFavorites($username), $fetch);
+        return $this->executeEndpoint(new GetUserFavorites($username), $fetch);
     }
 
     /**
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserUpdatesBadRequestException
+     * @throws GetUserUpdatesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UserUpdates|\Psr\Http\Message\ResponseInterface
+     * @return null|UserUpdates|ResponseInterface
      */
     public function getUserUpdates(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserUpdates($username), $fetch);
+        return $this->executeEndpoint(new GetUserUpdates($username), $fetch);
     }
 
     /**
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserAboutBadRequestException
+     * @throws GetUserAboutBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UserAbout|\Psr\Http\Message\ResponseInterface
+     * @return null|UserAbout|ResponseInterface
      */
     public function getUserAbout(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserAbout($username), $fetch);
+        return $this->executeEndpoint(new GetUserAbout($username), $fetch);
     }
 
     /**
@@ -1377,13 +1615,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserHistoryBadRequestException
+     * @throws GetUserHistoryBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UserHistory|\Psr\Http\Message\ResponseInterface
+     * @return null|UserHistory|ResponseInterface
      */
     public function getUserHistory(string $username, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserHistory($username, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetUserHistory($username, $queryParameters), $fetch);
     }
 
     /**
@@ -1395,43 +1633,41 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserFriendsBadRequestException
+     * @throws GetUserFriendsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UserFriends|\Psr\Http\Message\ResponseInterface
+     * @return null|UserFriends|ResponseInterface
      */
     public function getUserFriends(string $username, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserFriends($username, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetUserFriends($username, $queryParameters), $fetch);
     }
 
     /**
      * User Anime lists have been discontinued since May 1st, 2022. <a href='https://docs.google.com/document/d/1-6H-agSnqa8Mfmw802UYfGQrceIEnAaEh4uCXAPiX5A'>Read more</a>.
      *
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserAnimelistBadRequestException
+     * @throws GetUserAnimelistBadRequestException
      *
-     * @return null|\Psr\Http\Message\ResponseInterface
+     * @return null|ResponseInterface
      */
     public function getUserAnimelist(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserAnimelist($username), $fetch);
+        return $this->executeEndpoint(new GetUserAnimelist($username), $fetch);
     }
 
     /**
      * User Manga lists have been discontinued since May 1st, 2022. <a href='https://docs.google.com/document/d/1-6H-agSnqa8Mfmw802UYfGQrceIEnAaEh4uCXAPiX5A'>Read more</a>.
      *
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserMangaListBadRequestException
+     * @throws GetUserMangaListBadRequestException
      *
-     * @return null|\Psr\Http\Message\ResponseInterface
+     * @return null|ResponseInterface
      */
     public function getUserMangaList(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserMangaList($username), $fetch);
+        return $this->executeEndpoint(new GetUserMangaList($username), $fetch);
     }
 
     /**
@@ -1443,13 +1679,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserReviewsBadRequestException
+     * @throws GetUserReviewsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UsersUsernameReviewsGetResponse200|\Psr\Http\Message\ResponseInterface
+     * @return null|UsersUsernameReviewsGetResponse200|ResponseInterface
      */
     public function getUserReviews(string $username, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserReviews($username, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetUserReviews($username, $queryParameters), $fetch);
     }
 
     /**
@@ -1461,13 +1697,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserRecommendationsBadRequestException
+     * @throws GetUserRecommendationsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Recommendations|\Psr\Http\Message\ResponseInterface
+     * @return null|Recommendations|ResponseInterface
      */
     public function getUserRecommendations(string $username, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserRecommendations($username, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetUserRecommendations($username, $queryParameters), $fetch);
     }
 
     /**
@@ -1479,26 +1715,25 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserClubsBadRequestException
+     * @throws GetUserClubsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UserClubs|\Psr\Http\Message\ResponseInterface
+     * @return null|UserClubs|ResponseInterface
      */
     public function getUserClubs(string $username, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserClubs($username, $queryParameters), $fetch);
+        return $this->executeEndpoint(new GetUserClubs($username, $queryParameters), $fetch);
     }
 
     /**
-     * @param string $username
-     * @param string $fetch    Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserExternalBadRequestException
+     * @throws GetUserExternalBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ExternalLinks|\Psr\Http\Message\ResponseInterface
+     * @return null|ExternalLinks|ResponseInterface
      */
     public function getUserExternal(string $username, string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetUserExternal($username), $fetch);
+        return $this->executeEndpoint(new GetUserExternal($username), $fetch);
     }
 
     /**
@@ -1509,13 +1744,13 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetWatchRecentEpisodesBadRequestException
+     * @throws GetWatchRecentEpisodesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\WatchEpisodes|\Psr\Http\Message\ResponseInterface
+     * @return null|WatchEpisodes|ResponseInterface
      */
     public function getWatchRecentEpisodes(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetWatchRecentEpisodes($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetWatchRecentEpisodes($queryParameters), $fetch);
     }
 
     /**
@@ -1526,25 +1761,25 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetWatchPopularEpisodesBadRequestException
+     * @throws GetWatchPopularEpisodesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\WatchEpisodes|\Psr\Http\Message\ResponseInterface
+     * @return null|WatchEpisodes|ResponseInterface
      */
     public function getWatchPopularEpisodes(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetWatchPopularEpisodes($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetWatchPopularEpisodes($queryParameters), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetWatchRecentPromosBadRequestException
+     * @throws GetWatchRecentPromosBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\WatchPromos|\Psr\Http\Message\ResponseInterface
+     * @return null|WatchPromos|ResponseInterface
      */
     public function getWatchRecentPromos(string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetWatchRecentPromos(), $fetch);
+        return $this->executeEndpoint(new GetWatchRecentPromos(), $fetch);
     }
 
     /**
@@ -1555,35 +1790,38 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @throws \Jikan\JikanPHP\Exception\GetWatchPopularPromosBadRequestException
+     * @throws GetWatchPopularPromosBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\WatchPromos|\Psr\Http\Message\ResponseInterface
+     * @return null|WatchPromos|ResponseInterface
      */
     public function getWatchPopularPromos(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new \Jikan\JikanPHP\Endpoint\GetWatchPopularPromos($queryParameters), $fetch);
+        return $this->executeEndpoint(new GetWatchPopularPromos($queryParameters), $fetch);
     }
 
-    public static function create($httpClient = null, array $additionalPlugins = [], array $additionalNormalizers = [])
+    public static function create($httpClient = null, array $additionalPlugins = [], array $additionalNormalizers = []): static
     {
         if (null === $httpClient) {
-            $httpClient = \Http\Discovery\Psr18ClientDiscovery::find();
+            $httpClient = Psr18ClientDiscovery::find();
             $plugins = [];
-            $uri = \Http\Discovery\Psr17FactoryDiscovery::findUrlFactory()->createUri('https://api.jikan.moe/v4');
-            $plugins[] = new \Http\Client\Common\Plugin\AddHostPlugin($uri);
-            $plugins[] = new \Http\Client\Common\Plugin\AddPathPlugin($uri);
-            if (count($additionalPlugins) > 0) {
+            $uri = Psr17FactoryDiscovery::findUrlFactory()->createUri('https://api.jikan.moe/v4');
+            $plugins[] = new AddHostPlugin($uri);
+            $plugins[] = new AddPathPlugin($uri);
+            if ([] !== $additionalPlugins) {
                 $plugins = array_merge($plugins, $additionalPlugins);
             }
-            $httpClient = new \Http\Client\Common\PluginClient($httpClient, $plugins);
+
+            $httpClient = new PluginClient($httpClient, $plugins);
         }
-        $requestFactory = \Http\Discovery\Psr17FactoryDiscovery::findRequestFactory();
-        $streamFactory = \Http\Discovery\Psr17FactoryDiscovery::findStreamFactory();
-        $normalizers = [new \Symfony\Component\Serializer\Normalizer\ArrayDenormalizer(), new \Jikan\JikanPHP\Normalizer\JaneObjectNormalizer()];
-        if (count($additionalNormalizers) > 0) {
+
+        $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
+        $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
+        $normalizers = [new ArrayDenormalizer(), new JaneObjectNormalizer()];
+        if ([] !== $additionalNormalizers) {
             $normalizers = array_merge($normalizers, $additionalNormalizers);
         }
-        $serializer = new \Symfony\Component\Serializer\Serializer($normalizers, [new \Symfony\Component\Serializer\Encoder\JsonEncoder(new \Symfony\Component\Serializer\Encoder\JsonEncode(), new \Symfony\Component\Serializer\Encoder\JsonDecode(['json_decode_associative' => true]))]);
+
+        $serializer = new Serializer($normalizers, [new JsonEncoder(new JsonEncode(), new JsonDecode(['json_decode_associative' => true]))]);
 
         return new static($httpClient, $requestFactory, $serializer, $streamFactory);
     }

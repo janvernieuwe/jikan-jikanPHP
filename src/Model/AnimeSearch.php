@@ -7,7 +7,8 @@ class AnimeSearch
     /**
      * @var Anime[]
      */
-    protected $data;
+    protected $data = [];
+
     /**
      * @var PaginationPlusPagination
      */
@@ -23,8 +24,6 @@ class AnimeSearch
 
     /**
      * @param Anime[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {
@@ -33,22 +32,14 @@ class AnimeSearch
         return $this;
     }
 
-    /**
-     * @return PaginationPlusPagination
-     */
     public function getPagination(): PaginationPlusPagination
     {
         return $this->pagination;
     }
 
-    /**
-     * @param PaginationPlusPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(PaginationPlusPagination $pagination): self
+    public function setPagination(PaginationPlusPagination $paginationPlusPagination): self
     {
-        $this->pagination = $pagination;
+        $this->pagination = $paginationPlusPagination;
 
         return $this;
     }

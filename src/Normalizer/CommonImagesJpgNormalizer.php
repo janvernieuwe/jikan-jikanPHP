@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\CommonImagesJpg;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class CommonImagesJpgNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\CommonImagesJpg' === $type;
+        return CommonImagesJpg::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\CommonImagesJpg' === get_class($data);
+        return is_object($data) && $data instanceof CommonImagesJpg;
     }
 
     /**
@@ -34,32 +36,35 @@ class CommonImagesJpgNormalizer implements DenormalizerInterface, NormalizerInte
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|CommonImagesJpg
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\CommonImagesJpg();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('image_url', $data) && null !== $data['image_url']) {
-            $object->setImageUrl($data['image_url']);
-        } elseif (\array_key_exists('image_url', $data) && null === $data['image_url']) {
-            $object->setImageUrl(null);
+
+        $commonImagesJpg = new CommonImagesJpg();
+        if (null === $data || !\is_array($data)) {
+            return $commonImagesJpg;
         }
 
-        return $object;
+        if (\array_key_exists('image_url', $data) && null !== $data['image_url']) {
+            $commonImagesJpg->setImageUrl($data['image_url']);
+        } elseif (\array_key_exists('image_url', $data) && null === $data['image_url']) {
+            $commonImagesJpg->setImageUrl(null);
+        }
+
+        return $commonImagesJpg;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {

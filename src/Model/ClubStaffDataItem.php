@@ -10,6 +10,7 @@ class ClubStaffDataItem
      * @var string
      */
     protected $url;
+
     /**
      * User's username.
      *
@@ -19,8 +20,6 @@ class ClubStaffDataItem
 
     /**
      * User URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -29,10 +28,6 @@ class ClubStaffDataItem
 
     /**
      * User URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -43,8 +38,6 @@ class ClubStaffDataItem
 
     /**
      * User's username.
-     *
-     * @return string
      */
     public function getUsername(): string
     {
@@ -53,10 +46,6 @@ class ClubStaffDataItem
 
     /**
      * User's username.
-     *
-     * @param string $username
-     *
-     * @return self
      */
     public function setUsername(string $username): self
     {

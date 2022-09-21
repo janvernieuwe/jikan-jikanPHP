@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\PersonVoiceActingRoles;
+use Jikan\JikanPHP\Model\PersonVoiceActingRolesDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class PersonVoiceActingRolesNormalizer implements DenormalizerInterface, Normali
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\PersonVoiceActingRoles' === $type;
+        return PersonVoiceActingRoles::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\PersonVoiceActingRoles' === get_class($data);
+        return is_object($data) && $data instanceof PersonVoiceActingRoles;
     }
 
     /**
@@ -34,34 +37,38 @@ class PersonVoiceActingRolesNormalizer implements DenormalizerInterface, Normali
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|PersonVoiceActingRoles
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\PersonVoiceActingRoles();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $personVoiceActingRoles = new PersonVoiceActingRoles();
+        if (null === $data || !\is_array($data)) {
+            return $personVoiceActingRoles;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\PersonVoiceActingRolesDataItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, PersonVoiceActingRolesDataItem::class, 'json', $context);
             }
-            $object->setData($values);
+
+            $personVoiceActingRoles->setData($values);
         }
 
-        return $object;
+        return $personVoiceActingRoles;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -71,6 +78,7 @@ class PersonVoiceActingRolesNormalizer implements DenormalizerInterface, Normali
             foreach ($object->getData() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['data'] = $values;
         }
 

@@ -10,18 +10,21 @@ class Trailer
      * @var string|null
      */
     protected $youtubeId;
+
     /**
      * YouTube URL.
      *
      * @var string|null
      */
     protected $url;
+
     /**
      * Parsed Embed URL.
      *
      * @var string|null
      */
     protected $embedUrl;
+
     /**
      * @var TrailerImagesImages
      */
@@ -29,8 +32,6 @@ class Trailer
 
     /**
      * YouTube ID.
-     *
-     * @return string|null
      */
     public function getYoutubeId(): ?string
     {
@@ -39,10 +40,6 @@ class Trailer
 
     /**
      * YouTube ID.
-     *
-     * @param string|null $youtubeId
-     *
-     * @return self
      */
     public function setYoutubeId(?string $youtubeId): self
     {
@@ -53,8 +50,6 @@ class Trailer
 
     /**
      * YouTube URL.
-     *
-     * @return string|null
      */
     public function getUrl(): ?string
     {
@@ -63,10 +58,6 @@ class Trailer
 
     /**
      * YouTube URL.
-     *
-     * @param string|null $url
-     *
-     * @return self
      */
     public function setUrl(?string $url): self
     {
@@ -77,8 +68,6 @@ class Trailer
 
     /**
      * Parsed Embed URL.
-     *
-     * @return string|null
      */
     public function getEmbedUrl(): ?string
     {
@@ -87,10 +76,6 @@ class Trailer
 
     /**
      * Parsed Embed URL.
-     *
-     * @param string|null $embedUrl
-     *
-     * @return self
      */
     public function setEmbedUrl(?string $embedUrl): self
     {
@@ -99,22 +84,14 @@ class Trailer
         return $this;
     }
 
-    /**
-     * @return TrailerImagesImages
-     */
     public function getImages(): TrailerImagesImages
     {
         return $this->images;
     }
 
-    /**
-     * @param TrailerImagesImages $images
-     *
-     * @return self
-     */
-    public function setImages(TrailerImagesImages $images): self
+    public function setImages(TrailerImagesImages $trailerImagesImages): self
     {
-        $this->images = $images;
+        $this->images = $trailerImagesImages;
 
         return $this;
     }

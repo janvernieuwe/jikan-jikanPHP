@@ -9,22 +9,14 @@ class UsersUsernameReviewsGetResponse200
      */
     protected $data;
 
-    /**
-     * @return UsersUsernameReviewsGetResponse200Data
-     */
     public function getData(): UsersUsernameReviewsGetResponse200Data
     {
         return $this->data;
     }
 
-    /**
-     * @param UsersUsernameReviewsGetResponse200Data $data
-     *
-     * @return self
-     */
-    public function setData(UsersUsernameReviewsGetResponse200Data $data): self
+    public function setData(UsersUsernameReviewsGetResponse200Data $usersUsernameReviewsGetResponse200Data): self
     {
-        $this->data = $data;
+        $this->data = $usersUsernameReviewsGetResponse200Data;
 
         return $this;
     }

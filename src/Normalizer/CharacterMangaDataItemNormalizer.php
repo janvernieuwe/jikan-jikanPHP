@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\CharacterMangaDataItem;
+use Jikan\JikanPHP\Model\MangaMeta;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class CharacterMangaDataItemNormalizer implements DenormalizerInterface, Normali
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\CharacterMangaDataItem' === $type;
+        return CharacterMangaDataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\CharacterMangaDataItem' === get_class($data);
+        return is_object($data) && $data instanceof CharacterMangaDataItem;
     }
 
     /**
@@ -34,40 +37,45 @@ class CharacterMangaDataItemNormalizer implements DenormalizerInterface, Normali
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|CharacterMangaDataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\CharacterMangaDataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('role', $data)) {
-            $object->setRole($data['role']);
-        }
-        if (\array_key_exists('manga', $data)) {
-            $object->setManga($this->denormalizer->denormalize($data['manga'], 'Jikan\\JikanPHP\\Model\\MangaMeta', 'json', $context));
+
+        $characterMangaDataItem = new CharacterMangaDataItem();
+        if (null === $data || !\is_array($data)) {
+            return $characterMangaDataItem;
         }
 
-        return $object;
+        if (\array_key_exists('role', $data)) {
+            $characterMangaDataItem->setRole($data['role']);
+        }
+
+        if (\array_key_exists('manga', $data)) {
+            $characterMangaDataItem->setManga($this->denormalizer->denormalize($data['manga'], MangaMeta::class, 'json', $context));
+        }
+
+        return $characterMangaDataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getRole()) {
             $data['role'] = $object->getRole();
         }
+
         if (null !== $object->getManga()) {
             $data['manga'] = $this->normalizer->normalize($object->getManga(), 'json', $context);
         }

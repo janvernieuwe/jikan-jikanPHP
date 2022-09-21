@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\UserAboutDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class UserAboutDataItemNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\UserAboutDataItem' === $type;
+        return UserAboutDataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\UserAboutDataItem' === get_class($data);
+        return is_object($data) && $data instanceof UserAboutDataItem;
     }
 
     /**
@@ -34,32 +36,35 @@ class UserAboutDataItemNormalizer implements DenormalizerInterface, NormalizerIn
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserAboutDataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\UserAboutDataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('about', $data) && null !== $data['about']) {
-            $object->setAbout($data['about']);
-        } elseif (\array_key_exists('about', $data) && null === $data['about']) {
-            $object->setAbout(null);
+
+        $userAboutDataItem = new UserAboutDataItem();
+        if (null === $data || !\is_array($data)) {
+            return $userAboutDataItem;
         }
 
-        return $object;
+        if (\array_key_exists('about', $data) && null !== $data['about']) {
+            $userAboutDataItem->setAbout($data['about']);
+        } elseif (\array_key_exists('about', $data) && null === $data['about']) {
+            $userAboutDataItem->setAbout(null);
+        }
+
+        return $userAboutDataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {

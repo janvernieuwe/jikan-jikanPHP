@@ -10,6 +10,7 @@ class UserStatisticsData
      * @var UserStatisticsDataAnime
      */
     protected $anime;
+
     /**
      * Manga Statistics.
      *
@@ -19,8 +20,6 @@ class UserStatisticsData
 
     /**
      * Anime Statistics.
-     *
-     * @return UserStatisticsDataAnime
      */
     public function getAnime(): UserStatisticsDataAnime
     {
@@ -29,22 +28,16 @@ class UserStatisticsData
 
     /**
      * Anime Statistics.
-     *
-     * @param UserStatisticsDataAnime $anime
-     *
-     * @return self
      */
-    public function setAnime(UserStatisticsDataAnime $anime): self
+    public function setAnime(UserStatisticsDataAnime $userStatisticsDataAnime): self
     {
-        $this->anime = $anime;
+        $this->anime = $userStatisticsDataAnime;
 
         return $this;
     }
 
     /**
      * Manga Statistics.
-     *
-     * @return UserStatisticsDataManga
      */
     public function getManga(): UserStatisticsDataManga
     {
@@ -53,14 +46,10 @@ class UserStatisticsData
 
     /**
      * Manga Statistics.
-     *
-     * @param UserStatisticsDataManga $manga
-     *
-     * @return self
      */
-    public function setManga(UserStatisticsDataManga $manga): self
+    public function setManga(UserStatisticsDataManga $userStatisticsDataManga): self
     {
-        $this->manga = $manga;
+        $this->manga = $userStatisticsDataManga;
 
         return $this;
     }

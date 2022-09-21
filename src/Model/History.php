@@ -10,12 +10,14 @@ class History
      * @var MalUrl
      */
     protected $entry;
+
     /**
      * Number of episodes/chapters watched/read.
      *
      * @var int
      */
     protected $increment;
+
     /**
      * Date ISO8601.
      *
@@ -25,8 +27,6 @@ class History
 
     /**
      * Parsed URL Data.
-     *
-     * @return MalUrl
      */
     public function getEntry(): MalUrl
     {
@@ -35,22 +35,16 @@ class History
 
     /**
      * Parsed URL Data.
-     *
-     * @param MalUrl $entry
-     *
-     * @return self
      */
-    public function setEntry(MalUrl $entry): self
+    public function setEntry(MalUrl $malUrl): self
     {
-        $this->entry = $entry;
+        $this->entry = $malUrl;
 
         return $this;
     }
 
     /**
      * Number of episodes/chapters watched/read.
-     *
-     * @return int
      */
     public function getIncrement(): int
     {
@@ -59,10 +53,6 @@ class History
 
     /**
      * Number of episodes/chapters watched/read.
-     *
-     * @param int $increment
-     *
-     * @return self
      */
     public function setIncrement(int $increment): self
     {
@@ -73,8 +63,6 @@ class History
 
     /**
      * Date ISO8601.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -83,10 +71,6 @@ class History
 
     /**
      * Date ISO8601.
-     *
-     * @param string $date
-     *
-     * @return self
      */
     public function setDate(string $date): self
     {

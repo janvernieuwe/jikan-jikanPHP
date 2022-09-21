@@ -10,17 +10,16 @@ class SeasonsDataItem
      * @var int
      */
     protected $year;
+
     /**
      * List of available seasons.
      *
      * @var string[]
      */
-    protected $seasons;
+    protected $seasons = [];
 
     /**
      * Year.
-     *
-     * @return int
      */
     public function getYear(): int
     {
@@ -29,10 +28,6 @@ class SeasonsDataItem
 
     /**
      * Year.
-     *
-     * @param int $year
-     *
-     * @return self
      */
     public function setYear(int $year): self
     {
@@ -55,8 +50,6 @@ class SeasonsDataItem
      * List of available seasons.
      *
      * @param string[] $seasons
-     *
-     * @return self
      */
     public function setSeasons(array $seasons): self
     {

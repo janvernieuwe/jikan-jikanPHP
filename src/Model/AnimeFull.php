@@ -10,34 +10,40 @@ class AnimeFull
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var AnimeImages
      */
     protected $images;
+
     /**
      * Youtube Details.
      *
      * @var TrailerBase
      */
     protected $trailer;
+
     /**
      * Whether the entry is pending approval on MAL or not.
      *
      * @var bool
      */
-    protected $approved;
+    protected $approved = false;
+
     /**
      * All titles.
      *
      * @var string[]
      */
-    protected $titles;
+    protected $titles = [];
+
     /**
      * Title.
      *
@@ -46,6 +52,7 @@ class AnimeFull
      * @var string
      */
     protected $title;
+
     /**
      * English Title.
      *
@@ -54,6 +61,7 @@ class AnimeFull
      * @var string|null
      */
     protected $titleEnglish;
+
     /**
      * Japanese Title.
      *
@@ -62,6 +70,7 @@ class AnimeFull
      * @var string|null
      */
     protected $titleJapanese;
+
     /**
      * Other Titles.
      *
@@ -69,170 +78,198 @@ class AnimeFull
      *
      * @var string[]
      */
-    protected $titleSynonyms;
+    protected $titleSynonyms = [];
+
     /**
      * Anime Type.
      *
      * @var string|null
      */
     protected $type;
+
     /**
      * Original Material/Source adapted from.
      *
      * @var string|null
      */
     protected $source;
+
     /**
      * Episode count.
      *
      * @var int|null
      */
     protected $episodes;
+
     /**
      * Airing status.
      *
      * @var string|null
      */
     protected $status;
+
     /**
      * Airing boolean.
      *
      * @var bool
      */
-    protected $airing;
+    protected $airing = false;
+
     /**
      * Date range.
      *
      * @var Daterange
      */
     protected $aired;
+
     /**
      * Parsed raw duration.
      *
      * @var string|null
      */
     protected $duration;
+
     /**
      * Anime audience rating.
      *
      * @var string|null
      */
     protected $rating;
+
     /**
      * Score.
      *
      * @var float|null
      */
     protected $score;
+
     /**
      * Number of users.
      *
      * @var int|null
      */
     protected $scoredBy;
+
     /**
      * Ranking.
      *
      * @var int|null
      */
     protected $rank;
+
     /**
      * Popularity.
      *
      * @var int|null
      */
     protected $popularity;
+
     /**
      * Number of users who have added this entry to their list.
      *
      * @var int|null
      */
     protected $members;
+
     /**
      * Number of users who have favorited this entry.
      *
      * @var int|null
      */
     protected $favorites;
+
     /**
      * Synopsis.
      *
      * @var string|null
      */
     protected $synopsis;
+
     /**
      * Background.
      *
      * @var string|null
      */
     protected $background;
+
     /**
      * Season.
      *
      * @var string|null
      */
     protected $season;
+
     /**
      * Year.
      *
      * @var int|null
      */
     protected $year;
+
     /**
      * Broadcast Details.
      *
      * @var Broadcast
      */
     protected $broadcast;
+
     /**
      * @var MalUrl[]
      */
-    protected $producers;
+    protected $producers = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $licensors;
+    protected $licensors = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $studios;
+    protected $studios = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $genres;
+    protected $genres = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $explicitGenres;
+    protected $explicitGenres = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $themes;
+    protected $themes = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $demographics;
+    protected $demographics = [];
+
     /**
      * @var AnimeFullRelationsItem[]
      */
-    protected $relations;
+    protected $relations = [];
+
     /**
      * @var AnimeFullTheme
      */
     protected $theme;
+
     /**
      * @var AnimeFullExternalItem[]
      */
-    protected $external;
+    protected $external = [];
+
     /**
      * @var AnimeFullStreamingItem[]
      */
-    protected $streaming;
+    protected $streaming = [];
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -241,10 +278,6 @@ class AnimeFull
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -255,8 +288,6 @@ class AnimeFull
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -265,10 +296,6 @@ class AnimeFull
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -277,30 +304,20 @@ class AnimeFull
         return $this;
     }
 
-    /**
-     * @return AnimeImages
-     */
     public function getImages(): AnimeImages
     {
         return $this->images;
     }
 
-    /**
-     * @param AnimeImages $images
-     *
-     * @return self
-     */
-    public function setImages(AnimeImages $images): self
+    public function setImages(AnimeImages $animeImages): self
     {
-        $this->images = $images;
+        $this->images = $animeImages;
 
         return $this;
     }
 
     /**
      * Youtube Details.
-     *
-     * @return TrailerBase
      */
     public function getTrailer(): TrailerBase
     {
@@ -309,22 +326,16 @@ class AnimeFull
 
     /**
      * Youtube Details.
-     *
-     * @param TrailerBase $trailer
-     *
-     * @return self
      */
-    public function setTrailer(TrailerBase $trailer): self
+    public function setTrailer(TrailerBase $trailerBase): self
     {
-        $this->trailer = $trailer;
+        $this->trailer = $trailerBase;
 
         return $this;
     }
 
     /**
      * Whether the entry is pending approval on MAL or not.
-     *
-     * @return bool
      */
     public function getApproved(): bool
     {
@@ -333,10 +344,6 @@ class AnimeFull
 
     /**
      * Whether the entry is pending approval on MAL or not.
-     *
-     * @param bool $approved
-     *
-     * @return self
      */
     public function setApproved(bool $approved): self
     {
@@ -359,8 +366,6 @@ class AnimeFull
      * All titles.
      *
      * @param string[] $titles
-     *
-     * @return self
      */
     public function setTitles(array $titles): self
     {
@@ -373,8 +378,6 @@ class AnimeFull
      * Title.
      *
      * @deprecated
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -384,11 +387,7 @@ class AnimeFull
     /**
      * Title.
      *
-     * @param string $title
-     *
      * @deprecated
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -401,8 +400,6 @@ class AnimeFull
      * English Title.
      *
      * @deprecated
-     *
-     * @return string|null
      */
     public function getTitleEnglish(): ?string
     {
@@ -412,11 +409,7 @@ class AnimeFull
     /**
      * English Title.
      *
-     * @param string|null $titleEnglish
-     *
      * @deprecated
-     *
-     * @return self
      */
     public function setTitleEnglish(?string $titleEnglish): self
     {
@@ -429,8 +422,6 @@ class AnimeFull
      * Japanese Title.
      *
      * @deprecated
-     *
-     * @return string|null
      */
     public function getTitleJapanese(): ?string
     {
@@ -440,11 +431,7 @@ class AnimeFull
     /**
      * Japanese Title.
      *
-     * @param string|null $titleJapanese
-     *
      * @deprecated
-     *
-     * @return self
      */
     public function setTitleJapanese(?string $titleJapanese): self
     {
@@ -471,8 +458,6 @@ class AnimeFull
      * @param string[] $titleSynonyms
      *
      * @deprecated
-     *
-     * @return self
      */
     public function setTitleSynonyms(array $titleSynonyms): self
     {
@@ -483,8 +468,6 @@ class AnimeFull
 
     /**
      * Anime Type.
-     *
-     * @return string|null
      */
     public function getType(): ?string
     {
@@ -493,10 +476,6 @@ class AnimeFull
 
     /**
      * Anime Type.
-     *
-     * @param string|null $type
-     *
-     * @return self
      */
     public function setType(?string $type): self
     {
@@ -507,8 +486,6 @@ class AnimeFull
 
     /**
      * Original Material/Source adapted from.
-     *
-     * @return string|null
      */
     public function getSource(): ?string
     {
@@ -517,10 +494,6 @@ class AnimeFull
 
     /**
      * Original Material/Source adapted from.
-     *
-     * @param string|null $source
-     *
-     * @return self
      */
     public function setSource(?string $source): self
     {
@@ -531,8 +504,6 @@ class AnimeFull
 
     /**
      * Episode count.
-     *
-     * @return int|null
      */
     public function getEpisodes(): ?int
     {
@@ -541,10 +512,6 @@ class AnimeFull
 
     /**
      * Episode count.
-     *
-     * @param int|null $episodes
-     *
-     * @return self
      */
     public function setEpisodes(?int $episodes): self
     {
@@ -555,8 +522,6 @@ class AnimeFull
 
     /**
      * Airing status.
-     *
-     * @return string|null
      */
     public function getStatus(): ?string
     {
@@ -565,10 +530,6 @@ class AnimeFull
 
     /**
      * Airing status.
-     *
-     * @param string|null $status
-     *
-     * @return self
      */
     public function setStatus(?string $status): self
     {
@@ -579,8 +540,6 @@ class AnimeFull
 
     /**
      * Airing boolean.
-     *
-     * @return bool
      */
     public function getAiring(): bool
     {
@@ -589,10 +548,6 @@ class AnimeFull
 
     /**
      * Airing boolean.
-     *
-     * @param bool $airing
-     *
-     * @return self
      */
     public function setAiring(bool $airing): self
     {
@@ -603,8 +558,6 @@ class AnimeFull
 
     /**
      * Date range.
-     *
-     * @return Daterange
      */
     public function getAired(): Daterange
     {
@@ -613,22 +566,16 @@ class AnimeFull
 
     /**
      * Date range.
-     *
-     * @param Daterange $aired
-     *
-     * @return self
      */
-    public function setAired(Daterange $aired): self
+    public function setAired(Daterange $daterange): self
     {
-        $this->aired = $aired;
+        $this->aired = $daterange;
 
         return $this;
     }
 
     /**
      * Parsed raw duration.
-     *
-     * @return string|null
      */
     public function getDuration(): ?string
     {
@@ -637,10 +584,6 @@ class AnimeFull
 
     /**
      * Parsed raw duration.
-     *
-     * @param string|null $duration
-     *
-     * @return self
      */
     public function setDuration(?string $duration): self
     {
@@ -651,8 +594,6 @@ class AnimeFull
 
     /**
      * Anime audience rating.
-     *
-     * @return string|null
      */
     public function getRating(): ?string
     {
@@ -661,10 +602,6 @@ class AnimeFull
 
     /**
      * Anime audience rating.
-     *
-     * @param string|null $rating
-     *
-     * @return self
      */
     public function setRating(?string $rating): self
     {
@@ -675,8 +612,6 @@ class AnimeFull
 
     /**
      * Score.
-     *
-     * @return float|null
      */
     public function getScore(): ?float
     {
@@ -685,10 +620,6 @@ class AnimeFull
 
     /**
      * Score.
-     *
-     * @param float|null $score
-     *
-     * @return self
      */
     public function setScore(?float $score): self
     {
@@ -699,8 +630,6 @@ class AnimeFull
 
     /**
      * Number of users.
-     *
-     * @return int|null
      */
     public function getScoredBy(): ?int
     {
@@ -709,10 +638,6 @@ class AnimeFull
 
     /**
      * Number of users.
-     *
-     * @param int|null $scoredBy
-     *
-     * @return self
      */
     public function setScoredBy(?int $scoredBy): self
     {
@@ -723,8 +648,6 @@ class AnimeFull
 
     /**
      * Ranking.
-     *
-     * @return int|null
      */
     public function getRank(): ?int
     {
@@ -733,10 +656,6 @@ class AnimeFull
 
     /**
      * Ranking.
-     *
-     * @param int|null $rank
-     *
-     * @return self
      */
     public function setRank(?int $rank): self
     {
@@ -747,8 +666,6 @@ class AnimeFull
 
     /**
      * Popularity.
-     *
-     * @return int|null
      */
     public function getPopularity(): ?int
     {
@@ -757,10 +674,6 @@ class AnimeFull
 
     /**
      * Popularity.
-     *
-     * @param int|null $popularity
-     *
-     * @return self
      */
     public function setPopularity(?int $popularity): self
     {
@@ -771,8 +684,6 @@ class AnimeFull
 
     /**
      * Number of users who have added this entry to their list.
-     *
-     * @return int|null
      */
     public function getMembers(): ?int
     {
@@ -781,10 +692,6 @@ class AnimeFull
 
     /**
      * Number of users who have added this entry to their list.
-     *
-     * @param int|null $members
-     *
-     * @return self
      */
     public function setMembers(?int $members): self
     {
@@ -795,8 +702,6 @@ class AnimeFull
 
     /**
      * Number of users who have favorited this entry.
-     *
-     * @return int|null
      */
     public function getFavorites(): ?int
     {
@@ -805,10 +710,6 @@ class AnimeFull
 
     /**
      * Number of users who have favorited this entry.
-     *
-     * @param int|null $favorites
-     *
-     * @return self
      */
     public function setFavorites(?int $favorites): self
     {
@@ -819,8 +720,6 @@ class AnimeFull
 
     /**
      * Synopsis.
-     *
-     * @return string|null
      */
     public function getSynopsis(): ?string
     {
@@ -829,10 +728,6 @@ class AnimeFull
 
     /**
      * Synopsis.
-     *
-     * @param string|null $synopsis
-     *
-     * @return self
      */
     public function setSynopsis(?string $synopsis): self
     {
@@ -843,8 +738,6 @@ class AnimeFull
 
     /**
      * Background.
-     *
-     * @return string|null
      */
     public function getBackground(): ?string
     {
@@ -853,10 +746,6 @@ class AnimeFull
 
     /**
      * Background.
-     *
-     * @param string|null $background
-     *
-     * @return self
      */
     public function setBackground(?string $background): self
     {
@@ -867,8 +756,6 @@ class AnimeFull
 
     /**
      * Season.
-     *
-     * @return string|null
      */
     public function getSeason(): ?string
     {
@@ -877,10 +764,6 @@ class AnimeFull
 
     /**
      * Season.
-     *
-     * @param string|null $season
-     *
-     * @return self
      */
     public function setSeason(?string $season): self
     {
@@ -891,8 +774,6 @@ class AnimeFull
 
     /**
      * Year.
-     *
-     * @return int|null
      */
     public function getYear(): ?int
     {
@@ -901,10 +782,6 @@ class AnimeFull
 
     /**
      * Year.
-     *
-     * @param int|null $year
-     *
-     * @return self
      */
     public function setYear(?int $year): self
     {
@@ -915,8 +792,6 @@ class AnimeFull
 
     /**
      * Broadcast Details.
-     *
-     * @return Broadcast
      */
     public function getBroadcast(): Broadcast
     {
@@ -925,10 +800,6 @@ class AnimeFull
 
     /**
      * Broadcast Details.
-     *
-     * @param Broadcast $broadcast
-     *
-     * @return self
      */
     public function setBroadcast(Broadcast $broadcast): self
     {
@@ -947,8 +818,6 @@ class AnimeFull
 
     /**
      * @param MalUrl[] $producers
-     *
-     * @return self
      */
     public function setProducers(array $producers): self
     {
@@ -967,8 +836,6 @@ class AnimeFull
 
     /**
      * @param MalUrl[] $licensors
-     *
-     * @return self
      */
     public function setLicensors(array $licensors): self
     {
@@ -987,8 +854,6 @@ class AnimeFull
 
     /**
      * @param MalUrl[] $studios
-     *
-     * @return self
      */
     public function setStudios(array $studios): self
     {
@@ -1007,8 +872,6 @@ class AnimeFull
 
     /**
      * @param MalUrl[] $genres
-     *
-     * @return self
      */
     public function setGenres(array $genres): self
     {
@@ -1027,8 +890,6 @@ class AnimeFull
 
     /**
      * @param MalUrl[] $explicitGenres
-     *
-     * @return self
      */
     public function setExplicitGenres(array $explicitGenres): self
     {
@@ -1047,8 +908,6 @@ class AnimeFull
 
     /**
      * @param MalUrl[] $themes
-     *
-     * @return self
      */
     public function setThemes(array $themes): self
     {
@@ -1067,8 +926,6 @@ class AnimeFull
 
     /**
      * @param MalUrl[] $demographics
-     *
-     * @return self
      */
     public function setDemographics(array $demographics): self
     {
@@ -1087,8 +944,6 @@ class AnimeFull
 
     /**
      * @param AnimeFullRelationsItem[] $relations
-     *
-     * @return self
      */
     public function setRelations(array $relations): self
     {
@@ -1097,22 +952,14 @@ class AnimeFull
         return $this;
     }
 
-    /**
-     * @return AnimeFullTheme
-     */
     public function getTheme(): AnimeFullTheme
     {
         return $this->theme;
     }
 
-    /**
-     * @param AnimeFullTheme $theme
-     *
-     * @return self
-     */
-    public function setTheme(AnimeFullTheme $theme): self
+    public function setTheme(AnimeFullTheme $animeFullTheme): self
     {
-        $this->theme = $theme;
+        $this->theme = $animeFullTheme;
 
         return $this;
     }
@@ -1127,8 +974,6 @@ class AnimeFull
 
     /**
      * @param AnimeFullExternalItem[] $external
-     *
-     * @return self
      */
     public function setExternal(array $external): self
     {
@@ -1147,8 +992,6 @@ class AnimeFull
 
     /**
      * @param AnimeFullStreamingItem[] $streaming
-     *
-     * @return self
      */
     public function setStreaming(array $streaming): self
     {

@@ -10,6 +10,7 @@ class CharacterFullAnimeItem
      * @var string
      */
     protected $role;
+
     /**
      * @var AnimeMeta
      */
@@ -17,8 +18,6 @@ class CharacterFullAnimeItem
 
     /**
      * Character's Role.
-     *
-     * @return string
      */
     public function getRole(): string
     {
@@ -27,10 +26,6 @@ class CharacterFullAnimeItem
 
     /**
      * Character's Role.
-     *
-     * @param string $role
-     *
-     * @return self
      */
     public function setRole(string $role): self
     {
@@ -39,22 +34,14 @@ class CharacterFullAnimeItem
         return $this;
     }
 
-    /**
-     * @return AnimeMeta
-     */
     public function getAnime(): AnimeMeta
     {
         return $this->anime;
     }
 
-    /**
-     * @param AnimeMeta $anime
-     *
-     * @return self
-     */
-    public function setAnime(AnimeMeta $anime): self
+    public function setAnime(AnimeMeta $animeMeta): self
     {
-        $this->anime = $anime;
+        $this->anime = $animeMeta;
 
         return $this;
     }

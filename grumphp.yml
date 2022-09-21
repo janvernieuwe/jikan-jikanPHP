@@ -4,12 +4,13 @@ parameters:
 grumphp:
     tasks:
         phpunit: ~
-#        phpstan:
-#            level: "%phpstan.level%"
-#            configuration: "%phpstan.config%"
-#            ignore_patterns: "%phpstan.ignore%"
-#            metadata:
-#                priority: 200
+        phpstan:
+            level: 1
+            configuration: "phpstan.neon"
+            ignore_patterns:
+                - src/Runtime/Client/BaseEndpoint.php
+            metadata:
+                priority: 200
         phpcsfixer2:
             allow_risky: true
             cache_file: ~

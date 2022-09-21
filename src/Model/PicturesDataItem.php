@@ -9,22 +9,14 @@ class PicturesDataItem
      */
     protected $images;
 
-    /**
-     * @return AnimeImages
-     */
     public function getImages(): AnimeImages
     {
         return $this->images;
     }
 
-    /**
-     * @param AnimeImages $images
-     *
-     * @return self
-     */
-    public function setImages(AnimeImages $images): self
+    public function setImages(AnimeImages $animeImages): self
     {
-        $this->images = $images;
+        $this->images = $animeImages;
 
         return $this;
     }

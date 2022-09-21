@@ -8,26 +8,31 @@ class UserFavoritesAnimeItem
      * @var string
      */
     protected $type;
+
     /**
      * @var int
      */
     protected $startYear;
+
     /**
      * MyAnimeList ID.
      *
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var AnimeImages
      */
     protected $images;
+
     /**
      * Entry title.
      *
@@ -35,19 +40,11 @@ class UserFavoritesAnimeItem
      */
     protected $title;
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     *
-     * @return self
-     */
     public function setType(string $type): self
     {
         $this->type = $type;
@@ -55,19 +52,11 @@ class UserFavoritesAnimeItem
         return $this;
     }
 
-    /**
-     * @return int
-     */
     public function getStartYear(): int
     {
         return $this->startYear;
     }
 
-    /**
-     * @param int $startYear
-     *
-     * @return self
-     */
     public function setStartYear(int $startYear): self
     {
         $this->startYear = $startYear;
@@ -77,8 +66,6 @@ class UserFavoritesAnimeItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -87,10 +74,6 @@ class UserFavoritesAnimeItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -101,8 +84,6 @@ class UserFavoritesAnimeItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -111,10 +92,6 @@ class UserFavoritesAnimeItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -123,30 +100,20 @@ class UserFavoritesAnimeItem
         return $this;
     }
 
-    /**
-     * @return AnimeImages
-     */
     public function getImages(): AnimeImages
     {
         return $this->images;
     }
 
-    /**
-     * @param AnimeImages $images
-     *
-     * @return self
-     */
-    public function setImages(AnimeImages $images): self
+    public function setImages(AnimeImages $animeImages): self
     {
-        $this->images = $images;
+        $this->images = $animeImages;
 
         return $this;
     }
 
     /**
      * Entry title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -155,10 +122,6 @@ class UserFavoritesAnimeItem
 
     /**
      * Entry title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {

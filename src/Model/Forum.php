@@ -7,7 +7,7 @@ class Forum
     /**
      * @var ForumDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return ForumDataItem[]
@@ -19,8 +19,6 @@ class Forum
 
     /**
      * @param ForumDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

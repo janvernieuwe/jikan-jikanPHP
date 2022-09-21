@@ -7,7 +7,7 @@ class Genres
     /**
      * @var Genre[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return Genre[]
@@ -19,8 +19,6 @@ class Genres
 
     /**
      * @param Genre[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

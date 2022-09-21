@@ -8,48 +8,56 @@ class AnimeReviewsdataItem
      * @var UserMeta
      */
     protected $user;
+
     /**
      * MyAnimeList ID.
      *
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Entry Type.
      *
      * @var string
      */
     protected $type;
+
     /**
      * Number of user votes on the Review.
      *
      * @var int
      */
     protected $votes;
+
     /**
      * Review created date ISO8601.
      *
      * @var string
      */
     protected $date;
+
     /**
      * Review content.
      *
      * @var string
      */
     protected $review;
+
     /**
      * Number of episodes watched.
      *
      * @var int
      */
     protected $episodesWatched;
+
     /**
      * Review Scores breakdown.
      *
@@ -57,30 +65,20 @@ class AnimeReviewsdataItem
      */
     protected $scores;
 
-    /**
-     * @return UserMeta
-     */
     public function getUser(): UserMeta
     {
         return $this->user;
     }
 
-    /**
-     * @param UserMeta $user
-     *
-     * @return self
-     */
-    public function setUser(UserMeta $user): self
+    public function setUser(UserMeta $userMeta): self
     {
-        $this->user = $user;
+        $this->user = $userMeta;
 
         return $this;
     }
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -89,10 +87,6 @@ class AnimeReviewsdataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -103,8 +97,6 @@ class AnimeReviewsdataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -113,10 +105,6 @@ class AnimeReviewsdataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -127,8 +115,6 @@ class AnimeReviewsdataItem
 
     /**
      * Entry Type.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -137,10 +123,6 @@ class AnimeReviewsdataItem
 
     /**
      * Entry Type.
-     *
-     * @param string $type
-     *
-     * @return self
      */
     public function setType(string $type): self
     {
@@ -151,8 +133,6 @@ class AnimeReviewsdataItem
 
     /**
      * Number of user votes on the Review.
-     *
-     * @return int
      */
     public function getVotes(): int
     {
@@ -161,10 +141,6 @@ class AnimeReviewsdataItem
 
     /**
      * Number of user votes on the Review.
-     *
-     * @param int $votes
-     *
-     * @return self
      */
     public function setVotes(int $votes): self
     {
@@ -175,8 +151,6 @@ class AnimeReviewsdataItem
 
     /**
      * Review created date ISO8601.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -185,10 +159,6 @@ class AnimeReviewsdataItem
 
     /**
      * Review created date ISO8601.
-     *
-     * @param string $date
-     *
-     * @return self
      */
     public function setDate(string $date): self
     {
@@ -199,8 +169,6 @@ class AnimeReviewsdataItem
 
     /**
      * Review content.
-     *
-     * @return string
      */
     public function getReview(): string
     {
@@ -209,10 +177,6 @@ class AnimeReviewsdataItem
 
     /**
      * Review content.
-     *
-     * @param string $review
-     *
-     * @return self
      */
     public function setReview(string $review): self
     {
@@ -223,8 +187,6 @@ class AnimeReviewsdataItem
 
     /**
      * Number of episodes watched.
-     *
-     * @return int
      */
     public function getEpisodesWatched(): int
     {
@@ -233,10 +195,6 @@ class AnimeReviewsdataItem
 
     /**
      * Number of episodes watched.
-     *
-     * @param int $episodesWatched
-     *
-     * @return self
      */
     public function setEpisodesWatched(int $episodesWatched): self
     {
@@ -247,8 +205,6 @@ class AnimeReviewsdataItem
 
     /**
      * Review Scores breakdown.
-     *
-     * @return AnimeReviewScores
      */
     public function getScores(): AnimeReviewScores
     {
@@ -257,14 +213,10 @@ class AnimeReviewsdataItem
 
     /**
      * Review Scores breakdown.
-     *
-     * @param AnimeReviewScores $scores
-     *
-     * @return self
      */
-    public function setScores(AnimeReviewScores $scores): self
+    public function setScores(AnimeReviewScores $animeReviewScores): self
     {
-        $this->scores = $scores;
+        $this->scores = $animeReviewScores;
 
         return $this;
     }

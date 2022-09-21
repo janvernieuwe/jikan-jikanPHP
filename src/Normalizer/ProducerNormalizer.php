@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\CommonImages;
+use Jikan\JikanPHP\Model\Producer;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class ProducerNormalizer implements DenormalizerInterface, NormalizerInterface, 
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\Producer' === $type;
+        return Producer::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\Producer' === get_class($data);
+        return is_object($data) && $data instanceof Producer;
     }
 
     /**
@@ -34,88 +37,107 @@ class ProducerNormalizer implements DenormalizerInterface, NormalizerInterface, 
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|Producer
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\Producer();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $producer = new Producer();
+        if (null === $data || !\is_array($data)) {
+            return $producer;
         }
+
         if (\array_key_exists('mal_id', $data)) {
-            $object->setMalId($data['mal_id']);
+            $producer->setMalId($data['mal_id']);
         }
+
         if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
+            $producer->setUrl($data['url']);
         }
+
         if (\array_key_exists('titles', $data)) {
             $values = [];
             foreach ($data['titles'] as $value) {
                 $values[] = $value;
             }
-            $object->setTitles($values);
-        }
-        if (\array_key_exists('images', $data)) {
-            $object->setImages($this->denormalizer->denormalize($data['images'], 'Jikan\\JikanPHP\\Model\\CommonImages', 'json', $context));
-        }
-        if (\array_key_exists('favorites', $data)) {
-            $object->setFavorites($data['favorites']);
-        }
-        if (\array_key_exists('count', $data)) {
-            $object->setCount($data['count']);
-        }
-        if (\array_key_exists('established', $data) && null !== $data['established']) {
-            $object->setEstablished($data['established']);
-        } elseif (\array_key_exists('established', $data) && null === $data['established']) {
-            $object->setEstablished(null);
-        }
-        if (\array_key_exists('about', $data) && null !== $data['about']) {
-            $object->setAbout($data['about']);
-        } elseif (\array_key_exists('about', $data) && null === $data['about']) {
-            $object->setAbout(null);
+
+            $producer->setTitles($values);
         }
 
-        return $object;
+        if (\array_key_exists('images', $data)) {
+            $producer->setImages($this->denormalizer->denormalize($data['images'], CommonImages::class, 'json', $context));
+        }
+
+        if (\array_key_exists('favorites', $data)) {
+            $producer->setFavorites($data['favorites']);
+        }
+
+        if (\array_key_exists('count', $data)) {
+            $producer->setCount($data['count']);
+        }
+
+        if (\array_key_exists('established', $data) && null !== $data['established']) {
+            $producer->setEstablished($data['established']);
+        } elseif (\array_key_exists('established', $data) && null === $data['established']) {
+            $producer->setEstablished(null);
+        }
+
+        if (\array_key_exists('about', $data) && null !== $data['about']) {
+            $producer->setAbout($data['about']);
+        } elseif (\array_key_exists('about', $data) && null === $data['about']) {
+            $producer->setAbout(null);
+        }
+
+        return $producer;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getMalId()) {
             $data['mal_id'] = $object->getMalId();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getTitles()) {
             $values = [];
-            foreach ($object->getTitles() as $value) {
-                $values[] = $value;
+            foreach ($object->getTitles() as $title) {
+                $values[] = $title;
             }
+
             $data['titles'] = $values;
         }
+
         if (null !== $object->getImages()) {
             $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
         }
+
         if (null !== $object->getFavorites()) {
             $data['favorites'] = $object->getFavorites();
         }
+
         if (null !== $object->getCount()) {
             $data['count'] = $object->getCount();
         }
+
         if (null !== $object->getEstablished()) {
             $data['established'] = $object->getEstablished();
         }
+
         if (null !== $object->getAbout()) {
             $data['about'] = $object->getAbout();
         }

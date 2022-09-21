@@ -10,42 +10,49 @@ class ForumDataItem
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Title.
      *
      * @var string
      */
     protected $title;
+
     /**
      * Post Date ISO8601.
      *
      * @var string
      */
     protected $date;
+
     /**
      * Author MyAnimeList Username.
      *
      * @var string
      */
     protected $authorUsername;
+
     /**
      * Author Profile URL.
      *
      * @var string
      */
     protected $authorUrl;
+
     /**
      * Comment count.
      *
      * @var int
      */
     protected $comments;
+
     /**
      * Last comment details.
      *
@@ -55,8 +62,6 @@ class ForumDataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -65,10 +70,6 @@ class ForumDataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -79,8 +80,6 @@ class ForumDataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -89,10 +88,6 @@ class ForumDataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -103,8 +98,6 @@ class ForumDataItem
 
     /**
      * Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -113,10 +106,6 @@ class ForumDataItem
 
     /**
      * Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -127,8 +116,6 @@ class ForumDataItem
 
     /**
      * Post Date ISO8601.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -137,10 +124,6 @@ class ForumDataItem
 
     /**
      * Post Date ISO8601.
-     *
-     * @param string $date
-     *
-     * @return self
      */
     public function setDate(string $date): self
     {
@@ -151,8 +134,6 @@ class ForumDataItem
 
     /**
      * Author MyAnimeList Username.
-     *
-     * @return string
      */
     public function getAuthorUsername(): string
     {
@@ -161,10 +142,6 @@ class ForumDataItem
 
     /**
      * Author MyAnimeList Username.
-     *
-     * @param string $authorUsername
-     *
-     * @return self
      */
     public function setAuthorUsername(string $authorUsername): self
     {
@@ -175,8 +152,6 @@ class ForumDataItem
 
     /**
      * Author Profile URL.
-     *
-     * @return string
      */
     public function getAuthorUrl(): string
     {
@@ -185,10 +160,6 @@ class ForumDataItem
 
     /**
      * Author Profile URL.
-     *
-     * @param string $authorUrl
-     *
-     * @return self
      */
     public function setAuthorUrl(string $authorUrl): self
     {
@@ -199,8 +170,6 @@ class ForumDataItem
 
     /**
      * Comment count.
-     *
-     * @return int
      */
     public function getComments(): int
     {
@@ -209,10 +178,6 @@ class ForumDataItem
 
     /**
      * Comment count.
-     *
-     * @param int $comments
-     *
-     * @return self
      */
     public function setComments(int $comments): self
     {
@@ -223,8 +188,6 @@ class ForumDataItem
 
     /**
      * Last comment details.
-     *
-     * @return ForumDataItemLastComment
      */
     public function getLastComment(): ForumDataItemLastComment
     {
@@ -233,14 +196,10 @@ class ForumDataItem
 
     /**
      * Last comment details.
-     *
-     * @param ForumDataItemLastComment $lastComment
-     *
-     * @return self
      */
-    public function setLastComment(ForumDataItemLastComment $lastComment): self
+    public function setLastComment(ForumDataItemLastComment $forumDataItemLastComment): self
     {
-        $this->lastComment = $lastComment;
+        $this->lastComment = $forumDataItemLastComment;
 
         return $this;
     }

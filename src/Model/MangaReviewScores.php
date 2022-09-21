@@ -10,24 +10,28 @@ class MangaReviewScores
      * @var int
      */
     protected $overall;
+
     /**
      * Story Score.
      *
      * @var int
      */
     protected $story;
+
     /**
      * Art Score.
      *
      * @var int
      */
     protected $art;
+
     /**
      * Character Score.
      *
      * @var int
      */
     protected $character;
+
     /**
      * Enjoyment Score.
      *
@@ -37,8 +41,6 @@ class MangaReviewScores
 
     /**
      * Overall Score.
-     *
-     * @return int
      */
     public function getOverall(): int
     {
@@ -47,10 +49,6 @@ class MangaReviewScores
 
     /**
      * Overall Score.
-     *
-     * @param int $overall
-     *
-     * @return self
      */
     public function setOverall(int $overall): self
     {
@@ -61,8 +59,6 @@ class MangaReviewScores
 
     /**
      * Story Score.
-     *
-     * @return int
      */
     public function getStory(): int
     {
@@ -71,10 +67,6 @@ class MangaReviewScores
 
     /**
      * Story Score.
-     *
-     * @param int $story
-     *
-     * @return self
      */
     public function setStory(int $story): self
     {
@@ -85,8 +77,6 @@ class MangaReviewScores
 
     /**
      * Art Score.
-     *
-     * @return int
      */
     public function getArt(): int
     {
@@ -95,10 +85,6 @@ class MangaReviewScores
 
     /**
      * Art Score.
-     *
-     * @param int $art
-     *
-     * @return self
      */
     public function setArt(int $art): self
     {
@@ -109,8 +95,6 @@ class MangaReviewScores
 
     /**
      * Character Score.
-     *
-     * @return int
      */
     public function getCharacter(): int
     {
@@ -119,10 +103,6 @@ class MangaReviewScores
 
     /**
      * Character Score.
-     *
-     * @param int $character
-     *
-     * @return self
      */
     public function setCharacter(int $character): self
     {
@@ -133,8 +113,6 @@ class MangaReviewScores
 
     /**
      * Enjoyment Score.
-     *
-     * @return int
      */
     public function getEnjoyment(): int
     {
@@ -143,10 +121,6 @@ class MangaReviewScores
 
     /**
      * Enjoyment Score.
-     *
-     * @param int $enjoyment
-     *
-     * @return self
      */
     public function setEnjoyment(int $enjoyment): self
     {

@@ -13,8 +13,6 @@ class RandomAnimeGetResponse200
 
     /**
      * Anime Resource.
-     *
-     * @return Anime
      */
     public function getData(): Anime
     {
@@ -23,14 +21,10 @@ class RandomAnimeGetResponse200
 
     /**
      * Anime Resource.
-     *
-     * @param Anime $data
-     *
-     * @return self
      */
-    public function setData(Anime $data): self
+    public function setData(Anime $anime): self
     {
-        $this->data = $data;
+        $this->data = $anime;
 
         return $this;
     }

@@ -10,12 +10,14 @@ class AnimeImagesJpg
      * @var string|null
      */
     protected $imageUrl;
+
     /**
      * Small Image URL JPG.
      *
      * @var string|null
      */
     protected $smallImageUrl;
+
     /**
      * Image URL JPG.
      *
@@ -25,8 +27,6 @@ class AnimeImagesJpg
 
     /**
      * Image URL JPG.
-     *
-     * @return string|null
      */
     public function getImageUrl(): ?string
     {
@@ -35,10 +35,6 @@ class AnimeImagesJpg
 
     /**
      * Image URL JPG.
-     *
-     * @param string|null $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(?string $imageUrl): self
     {
@@ -49,8 +45,6 @@ class AnimeImagesJpg
 
     /**
      * Small Image URL JPG.
-     *
-     * @return string|null
      */
     public function getSmallImageUrl(): ?string
     {
@@ -59,10 +53,6 @@ class AnimeImagesJpg
 
     /**
      * Small Image URL JPG.
-     *
-     * @param string|null $smallImageUrl
-     *
-     * @return self
      */
     public function setSmallImageUrl(?string $smallImageUrl): self
     {
@@ -73,8 +63,6 @@ class AnimeImagesJpg
 
     /**
      * Image URL JPG.
-     *
-     * @return string|null
      */
     public function getLargeImageUrl(): ?string
     {
@@ -83,10 +71,6 @@ class AnimeImagesJpg
 
     /**
      * Image URL JPG.
-     *
-     * @param string|null $largeImageUrl
-     *
-     * @return self
      */
     public function setLargeImageUrl(?string $largeImageUrl): self
     {

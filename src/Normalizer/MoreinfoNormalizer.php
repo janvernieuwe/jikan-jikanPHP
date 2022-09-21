@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\Moreinfo;
+use Jikan\JikanPHP\Model\MoreinfoData;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class MoreinfoNormalizer implements DenormalizerInterface, NormalizerInterface, 
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\Moreinfo' === $type;
+        return Moreinfo::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\Moreinfo' === get_class($data);
+        return is_object($data) && $data instanceof Moreinfo;
     }
 
     /**
@@ -34,32 +37,35 @@ class MoreinfoNormalizer implements DenormalizerInterface, NormalizerInterface, 
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|Moreinfo
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\Moreinfo();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('data', $data)) {
-            $object->setData($this->denormalizer->denormalize($data['data'], 'Jikan\\JikanPHP\\Model\\MoreinfoData', 'json', $context));
+
+        $moreinfo = new Moreinfo();
+        if (null === $data || !\is_array($data)) {
+            return $moreinfo;
         }
 
-        return $object;
+        if (\array_key_exists('data', $data)) {
+            $moreinfo->setData($this->denormalizer->denormalize($data['data'], MoreinfoData::class, 'json', $context));
+        }
+
+        return $moreinfo;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getData()) {

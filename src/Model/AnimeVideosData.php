@@ -7,15 +7,17 @@ class AnimeVideosData
     /**
      * @var AnimeVideosDataPromoItem[]
      */
-    protected $promo;
+    protected $promo = [];
+
     /**
      * @var AnimeVideosDataEpisodesItem[]
      */
-    protected $episodes;
+    protected $episodes = [];
+
     /**
      * @var AnimeVideosDataMusicVideosItem[]
      */
-    protected $musicVideos;
+    protected $musicVideos = [];
 
     /**
      * @return AnimeVideosDataPromoItem[]
@@ -27,8 +29,6 @@ class AnimeVideosData
 
     /**
      * @param AnimeVideosDataPromoItem[] $promo
-     *
-     * @return self
      */
     public function setPromo(array $promo): self
     {
@@ -47,8 +47,6 @@ class AnimeVideosData
 
     /**
      * @param AnimeVideosDataEpisodesItem[] $episodes
-     *
-     * @return self
      */
     public function setEpisodes(array $episodes): self
     {
@@ -67,8 +65,6 @@ class AnimeVideosData
 
     /**
      * @param AnimeVideosDataMusicVideosItem[] $musicVideos
-     *
-     * @return self
      */
     public function setMusicVideos(array $musicVideos): self
     {

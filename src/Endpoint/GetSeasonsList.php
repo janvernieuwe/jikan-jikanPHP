@@ -2,9 +2,16 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetSeasonsList extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
+use Jikan\JikanPHP\Exception\GetSeasonsListBadRequestException;
+use Jikan\JikanPHP\Model\Seasons;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\Serializer\SerializerInterface;
+
+class GetSeasonsList extends BaseEndpoint implements Endpoint
 {
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -16,12 +23,12 @@ class GetSeasonsList extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
         return '/seasons';
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
@@ -29,17 +36,18 @@ class GetSeasonsList extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetSeasonsListBadRequestException
+     * @throws GetSeasonsListBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Seasons
+     * @return null|Seasons
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\Seasons', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, Seasons::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetSeasonsListBadRequestException();
+            throw new GetSeasonsListBadRequestException();
         }
     }
 

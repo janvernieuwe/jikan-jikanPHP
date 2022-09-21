@@ -10,6 +10,7 @@ class UserImages
      * @var UserImagesJpg
      */
     protected $jpg;
+
     /**
      * Available images in WEBP.
      *
@@ -19,8 +20,6 @@ class UserImages
 
     /**
      * Available images in JPG.
-     *
-     * @return UserImagesJpg
      */
     public function getJpg(): UserImagesJpg
     {
@@ -29,22 +28,16 @@ class UserImages
 
     /**
      * Available images in JPG.
-     *
-     * @param UserImagesJpg $jpg
-     *
-     * @return self
      */
-    public function setJpg(UserImagesJpg $jpg): self
+    public function setJpg(UserImagesJpg $userImagesJpg): self
     {
-        $this->jpg = $jpg;
+        $this->jpg = $userImagesJpg;
 
         return $this;
     }
 
     /**
      * Available images in WEBP.
-     *
-     * @return UserImagesWebp
      */
     public function getWebp(): UserImagesWebp
     {
@@ -53,14 +46,10 @@ class UserImages
 
     /**
      * Available images in WEBP.
-     *
-     * @param UserImagesWebp $webp
-     *
-     * @return self
      */
-    public function setWebp(UserImagesWebp $webp): self
+    public function setWebp(UserImagesWebp $userImagesWebp): self
     {
-        $this->webp = $webp;
+        $this->webp = $userImagesWebp;
 
         return $this;
     }

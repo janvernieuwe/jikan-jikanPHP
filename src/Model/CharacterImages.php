@@ -10,6 +10,7 @@ class CharacterImages
      * @var CharacterImagesJpg
      */
     protected $jpg;
+
     /**
      * Available images in WEBP.
      *
@@ -19,8 +20,6 @@ class CharacterImages
 
     /**
      * Available images in JPG.
-     *
-     * @return CharacterImagesJpg
      */
     public function getJpg(): CharacterImagesJpg
     {
@@ -29,22 +28,16 @@ class CharacterImages
 
     /**
      * Available images in JPG.
-     *
-     * @param CharacterImagesJpg $jpg
-     *
-     * @return self
      */
-    public function setJpg(CharacterImagesJpg $jpg): self
+    public function setJpg(CharacterImagesJpg $characterImagesJpg): self
     {
-        $this->jpg = $jpg;
+        $this->jpg = $characterImagesJpg;
 
         return $this;
     }
 
     /**
      * Available images in WEBP.
-     *
-     * @return CharacterImagesWebp
      */
     public function getWebp(): CharacterImagesWebp
     {
@@ -53,14 +46,10 @@ class CharacterImages
 
     /**
      * Available images in WEBP.
-     *
-     * @param CharacterImagesWebp $webp
-     *
-     * @return self
      */
-    public function setWebp(CharacterImagesWebp $webp): self
+    public function setWebp(CharacterImagesWebp $characterImagesWebp): self
     {
-        $this->webp = $webp;
+        $this->webp = $characterImagesWebp;
 
         return $this;
     }

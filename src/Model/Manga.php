@@ -10,28 +10,33 @@ class Manga
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var MangaImages
      */
     protected $images;
+
     /**
      * Whether the entry is pending approval on MAL or not.
      *
      * @var bool
      */
-    protected $approved;
+    protected $approved = false;
+
     /**
      * All Titles.
      *
      * @var string[]
      */
-    protected $titles;
+    protected $titles = [];
+
     /**
      * Title.
      *
@@ -40,6 +45,7 @@ class Manga
      * @var string
      */
     protected $title;
+
     /**
      * English Title.
      *
@@ -48,6 +54,7 @@ class Manga
      * @var string|null
      */
     protected $titleEnglish;
+
     /**
      * Japanese Title.
      *
@@ -56,119 +63,137 @@ class Manga
      * @var string|null
      */
     protected $titleJapanese;
+
     /**
      * Manga Type.
      *
      * @var string|null
      */
     protected $type;
+
     /**
      * Chapter count.
      *
      * @var int|null
      */
     protected $chapters;
+
     /**
      * Volume count.
      *
      * @var int|null
      */
     protected $volumes;
+
     /**
      * Publishing status.
      *
      * @var string
      */
     protected $status;
+
     /**
      * Publishing boolean.
      *
      * @var bool
      */
-    protected $publishing;
+    protected $publishing = false;
+
     /**
      * Date range.
      *
      * @var Daterange
      */
     protected $published;
+
     /**
      * Score.
      *
      * @var float|null
      */
     protected $score;
+
     /**
      * Number of users.
      *
      * @var int|null
      */
     protected $scoredBy;
+
     /**
      * Ranking.
      *
      * @var int|null
      */
     protected $rank;
+
     /**
      * Popularity.
      *
      * @var int|null
      */
     protected $popularity;
+
     /**
      * Number of users who have added this entry to their list.
      *
      * @var int|null
      */
     protected $members;
+
     /**
      * Number of users who have favorited this entry.
      *
      * @var int|null
      */
     protected $favorites;
+
     /**
      * Synopsis.
      *
      * @var string|null
      */
     protected $synopsis;
+
     /**
      * Background.
      *
      * @var string|null
      */
     protected $background;
+
     /**
      * @var MalUrl[]
      */
-    protected $authors;
+    protected $authors = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $serializations;
+    protected $serializations = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $genres;
+    protected $genres = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $explicitGenres;
+    protected $explicitGenres = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $themes;
+    protected $themes = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $demographics;
+    protected $demographics = [];
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -177,10 +202,6 @@ class Manga
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -191,8 +212,6 @@ class Manga
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -201,10 +220,6 @@ class Manga
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -213,30 +228,20 @@ class Manga
         return $this;
     }
 
-    /**
-     * @return MangaImages
-     */
     public function getImages(): MangaImages
     {
         return $this->images;
     }
 
-    /**
-     * @param MangaImages $images
-     *
-     * @return self
-     */
-    public function setImages(MangaImages $images): self
+    public function setImages(MangaImages $mangaImages): self
     {
-        $this->images = $images;
+        $this->images = $mangaImages;
 
         return $this;
     }
 
     /**
      * Whether the entry is pending approval on MAL or not.
-     *
-     * @return bool
      */
     public function getApproved(): bool
     {
@@ -245,10 +250,6 @@ class Manga
 
     /**
      * Whether the entry is pending approval on MAL or not.
-     *
-     * @param bool $approved
-     *
-     * @return self
      */
     public function setApproved(bool $approved): self
     {
@@ -271,8 +272,6 @@ class Manga
      * All Titles.
      *
      * @param string[] $titles
-     *
-     * @return self
      */
     public function setTitles(array $titles): self
     {
@@ -285,8 +284,6 @@ class Manga
      * Title.
      *
      * @deprecated
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -296,11 +293,7 @@ class Manga
     /**
      * Title.
      *
-     * @param string $title
-     *
      * @deprecated
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -313,8 +306,6 @@ class Manga
      * English Title.
      *
      * @deprecated
-     *
-     * @return string|null
      */
     public function getTitleEnglish(): ?string
     {
@@ -324,11 +315,7 @@ class Manga
     /**
      * English Title.
      *
-     * @param string|null $titleEnglish
-     *
      * @deprecated
-     *
-     * @return self
      */
     public function setTitleEnglish(?string $titleEnglish): self
     {
@@ -341,8 +328,6 @@ class Manga
      * Japanese Title.
      *
      * @deprecated
-     *
-     * @return string|null
      */
     public function getTitleJapanese(): ?string
     {
@@ -352,11 +337,7 @@ class Manga
     /**
      * Japanese Title.
      *
-     * @param string|null $titleJapanese
-     *
      * @deprecated
-     *
-     * @return self
      */
     public function setTitleJapanese(?string $titleJapanese): self
     {
@@ -367,8 +348,6 @@ class Manga
 
     /**
      * Manga Type.
-     *
-     * @return string|null
      */
     public function getType(): ?string
     {
@@ -377,10 +356,6 @@ class Manga
 
     /**
      * Manga Type.
-     *
-     * @param string|null $type
-     *
-     * @return self
      */
     public function setType(?string $type): self
     {
@@ -391,8 +366,6 @@ class Manga
 
     /**
      * Chapter count.
-     *
-     * @return int|null
      */
     public function getChapters(): ?int
     {
@@ -401,10 +374,6 @@ class Manga
 
     /**
      * Chapter count.
-     *
-     * @param int|null $chapters
-     *
-     * @return self
      */
     public function setChapters(?int $chapters): self
     {
@@ -415,8 +384,6 @@ class Manga
 
     /**
      * Volume count.
-     *
-     * @return int|null
      */
     public function getVolumes(): ?int
     {
@@ -425,10 +392,6 @@ class Manga
 
     /**
      * Volume count.
-     *
-     * @param int|null $volumes
-     *
-     * @return self
      */
     public function setVolumes(?int $volumes): self
     {
@@ -439,8 +402,6 @@ class Manga
 
     /**
      * Publishing status.
-     *
-     * @return string
      */
     public function getStatus(): string
     {
@@ -449,10 +410,6 @@ class Manga
 
     /**
      * Publishing status.
-     *
-     * @param string $status
-     *
-     * @return self
      */
     public function setStatus(string $status): self
     {
@@ -463,8 +420,6 @@ class Manga
 
     /**
      * Publishing boolean.
-     *
-     * @return bool
      */
     public function getPublishing(): bool
     {
@@ -473,10 +428,6 @@ class Manga
 
     /**
      * Publishing boolean.
-     *
-     * @param bool $publishing
-     *
-     * @return self
      */
     public function setPublishing(bool $publishing): self
     {
@@ -487,8 +438,6 @@ class Manga
 
     /**
      * Date range.
-     *
-     * @return Daterange
      */
     public function getPublished(): Daterange
     {
@@ -497,22 +446,16 @@ class Manga
 
     /**
      * Date range.
-     *
-     * @param Daterange $published
-     *
-     * @return self
      */
-    public function setPublished(Daterange $published): self
+    public function setPublished(Daterange $daterange): self
     {
-        $this->published = $published;
+        $this->published = $daterange;
 
         return $this;
     }
 
     /**
      * Score.
-     *
-     * @return float|null
      */
     public function getScore(): ?float
     {
@@ -521,10 +464,6 @@ class Manga
 
     /**
      * Score.
-     *
-     * @param float|null $score
-     *
-     * @return self
      */
     public function setScore(?float $score): self
     {
@@ -535,8 +474,6 @@ class Manga
 
     /**
      * Number of users.
-     *
-     * @return int|null
      */
     public function getScoredBy(): ?int
     {
@@ -545,10 +482,6 @@ class Manga
 
     /**
      * Number of users.
-     *
-     * @param int|null $scoredBy
-     *
-     * @return self
      */
     public function setScoredBy(?int $scoredBy): self
     {
@@ -559,8 +492,6 @@ class Manga
 
     /**
      * Ranking.
-     *
-     * @return int|null
      */
     public function getRank(): ?int
     {
@@ -569,10 +500,6 @@ class Manga
 
     /**
      * Ranking.
-     *
-     * @param int|null $rank
-     *
-     * @return self
      */
     public function setRank(?int $rank): self
     {
@@ -583,8 +510,6 @@ class Manga
 
     /**
      * Popularity.
-     *
-     * @return int|null
      */
     public function getPopularity(): ?int
     {
@@ -593,10 +518,6 @@ class Manga
 
     /**
      * Popularity.
-     *
-     * @param int|null $popularity
-     *
-     * @return self
      */
     public function setPopularity(?int $popularity): self
     {
@@ -607,8 +528,6 @@ class Manga
 
     /**
      * Number of users who have added this entry to their list.
-     *
-     * @return int|null
      */
     public function getMembers(): ?int
     {
@@ -617,10 +536,6 @@ class Manga
 
     /**
      * Number of users who have added this entry to their list.
-     *
-     * @param int|null $members
-     *
-     * @return self
      */
     public function setMembers(?int $members): self
     {
@@ -631,8 +546,6 @@ class Manga
 
     /**
      * Number of users who have favorited this entry.
-     *
-     * @return int|null
      */
     public function getFavorites(): ?int
     {
@@ -641,10 +554,6 @@ class Manga
 
     /**
      * Number of users who have favorited this entry.
-     *
-     * @param int|null $favorites
-     *
-     * @return self
      */
     public function setFavorites(?int $favorites): self
     {
@@ -655,8 +564,6 @@ class Manga
 
     /**
      * Synopsis.
-     *
-     * @return string|null
      */
     public function getSynopsis(): ?string
     {
@@ -665,10 +572,6 @@ class Manga
 
     /**
      * Synopsis.
-     *
-     * @param string|null $synopsis
-     *
-     * @return self
      */
     public function setSynopsis(?string $synopsis): self
     {
@@ -679,8 +582,6 @@ class Manga
 
     /**
      * Background.
-     *
-     * @return string|null
      */
     public function getBackground(): ?string
     {
@@ -689,10 +590,6 @@ class Manga
 
     /**
      * Background.
-     *
-     * @param string|null $background
-     *
-     * @return self
      */
     public function setBackground(?string $background): self
     {
@@ -711,8 +608,6 @@ class Manga
 
     /**
      * @param MalUrl[] $authors
-     *
-     * @return self
      */
     public function setAuthors(array $authors): self
     {
@@ -731,8 +626,6 @@ class Manga
 
     /**
      * @param MalUrl[] $serializations
-     *
-     * @return self
      */
     public function setSerializations(array $serializations): self
     {
@@ -751,8 +644,6 @@ class Manga
 
     /**
      * @param MalUrl[] $genres
-     *
-     * @return self
      */
     public function setGenres(array $genres): self
     {
@@ -771,8 +662,6 @@ class Manga
 
     /**
      * @param MalUrl[] $explicitGenres
-     *
-     * @return self
      */
     public function setExplicitGenres(array $explicitGenres): self
     {
@@ -791,8 +680,6 @@ class Manga
 
     /**
      * @param MalUrl[] $themes
-     *
-     * @return self
      */
     public function setThemes(array $themes): self
     {
@@ -811,8 +698,6 @@ class Manga
 
     /**
      * @param MalUrl[] $demographics
-     *
-     * @return self
      */
     public function setDemographics(array $demographics): self
     {

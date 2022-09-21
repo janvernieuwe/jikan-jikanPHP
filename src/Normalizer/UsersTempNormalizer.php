@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\UsersTemp;
+use Jikan\JikanPHP\Model\UsersTempDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class UsersTempNormalizer implements DenormalizerInterface, NormalizerInterface,
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\UsersTemp' === $type;
+        return UsersTemp::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\UsersTemp' === get_class($data);
+        return is_object($data) && $data instanceof UsersTemp;
     }
 
     /**
@@ -34,34 +37,38 @@ class UsersTempNormalizer implements DenormalizerInterface, NormalizerInterface,
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|UsersTemp
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\UsersTemp();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $usersTemp = new UsersTemp();
+        if (null === $data || !\is_array($data)) {
+            return $usersTemp;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\UsersTempDataItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, UsersTempDataItem::class, 'json', $context);
             }
-            $object->setData($values);
+
+            $usersTemp->setData($values);
         }
 
-        return $object;
+        return $usersTemp;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -71,6 +78,7 @@ class UsersTempNormalizer implements DenormalizerInterface, NormalizerInterface,
             foreach ($object->getData() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['data'] = $values;
         }
 

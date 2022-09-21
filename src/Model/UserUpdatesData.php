@@ -9,13 +9,14 @@ class UserUpdatesData
      *
      * @var UserUpdatesDataAnimeItem[]
      */
-    protected $anime;
+    protected $anime = [];
+
     /**
      * Last updated Manga.
      *
      * @var UserUpdatesDataMangaItem[]
      */
-    protected $manga;
+    protected $manga = [];
 
     /**
      * Last updated Anime.
@@ -31,8 +32,6 @@ class UserUpdatesData
      * Last updated Anime.
      *
      * @param UserUpdatesDataAnimeItem[] $anime
-     *
-     * @return self
      */
     public function setAnime(array $anime): self
     {
@@ -55,8 +54,6 @@ class UserUpdatesData
      * Last updated Manga.
      *
      * @param UserUpdatesDataMangaItem[] $manga
-     *
-     * @return self
      */
     public function setManga(array $manga): self
     {

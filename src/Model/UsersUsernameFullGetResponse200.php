@@ -13,8 +13,6 @@ class UsersUsernameFullGetResponse200
 
     /**
      * Transform the resource into an array.
-     *
-     * @return UserProfileFull
      */
     public function getData(): UserProfileFull
     {
@@ -23,14 +21,10 @@ class UsersUsernameFullGetResponse200
 
     /**
      * Transform the resource into an array.
-     *
-     * @param UserProfileFull $data
-     *
-     * @return self
      */
-    public function setData(UserProfileFull $data): self
+    public function setData(UserProfileFull $userProfileFull): self
     {
-        $this->data = $data;
+        $this->data = $userProfileFull;
 
         return $this;
     }

@@ -7,7 +7,7 @@ class UsersTemp
     /**
      * @var UsersTempDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return UsersTempDataItem[]
@@ -19,8 +19,6 @@ class UsersTemp
 
     /**
      * @param UsersTempDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

@@ -10,16 +10,19 @@ class AnimeMeta
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var AnimeImages
      */
     protected $images;
+
     /**
      * Entry title.
      *
@@ -29,8 +32,6 @@ class AnimeMeta
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -39,10 +40,6 @@ class AnimeMeta
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -53,8 +50,6 @@ class AnimeMeta
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -63,10 +58,6 @@ class AnimeMeta
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -75,30 +66,20 @@ class AnimeMeta
         return $this;
     }
 
-    /**
-     * @return AnimeImages
-     */
     public function getImages(): AnimeImages
     {
         return $this->images;
     }
 
-    /**
-     * @param AnimeImages $images
-     *
-     * @return self
-     */
-    public function setImages(AnimeImages $images): self
+    public function setImages(AnimeImages $animeImages): self
     {
-        $this->images = $images;
+        $this->images = $animeImages;
 
         return $this;
     }
 
     /**
      * Entry title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -107,10 +88,6 @@ class AnimeMeta
 
     /**
      * Entry title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {

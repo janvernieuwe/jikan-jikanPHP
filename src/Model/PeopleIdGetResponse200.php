@@ -13,8 +13,6 @@ class PeopleIdGetResponse200
 
     /**
      * Person Resource.
-     *
-     * @return Person
      */
     public function getData(): Person
     {
@@ -23,14 +21,10 @@ class PeopleIdGetResponse200
 
     /**
      * Person Resource.
-     *
-     * @param Person $data
-     *
-     * @return self
      */
-    public function setData(Person $data): self
+    public function setData(Person $person): self
     {
-        $this->data = $data;
+        $this->data = $person;
 
         return $this;
     }

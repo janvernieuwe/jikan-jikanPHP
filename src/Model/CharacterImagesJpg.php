@@ -10,6 +10,7 @@ class CharacterImagesJpg
      * @var string|null
      */
     protected $imageUrl;
+
     /**
      * Small Image URL JPG.
      *
@@ -19,8 +20,6 @@ class CharacterImagesJpg
 
     /**
      * Image URL JPG.
-     *
-     * @return string|null
      */
     public function getImageUrl(): ?string
     {
@@ -29,10 +28,6 @@ class CharacterImagesJpg
 
     /**
      * Image URL JPG.
-     *
-     * @param string|null $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(?string $imageUrl): self
     {
@@ -43,8 +38,6 @@ class CharacterImagesJpg
 
     /**
      * Small Image URL JPG.
-     *
-     * @return string|null
      */
     public function getSmallImageUrl(): ?string
     {
@@ -53,10 +46,6 @@ class CharacterImagesJpg
 
     /**
      * Small Image URL JPG.
-     *
-     * @param string|null $smallImageUrl
-     *
-     * @return self
      */
     public function setSmallImageUrl(?string $smallImageUrl): self
     {

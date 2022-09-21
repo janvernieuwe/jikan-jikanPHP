@@ -9,25 +9,28 @@ class UsersTempDataItemFavorites
      *
      * @var EntryMeta[]
      */
-    protected $anime;
+    protected $anime = [];
+
     /**
      * Favorite Manga.
      *
      * @var EntryMeta[]
      */
-    protected $manga;
+    protected $manga = [];
+
     /**
      * Favorite Characters.
      *
      * @var EntryMeta[]
      */
-    protected $characters;
+    protected $characters = [];
+
     /**
      * Favorite People.
      *
      * @var EntryMeta[]
      */
-    protected $people;
+    protected $people = [];
 
     /**
      * Favorite Anime.
@@ -43,8 +46,6 @@ class UsersTempDataItemFavorites
      * Favorite Anime.
      *
      * @param EntryMeta[] $anime
-     *
-     * @return self
      */
     public function setAnime(array $anime): self
     {
@@ -67,8 +68,6 @@ class UsersTempDataItemFavorites
      * Favorite Manga.
      *
      * @param EntryMeta[] $manga
-     *
-     * @return self
      */
     public function setManga(array $manga): self
     {
@@ -91,8 +90,6 @@ class UsersTempDataItemFavorites
      * Favorite Characters.
      *
      * @param EntryMeta[] $characters
-     *
-     * @return self
      */
     public function setCharacters(array $characters): self
     {
@@ -115,8 +112,6 @@ class UsersTempDataItemFavorites
      * Favorite People.
      *
      * @param EntryMeta[] $people
-     *
-     * @return self
      */
     public function setPeople(array $people): self
     {

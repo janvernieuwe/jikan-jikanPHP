@@ -10,12 +10,14 @@ class DaterangeProp
      * @var DaterangePropFrom
      */
     protected $from;
+
     /**
      * Date Prop To.
      *
      * @var DaterangePropTo
      */
     protected $to;
+
     /**
      * Raw parsed string.
      *
@@ -25,8 +27,6 @@ class DaterangeProp
 
     /**
      * Date Prop From.
-     *
-     * @return DaterangePropFrom
      */
     public function getFrom(): DaterangePropFrom
     {
@@ -35,22 +35,16 @@ class DaterangeProp
 
     /**
      * Date Prop From.
-     *
-     * @param DaterangePropFrom $from
-     *
-     * @return self
      */
-    public function setFrom(DaterangePropFrom $from): self
+    public function setFrom(DaterangePropFrom $daterangePropFrom): self
     {
-        $this->from = $from;
+        $this->from = $daterangePropFrom;
 
         return $this;
     }
 
     /**
      * Date Prop To.
-     *
-     * @return DaterangePropTo
      */
     public function getTo(): DaterangePropTo
     {
@@ -59,22 +53,16 @@ class DaterangeProp
 
     /**
      * Date Prop To.
-     *
-     * @param DaterangePropTo $to
-     *
-     * @return self
      */
-    public function setTo(DaterangePropTo $to): self
+    public function setTo(DaterangePropTo $daterangePropTo): self
     {
-        $this->to = $to;
+        $this->to = $daterangePropTo;
 
         return $this;
     }
 
     /**
      * Raw parsed string.
-     *
-     * @return string|null
      */
     public function getString(): ?string
     {
@@ -83,10 +71,6 @@ class DaterangeProp
 
     /**
      * Raw parsed string.
-     *
-     * @param string|null $string
-     *
-     * @return self
      */
     public function setString(?string $string): self
     {

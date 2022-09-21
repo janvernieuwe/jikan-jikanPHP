@@ -9,22 +9,14 @@ class PicturesVariantsDataItem
      */
     protected $images;
 
-    /**
-     * @return CommonImages
-     */
     public function getImages(): CommonImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CommonImages $images
-     *
-     * @return self
-     */
-    public function setImages(CommonImages $images): self
+    public function setImages(CommonImages $commonImages): self
     {
-        $this->images = $images;
+        $this->images = $commonImages;
 
         return $this;
     }

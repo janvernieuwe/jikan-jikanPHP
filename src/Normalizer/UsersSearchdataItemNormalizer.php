@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\UserImages;
+use Jikan\JikanPHP\Model\UsersSearchdataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class UsersSearchdataItemNormalizer implements DenormalizerInterface, Normalizer
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\UsersSearchdataItem' === $type;
+        return UsersSearchdataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\UsersSearchdataItem' === get_class($data);
+        return is_object($data) && $data instanceof UsersSearchdataItem;
     }
 
     /**
@@ -34,52 +37,61 @@ class UsersSearchdataItemNormalizer implements DenormalizerInterface, Normalizer
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|UsersSearchdataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\UsersSearchdataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
-        }
-        if (\array_key_exists('username', $data)) {
-            $object->setUsername($data['username']);
-        }
-        if (\array_key_exists('images', $data)) {
-            $object->setImages($this->denormalizer->denormalize($data['images'], 'Jikan\\JikanPHP\\Model\\UserImages', 'json', $context));
-        }
-        if (\array_key_exists('last_online', $data)) {
-            $object->setLastOnline($data['last_online']);
+
+        $usersSearchdataItem = new UsersSearchdataItem();
+        if (null === $data || !\is_array($data)) {
+            return $usersSearchdataItem;
         }
 
-        return $object;
+        if (\array_key_exists('url', $data)) {
+            $usersSearchdataItem->setUrl($data['url']);
+        }
+
+        if (\array_key_exists('username', $data)) {
+            $usersSearchdataItem->setUsername($data['username']);
+        }
+
+        if (\array_key_exists('images', $data)) {
+            $usersSearchdataItem->setImages($this->denormalizer->denormalize($data['images'], UserImages::class, 'json', $context));
+        }
+
+        if (\array_key_exists('last_online', $data)) {
+            $usersSearchdataItem->setLastOnline($data['last_online']);
+        }
+
+        return $usersSearchdataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getUsername()) {
             $data['username'] = $object->getUsername();
         }
+
         if (null !== $object->getImages()) {
             $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
         }
+
         if (null !== $object->getLastOnline()) {
             $data['last_online'] = $object->getLastOnline();
         }

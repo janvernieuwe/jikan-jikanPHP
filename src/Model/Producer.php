@@ -10,40 +10,47 @@ class Producer
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * All titles.
      *
      * @var string[]
      */
-    protected $titles;
+    protected $titles = [];
+
     /**
      * @var CommonImages
      */
     protected $images;
+
     /**
      * Producers's member favorites count.
      *
      * @var int
      */
     protected $favorites;
+
     /**
      * Producers's anime count.
      *
      * @var int
      */
     protected $count;
+
     /**
      * Established Date ISO8601.
      *
      * @var string|null
      */
     protected $established;
+
     /**
      * About the Producer.
      *
@@ -53,8 +60,6 @@ class Producer
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -63,10 +68,6 @@ class Producer
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -77,8 +78,6 @@ class Producer
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -87,10 +86,6 @@ class Producer
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -113,8 +108,6 @@ class Producer
      * All titles.
      *
      * @param string[] $titles
-     *
-     * @return self
      */
     public function setTitles(array $titles): self
     {
@@ -123,30 +116,20 @@ class Producer
         return $this;
     }
 
-    /**
-     * @return CommonImages
-     */
     public function getImages(): CommonImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CommonImages $images
-     *
-     * @return self
-     */
-    public function setImages(CommonImages $images): self
+    public function setImages(CommonImages $commonImages): self
     {
-        $this->images = $images;
+        $this->images = $commonImages;
 
         return $this;
     }
 
     /**
      * Producers's member favorites count.
-     *
-     * @return int
      */
     public function getFavorites(): int
     {
@@ -155,10 +138,6 @@ class Producer
 
     /**
      * Producers's member favorites count.
-     *
-     * @param int $favorites
-     *
-     * @return self
      */
     public function setFavorites(int $favorites): self
     {
@@ -169,8 +148,6 @@ class Producer
 
     /**
      * Producers's anime count.
-     *
-     * @return int
      */
     public function getCount(): int
     {
@@ -179,10 +156,6 @@ class Producer
 
     /**
      * Producers's anime count.
-     *
-     * @param int $count
-     *
-     * @return self
      */
     public function setCount(int $count): self
     {
@@ -193,8 +166,6 @@ class Producer
 
     /**
      * Established Date ISO8601.
-     *
-     * @return string|null
      */
     public function getEstablished(): ?string
     {
@@ -203,10 +174,6 @@ class Producer
 
     /**
      * Established Date ISO8601.
-     *
-     * @param string|null $established
-     *
-     * @return self
      */
     public function setEstablished(?string $established): self
     {
@@ -217,8 +184,6 @@ class Producer
 
     /**
      * About the Producer.
-     *
-     * @return string|null
      */
     public function getAbout(): ?string
     {
@@ -227,10 +192,6 @@ class Producer
 
     /**
      * About the Producer.
-     *
-     * @param string|null $about
-     *
-     * @return self
      */
     public function setAbout(?string $about): self
     {

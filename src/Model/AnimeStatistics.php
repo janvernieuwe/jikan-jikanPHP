@@ -9,22 +9,14 @@ class AnimeStatistics
      */
     protected $data;
 
-    /**
-     * @return AnimeStatisticsData
-     */
     public function getData(): AnimeStatisticsData
     {
         return $this->data;
     }
 
-    /**
-     * @param AnimeStatisticsData $data
-     *
-     * @return self
-     */
-    public function setData(AnimeStatisticsData $data): self
+    public function setData(AnimeStatisticsData $animeStatisticsData): self
     {
-        $this->data = $data;
+        $this->data = $animeStatisticsData;
 
         return $this;
     }

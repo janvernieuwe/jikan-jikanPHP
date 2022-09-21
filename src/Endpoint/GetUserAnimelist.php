@@ -2,20 +2,22 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetUserAnimelist extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $username;
+use Jikan\JikanPHP\Exception\GetUserAnimelistBadRequestException;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\Serializer\SerializerInterface;
 
+class GetUserAnimelist extends BaseEndpoint implements Endpoint
+{
     /**
      * User Anime lists have been discontinued since May 1st, 2022. <a href='https://docs.google.com/document/d/1-6H-agSnqa8Mfmw802UYfGQrceIEnAaEh4uCXAPiX5A'>Read more</a>.
-     *
-     * @param string $username
      */
-    public function __construct(string $username)
+    public function __construct(protected string $username)
     {
-        $this->username = $username;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -27,12 +29,12 @@ class GetUserAnimelist extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint imple
         return str_replace(['{username}'], [$this->username], '/users/{username}/animelist');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
@@ -40,17 +42,18 @@ class GetUserAnimelist extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint imple
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserAnimelistBadRequestException
+     * @throws GetUserAnimelistBadRequestException
      *
      * @return null
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return json_decode($body);
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return json_decode($body, null, 512, JSON_THROW_ON_ERROR);
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetUserAnimelistBadRequestException();
+            throw new GetUserAnimelistBadRequestException();
         }
     }
 

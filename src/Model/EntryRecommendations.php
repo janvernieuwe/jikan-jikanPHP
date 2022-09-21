@@ -7,7 +7,7 @@ class EntryRecommendations
     /**
      * @var EntryRecommendationsDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return EntryRecommendationsDataItem[]
@@ -19,8 +19,6 @@ class EntryRecommendations
 
     /**
      * @param EntryRecommendationsDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

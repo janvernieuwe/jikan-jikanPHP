@@ -7,7 +7,7 @@ class Seasons
     /**
      * @var SeasonsDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return SeasonsDataItem[]
@@ -19,8 +19,6 @@ class Seasons
 
     /**
      * @param SeasonsDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

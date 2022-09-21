@@ -17,12 +17,7 @@ class EntryRecommendationsDataItem
         return $this->entry;
     }
 
-    /**
-     * @param mixed $entry
-     *
-     * @return self
-     */
-    public function setEntry($entry): self
+    public function setEntry(mixed $entry): self
     {
         $this->entry = $entry;
 

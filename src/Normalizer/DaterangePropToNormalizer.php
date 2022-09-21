@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\DaterangePropTo;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class DaterangePropToNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\DaterangePropTo' === $type;
+        return DaterangePropTo::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\DaterangePropTo' === get_class($data);
+        return is_object($data) && $data instanceof DaterangePropTo;
     }
 
     /**
@@ -34,52 +36,59 @@ class DaterangePropToNormalizer implements DenormalizerInterface, NormalizerInte
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|DaterangePropTo
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\DaterangePropTo();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('day', $data) && null !== $data['day']) {
-            $object->setDay($data['day']);
-        } elseif (\array_key_exists('day', $data) && null === $data['day']) {
-            $object->setDay(null);
-        }
-        if (\array_key_exists('month', $data) && null !== $data['month']) {
-            $object->setMonth($data['month']);
-        } elseif (\array_key_exists('month', $data) && null === $data['month']) {
-            $object->setMonth(null);
-        }
-        if (\array_key_exists('year', $data) && null !== $data['year']) {
-            $object->setYear($data['year']);
-        } elseif (\array_key_exists('year', $data) && null === $data['year']) {
-            $object->setYear(null);
+
+        $daterangePropTo = new DaterangePropTo();
+        if (null === $data || !\is_array($data)) {
+            return $daterangePropTo;
         }
 
-        return $object;
+        if (\array_key_exists('day', $data) && null !== $data['day']) {
+            $daterangePropTo->setDay($data['day']);
+        } elseif (\array_key_exists('day', $data) && null === $data['day']) {
+            $daterangePropTo->setDay(null);
+        }
+
+        if (\array_key_exists('month', $data) && null !== $data['month']) {
+            $daterangePropTo->setMonth($data['month']);
+        } elseif (\array_key_exists('month', $data) && null === $data['month']) {
+            $daterangePropTo->setMonth(null);
+        }
+
+        if (\array_key_exists('year', $data) && null !== $data['year']) {
+            $daterangePropTo->setYear($data['year']);
+        } elseif (\array_key_exists('year', $data) && null === $data['year']) {
+            $daterangePropTo->setYear(null);
+        }
+
+        return $daterangePropTo;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getDay()) {
             $data['day'] = $object->getDay();
         }
+
         if (null !== $object->getMonth()) {
             $data['month'] = $object->getMonth();
         }
+
         if (null !== $object->getYear()) {
             $data['year'] = $object->getYear();
         }

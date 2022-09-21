@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\CharacterImagesWebp;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class CharacterImagesWebpNormalizer implements DenormalizerInterface, Normalizer
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\CharacterImagesWebp' === $type;
+        return CharacterImagesWebp::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\CharacterImagesWebp' === get_class($data);
+        return is_object($data) && $data instanceof CharacterImagesWebp;
     }
 
     /**
@@ -34,44 +36,49 @@ class CharacterImagesWebpNormalizer implements DenormalizerInterface, Normalizer
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|CharacterImagesWebp
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\CharacterImagesWebp();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('image_url', $data) && null !== $data['image_url']) {
-            $object->setImageUrl($data['image_url']);
-        } elseif (\array_key_exists('image_url', $data) && null === $data['image_url']) {
-            $object->setImageUrl(null);
-        }
-        if (\array_key_exists('small_image_url', $data) && null !== $data['small_image_url']) {
-            $object->setSmallImageUrl($data['small_image_url']);
-        } elseif (\array_key_exists('small_image_url', $data) && null === $data['small_image_url']) {
-            $object->setSmallImageUrl(null);
+
+        $characterImagesWebp = new CharacterImagesWebp();
+        if (null === $data || !\is_array($data)) {
+            return $characterImagesWebp;
         }
 
-        return $object;
+        if (\array_key_exists('image_url', $data) && null !== $data['image_url']) {
+            $characterImagesWebp->setImageUrl($data['image_url']);
+        } elseif (\array_key_exists('image_url', $data) && null === $data['image_url']) {
+            $characterImagesWebp->setImageUrl(null);
+        }
+
+        if (\array_key_exists('small_image_url', $data) && null !== $data['small_image_url']) {
+            $characterImagesWebp->setSmallImageUrl($data['small_image_url']);
+        } elseif (\array_key_exists('small_image_url', $data) && null === $data['small_image_url']) {
+            $characterImagesWebp->setSmallImageUrl(null);
+        }
+
+        return $characterImagesWebp;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getImageUrl()) {
             $data['image_url'] = $object->getImageUrl();
         }
+
         if (null !== $object->getSmallImageUrl()) {
             $data['small_image_url'] = $object->getSmallImageUrl();
         }

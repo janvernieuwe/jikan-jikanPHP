@@ -7,7 +7,7 @@ class MangaPictures
     /**
      * @var MangaImages[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return MangaImages[]
@@ -19,8 +19,6 @@ class MangaPictures
 
     /**
      * @param MangaImages[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

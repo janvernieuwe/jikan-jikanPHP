@@ -10,21 +10,21 @@ class AnimeCharactersDataItem
      * @var AnimeCharactersDataItemCharacter
      */
     protected $character;
+
     /**
      * Character's Role.
      *
      * @var string
      */
     protected $role;
+
     /**
      * @var AnimeCharactersDataItemVoiceActorsItem[]
      */
-    protected $voiceActors;
+    protected $voiceActors = [];
 
     /**
      * Character details.
-     *
-     * @return AnimeCharactersDataItemCharacter
      */
     public function getCharacter(): AnimeCharactersDataItemCharacter
     {
@@ -33,22 +33,16 @@ class AnimeCharactersDataItem
 
     /**
      * Character details.
-     *
-     * @param AnimeCharactersDataItemCharacter $character
-     *
-     * @return self
      */
-    public function setCharacter(AnimeCharactersDataItemCharacter $character): self
+    public function setCharacter(AnimeCharactersDataItemCharacter $animeCharactersDataItemCharacter): self
     {
-        $this->character = $character;
+        $this->character = $animeCharactersDataItemCharacter;
 
         return $this;
     }
 
     /**
      * Character's Role.
-     *
-     * @return string
      */
     public function getRole(): string
     {
@@ -57,10 +51,6 @@ class AnimeCharactersDataItem
 
     /**
      * Character's Role.
-     *
-     * @param string $role
-     *
-     * @return self
      */
     public function setRole(string $role): self
     {
@@ -79,8 +69,6 @@ class AnimeCharactersDataItem
 
     /**
      * @param AnimeCharactersDataItemVoiceActorsItem[] $voiceActors
-     *
-     * @return self
      */
     public function setVoiceActors(array $voiceActors): self
     {

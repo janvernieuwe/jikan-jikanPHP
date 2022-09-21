@@ -7,7 +7,7 @@ class AnimeCharacters
     /**
      * @var AnimeCharactersDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return AnimeCharactersDataItem[]
@@ -19,8 +19,6 @@ class AnimeCharacters
 
     /**
      * @param AnimeCharactersDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

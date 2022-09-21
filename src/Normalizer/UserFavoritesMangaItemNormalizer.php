@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\MangaImages;
+use Jikan\JikanPHP\Model\UserFavoritesMangaItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class UserFavoritesMangaItemNormalizer implements DenormalizerInterface, Normali
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\UserFavoritesMangaItem' === $type;
+        return UserFavoritesMangaItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\UserFavoritesMangaItem' === get_class($data);
+        return is_object($data) && $data instanceof UserFavoritesMangaItem;
     }
 
     /**
@@ -34,64 +37,77 @@ class UserFavoritesMangaItemNormalizer implements DenormalizerInterface, Normali
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserFavoritesMangaItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\UserFavoritesMangaItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('type', $data)) {
-            $object->setType($data['type']);
-        }
-        if (\array_key_exists('start_year', $data)) {
-            $object->setStartYear($data['start_year']);
-        }
-        if (\array_key_exists('mal_id', $data)) {
-            $object->setMalId($data['mal_id']);
-        }
-        if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
-        }
-        if (\array_key_exists('images', $data)) {
-            $object->setImages($this->denormalizer->denormalize($data['images'], 'Jikan\\JikanPHP\\Model\\MangaImages', 'json', $context));
-        }
-        if (\array_key_exists('title', $data)) {
-            $object->setTitle($data['title']);
+
+        $userFavoritesMangaItem = new UserFavoritesMangaItem();
+        if (null === $data || !\is_array($data)) {
+            return $userFavoritesMangaItem;
         }
 
-        return $object;
+        if (\array_key_exists('type', $data)) {
+            $userFavoritesMangaItem->setType($data['type']);
+        }
+
+        if (\array_key_exists('start_year', $data)) {
+            $userFavoritesMangaItem->setStartYear($data['start_year']);
+        }
+
+        if (\array_key_exists('mal_id', $data)) {
+            $userFavoritesMangaItem->setMalId($data['mal_id']);
+        }
+
+        if (\array_key_exists('url', $data)) {
+            $userFavoritesMangaItem->setUrl($data['url']);
+        }
+
+        if (\array_key_exists('images', $data)) {
+            $userFavoritesMangaItem->setImages($this->denormalizer->denormalize($data['images'], MangaImages::class, 'json', $context));
+        }
+
+        if (\array_key_exists('title', $data)) {
+            $userFavoritesMangaItem->setTitle($data['title']);
+        }
+
+        return $userFavoritesMangaItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getType()) {
             $data['type'] = $object->getType();
         }
+
         if (null !== $object->getStartYear()) {
             $data['start_year'] = $object->getStartYear();
         }
+
         if (null !== $object->getMalId()) {
             $data['mal_id'] = $object->getMalId();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getImages()) {
             $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
         }
+
         if (null !== $object->getTitle()) {
             $data['title'] = $object->getTitle();
         }

@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\News;
+use Jikan\JikanPHP\Model\NewsDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class NewsNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\News' === $type;
+        return News::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\News' === get_class($data);
+        return is_object($data) && $data instanceof News;
     }
 
     /**
@@ -34,34 +37,38 @@ class NewsNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|News
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\News();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $news = new News();
+        if (null === $data || !\is_array($data)) {
+            return $news;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\NewsDataItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, NewsDataItem::class, 'json', $context);
             }
-            $object->setData($values);
+
+            $news->setData($values);
         }
 
-        return $object;
+        return $news;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -71,6 +78,7 @@ class NewsNormalizer implements DenormalizerInterface, NormalizerInterface, Deno
             foreach ($object->getData() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['data'] = $values;
         }
 

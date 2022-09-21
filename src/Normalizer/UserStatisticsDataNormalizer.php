@@ -2,7 +2,11 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\UserStatisticsData;
+use Jikan\JikanPHP\Model\UserStatisticsDataAnime;
+use Jikan\JikanPHP\Model\UserStatisticsDataManga;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +23,12 @@ class UserStatisticsDataNormalizer implements DenormalizerInterface, NormalizerI
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\UserStatisticsData' === $type;
+        return UserStatisticsData::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\UserStatisticsData' === get_class($data);
+        return is_object($data) && $data instanceof UserStatisticsData;
     }
 
     /**
@@ -34,40 +38,45 @@ class UserStatisticsDataNormalizer implements DenormalizerInterface, NormalizerI
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserStatisticsData
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\UserStatisticsData();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('anime', $data)) {
-            $object->setAnime($this->denormalizer->denormalize($data['anime'], 'Jikan\\JikanPHP\\Model\\UserStatisticsDataAnime', 'json', $context));
-        }
-        if (\array_key_exists('manga', $data)) {
-            $object->setManga($this->denormalizer->denormalize($data['manga'], 'Jikan\\JikanPHP\\Model\\UserStatisticsDataManga', 'json', $context));
+
+        $userStatisticsData = new UserStatisticsData();
+        if (null === $data || !\is_array($data)) {
+            return $userStatisticsData;
         }
 
-        return $object;
+        if (\array_key_exists('anime', $data)) {
+            $userStatisticsData->setAnime($this->denormalizer->denormalize($data['anime'], UserStatisticsDataAnime::class, 'json', $context));
+        }
+
+        if (\array_key_exists('manga', $data)) {
+            $userStatisticsData->setManga($this->denormalizer->denormalize($data['manga'], UserStatisticsDataManga::class, 'json', $context));
+        }
+
+        return $userStatisticsData;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getAnime()) {
             $data['anime'] = $this->normalizer->normalize($object->getAnime(), 'json', $context);
         }
+
         if (null !== $object->getManga()) {
             $data['manga'] = $this->normalizer->normalize($object->getManga(), 'json', $context);
         }

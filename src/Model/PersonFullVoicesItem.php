@@ -10,10 +10,12 @@ class PersonFullVoicesItem
      * @var string
      */
     protected $role;
+
     /**
      * @var AnimeMeta
      */
     protected $anime;
+
     /**
      * @var CharacterMeta
      */
@@ -21,8 +23,6 @@ class PersonFullVoicesItem
 
     /**
      * Person's Character's role in the anime.
-     *
-     * @return string
      */
     public function getRole(): string
     {
@@ -31,10 +31,6 @@ class PersonFullVoicesItem
 
     /**
      * Person's Character's role in the anime.
-     *
-     * @param string $role
-     *
-     * @return self
      */
     public function setRole(string $role): self
     {
@@ -43,42 +39,26 @@ class PersonFullVoicesItem
         return $this;
     }
 
-    /**
-     * @return AnimeMeta
-     */
     public function getAnime(): AnimeMeta
     {
         return $this->anime;
     }
 
-    /**
-     * @param AnimeMeta $anime
-     *
-     * @return self
-     */
-    public function setAnime(AnimeMeta $anime): self
+    public function setAnime(AnimeMeta $animeMeta): self
     {
-        $this->anime = $anime;
+        $this->anime = $animeMeta;
 
         return $this;
     }
 
-    /**
-     * @return CharacterMeta
-     */
     public function getCharacter(): CharacterMeta
     {
         return $this->character;
     }
 
-    /**
-     * @param CharacterMeta $character
-     *
-     * @return self
-     */
-    public function setCharacter(CharacterMeta $character): self
+    public function setCharacter(CharacterMeta $characterMeta): self
     {
-        $this->character = $character;
+        $this->character = $characterMeta;
 
         return $this;
     }

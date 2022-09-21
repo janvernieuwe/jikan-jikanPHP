@@ -7,7 +7,7 @@ class ReviewsCollection
     /**
      * @var mixed[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return mixed[]
@@ -19,8 +19,6 @@ class ReviewsCollection
 
     /**
      * @param mixed[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

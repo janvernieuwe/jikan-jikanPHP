@@ -9,22 +9,14 @@ class TrailerImages
      */
     protected $images;
 
-    /**
-     * @return TrailerImagesImages
-     */
     public function getImages(): TrailerImagesImages
     {
         return $this->images;
     }
 
-    /**
-     * @param TrailerImagesImages $images
-     *
-     * @return self
-     */
-    public function setImages(TrailerImagesImages $images): self
+    public function setImages(TrailerImagesImages $trailerImagesImages): self
     {
-        $this->images = $images;
+        $this->images = $trailerImagesImages;
 
         return $this;
     }

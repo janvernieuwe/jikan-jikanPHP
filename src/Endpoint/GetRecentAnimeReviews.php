@@ -2,7 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetRecentAnimeReviews extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
+use Jikan\JikanPHP\Exception\GetRecentAnimeReviewsBadRequestException;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
+
+class GetRecentAnimeReviews extends BaseEndpoint implements Endpoint
 {
     /**
      * @param array $queryParameters {
@@ -14,7 +21,8 @@ class GetRecentAnimeReviews extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint 
     {
         $this->queryParameters = $queryParameters;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -26,17 +34,17 @@ class GetRecentAnimeReviews extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint 
         return '/reviews/anime';
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['page']);
@@ -50,17 +58,18 @@ class GetRecentAnimeReviews extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint 
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetRecentAnimeReviewsBadRequestException
+     * @throws GetRecentAnimeReviewsBadRequestException
      *
      * @return null
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return json_decode($body);
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return json_decode($body, null, 512, JSON_THROW_ON_ERROR);
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetRecentAnimeReviewsBadRequestException();
+            throw new GetRecentAnimeReviewsBadRequestException();
         }
     }
 

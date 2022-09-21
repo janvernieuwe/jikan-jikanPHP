@@ -2,7 +2,243 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
+use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\Anime;
+use Jikan\JikanPHP\Model\AnimeCharacters;
+use Jikan\JikanPHP\Model\AnimeCharactersDataItem;
+use Jikan\JikanPHP\Model\AnimeCharactersDataItemCharacter;
+use Jikan\JikanPHP\Model\AnimeCharactersDataItemVoiceActorsItem;
+use Jikan\JikanPHP\Model\AnimeCharactersDataItemVoiceActorsItemPerson;
+use Jikan\JikanPHP\Model\AnimeEpisode;
+use Jikan\JikanPHP\Model\AnimeEpisodes;
+use Jikan\JikanPHP\Model\AnimeEpisodesdataItem;
+use Jikan\JikanPHP\Model\AnimeFull;
+use Jikan\JikanPHP\Model\AnimeFullExternalItem;
+use Jikan\JikanPHP\Model\AnimeFullRelationsItem;
+use Jikan\JikanPHP\Model\AnimeFullStreamingItem;
+use Jikan\JikanPHP\Model\AnimeFullTheme;
+use Jikan\JikanPHP\Model\AnimeIdEpisodesEpisodeGetResponse200;
+use Jikan\JikanPHP\Model\AnimeIdFullGetResponse200;
+use Jikan\JikanPHP\Model\AnimeIdGetResponse200;
+use Jikan\JikanPHP\Model\AnimeIdRelationsGetResponse200;
+use Jikan\JikanPHP\Model\AnimeImages;
+use Jikan\JikanPHP\Model\AnimeImagesJpg;
+use Jikan\JikanPHP\Model\AnimeImagesWebp;
+use Jikan\JikanPHP\Model\AnimeMeta;
+use Jikan\JikanPHP\Model\AnimeNews;
+use Jikan\JikanPHP\Model\AnimeRelations;
+use Jikan\JikanPHP\Model\AnimeRelationsDataItem;
+use Jikan\JikanPHP\Model\AnimeReview;
+use Jikan\JikanPHP\Model\AnimeReviews;
+use Jikan\JikanPHP\Model\AnimeReviewScores;
+use Jikan\JikanPHP\Model\AnimeReviewsdataItem;
+use Jikan\JikanPHP\Model\AnimeSearch;
+use Jikan\JikanPHP\Model\AnimeStaff;
+use Jikan\JikanPHP\Model\AnimeStaffDataItem;
+use Jikan\JikanPHP\Model\AnimeStaffDataItemPerson;
+use Jikan\JikanPHP\Model\AnimeStatistics;
+use Jikan\JikanPHP\Model\AnimeStatisticsData;
+use Jikan\JikanPHP\Model\AnimeStatisticsDataScoresItem;
+use Jikan\JikanPHP\Model\AnimeThemes;
+use Jikan\JikanPHP\Model\AnimeThemesData;
+use Jikan\JikanPHP\Model\AnimeUserupdates;
+use Jikan\JikanPHP\Model\AnimeUserupdatesdataItem;
+use Jikan\JikanPHP\Model\AnimeVideos;
+use Jikan\JikanPHP\Model\AnimeVideosData;
+use Jikan\JikanPHP\Model\AnimeVideosDataEpisodesItem;
+use Jikan\JikanPHP\Model\AnimeVideosDataMusicVideosItem;
+use Jikan\JikanPHP\Model\AnimeVideosDataMusicVideosItemMeta;
+use Jikan\JikanPHP\Model\AnimeVideosDataPromoItem;
+use Jikan\JikanPHP\Model\AnimeVideosEpisodes;
+use Jikan\JikanPHP\Model\AnimeVideosEpisodesdataItem;
+use Jikan\JikanPHP\Model\Broadcast;
+use Jikan\JikanPHP\Model\Character;
+use Jikan\JikanPHP\Model\CharacterAnime;
+use Jikan\JikanPHP\Model\CharacterAnimeDataItem;
+use Jikan\JikanPHP\Model\CharacterFull;
+use Jikan\JikanPHP\Model\CharacterFullAnimeItem;
+use Jikan\JikanPHP\Model\CharacterFullMangaItem;
+use Jikan\JikanPHP\Model\CharacterFullVoicesItem;
+use Jikan\JikanPHP\Model\CharacterImages;
+use Jikan\JikanPHP\Model\CharacterImagesJpg;
+use Jikan\JikanPHP\Model\CharacterImagesWebp;
+use Jikan\JikanPHP\Model\CharacterManga;
+use Jikan\JikanPHP\Model\CharacterMangaDataItem;
+use Jikan\JikanPHP\Model\CharacterMeta;
+use Jikan\JikanPHP\Model\CharacterPictures;
+use Jikan\JikanPHP\Model\CharacterPicturesDataItem;
+use Jikan\JikanPHP\Model\CharactersIdFullGetResponse200;
+use Jikan\JikanPHP\Model\CharactersIdGetResponse200;
+use Jikan\JikanPHP\Model\CharactersSearch;
+use Jikan\JikanPHP\Model\CharacterVoiceActors;
+use Jikan\JikanPHP\Model\CharacterVoiceActorsDataItem;
+use Jikan\JikanPHP\Model\Club;
+use Jikan\JikanPHP\Model\ClubMember;
+use Jikan\JikanPHP\Model\ClubRelations;
+use Jikan\JikanPHP\Model\ClubRelationsData;
+use Jikan\JikanPHP\Model\ClubsIdGetResponse200;
+use Jikan\JikanPHP\Model\ClubsIdMembersGetResponse200;
+use Jikan\JikanPHP\Model\ClubsSearch;
+use Jikan\JikanPHP\Model\ClubStaff;
+use Jikan\JikanPHP\Model\ClubStaffDataItem;
+use Jikan\JikanPHP\Model\CommonImages;
+use Jikan\JikanPHP\Model\CommonImagesJpg;
+use Jikan\JikanPHP\Model\Daterange;
+use Jikan\JikanPHP\Model\DaterangeProp;
+use Jikan\JikanPHP\Model\DaterangePropFrom;
+use Jikan\JikanPHP\Model\DaterangePropTo;
+use Jikan\JikanPHP\Model\EntryMeta;
+use Jikan\JikanPHP\Model\EntryRecommendations;
+use Jikan\JikanPHP\Model\EntryRecommendationsDataItem;
+use Jikan\JikanPHP\Model\ExternalLinks;
+use Jikan\JikanPHP\Model\ExternalLinksDataItem;
+use Jikan\JikanPHP\Model\Forum;
+use Jikan\JikanPHP\Model\ForumDataItem;
+use Jikan\JikanPHP\Model\ForumDataItemLastComment;
+use Jikan\JikanPHP\Model\Genre;
+use Jikan\JikanPHP\Model\Genres;
+use Jikan\JikanPHP\Model\History;
+use Jikan\JikanPHP\Model\Magazine;
+use Jikan\JikanPHP\Model\Magazines;
+use Jikan\JikanPHP\Model\MalUrl;
+use Jikan\JikanPHP\Model\MalUrl2;
+use Jikan\JikanPHP\Model\Manga;
+use Jikan\JikanPHP\Model\MangaCharacters;
+use Jikan\JikanPHP\Model\MangaCharactersDataItem;
+use Jikan\JikanPHP\Model\MangaFull;
+use Jikan\JikanPHP\Model\MangaFullExternalItem;
+use Jikan\JikanPHP\Model\MangaFullRelationsItem;
+use Jikan\JikanPHP\Model\MangaIdFullGetResponse200;
+use Jikan\JikanPHP\Model\MangaIdGetResponse200;
+use Jikan\JikanPHP\Model\MangaIdRelationsGetResponse200;
+use Jikan\JikanPHP\Model\MangaImages;
+use Jikan\JikanPHP\Model\MangaImagesJpg;
+use Jikan\JikanPHP\Model\MangaImagesWebp;
+use Jikan\JikanPHP\Model\MangaMeta;
+use Jikan\JikanPHP\Model\MangaNews;
+use Jikan\JikanPHP\Model\MangaPictures;
+use Jikan\JikanPHP\Model\MangaReview;
+use Jikan\JikanPHP\Model\MangaReviews;
+use Jikan\JikanPHP\Model\MangaReviewScores;
+use Jikan\JikanPHP\Model\MangaReviewsdataItem;
+use Jikan\JikanPHP\Model\MangaSearch;
+use Jikan\JikanPHP\Model\MangaStatistics;
+use Jikan\JikanPHP\Model\MangaStatisticsData;
+use Jikan\JikanPHP\Model\MangaStatisticsDataScoresItem;
+use Jikan\JikanPHP\Model\MangaUserupdates;
+use Jikan\JikanPHP\Model\MangaUserupdatesdataItem;
+use Jikan\JikanPHP\Model\Moreinfo;
+use Jikan\JikanPHP\Model\MoreinfoData;
+use Jikan\JikanPHP\Model\News;
+use Jikan\JikanPHP\Model\NewsDataItem;
+use Jikan\JikanPHP\Model\Pagination;
+use Jikan\JikanPHP\Model\PaginationPagination;
+use Jikan\JikanPHP\Model\PaginationPlus;
+use Jikan\JikanPHP\Model\PaginationPlusPagination;
+use Jikan\JikanPHP\Model\PaginationPlusPaginationItems;
+use Jikan\JikanPHP\Model\PeopleIdFullGetResponse200;
+use Jikan\JikanPHP\Model\PeopleIdGetResponse200;
+use Jikan\JikanPHP\Model\PeopleImages;
+use Jikan\JikanPHP\Model\PeopleImagesJpg;
+use Jikan\JikanPHP\Model\PeopleSearch;
+use Jikan\JikanPHP\Model\PeopleSearchdataItem;
+use Jikan\JikanPHP\Model\Person;
+use Jikan\JikanPHP\Model\PersonAnime;
+use Jikan\JikanPHP\Model\PersonAnimeDataItem;
+use Jikan\JikanPHP\Model\PersonFull;
+use Jikan\JikanPHP\Model\PersonFullAnimeItem;
+use Jikan\JikanPHP\Model\PersonFullMangaItem;
+use Jikan\JikanPHP\Model\PersonFullVoicesItem;
+use Jikan\JikanPHP\Model\PersonManga;
+use Jikan\JikanPHP\Model\PersonMangaDataItem;
+use Jikan\JikanPHP\Model\PersonMeta;
+use Jikan\JikanPHP\Model\PersonPictures;
+use Jikan\JikanPHP\Model\PersonVoiceActingRoles;
+use Jikan\JikanPHP\Model\PersonVoiceActingRolesDataItem;
+use Jikan\JikanPHP\Model\Pictures;
+use Jikan\JikanPHP\Model\PicturesDataItem;
+use Jikan\JikanPHP\Model\PicturesVariants;
+use Jikan\JikanPHP\Model\PicturesVariantsDataItem;
+use Jikan\JikanPHP\Model\Producer;
+use Jikan\JikanPHP\Model\ProducerFull;
+use Jikan\JikanPHP\Model\ProducerFullExternalItem;
+use Jikan\JikanPHP\Model\Producers;
+use Jikan\JikanPHP\Model\ProducersIdFullGetResponse200;
+use Jikan\JikanPHP\Model\ProducersIdGetResponse200;
+use Jikan\JikanPHP\Model\Random;
+use Jikan\JikanPHP\Model\RandomAnimeGetResponse200;
+use Jikan\JikanPHP\Model\RandomCharactersGetResponse200;
+use Jikan\JikanPHP\Model\RandomMangaGetResponse200;
+use Jikan\JikanPHP\Model\RandomPeopleGetResponse200;
+use Jikan\JikanPHP\Model\RandomUsersGetResponse200;
+use Jikan\JikanPHP\Model\Recommendations;
+use Jikan\JikanPHP\Model\RecommendationsdataItem;
+use Jikan\JikanPHP\Model\Relation;
+use Jikan\JikanPHP\Model\ReviewsCollection;
+use Jikan\JikanPHP\Model\Schedules;
+use Jikan\JikanPHP\Model\Seasons;
+use Jikan\JikanPHP\Model\SeasonsDataItem;
+use Jikan\JikanPHP\Model\StreamingLinks;
+use Jikan\JikanPHP\Model\StreamingLinksDataItem;
+use Jikan\JikanPHP\Model\TopReviewsGetResponse200;
+use Jikan\JikanPHP\Model\TopReviewsGetResponse200Data;
+use Jikan\JikanPHP\Model\Trailer;
+use Jikan\JikanPHP\Model\TrailerBase;
+use Jikan\JikanPHP\Model\TrailerImages;
+use Jikan\JikanPHP\Model\TrailerImagesImages;
+use Jikan\JikanPHP\Model\UserAbout;
+use Jikan\JikanPHP\Model\UserAboutDataItem;
+use Jikan\JikanPHP\Model\UserById;
+use Jikan\JikanPHP\Model\UserClubs;
+use Jikan\JikanPHP\Model\UserClubsdataItem;
+use Jikan\JikanPHP\Model\UserFavorites;
+use Jikan\JikanPHP\Model\UserFavoritesAnimeItem;
+use Jikan\JikanPHP\Model\UserFavoritesCharactersItem;
+use Jikan\JikanPHP\Model\UserFavoritesMangaItem;
+use Jikan\JikanPHP\Model\UserFriends;
+use Jikan\JikanPHP\Model\UserFriendsdataItem;
+use Jikan\JikanPHP\Model\UserHistory;
+use Jikan\JikanPHP\Model\UserImages;
+use Jikan\JikanPHP\Model\UserImagesJpg;
+use Jikan\JikanPHP\Model\UserImagesWebp;
+use Jikan\JikanPHP\Model\UserMeta;
+use Jikan\JikanPHP\Model\UserProfile;
+use Jikan\JikanPHP\Model\UserProfileFull;
+use Jikan\JikanPHP\Model\UserProfileFullExternalItem;
+use Jikan\JikanPHP\Model\UserProfileFullStatistics;
+use Jikan\JikanPHP\Model\UserProfileFullStatisticsAnime;
+use Jikan\JikanPHP\Model\UserProfileFullStatisticsManga;
+use Jikan\JikanPHP\Model\UsersSearch;
+use Jikan\JikanPHP\Model\UsersSearchdataItem;
+use Jikan\JikanPHP\Model\UserStatistics;
+use Jikan\JikanPHP\Model\UserStatisticsData;
+use Jikan\JikanPHP\Model\UserStatisticsDataAnime;
+use Jikan\JikanPHP\Model\UserStatisticsDataManga;
+use Jikan\JikanPHP\Model\UsersTemp;
+use Jikan\JikanPHP\Model\UsersTempDataItem;
+use Jikan\JikanPHP\Model\UsersTempDataItemAnimeStats;
+use Jikan\JikanPHP\Model\UsersTempDataItemFavorites;
+use Jikan\JikanPHP\Model\UsersTempDataItemImages;
+use Jikan\JikanPHP\Model\UsersTempDataItemImagesJpg;
+use Jikan\JikanPHP\Model\UsersTempDataItemImagesWebp;
+use Jikan\JikanPHP\Model\UsersTempDataItemMangaStats;
+use Jikan\JikanPHP\Model\UsersUserbyidIdGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameFavoritesGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameFullGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameReviewsGetResponse200;
+use Jikan\JikanPHP\Model\UsersUsernameReviewsGetResponse200Data;
+use Jikan\JikanPHP\Model\UserUpdates;
+use Jikan\JikanPHP\Model\UserUpdatesData;
+use Jikan\JikanPHP\Model\UserUpdatesDataAnimeItem;
+use Jikan\JikanPHP\Model\UserUpdatesDataMangaItem;
+use Jikan\JikanPHP\Model\WatchEpisodes;
+use Jikan\JikanPHP\Model\WatchEpisodesdataItem;
+use Jikan\JikanPHP\Model\WatchEpisodesdataItemEpisodesItem;
+use Jikan\JikanPHP\Model\WatchPromos;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ReferenceNormalizer;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -15,7 +251,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
-    protected $normalizers = ['Jikan\\JikanPHP\\Model\\AnimeEpisodes' => 'Jikan\\JikanPHP\\Normalizer\\AnimeEpisodesNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeEpisodesdataItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeEpisodesdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeNews' => 'Jikan\\JikanPHP\\Normalizer\\AnimeNewsNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeVideosEpisodes' => 'Jikan\\JikanPHP\\Normalizer\\AnimeVideosEpisodesNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeVideosEpisodesdataItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeVideosEpisodesdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterPictures' => 'Jikan\\JikanPHP\\Normalizer\\CharacterPicturesNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterPicturesDataItem' => 'Jikan\\JikanPHP\\Normalizer\\CharacterPicturesDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\ClubMember' => 'Jikan\\JikanPHP\\Normalizer\\ClubMemberNormalizer', 'Jikan\\JikanPHP\\Model\\MangaNews' => 'Jikan\\JikanPHP\\Normalizer\\MangaNewsNormalizer', 'Jikan\\JikanPHP\\Model\\MangaPictures' => 'Jikan\\JikanPHP\\Normalizer\\MangaPicturesNormalizer', 'Jikan\\JikanPHP\\Model\\PersonPictures' => 'Jikan\\JikanPHP\\Normalizer\\PersonPicturesNormalizer', 'Jikan\\JikanPHP\\Model\\Random' => 'Jikan\\JikanPHP\\Normalizer\\RandomNormalizer', 'Jikan\\JikanPHP\\Model\\Schedules' => 'Jikan\\JikanPHP\\Normalizer\\SchedulesNormalizer', 'Jikan\\JikanPHP\\Model\\UsersSearch' => 'Jikan\\JikanPHP\\Normalizer\\UsersSearchNormalizer', 'Jikan\\JikanPHP\\Model\\UsersSearchdataItem' => 'Jikan\\JikanPHP\\Normalizer\\UsersSearchdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\Seasons' => 'Jikan\\JikanPHP\\Normalizer\\SeasonsNormalizer', 'Jikan\\JikanPHP\\Model\\SeasonsDataItem' => 'Jikan\\JikanPHP\\Normalizer\\SeasonsDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\ReviewsCollection' => 'Jikan\\JikanPHP\\Normalizer\\ReviewsCollectionNormalizer', 'Jikan\\JikanPHP\\Model\\UserFriends' => 'Jikan\\JikanPHP\\Normalizer\\UserFriendsNormalizer', 'Jikan\\JikanPHP\\Model\\UserFriendsdataItem' => 'Jikan\\JikanPHP\\Normalizer\\UserFriendsdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\UserClubs' => 'Jikan\\JikanPHP\\Normalizer\\UserClubsNormalizer', 'Jikan\\JikanPHP\\Model\\UserClubsdataItem' => 'Jikan\\JikanPHP\\Normalizer\\UserClubsdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\WatchEpisodes' => 'Jikan\\JikanPHP\\Normalizer\\WatchEpisodesNormalizer', 'Jikan\\JikanPHP\\Model\\WatchEpisodesdataItem' => 'Jikan\\JikanPHP\\Normalizer\\WatchEpisodesdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\WatchEpisodesdataItemEpisodesItem' => 'Jikan\\JikanPHP\\Normalizer\\WatchEpisodesdataItemEpisodesItemNormalizer', 'Jikan\\JikanPHP\\Model\\WatchPromos' => 'Jikan\\JikanPHP\\Normalizer\\WatchPromosNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeCharacters' => 'Jikan\\JikanPHP\\Normalizer\\AnimeCharactersNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeCharactersDataItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeCharactersDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeCharactersDataItemCharacter' => 'Jikan\\JikanPHP\\Normalizer\\AnimeCharactersDataItemCharacterNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeCharactersDataItemVoiceActorsItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeCharactersDataItemVoiceActorsItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeCharactersDataItemVoiceActorsItemPerson' => 'Jikan\\JikanPHP\\Normalizer\\AnimeCharactersDataItemVoiceActorsItemPersonNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeSearch' => 'Jikan\\JikanPHP\\Normalizer\\AnimeSearchNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeEpisode' => 'Jikan\\JikanPHP\\Normalizer\\AnimeEpisodeNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeFull' => 'Jikan\\JikanPHP\\Normalizer\\AnimeFullNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeFullRelationsItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeFullRelationsItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeFullTheme' => 'Jikan\\JikanPHP\\Normalizer\\AnimeFullThemeNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeFullExternalItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeFullExternalItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeFullStreamingItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeFullStreamingItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeRelations' => 'Jikan\\JikanPHP\\Normalizer\\AnimeRelationsNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeRelationsDataItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeRelationsDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\Anime' => 'Jikan\\JikanPHP\\Normalizer\\AnimeNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeStaff' => 'Jikan\\JikanPHP\\Normalizer\\AnimeStaffNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeStaffDataItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeStaffDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeStaffDataItemPerson' => 'Jikan\\JikanPHP\\Normalizer\\AnimeStaffDataItemPersonNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeStatistics' => 'Jikan\\JikanPHP\\Normalizer\\AnimeStatisticsNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeStatisticsData' => 'Jikan\\JikanPHP\\Normalizer\\AnimeStatisticsDataNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeStatisticsDataScoresItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeStatisticsDataScoresItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeThemes' => 'Jikan\\JikanPHP\\Normalizer\\AnimeThemesNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeThemesData' => 'Jikan\\JikanPHP\\Normalizer\\AnimeThemesDataNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeVideos' => 'Jikan\\JikanPHP\\Normalizer\\AnimeVideosNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeVideosData' => 'Jikan\\JikanPHP\\Normalizer\\AnimeVideosDataNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeVideosDataPromoItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeVideosDataPromoItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeVideosDataEpisodesItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeVideosDataEpisodesItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeVideosDataMusicVideosItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeVideosDataMusicVideosItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeVideosDataMusicVideosItemMeta' => 'Jikan\\JikanPHP\\Normalizer\\AnimeVideosDataMusicVideosItemMetaNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterAnime' => 'Jikan\\JikanPHP\\Normalizer\\CharacterAnimeNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterAnimeDataItem' => 'Jikan\\JikanPHP\\Normalizer\\CharacterAnimeDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\CharactersSearch' => 'Jikan\\JikanPHP\\Normalizer\\CharactersSearchNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterFull' => 'Jikan\\JikanPHP\\Normalizer\\CharacterFullNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterFullAnimeItem' => 'Jikan\\JikanPHP\\Normalizer\\CharacterFullAnimeItemNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterFullMangaItem' => 'Jikan\\JikanPHP\\Normalizer\\CharacterFullMangaItemNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterFullVoicesItem' => 'Jikan\\JikanPHP\\Normalizer\\CharacterFullVoicesItemNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterManga' => 'Jikan\\JikanPHP\\Normalizer\\CharacterMangaNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterMangaDataItem' => 'Jikan\\JikanPHP\\Normalizer\\CharacterMangaDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\Character' => 'Jikan\\JikanPHP\\Normalizer\\CharacterNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterVoiceActors' => 'Jikan\\JikanPHP\\Normalizer\\CharacterVoiceActorsNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterVoiceActorsDataItem' => 'Jikan\\JikanPHP\\Normalizer\\CharacterVoiceActorsDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\ClubsSearch' => 'Jikan\\JikanPHP\\Normalizer\\ClubsSearchNormalizer', 'Jikan\\JikanPHP\\Model\\ClubRelations' => 'Jikan\\JikanPHP\\Normalizer\\ClubRelationsNormalizer', 'Jikan\\JikanPHP\\Model\\ClubRelationsData' => 'Jikan\\JikanPHP\\Normalizer\\ClubRelationsDataNormalizer', 'Jikan\\JikanPHP\\Model\\Club' => 'Jikan\\JikanPHP\\Normalizer\\ClubNormalizer', 'Jikan\\JikanPHP\\Model\\ClubStaff' => 'Jikan\\JikanPHP\\Normalizer\\ClubStaffNormalizer', 'Jikan\\JikanPHP\\Model\\ClubStaffDataItem' => 'Jikan\\JikanPHP\\Normalizer\\ClubStaffDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\Trailer' => 'Jikan\\JikanPHP\\Normalizer\\TrailerNormalizer', 'Jikan\\JikanPHP\\Model\\TrailerBase' => 'Jikan\\JikanPHP\\Normalizer\\TrailerBaseNormalizer', 'Jikan\\JikanPHP\\Model\\TrailerImages' => 'Jikan\\JikanPHP\\Normalizer\\TrailerImagesNormalizer', 'Jikan\\JikanPHP\\Model\\TrailerImagesImages' => 'Jikan\\JikanPHP\\Normalizer\\TrailerImagesImagesNormalizer', 'Jikan\\JikanPHP\\Model\\Daterange' => 'Jikan\\JikanPHP\\Normalizer\\DaterangeNormalizer', 'Jikan\\JikanPHP\\Model\\DaterangeProp' => 'Jikan\\JikanPHP\\Normalizer\\DaterangePropNormalizer', 'Jikan\\JikanPHP\\Model\\DaterangePropFrom' => 'Jikan\\JikanPHP\\Normalizer\\DaterangePropFromNormalizer', 'Jikan\\JikanPHP\\Model\\DaterangePropTo' => 'Jikan\\JikanPHP\\Normalizer\\DaterangePropToNormalizer', 'Jikan\\JikanPHP\\Model\\Broadcast' => 'Jikan\\JikanPHP\\Normalizer\\BroadcastNormalizer', 'Jikan\\JikanPHP\\Model\\MalUrl' => 'Jikan\\JikanPHP\\Normalizer\\MalUrlNormalizer', 'Jikan\\JikanPHP\\Model\\MalUrl2' => 'Jikan\\JikanPHP\\Normalizer\\MalUrl2Normalizer', 'Jikan\\JikanPHP\\Model\\EntryMeta' => 'Jikan\\JikanPHP\\Normalizer\\EntryMetaNormalizer', 'Jikan\\JikanPHP\\Model\\Relation' => 'Jikan\\JikanPHP\\Normalizer\\RelationNormalizer', 'Jikan\\JikanPHP\\Model\\Pagination' => 'Jikan\\JikanPHP\\Normalizer\\PaginationNormalizer', 'Jikan\\JikanPHP\\Model\\PaginationPagination' => 'Jikan\\JikanPHP\\Normalizer\\PaginationPaginationNormalizer', 'Jikan\\JikanPHP\\Model\\PaginationPlus' => 'Jikan\\JikanPHP\\Normalizer\\PaginationPlusNormalizer', 'Jikan\\JikanPHP\\Model\\PaginationPlusPagination' => 'Jikan\\JikanPHP\\Normalizer\\PaginationPlusPaginationNormalizer', 'Jikan\\JikanPHP\\Model\\PaginationPlusPaginationItems' => 'Jikan\\JikanPHP\\Normalizer\\PaginationPlusPaginationItemsNormalizer', 'Jikan\\JikanPHP\\Model\\UserMeta' => 'Jikan\\JikanPHP\\Normalizer\\UserMetaNormalizer', 'Jikan\\JikanPHP\\Model\\UserById' => 'Jikan\\JikanPHP\\Normalizer\\UserByIdNormalizer', 'Jikan\\JikanPHP\\Model\\UserImages' => 'Jikan\\JikanPHP\\Normalizer\\UserImagesNormalizer', 'Jikan\\JikanPHP\\Model\\UserImagesJpg' => 'Jikan\\JikanPHP\\Normalizer\\UserImagesJpgNormalizer', 'Jikan\\JikanPHP\\Model\\UserImagesWebp' => 'Jikan\\JikanPHP\\Normalizer\\UserImagesWebpNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeMeta' => 'Jikan\\JikanPHP\\Normalizer\\AnimeMetaNormalizer', 'Jikan\\JikanPHP\\Model\\MangaMeta' => 'Jikan\\JikanPHP\\Normalizer\\MangaMetaNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterMeta' => 'Jikan\\JikanPHP\\Normalizer\\CharacterMetaNormalizer', 'Jikan\\JikanPHP\\Model\\PersonMeta' => 'Jikan\\JikanPHP\\Normalizer\\PersonMetaNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeImages' => 'Jikan\\JikanPHP\\Normalizer\\AnimeImagesNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeImagesJpg' => 'Jikan\\JikanPHP\\Normalizer\\AnimeImagesJpgNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeImagesWebp' => 'Jikan\\JikanPHP\\Normalizer\\AnimeImagesWebpNormalizer', 'Jikan\\JikanPHP\\Model\\MangaImages' => 'Jikan\\JikanPHP\\Normalizer\\MangaImagesNormalizer', 'Jikan\\JikanPHP\\Model\\MangaImagesJpg' => 'Jikan\\JikanPHP\\Normalizer\\MangaImagesJpgNormalizer', 'Jikan\\JikanPHP\\Model\\MangaImagesWebp' => 'Jikan\\JikanPHP\\Normalizer\\MangaImagesWebpNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterImages' => 'Jikan\\JikanPHP\\Normalizer\\CharacterImagesNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterImagesJpg' => 'Jikan\\JikanPHP\\Normalizer\\CharacterImagesJpgNormalizer', 'Jikan\\JikanPHP\\Model\\CharacterImagesWebp' => 'Jikan\\JikanPHP\\Normalizer\\CharacterImagesWebpNormalizer', 'Jikan\\JikanPHP\\Model\\PeopleImages' => 'Jikan\\JikanPHP\\Normalizer\\PeopleImagesNormalizer', 'Jikan\\JikanPHP\\Model\\PeopleImagesJpg' => 'Jikan\\JikanPHP\\Normalizer\\PeopleImagesJpgNormalizer', 'Jikan\\JikanPHP\\Model\\CommonImages' => 'Jikan\\JikanPHP\\Normalizer\\CommonImagesNormalizer', 'Jikan\\JikanPHP\\Model\\CommonImagesJpg' => 'Jikan\\JikanPHP\\Normalizer\\CommonImagesJpgNormalizer', 'Jikan\\JikanPHP\\Model\\ExternalLinks' => 'Jikan\\JikanPHP\\Normalizer\\ExternalLinksNormalizer', 'Jikan\\JikanPHP\\Model\\ExternalLinksDataItem' => 'Jikan\\JikanPHP\\Normalizer\\ExternalLinksDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\Forum' => 'Jikan\\JikanPHP\\Normalizer\\ForumNormalizer', 'Jikan\\JikanPHP\\Model\\ForumDataItem' => 'Jikan\\JikanPHP\\Normalizer\\ForumDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\ForumDataItemLastComment' => 'Jikan\\JikanPHP\\Normalizer\\ForumDataItemLastCommentNormalizer', 'Jikan\\JikanPHP\\Model\\Genres' => 'Jikan\\JikanPHP\\Normalizer\\GenresNormalizer', 'Jikan\\JikanPHP\\Model\\Genre' => 'Jikan\\JikanPHP\\Normalizer\\GenreNormalizer', 'Jikan\\JikanPHP\\Model\\Magazines' => 'Jikan\\JikanPHP\\Normalizer\\MagazinesNormalizer', 'Jikan\\JikanPHP\\Model\\Magazine' => 'Jikan\\JikanPHP\\Normalizer\\MagazineNormalizer', 'Jikan\\JikanPHP\\Model\\MangaCharacters' => 'Jikan\\JikanPHP\\Normalizer\\MangaCharactersNormalizer', 'Jikan\\JikanPHP\\Model\\MangaCharactersDataItem' => 'Jikan\\JikanPHP\\Normalizer\\MangaCharactersDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\MangaSearch' => 'Jikan\\JikanPHP\\Normalizer\\MangaSearchNormalizer', 'Jikan\\JikanPHP\\Model\\MangaFull' => 'Jikan\\JikanPHP\\Normalizer\\MangaFullNormalizer', 'Jikan\\JikanPHP\\Model\\MangaFullRelationsItem' => 'Jikan\\JikanPHP\\Normalizer\\MangaFullRelationsItemNormalizer', 'Jikan\\JikanPHP\\Model\\MangaFullExternalItem' => 'Jikan\\JikanPHP\\Normalizer\\MangaFullExternalItemNormalizer', 'Jikan\\JikanPHP\\Model\\Manga' => 'Jikan\\JikanPHP\\Normalizer\\MangaNormalizer', 'Jikan\\JikanPHP\\Model\\MangaStatistics' => 'Jikan\\JikanPHP\\Normalizer\\MangaStatisticsNormalizer', 'Jikan\\JikanPHP\\Model\\MangaStatisticsData' => 'Jikan\\JikanPHP\\Normalizer\\MangaStatisticsDataNormalizer', 'Jikan\\JikanPHP\\Model\\MangaStatisticsDataScoresItem' => 'Jikan\\JikanPHP\\Normalizer\\MangaStatisticsDataScoresItemNormalizer', 'Jikan\\JikanPHP\\Model\\Moreinfo' => 'Jikan\\JikanPHP\\Normalizer\\MoreinfoNormalizer', 'Jikan\\JikanPHP\\Model\\MoreinfoData' => 'Jikan\\JikanPHP\\Normalizer\\MoreinfoDataNormalizer', 'Jikan\\JikanPHP\\Model\\News' => 'Jikan\\JikanPHP\\Normalizer\\NewsNormalizer', 'Jikan\\JikanPHP\\Model\\NewsDataItem' => 'Jikan\\JikanPHP\\Normalizer\\NewsDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\PersonAnime' => 'Jikan\\JikanPHP\\Normalizer\\PersonAnimeNormalizer', 'Jikan\\JikanPHP\\Model\\PersonAnimeDataItem' => 'Jikan\\JikanPHP\\Normalizer\\PersonAnimeDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\PeopleSearch' => 'Jikan\\JikanPHP\\Normalizer\\PeopleSearchNormalizer', 'Jikan\\JikanPHP\\Model\\PeopleSearchdataItem' => 'Jikan\\JikanPHP\\Normalizer\\PeopleSearchdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\PersonFull' => 'Jikan\\JikanPHP\\Normalizer\\PersonFullNormalizer', 'Jikan\\JikanPHP\\Model\\PersonFullAnimeItem' => 'Jikan\\JikanPHP\\Normalizer\\PersonFullAnimeItemNormalizer', 'Jikan\\JikanPHP\\Model\\PersonFullMangaItem' => 'Jikan\\JikanPHP\\Normalizer\\PersonFullMangaItemNormalizer', 'Jikan\\JikanPHP\\Model\\PersonFullVoicesItem' => 'Jikan\\JikanPHP\\Normalizer\\PersonFullVoicesItemNormalizer', 'Jikan\\JikanPHP\\Model\\PersonManga' => 'Jikan\\JikanPHP\\Normalizer\\PersonMangaNormalizer', 'Jikan\\JikanPHP\\Model\\PersonMangaDataItem' => 'Jikan\\JikanPHP\\Normalizer\\PersonMangaDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\Person' => 'Jikan\\JikanPHP\\Normalizer\\PersonNormalizer', 'Jikan\\JikanPHP\\Model\\PersonVoiceActingRoles' => 'Jikan\\JikanPHP\\Normalizer\\PersonVoiceActingRolesNormalizer', 'Jikan\\JikanPHP\\Model\\PersonVoiceActingRolesDataItem' => 'Jikan\\JikanPHP\\Normalizer\\PersonVoiceActingRolesDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\Pictures' => 'Jikan\\JikanPHP\\Normalizer\\PicturesNormalizer', 'Jikan\\JikanPHP\\Model\\PicturesDataItem' => 'Jikan\\JikanPHP\\Normalizer\\PicturesDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\PicturesVariants' => 'Jikan\\JikanPHP\\Normalizer\\PicturesVariantsNormalizer', 'Jikan\\JikanPHP\\Model\\PicturesVariantsDataItem' => 'Jikan\\JikanPHP\\Normalizer\\PicturesVariantsDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\Producers' => 'Jikan\\JikanPHP\\Normalizer\\ProducersNormalizer', 'Jikan\\JikanPHP\\Model\\ProducerFull' => 'Jikan\\JikanPHP\\Normalizer\\ProducerFullNormalizer', 'Jikan\\JikanPHP\\Model\\ProducerFullExternalItem' => 'Jikan\\JikanPHP\\Normalizer\\ProducerFullExternalItemNormalizer', 'Jikan\\JikanPHP\\Model\\Producer' => 'Jikan\\JikanPHP\\Normalizer\\ProducerNormalizer', 'Jikan\\JikanPHP\\Model\\UserAbout' => 'Jikan\\JikanPHP\\Normalizer\\UserAboutNormalizer', 'Jikan\\JikanPHP\\Model\\UserAboutDataItem' => 'Jikan\\JikanPHP\\Normalizer\\UserAboutDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\UserFavorites' => 'Jikan\\JikanPHP\\Normalizer\\UserFavoritesNormalizer', 'Jikan\\JikanPHP\\Model\\UserFavoritesAnimeItem' => 'Jikan\\JikanPHP\\Normalizer\\UserFavoritesAnimeItemNormalizer', 'Jikan\\JikanPHP\\Model\\UserFavoritesMangaItem' => 'Jikan\\JikanPHP\\Normalizer\\UserFavoritesMangaItemNormalizer', 'Jikan\\JikanPHP\\Model\\UserFavoritesCharactersItem' => 'Jikan\\JikanPHP\\Normalizer\\UserFavoritesCharactersItemNormalizer', 'Jikan\\JikanPHP\\Model\\UserProfileFull' => 'Jikan\\JikanPHP\\Normalizer\\UserProfileFullNormalizer', 'Jikan\\JikanPHP\\Model\\UserProfileFullStatistics' => 'Jikan\\JikanPHP\\Normalizer\\UserProfileFullStatisticsNormalizer', 'Jikan\\JikanPHP\\Model\\UserProfileFullStatisticsAnime' => 'Jikan\\JikanPHP\\Normalizer\\UserProfileFullStatisticsAnimeNormalizer', 'Jikan\\JikanPHP\\Model\\UserProfileFullStatisticsManga' => 'Jikan\\JikanPHP\\Normalizer\\UserProfileFullStatisticsMangaNormalizer', 'Jikan\\JikanPHP\\Model\\UserProfileFullExternalItem' => 'Jikan\\JikanPHP\\Normalizer\\UserProfileFullExternalItemNormalizer', 'Jikan\\JikanPHP\\Model\\UserHistory' => 'Jikan\\JikanPHP\\Normalizer\\UserHistoryNormalizer', 'Jikan\\JikanPHP\\Model\\History' => 'Jikan\\JikanPHP\\Normalizer\\HistoryNormalizer', 'Jikan\\JikanPHP\\Model\\UserUpdates' => 'Jikan\\JikanPHP\\Normalizer\\UserUpdatesNormalizer', 'Jikan\\JikanPHP\\Model\\UserUpdatesData' => 'Jikan\\JikanPHP\\Normalizer\\UserUpdatesDataNormalizer', 'Jikan\\JikanPHP\\Model\\UserUpdatesDataAnimeItem' => 'Jikan\\JikanPHP\\Normalizer\\UserUpdatesDataAnimeItemNormalizer', 'Jikan\\JikanPHP\\Model\\UserUpdatesDataMangaItem' => 'Jikan\\JikanPHP\\Normalizer\\UserUpdatesDataMangaItemNormalizer', 'Jikan\\JikanPHP\\Model\\UserProfile' => 'Jikan\\JikanPHP\\Normalizer\\UserProfileNormalizer', 'Jikan\\JikanPHP\\Model\\UsersTemp' => 'Jikan\\JikanPHP\\Normalizer\\UsersTempNormalizer', 'Jikan\\JikanPHP\\Model\\UsersTempDataItem' => 'Jikan\\JikanPHP\\Normalizer\\UsersTempDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\UsersTempDataItemImages' => 'Jikan\\JikanPHP\\Normalizer\\UsersTempDataItemImagesNormalizer', 'Jikan\\JikanPHP\\Model\\UsersTempDataItemImagesJpg' => 'Jikan\\JikanPHP\\Normalizer\\UsersTempDataItemImagesJpgNormalizer', 'Jikan\\JikanPHP\\Model\\UsersTempDataItemImagesWebp' => 'Jikan\\JikanPHP\\Normalizer\\UsersTempDataItemImagesWebpNormalizer', 'Jikan\\JikanPHP\\Model\\UsersTempDataItemAnimeStats' => 'Jikan\\JikanPHP\\Normalizer\\UsersTempDataItemAnimeStatsNormalizer', 'Jikan\\JikanPHP\\Model\\UsersTempDataItemMangaStats' => 'Jikan\\JikanPHP\\Normalizer\\UsersTempDataItemMangaStatsNormalizer', 'Jikan\\JikanPHP\\Model\\UsersTempDataItemFavorites' => 'Jikan\\JikanPHP\\Normalizer\\UsersTempDataItemFavoritesNormalizer', 'Jikan\\JikanPHP\\Model\\UserStatistics' => 'Jikan\\JikanPHP\\Normalizer\\UserStatisticsNormalizer', 'Jikan\\JikanPHP\\Model\\UserStatisticsData' => 'Jikan\\JikanPHP\\Normalizer\\UserStatisticsDataNormalizer', 'Jikan\\JikanPHP\\Model\\UserStatisticsDataAnime' => 'Jikan\\JikanPHP\\Normalizer\\UserStatisticsDataAnimeNormalizer', 'Jikan\\JikanPHP\\Model\\UserStatisticsDataManga' => 'Jikan\\JikanPHP\\Normalizer\\UserStatisticsDataMangaNormalizer', 'Jikan\\JikanPHP\\Model\\Recommendations' => 'Jikan\\JikanPHP\\Normalizer\\RecommendationsNormalizer', 'Jikan\\JikanPHP\\Model\\RecommendationsdataItem' => 'Jikan\\JikanPHP\\Normalizer\\RecommendationsdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\EntryRecommendations' => 'Jikan\\JikanPHP\\Normalizer\\EntryRecommendationsNormalizer', 'Jikan\\JikanPHP\\Model\\EntryRecommendationsDataItem' => 'Jikan\\JikanPHP\\Normalizer\\EntryRecommendationsDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\MangaReview' => 'Jikan\\JikanPHP\\Normalizer\\MangaReviewNormalizer', 'Jikan\\JikanPHP\\Model\\MangaReviewScores' => 'Jikan\\JikanPHP\\Normalizer\\MangaReviewScoresNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeReview' => 'Jikan\\JikanPHP\\Normalizer\\AnimeReviewNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeReviewScores' => 'Jikan\\JikanPHP\\Normalizer\\AnimeReviewScoresNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeReviews' => 'Jikan\\JikanPHP\\Normalizer\\AnimeReviewsNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeReviewsdataItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeReviewsdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\MangaReviews' => 'Jikan\\JikanPHP\\Normalizer\\MangaReviewsNormalizer', 'Jikan\\JikanPHP\\Model\\MangaReviewsdataItem' => 'Jikan\\JikanPHP\\Normalizer\\MangaReviewsdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\StreamingLinks' => 'Jikan\\JikanPHP\\Normalizer\\StreamingLinksNormalizer', 'Jikan\\JikanPHP\\Model\\StreamingLinksDataItem' => 'Jikan\\JikanPHP\\Normalizer\\StreamingLinksDataItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeUserupdates' => 'Jikan\\JikanPHP\\Normalizer\\AnimeUserupdatesNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeUserupdatesdataItem' => 'Jikan\\JikanPHP\\Normalizer\\AnimeUserupdatesdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\MangaUserupdates' => 'Jikan\\JikanPHP\\Normalizer\\MangaUserupdatesNormalizer', 'Jikan\\JikanPHP\\Model\\MangaUserupdatesdataItem' => 'Jikan\\JikanPHP\\Normalizer\\MangaUserupdatesdataItemNormalizer', 'Jikan\\JikanPHP\\Model\\AnimeIdFullGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\AnimeIdFullGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\AnimeIdGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\AnimeIdGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\AnimeIdEpisodesEpisodeGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\AnimeIdEpisodesEpisodeGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\AnimeIdRelationsGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\AnimeIdRelationsGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\CharactersIdFullGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\CharactersIdFullGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\CharactersIdGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\CharactersIdGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\ClubsIdGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\ClubsIdGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\ClubsIdMembersGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\ClubsIdMembersGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\MangaIdFullGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\MangaIdFullGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\MangaIdGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\MangaIdGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\MangaIdRelationsGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\MangaIdRelationsGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\PeopleIdFullGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\PeopleIdFullGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\PeopleIdGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\PeopleIdGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\ProducersIdGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\ProducersIdGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\ProducersIdFullGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\ProducersIdFullGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\RandomAnimeGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\RandomAnimeGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\RandomMangaGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\RandomMangaGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\RandomCharactersGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\RandomCharactersGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\RandomPeopleGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\RandomPeopleGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\RandomUsersGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\RandomUsersGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\UsersUserbyidIdGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\UsersUserbyidIdGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\TopReviewsGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\TopReviewsGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\TopReviewsGetResponse200Data' => 'Jikan\\JikanPHP\\Normalizer\\TopReviewsGetResponse200DataNormalizer', 'Jikan\\JikanPHP\\Model\\UsersUsernameFullGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\UsersUsernameFullGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\UsersUsernameGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\UsersUsernameGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\UsersUsernameFavoritesGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\UsersUsernameFavoritesGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\UsersUsernameReviewsGetResponse200' => 'Jikan\\JikanPHP\\Normalizer\\UsersUsernameReviewsGetResponse200Normalizer', 'Jikan\\JikanPHP\\Model\\UsersUsernameReviewsGetResponse200Data' => 'Jikan\\JikanPHP\\Normalizer\\UsersUsernameReviewsGetResponse200DataNormalizer', '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => '\\Jikan\\JikanPHP\\Runtime\\Normalizer\\ReferenceNormalizer'];
+    protected $normalizers = [AnimeEpisodes::class => AnimeEpisodesNormalizer::class, AnimeEpisodesdataItem::class => AnimeEpisodesdataItemNormalizer::class, AnimeNews::class => AnimeNewsNormalizer::class, AnimeVideosEpisodes::class => AnimeVideosEpisodesNormalizer::class, AnimeVideosEpisodesdataItem::class => AnimeVideosEpisodesdataItemNormalizer::class, CharacterPictures::class => CharacterPicturesNormalizer::class, CharacterPicturesDataItem::class => CharacterPicturesDataItemNormalizer::class, ClubMember::class => ClubMemberNormalizer::class, MangaNews::class => MangaNewsNormalizer::class, MangaPictures::class => MangaPicturesNormalizer::class, PersonPictures::class => PersonPicturesNormalizer::class, Random::class => RandomNormalizer::class, Schedules::class => SchedulesNormalizer::class, UsersSearch::class => UsersSearchNormalizer::class, UsersSearchdataItem::class => UsersSearchdataItemNormalizer::class, Seasons::class => SeasonsNormalizer::class, SeasonsDataItem::class => SeasonsDataItemNormalizer::class, ReviewsCollection::class => ReviewsCollectionNormalizer::class, UserFriends::class => UserFriendsNormalizer::class, UserFriendsdataItem::class => UserFriendsdataItemNormalizer::class, UserClubs::class => UserClubsNormalizer::class, UserClubsdataItem::class => UserClubsdataItemNormalizer::class, WatchEpisodes::class => WatchEpisodesNormalizer::class, WatchEpisodesdataItem::class => WatchEpisodesdataItemNormalizer::class, WatchEpisodesdataItemEpisodesItem::class => WatchEpisodesdataItemEpisodesItemNormalizer::class, WatchPromos::class => WatchPromosNormalizer::class, AnimeCharacters::class => AnimeCharactersNormalizer::class, AnimeCharactersDataItem::class => AnimeCharactersDataItemNormalizer::class, AnimeCharactersDataItemCharacter::class => AnimeCharactersDataItemCharacterNormalizer::class, AnimeCharactersDataItemVoiceActorsItem::class => AnimeCharactersDataItemVoiceActorsItemNormalizer::class, AnimeCharactersDataItemVoiceActorsItemPerson::class => AnimeCharactersDataItemVoiceActorsItemPersonNormalizer::class, AnimeSearch::class => AnimeSearchNormalizer::class, AnimeEpisode::class => AnimeEpisodeNormalizer::class, AnimeFull::class => AnimeFullNormalizer::class, AnimeFullRelationsItem::class => AnimeFullRelationsItemNormalizer::class, AnimeFullTheme::class => AnimeFullThemeNormalizer::class, AnimeFullExternalItem::class => AnimeFullExternalItemNormalizer::class, AnimeFullStreamingItem::class => AnimeFullStreamingItemNormalizer::class, AnimeRelations::class => AnimeRelationsNormalizer::class, AnimeRelationsDataItem::class => AnimeRelationsDataItemNormalizer::class, Anime::class => AnimeNormalizer::class, AnimeStaff::class => AnimeStaffNormalizer::class, AnimeStaffDataItem::class => AnimeStaffDataItemNormalizer::class, AnimeStaffDataItemPerson::class => AnimeStaffDataItemPersonNormalizer::class, AnimeStatistics::class => AnimeStatisticsNormalizer::class, AnimeStatisticsData::class => AnimeStatisticsDataNormalizer::class, AnimeStatisticsDataScoresItem::class => AnimeStatisticsDataScoresItemNormalizer::class, AnimeThemes::class => AnimeThemesNormalizer::class, AnimeThemesData::class => AnimeThemesDataNormalizer::class, AnimeVideos::class => AnimeVideosNormalizer::class, AnimeVideosData::class => AnimeVideosDataNormalizer::class, AnimeVideosDataPromoItem::class => AnimeVideosDataPromoItemNormalizer::class, AnimeVideosDataEpisodesItem::class => AnimeVideosDataEpisodesItemNormalizer::class, AnimeVideosDataMusicVideosItem::class => AnimeVideosDataMusicVideosItemNormalizer::class, AnimeVideosDataMusicVideosItemMeta::class => AnimeVideosDataMusicVideosItemMetaNormalizer::class, CharacterAnime::class => CharacterAnimeNormalizer::class, CharacterAnimeDataItem::class => CharacterAnimeDataItemNormalizer::class, CharactersSearch::class => CharactersSearchNormalizer::class, CharacterFull::class => CharacterFullNormalizer::class, CharacterFullAnimeItem::class => CharacterFullAnimeItemNormalizer::class, CharacterFullMangaItem::class => CharacterFullMangaItemNormalizer::class, CharacterFullVoicesItem::class => CharacterFullVoicesItemNormalizer::class, CharacterManga::class => CharacterMangaNormalizer::class, CharacterMangaDataItem::class => CharacterMangaDataItemNormalizer::class, Character::class => CharacterNormalizer::class, CharacterVoiceActors::class => CharacterVoiceActorsNormalizer::class, CharacterVoiceActorsDataItem::class => CharacterVoiceActorsDataItemNormalizer::class, ClubsSearch::class => ClubsSearchNormalizer::class, ClubRelations::class => ClubRelationsNormalizer::class, ClubRelationsData::class => ClubRelationsDataNormalizer::class, Club::class => ClubNormalizer::class, ClubStaff::class => ClubStaffNormalizer::class, ClubStaffDataItem::class => ClubStaffDataItemNormalizer::class, Trailer::class => TrailerNormalizer::class, TrailerBase::class => TrailerBaseNormalizer::class, TrailerImages::class => TrailerImagesNormalizer::class, TrailerImagesImages::class => TrailerImagesImagesNormalizer::class, Daterange::class => DaterangeNormalizer::class, DaterangeProp::class => DaterangePropNormalizer::class, DaterangePropFrom::class => DaterangePropFromNormalizer::class, DaterangePropTo::class => DaterangePropToNormalizer::class, Broadcast::class => BroadcastNormalizer::class, MalUrl::class => MalUrlNormalizer::class, MalUrl2::class => MalUrl2Normalizer::class, EntryMeta::class => EntryMetaNormalizer::class, Relation::class => RelationNormalizer::class, Pagination::class => PaginationNormalizer::class, PaginationPagination::class => PaginationPaginationNormalizer::class, PaginationPlus::class => PaginationPlusNormalizer::class, PaginationPlusPagination::class => PaginationPlusPaginationNormalizer::class, PaginationPlusPaginationItems::class => PaginationPlusPaginationItemsNormalizer::class, UserMeta::class => UserMetaNormalizer::class, UserById::class => UserByIdNormalizer::class, UserImages::class => UserImagesNormalizer::class, UserImagesJpg::class => UserImagesJpgNormalizer::class, UserImagesWebp::class => UserImagesWebpNormalizer::class, AnimeMeta::class => AnimeMetaNormalizer::class, MangaMeta::class => MangaMetaNormalizer::class, CharacterMeta::class => CharacterMetaNormalizer::class, PersonMeta::class => PersonMetaNormalizer::class, AnimeImages::class => AnimeImagesNormalizer::class, AnimeImagesJpg::class => AnimeImagesJpgNormalizer::class, AnimeImagesWebp::class => AnimeImagesWebpNormalizer::class, MangaImages::class => MangaImagesNormalizer::class, MangaImagesJpg::class => MangaImagesJpgNormalizer::class, MangaImagesWebp::class => MangaImagesWebpNormalizer::class, CharacterImages::class => CharacterImagesNormalizer::class, CharacterImagesJpg::class => CharacterImagesJpgNormalizer::class, CharacterImagesWebp::class => CharacterImagesWebpNormalizer::class, PeopleImages::class => PeopleImagesNormalizer::class, PeopleImagesJpg::class => PeopleImagesJpgNormalizer::class, CommonImages::class => CommonImagesNormalizer::class, CommonImagesJpg::class => CommonImagesJpgNormalizer::class, ExternalLinks::class => ExternalLinksNormalizer::class, ExternalLinksDataItem::class => ExternalLinksDataItemNormalizer::class, Forum::class => ForumNormalizer::class, ForumDataItem::class => ForumDataItemNormalizer::class, ForumDataItemLastComment::class => ForumDataItemLastCommentNormalizer::class, Genres::class => GenresNormalizer::class, Genre::class => GenreNormalizer::class, Magazines::class => MagazinesNormalizer::class, Magazine::class => MagazineNormalizer::class, MangaCharacters::class => MangaCharactersNormalizer::class, MangaCharactersDataItem::class => MangaCharactersDataItemNormalizer::class, MangaSearch::class => MangaSearchNormalizer::class, MangaFull::class => MangaFullNormalizer::class, MangaFullRelationsItem::class => MangaFullRelationsItemNormalizer::class, MangaFullExternalItem::class => MangaFullExternalItemNormalizer::class, Manga::class => MangaNormalizer::class, MangaStatistics::class => MangaStatisticsNormalizer::class, MangaStatisticsData::class => MangaStatisticsDataNormalizer::class, MangaStatisticsDataScoresItem::class => MangaStatisticsDataScoresItemNormalizer::class, Moreinfo::class => MoreinfoNormalizer::class, MoreinfoData::class => MoreinfoDataNormalizer::class, News::class => NewsNormalizer::class, NewsDataItem::class => NewsDataItemNormalizer::class, PersonAnime::class => PersonAnimeNormalizer::class, PersonAnimeDataItem::class => PersonAnimeDataItemNormalizer::class, PeopleSearch::class => PeopleSearchNormalizer::class, PeopleSearchdataItem::class => PeopleSearchdataItemNormalizer::class, PersonFull::class => PersonFullNormalizer::class, PersonFullAnimeItem::class => PersonFullAnimeItemNormalizer::class, PersonFullMangaItem::class => PersonFullMangaItemNormalizer::class, PersonFullVoicesItem::class => PersonFullVoicesItemNormalizer::class, PersonManga::class => PersonMangaNormalizer::class, PersonMangaDataItem::class => PersonMangaDataItemNormalizer::class, Person::class => PersonNormalizer::class, PersonVoiceActingRoles::class => PersonVoiceActingRolesNormalizer::class, PersonVoiceActingRolesDataItem::class => PersonVoiceActingRolesDataItemNormalizer::class, Pictures::class => PicturesNormalizer::class, PicturesDataItem::class => PicturesDataItemNormalizer::class, PicturesVariants::class => PicturesVariantsNormalizer::class, PicturesVariantsDataItem::class => PicturesVariantsDataItemNormalizer::class, Producers::class => ProducersNormalizer::class, ProducerFull::class => ProducerFullNormalizer::class, ProducerFullExternalItem::class => ProducerFullExternalItemNormalizer::class, Producer::class => ProducerNormalizer::class, UserAbout::class => UserAboutNormalizer::class, UserAboutDataItem::class => UserAboutDataItemNormalizer::class, UserFavorites::class => UserFavoritesNormalizer::class, UserFavoritesAnimeItem::class => UserFavoritesAnimeItemNormalizer::class, UserFavoritesMangaItem::class => UserFavoritesMangaItemNormalizer::class, UserFavoritesCharactersItem::class => UserFavoritesCharactersItemNormalizer::class, UserProfileFull::class => UserProfileFullNormalizer::class, UserProfileFullStatistics::class => UserProfileFullStatisticsNormalizer::class, UserProfileFullStatisticsAnime::class => UserProfileFullStatisticsAnimeNormalizer::class, UserProfileFullStatisticsManga::class => UserProfileFullStatisticsMangaNormalizer::class, UserProfileFullExternalItem::class => UserProfileFullExternalItemNormalizer::class, UserHistory::class => UserHistoryNormalizer::class, History::class => HistoryNormalizer::class, UserUpdates::class => UserUpdatesNormalizer::class, UserUpdatesData::class => UserUpdatesDataNormalizer::class, UserUpdatesDataAnimeItem::class => UserUpdatesDataAnimeItemNormalizer::class, UserUpdatesDataMangaItem::class => UserUpdatesDataMangaItemNormalizer::class, UserProfile::class => UserProfileNormalizer::class, UsersTemp::class => UsersTempNormalizer::class, UsersTempDataItem::class => UsersTempDataItemNormalizer::class, UsersTempDataItemImages::class => UsersTempDataItemImagesNormalizer::class, UsersTempDataItemImagesJpg::class => UsersTempDataItemImagesJpgNormalizer::class, UsersTempDataItemImagesWebp::class => UsersTempDataItemImagesWebpNormalizer::class, UsersTempDataItemAnimeStats::class => UsersTempDataItemAnimeStatsNormalizer::class, UsersTempDataItemMangaStats::class => UsersTempDataItemMangaStatsNormalizer::class, UsersTempDataItemFavorites::class => UsersTempDataItemFavoritesNormalizer::class, UserStatistics::class => UserStatisticsNormalizer::class, UserStatisticsData::class => UserStatisticsDataNormalizer::class, UserStatisticsDataAnime::class => UserStatisticsDataAnimeNormalizer::class, UserStatisticsDataManga::class => UserStatisticsDataMangaNormalizer::class, Recommendations::class => RecommendationsNormalizer::class, RecommendationsdataItem::class => RecommendationsdataItemNormalizer::class, EntryRecommendations::class => EntryRecommendationsNormalizer::class, EntryRecommendationsDataItem::class => EntryRecommendationsDataItemNormalizer::class, MangaReview::class => MangaReviewNormalizer::class, MangaReviewScores::class => MangaReviewScoresNormalizer::class, AnimeReview::class => AnimeReviewNormalizer::class, AnimeReviewScores::class => AnimeReviewScoresNormalizer::class, AnimeReviews::class => AnimeReviewsNormalizer::class, AnimeReviewsdataItem::class => AnimeReviewsdataItemNormalizer::class, MangaReviews::class => MangaReviewsNormalizer::class, MangaReviewsdataItem::class => MangaReviewsdataItemNormalizer::class, StreamingLinks::class => StreamingLinksNormalizer::class, StreamingLinksDataItem::class => StreamingLinksDataItemNormalizer::class, AnimeUserupdates::class => AnimeUserupdatesNormalizer::class, AnimeUserupdatesdataItem::class => AnimeUserupdatesdataItemNormalizer::class, MangaUserupdates::class => MangaUserupdatesNormalizer::class, MangaUserupdatesdataItem::class => MangaUserupdatesdataItemNormalizer::class, AnimeIdFullGetResponse200::class => AnimeIdFullGetResponse200Normalizer::class, AnimeIdGetResponse200::class => AnimeIdGetResponse200Normalizer::class, AnimeIdEpisodesEpisodeGetResponse200::class => AnimeIdEpisodesEpisodeGetResponse200Normalizer::class, AnimeIdRelationsGetResponse200::class => AnimeIdRelationsGetResponse200Normalizer::class, CharactersIdFullGetResponse200::class => CharactersIdFullGetResponse200Normalizer::class, CharactersIdGetResponse200::class => CharactersIdGetResponse200Normalizer::class, ClubsIdGetResponse200::class => ClubsIdGetResponse200Normalizer::class, ClubsIdMembersGetResponse200::class => ClubsIdMembersGetResponse200Normalizer::class, MangaIdFullGetResponse200::class => MangaIdFullGetResponse200Normalizer::class, MangaIdGetResponse200::class => MangaIdGetResponse200Normalizer::class, MangaIdRelationsGetResponse200::class => MangaIdRelationsGetResponse200Normalizer::class, PeopleIdFullGetResponse200::class => PeopleIdFullGetResponse200Normalizer::class, PeopleIdGetResponse200::class => PeopleIdGetResponse200Normalizer::class, ProducersIdGetResponse200::class => ProducersIdGetResponse200Normalizer::class, ProducersIdFullGetResponse200::class => ProducersIdFullGetResponse200Normalizer::class, RandomAnimeGetResponse200::class => RandomAnimeGetResponse200Normalizer::class, RandomMangaGetResponse200::class => RandomMangaGetResponse200Normalizer::class, RandomCharactersGetResponse200::class => RandomCharactersGetResponse200Normalizer::class, RandomPeopleGetResponse200::class => RandomPeopleGetResponse200Normalizer::class, RandomUsersGetResponse200::class => RandomUsersGetResponse200Normalizer::class, UsersUserbyidIdGetResponse200::class => UsersUserbyidIdGetResponse200Normalizer::class, TopReviewsGetResponse200::class => TopReviewsGetResponse200Normalizer::class, TopReviewsGetResponse200Data::class => TopReviewsGetResponse200DataNormalizer::class, UsersUsernameFullGetResponse200::class => UsersUsernameFullGetResponse200Normalizer::class, UsersUsernameGetResponse200::class => UsersUsernameGetResponse200Normalizer::class, UsersUsernameFavoritesGetResponse200::class => UsersUsernameFavoritesGetResponse200Normalizer::class, UsersUsernameReviewsGetResponse200::class => UsersUsernameReviewsGetResponse200Normalizer::class, UsersUsernameReviewsGetResponse200Data::class => UsersUsernameReviewsGetResponse200DataNormalizer::class, '\\'.Reference::class => '\\'.ReferenceNormalizer::class];
+
     protected $normalizersCache = [];
 
     public function supportsDenormalization($data, $type, $format = null): bool
@@ -25,18 +262,18 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
+        return is_object($data) && array_key_exists($data::class, $this->normalizers);
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {
-        $normalizerClass = $this->normalizers[get_class($object)];
+        $normalizerClass = $this->normalizers[$object::class];
         $normalizer = $this->getNormalizer($normalizerClass);
 
         return $normalizer->normalize($object, $format, $context);
@@ -62,7 +299,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
     }
 
-    private function initNormalizer(string $normalizerClass)
+    private function initNormalizer(string $normalizerClass): object
     {
         $normalizer = new $normalizerClass();
         $normalizer->setNormalizer($this->normalizer);

@@ -10,12 +10,14 @@ class UserClubsdataItem
      * @var int
      */
     protected $malId;
+
     /**
      * Club Name.
      *
      * @var string
      */
     protected $name;
+
     /**
      * Club URL.
      *
@@ -25,8 +27,6 @@ class UserClubsdataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -35,10 +35,6 @@ class UserClubsdataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -49,8 +45,6 @@ class UserClubsdataItem
 
     /**
      * Club Name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -59,10 +53,6 @@ class UserClubsdataItem
 
     /**
      * Club Name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {
@@ -73,8 +63,6 @@ class UserClubsdataItem
 
     /**
      * Club URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -83,10 +71,6 @@ class UserClubsdataItem
 
     /**
      * Club URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {

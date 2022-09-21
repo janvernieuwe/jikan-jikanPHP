@@ -7,7 +7,7 @@ class ExternalLinks
     /**
      * @var ExternalLinksDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return ExternalLinksDataItem[]
@@ -19,8 +19,6 @@ class ExternalLinks
 
     /**
      * @param ExternalLinksDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

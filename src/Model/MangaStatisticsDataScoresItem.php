@@ -10,12 +10,14 @@ class MangaStatisticsDataScoresItem
      * @var int
      */
     protected $score;
+
     /**
      * Number of votes for this score.
      *
      * @var int
      */
     protected $votes;
+
     /**
      * Percentage of votes for this score.
      *
@@ -25,8 +27,6 @@ class MangaStatisticsDataScoresItem
 
     /**
      * Scoring value.
-     *
-     * @return int
      */
     public function getScore(): int
     {
@@ -35,10 +35,6 @@ class MangaStatisticsDataScoresItem
 
     /**
      * Scoring value.
-     *
-     * @param int $score
-     *
-     * @return self
      */
     public function setScore(int $score): self
     {
@@ -49,8 +45,6 @@ class MangaStatisticsDataScoresItem
 
     /**
      * Number of votes for this score.
-     *
-     * @return int
      */
     public function getVotes(): int
     {
@@ -59,10 +53,6 @@ class MangaStatisticsDataScoresItem
 
     /**
      * Number of votes for this score.
-     *
-     * @param int $votes
-     *
-     * @return self
      */
     public function setVotes(int $votes): self
     {
@@ -73,8 +63,6 @@ class MangaStatisticsDataScoresItem
 
     /**
      * Percentage of votes for this score.
-     *
-     * @return float
      */
     public function getPercentage(): float
     {
@@ -83,10 +71,6 @@ class MangaStatisticsDataScoresItem
 
     /**
      * Percentage of votes for this score.
-     *
-     * @param float $percentage
-     *
-     * @return self
      */
     public function setPercentage(float $percentage): self
     {

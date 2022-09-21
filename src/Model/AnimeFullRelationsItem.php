@@ -10,15 +10,14 @@ class AnimeFullRelationsItem
      * @var string
      */
     protected $relation;
+
     /**
      * @var MalUrl[]
      */
-    protected $entry;
+    protected $entry = [];
 
     /**
      * Relation type.
-     *
-     * @return string
      */
     public function getRelation(): string
     {
@@ -27,10 +26,6 @@ class AnimeFullRelationsItem
 
     /**
      * Relation type.
-     *
-     * @param string $relation
-     *
-     * @return self
      */
     public function setRelation(string $relation): self
     {
@@ -49,8 +44,6 @@ class AnimeFullRelationsItem
 
     /**
      * @param MalUrl[] $entry
-     *
-     * @return self
      */
     public function setEntry(array $entry): self
     {

@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\CommonImages;
+use Jikan\JikanPHP\Model\NewsDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class NewsDataItemNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\NewsDataItem' === $type;
+        return NewsDataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\NewsDataItem' === get_class($data);
+        return is_object($data) && $data instanceof NewsDataItem;
     }
 
     /**
@@ -34,88 +37,109 @@ class NewsDataItemNormalizer implements DenormalizerInterface, NormalizerInterfa
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|NewsDataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\NewsDataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('mal_id', $data)) {
-            $object->setMalId($data['mal_id']);
-        }
-        if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
-        }
-        if (\array_key_exists('title', $data)) {
-            $object->setTitle($data['title']);
-        }
-        if (\array_key_exists('date', $data)) {
-            $object->setDate($data['date']);
-        }
-        if (\array_key_exists('author_username', $data)) {
-            $object->setAuthorUsername($data['author_username']);
-        }
-        if (\array_key_exists('author_url', $data)) {
-            $object->setAuthorUrl($data['author_url']);
-        }
-        if (\array_key_exists('forum_url', $data)) {
-            $object->setForumUrl($data['forum_url']);
-        }
-        if (\array_key_exists('images', $data)) {
-            $object->setImages($this->denormalizer->denormalize($data['images'], 'Jikan\\JikanPHP\\Model\\CommonImages', 'json', $context));
-        }
-        if (\array_key_exists('comments', $data)) {
-            $object->setComments($data['comments']);
-        }
-        if (\array_key_exists('excerpt', $data)) {
-            $object->setExcerpt($data['excerpt']);
+
+        $newsDataItem = new NewsDataItem();
+        if (null === $data || !\is_array($data)) {
+            return $newsDataItem;
         }
 
-        return $object;
+        if (\array_key_exists('mal_id', $data)) {
+            $newsDataItem->setMalId($data['mal_id']);
+        }
+
+        if (\array_key_exists('url', $data)) {
+            $newsDataItem->setUrl($data['url']);
+        }
+
+        if (\array_key_exists('title', $data)) {
+            $newsDataItem->setTitle($data['title']);
+        }
+
+        if (\array_key_exists('date', $data)) {
+            $newsDataItem->setDate($data['date']);
+        }
+
+        if (\array_key_exists('author_username', $data)) {
+            $newsDataItem->setAuthorUsername($data['author_username']);
+        }
+
+        if (\array_key_exists('author_url', $data)) {
+            $newsDataItem->setAuthorUrl($data['author_url']);
+        }
+
+        if (\array_key_exists('forum_url', $data)) {
+            $newsDataItem->setForumUrl($data['forum_url']);
+        }
+
+        if (\array_key_exists('images', $data)) {
+            $newsDataItem->setImages($this->denormalizer->denormalize($data['images'], CommonImages::class, 'json', $context));
+        }
+
+        if (\array_key_exists('comments', $data)) {
+            $newsDataItem->setComments($data['comments']);
+        }
+
+        if (\array_key_exists('excerpt', $data)) {
+            $newsDataItem->setExcerpt($data['excerpt']);
+        }
+
+        return $newsDataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getMalId()) {
             $data['mal_id'] = $object->getMalId();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getTitle()) {
             $data['title'] = $object->getTitle();
         }
+
         if (null !== $object->getDate()) {
             $data['date'] = $object->getDate();
         }
+
         if (null !== $object->getAuthorUsername()) {
             $data['author_username'] = $object->getAuthorUsername();
         }
+
         if (null !== $object->getAuthorUrl()) {
             $data['author_url'] = $object->getAuthorUrl();
         }
+
         if (null !== $object->getForumUrl()) {
             $data['forum_url'] = $object->getForumUrl();
         }
+
         if (null !== $object->getImages()) {
             $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
         }
+
         if (null !== $object->getComments()) {
             $data['comments'] = $object->getComments();
         }
+
         if (null !== $object->getExcerpt()) {
             $data['excerpt'] = $object->getExcerpt();
         }

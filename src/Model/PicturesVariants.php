@@ -7,7 +7,7 @@ class PicturesVariants
     /**
      * @var PicturesVariantsDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return PicturesVariantsDataItem[]
@@ -19,8 +19,6 @@ class PicturesVariants
 
     /**
      * @param PicturesVariantsDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

@@ -10,6 +10,7 @@ class CharacterPicturesDataItem
      * @var string|null
      */
     protected $imageUrl;
+
     /**
      * Large JPG Image Size URL.
      *
@@ -19,8 +20,6 @@ class CharacterPicturesDataItem
 
     /**
      * Default JPG Image Size URL.
-     *
-     * @return string|null
      */
     public function getImageUrl(): ?string
     {
@@ -29,10 +28,6 @@ class CharacterPicturesDataItem
 
     /**
      * Default JPG Image Size URL.
-     *
-     * @param string|null $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(?string $imageUrl): self
     {
@@ -43,8 +38,6 @@ class CharacterPicturesDataItem
 
     /**
      * Large JPG Image Size URL.
-     *
-     * @return string|null
      */
     public function getLargeImageUrl(): ?string
     {
@@ -53,10 +46,6 @@ class CharacterPicturesDataItem
 
     /**
      * Large JPG Image Size URL.
-     *
-     * @param string|null $largeImageUrl
-     *
-     * @return self
      */
     public function setLargeImageUrl(?string $largeImageUrl): self
     {

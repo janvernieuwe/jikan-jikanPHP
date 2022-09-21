@@ -2,18 +2,20 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetCharacterById extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $id;
+use Jikan\JikanPHP\Exception\GetCharacterByIdBadRequestException;
+use Jikan\JikanPHP\Model\CharactersIdGetResponse200;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\Serializer\SerializerInterface;
 
-    /**
-     * @param int $id
-     */
-    public function __construct(int $id)
+class GetCharacterById extends BaseEndpoint implements Endpoint
+{
+    public function __construct(protected int $id)
     {
-        $this->id = $id;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -25,12 +27,12 @@ class GetCharacterById extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint imple
         return str_replace(['{id}'], [$this->id], '/characters/{id}');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
@@ -38,17 +40,18 @@ class GetCharacterById extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint imple
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetCharacterByIdBadRequestException
+     * @throws GetCharacterByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\CharactersIdGetResponse200
+     * @return null|CharactersIdGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\CharactersIdGetResponse200', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, CharactersIdGetResponse200::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetCharacterByIdBadRequestException();
+            throw new GetCharacterByIdBadRequestException();
         }
     }
 

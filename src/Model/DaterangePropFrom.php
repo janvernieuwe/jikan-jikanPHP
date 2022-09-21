@@ -10,12 +10,14 @@ class DaterangePropFrom
      * @var int|null
      */
     protected $day;
+
     /**
      * Month.
      *
      * @var int|null
      */
     protected $month;
+
     /**
      * Year.
      *
@@ -25,8 +27,6 @@ class DaterangePropFrom
 
     /**
      * Day.
-     *
-     * @return int|null
      */
     public function getDay(): ?int
     {
@@ -35,10 +35,6 @@ class DaterangePropFrom
 
     /**
      * Day.
-     *
-     * @param int|null $day
-     *
-     * @return self
      */
     public function setDay(?int $day): self
     {
@@ -49,8 +45,6 @@ class DaterangePropFrom
 
     /**
      * Month.
-     *
-     * @return int|null
      */
     public function getMonth(): ?int
     {
@@ -59,10 +53,6 @@ class DaterangePropFrom
 
     /**
      * Month.
-     *
-     * @param int|null $month
-     *
-     * @return self
      */
     public function setMonth(?int $month): self
     {
@@ -73,8 +63,6 @@ class DaterangePropFrom
 
     /**
      * Year.
-     *
-     * @return int|null
      */
     public function getYear(): ?int
     {
@@ -83,10 +71,6 @@ class DaterangePropFrom
 
     /**
      * Year.
-     *
-     * @param int|null $year
-     *
-     * @return self
      */
     public function setYear(?int $year): self
     {

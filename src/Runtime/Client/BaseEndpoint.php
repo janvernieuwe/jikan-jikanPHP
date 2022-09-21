@@ -8,8 +8,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 abstract class BaseEndpoint implements Endpoint
 {
+    public $formParameters;
     protected $queryParameters = [];
+
     protected $headerParameters = [];
+
     protected $body;
 
     abstract public function getMethod(): string;
@@ -30,9 +33,7 @@ abstract class BaseEndpoint implements Endpoint
     public function getQueryString(): string
     {
         $optionsResolved = $this->getQueryOptionsResolver()->resolve($this->queryParameters);
-        $optionsResolved = array_map(function ($value) {
-            return null !== $value ? $value : '';
-        }, $optionsResolved);
+        $optionsResolved = array_map(static fn ($value) => $value ?? '', $optionsResolved);
 
         return http_build_query($optionsResolved, '', '&', PHP_QUERY_RFC3986);
     }
@@ -61,13 +62,13 @@ abstract class BaseEndpoint implements Endpoint
 
     protected function getMultipartBody($streamFactory = null): array
     {
-        $bodyBuilder = new MultipartStreamBuilder($streamFactory);
+        $multipartStreamBuilder = new MultipartStreamBuilder($streamFactory);
         $formParameters = $this->getFormOptionsResolver()->resolve($this->formParameters);
         foreach ($formParameters as $key => $value) {
-            $bodyBuilder->addResource($key, $value);
+            $multipartStreamBuilder->addResource($key, $value);
         }
 
-        return [['Content-Type' => ['multipart/form-data; boundary="'.($bodyBuilder->getBoundary().'"')]], $bodyBuilder->build()];
+        return [['Content-Type' => ['multipart/form-data; boundary="'.($multipartStreamBuilder->getBoundary().'"')]], $multipartStreamBuilder->build()];
     }
 
     protected function getFormOptionsResolver(): OptionsResolver

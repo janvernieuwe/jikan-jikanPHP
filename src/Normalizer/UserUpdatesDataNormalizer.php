@@ -2,7 +2,11 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\UserUpdatesData;
+use Jikan\JikanPHP\Model\UserUpdatesDataAnimeItem;
+use Jikan\JikanPHP\Model\UserUpdatesDataMangaItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +23,12 @@ class UserUpdatesDataNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\UserUpdatesData' === $type;
+        return UserUpdatesData::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\UserUpdatesData' === get_class($data);
+        return is_object($data) && $data instanceof UserUpdatesData;
     }
 
     /**
@@ -34,43 +38,49 @@ class UserUpdatesDataNormalizer implements DenormalizerInterface, NormalizerInte
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserUpdatesData
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\UserUpdatesData();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $userUpdatesData = new UserUpdatesData();
+        if (null === $data || !\is_array($data)) {
+            return $userUpdatesData;
         }
+
         if (\array_key_exists('anime', $data)) {
             $values = [];
             foreach ($data['anime'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\UserUpdatesDataAnimeItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, UserUpdatesDataAnimeItem::class, 'json', $context);
             }
-            $object->setAnime($values);
+
+            $userUpdatesData->setAnime($values);
         }
+
         if (\array_key_exists('manga', $data)) {
             $values_1 = [];
             foreach ($data['manga'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Jikan\\JikanPHP\\Model\\UserUpdatesDataMangaItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, UserUpdatesDataMangaItem::class, 'json', $context);
             }
-            $object->setManga($values_1);
+
+            $userUpdatesData->setManga($values_1);
         }
 
-        return $object;
+        return $userUpdatesData;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getAnime()) {
@@ -78,13 +88,16 @@ class UserUpdatesDataNormalizer implements DenormalizerInterface, NormalizerInte
             foreach ($object->getAnime() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['anime'] = $values;
         }
+
         if (null !== $object->getManga()) {
             $values_1 = [];
             foreach ($object->getManga() as $value_1) {
                 $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
             }
+
             $data['manga'] = $values_1;
         }
 

@@ -10,81 +10,92 @@ class PersonFull
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Person's website URL.
      *
      * @var string|null
      */
     protected $websiteUrl;
+
     /**
      * @var PeopleImages
      */
     protected $images;
+
     /**
      * Name.
      *
      * @var string
      */
     protected $name;
+
     /**
      * Given Name.
      *
      * @var string|null
      */
     protected $givenName;
+
     /**
      * Family Name.
      *
      * @var string|null
      */
     protected $familyName;
+
     /**
      * Other Names.
      *
      * @var string[]
      */
-    protected $alternateNames;
+    protected $alternateNames = [];
+
     /**
      * Birthday Date ISO8601.
      *
      * @var string|null
      */
     protected $birthday;
+
     /**
      * Number of users who have favorited this entry.
      *
      * @var int
      */
     protected $favorites;
+
     /**
      * Biography.
      *
      * @var string|null
      */
     protected $about;
+
     /**
      * @var PersonFullAnimeItem[]
      */
-    protected $anime;
+    protected $anime = [];
+
     /**
      * @var PersonFullMangaItem[]
      */
-    protected $manga;
+    protected $manga = [];
+
     /**
      * @var PersonFullVoicesItem[]
      */
-    protected $voices;
+    protected $voices = [];
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -93,10 +104,6 @@ class PersonFull
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -107,8 +114,6 @@ class PersonFull
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -117,10 +122,6 @@ class PersonFull
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -131,8 +132,6 @@ class PersonFull
 
     /**
      * Person's website URL.
-     *
-     * @return string|null
      */
     public function getWebsiteUrl(): ?string
     {
@@ -141,10 +140,6 @@ class PersonFull
 
     /**
      * Person's website URL.
-     *
-     * @param string|null $websiteUrl
-     *
-     * @return self
      */
     public function setWebsiteUrl(?string $websiteUrl): self
     {
@@ -153,30 +148,20 @@ class PersonFull
         return $this;
     }
 
-    /**
-     * @return PeopleImages
-     */
     public function getImages(): PeopleImages
     {
         return $this->images;
     }
 
-    /**
-     * @param PeopleImages $images
-     *
-     * @return self
-     */
-    public function setImages(PeopleImages $images): self
+    public function setImages(PeopleImages $peopleImages): self
     {
-        $this->images = $images;
+        $this->images = $peopleImages;
 
         return $this;
     }
 
     /**
      * Name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -185,10 +170,6 @@ class PersonFull
 
     /**
      * Name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {
@@ -199,8 +180,6 @@ class PersonFull
 
     /**
      * Given Name.
-     *
-     * @return string|null
      */
     public function getGivenName(): ?string
     {
@@ -209,10 +188,6 @@ class PersonFull
 
     /**
      * Given Name.
-     *
-     * @param string|null $givenName
-     *
-     * @return self
      */
     public function setGivenName(?string $givenName): self
     {
@@ -223,8 +198,6 @@ class PersonFull
 
     /**
      * Family Name.
-     *
-     * @return string|null
      */
     public function getFamilyName(): ?string
     {
@@ -233,10 +206,6 @@ class PersonFull
 
     /**
      * Family Name.
-     *
-     * @param string|null $familyName
-     *
-     * @return self
      */
     public function setFamilyName(?string $familyName): self
     {
@@ -259,8 +228,6 @@ class PersonFull
      * Other Names.
      *
      * @param string[] $alternateNames
-     *
-     * @return self
      */
     public function setAlternateNames(array $alternateNames): self
     {
@@ -271,8 +238,6 @@ class PersonFull
 
     /**
      * Birthday Date ISO8601.
-     *
-     * @return string|null
      */
     public function getBirthday(): ?string
     {
@@ -281,10 +246,6 @@ class PersonFull
 
     /**
      * Birthday Date ISO8601.
-     *
-     * @param string|null $birthday
-     *
-     * @return self
      */
     public function setBirthday(?string $birthday): self
     {
@@ -295,8 +256,6 @@ class PersonFull
 
     /**
      * Number of users who have favorited this entry.
-     *
-     * @return int
      */
     public function getFavorites(): int
     {
@@ -305,10 +264,6 @@ class PersonFull
 
     /**
      * Number of users who have favorited this entry.
-     *
-     * @param int $favorites
-     *
-     * @return self
      */
     public function setFavorites(int $favorites): self
     {
@@ -319,8 +274,6 @@ class PersonFull
 
     /**
      * Biography.
-     *
-     * @return string|null
      */
     public function getAbout(): ?string
     {
@@ -329,10 +282,6 @@ class PersonFull
 
     /**
      * Biography.
-     *
-     * @param string|null $about
-     *
-     * @return self
      */
     public function setAbout(?string $about): self
     {
@@ -351,8 +300,6 @@ class PersonFull
 
     /**
      * @param PersonFullAnimeItem[] $anime
-     *
-     * @return self
      */
     public function setAnime(array $anime): self
     {
@@ -371,8 +318,6 @@ class PersonFull
 
     /**
      * @param PersonFullMangaItem[] $manga
-     *
-     * @return self
      */
     public function setManga(array $manga): self
     {
@@ -391,8 +336,6 @@ class PersonFull
 
     /**
      * @param PersonFullVoicesItem[] $voices
-     *
-     * @return self
      */
     public function setVoices(array $voices): self
     {

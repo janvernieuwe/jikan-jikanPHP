@@ -10,6 +10,7 @@ class UserById
      * @var string
      */
     protected $url;
+
     /**
      * MyAnimeList Username.
      *
@@ -19,8 +20,6 @@ class UserById
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -29,10 +28,6 @@ class UserById
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -43,8 +38,6 @@ class UserById
 
     /**
      * MyAnimeList Username.
-     *
-     * @return string
      */
     public function getUsername(): string
     {
@@ -53,10 +46,6 @@ class UserById
 
     /**
      * MyAnimeList Username.
-     *
-     * @param string $username
-     *
-     * @return self
      */
     public function setUsername(string $username): self
     {

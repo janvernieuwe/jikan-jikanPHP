@@ -2,10 +2,16 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetMangaUserUpdates extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $id;
+use Jikan\JikanPHP\Exception\GetMangaUserUpdatesBadRequestException;
+use Jikan\JikanPHP\Model\MangaUserupdates;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
 
+class GetMangaUserUpdates extends BaseEndpoint implements Endpoint
+{
     /**
      * @param int   $id
      * @param array $queryParameters {
@@ -13,12 +19,12 @@ class GetMangaUserUpdates extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint im
      *     @var int $page
      * }
      */
-    public function __construct(int $id, array $queryParameters = [])
+    public function __construct(protected int $id, array $queryParameters = [])
     {
-        $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -30,17 +36,17 @@ class GetMangaUserUpdates extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint im
         return str_replace(['{id}'], [$this->id], '/manga/{id}/userupdates');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['page']);
@@ -54,17 +60,18 @@ class GetMangaUserUpdates extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint im
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaUserUpdatesBadRequestException
+     * @throws GetMangaUserUpdatesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaUserupdates
+     * @return null|MangaUserupdates
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\MangaUserupdates', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, MangaUserupdates::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetMangaUserUpdatesBadRequestException();
+            throw new GetMangaUserUpdatesBadRequestException();
         }
     }
 

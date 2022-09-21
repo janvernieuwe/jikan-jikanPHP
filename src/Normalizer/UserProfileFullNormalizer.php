@@ -2,7 +2,12 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\UserImages;
+use Jikan\JikanPHP\Model\UserProfileFull;
+use Jikan\JikanPHP\Model\UserProfileFullExternalItem;
+use Jikan\JikanPHP\Model\UserProfileFullStatistics;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +24,12 @@ class UserProfileFullNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\UserProfileFull' === $type;
+        return UserProfileFull::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\UserProfileFull' === get_class($data);
+        return is_object($data) && $data instanceof UserProfileFull;
     }
 
     /**
@@ -34,76 +39,90 @@ class UserProfileFullNormalizer implements DenormalizerInterface, NormalizerInte
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserProfileFull
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\UserProfileFull();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $userProfileFull = new UserProfileFull();
+        if (null === $data || !\is_array($data)) {
+            return $userProfileFull;
         }
+
         if (\array_key_exists('mal_id', $data) && null !== $data['mal_id']) {
-            $object->setMalId($data['mal_id']);
+            $userProfileFull->setMalId($data['mal_id']);
         } elseif (\array_key_exists('mal_id', $data) && null === $data['mal_id']) {
-            $object->setMalId(null);
+            $userProfileFull->setMalId(null);
         }
+
         if (\array_key_exists('username', $data)) {
-            $object->setUsername($data['username']);
+            $userProfileFull->setUsername($data['username']);
         }
+
         if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
+            $userProfileFull->setUrl($data['url']);
         }
+
         if (\array_key_exists('images', $data)) {
-            $object->setImages($this->denormalizer->denormalize($data['images'], 'Jikan\\JikanPHP\\Model\\UserImages', 'json', $context));
+            $userProfileFull->setImages($this->denormalizer->denormalize($data['images'], UserImages::class, 'json', $context));
         }
+
         if (\array_key_exists('last_online', $data) && null !== $data['last_online']) {
-            $object->setLastOnline($data['last_online']);
+            $userProfileFull->setLastOnline($data['last_online']);
         } elseif (\array_key_exists('last_online', $data) && null === $data['last_online']) {
-            $object->setLastOnline(null);
+            $userProfileFull->setLastOnline(null);
         }
+
         if (\array_key_exists('gender', $data) && null !== $data['gender']) {
-            $object->setGender($data['gender']);
+            $userProfileFull->setGender($data['gender']);
         } elseif (\array_key_exists('gender', $data) && null === $data['gender']) {
-            $object->setGender(null);
+            $userProfileFull->setGender(null);
         }
+
         if (\array_key_exists('birthday', $data) && null !== $data['birthday']) {
-            $object->setBirthday($data['birthday']);
+            $userProfileFull->setBirthday($data['birthday']);
         } elseif (\array_key_exists('birthday', $data) && null === $data['birthday']) {
-            $object->setBirthday(null);
+            $userProfileFull->setBirthday(null);
         }
+
         if (\array_key_exists('location', $data) && null !== $data['location']) {
-            $object->setLocation($data['location']);
+            $userProfileFull->setLocation($data['location']);
         } elseif (\array_key_exists('location', $data) && null === $data['location']) {
-            $object->setLocation(null);
+            $userProfileFull->setLocation(null);
         }
+
         if (\array_key_exists('joined', $data) && null !== $data['joined']) {
-            $object->setJoined($data['joined']);
+            $userProfileFull->setJoined($data['joined']);
         } elseif (\array_key_exists('joined', $data) && null === $data['joined']) {
-            $object->setJoined(null);
+            $userProfileFull->setJoined(null);
         }
+
         if (\array_key_exists('statistics', $data)) {
-            $object->setStatistics($this->denormalizer->denormalize($data['statistics'], 'Jikan\\JikanPHP\\Model\\UserProfileFullStatistics', 'json', $context));
+            $userProfileFull->setStatistics($this->denormalizer->denormalize($data['statistics'], UserProfileFullStatistics::class, 'json', $context));
         }
+
         if (\array_key_exists('external', $data)) {
             $values = [];
             foreach ($data['external'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\UserProfileFullExternalItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, UserProfileFullExternalItem::class, 'json', $context);
             }
-            $object->setExternal($values);
+
+            $userProfileFull->setExternal($values);
         }
 
-        return $object;
+        return $userProfileFull;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -111,38 +130,49 @@ class UserProfileFullNormalizer implements DenormalizerInterface, NormalizerInte
         if (null !== $object->getMalId()) {
             $data['mal_id'] = $object->getMalId();
         }
+
         if (null !== $object->getUsername()) {
             $data['username'] = $object->getUsername();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getImages()) {
             $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
         }
+
         if (null !== $object->getLastOnline()) {
             $data['last_online'] = $object->getLastOnline();
         }
+
         if (null !== $object->getGender()) {
             $data['gender'] = $object->getGender();
         }
+
         if (null !== $object->getBirthday()) {
             $data['birthday'] = $object->getBirthday();
         }
+
         if (null !== $object->getLocation()) {
             $data['location'] = $object->getLocation();
         }
+
         if (null !== $object->getJoined()) {
             $data['joined'] = $object->getJoined();
         }
+
         if (null !== $object->getStatistics()) {
             $data['statistics'] = $this->normalizer->normalize($object->getStatistics(), 'json', $context);
         }
+
         if (null !== $object->getExternal()) {
             $values = [];
             foreach ($object->getExternal() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['external'] = $values;
         }
 

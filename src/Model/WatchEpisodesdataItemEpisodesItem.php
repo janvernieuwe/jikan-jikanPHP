@@ -10,29 +10,30 @@ class WatchEpisodesdataItemEpisodesItem
      * @var string
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Episode Title.
      *
      * @var string
      */
     protected $title;
+
     /**
      * For MyAnimeList Premium Users.
      *
      * @var bool
      */
-    protected $premium;
+    protected $premium = false;
 
     /**
      * MyAnimeList ID.
-     *
-     * @return string
      */
     public function getMalId(): string
     {
@@ -41,10 +42,6 @@ class WatchEpisodesdataItemEpisodesItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param string $malId
-     *
-     * @return self
      */
     public function setMalId(string $malId): self
     {
@@ -55,8 +52,6 @@ class WatchEpisodesdataItemEpisodesItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -65,10 +60,6 @@ class WatchEpisodesdataItemEpisodesItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -79,8 +70,6 @@ class WatchEpisodesdataItemEpisodesItem
 
     /**
      * Episode Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -89,10 +78,6 @@ class WatchEpisodesdataItemEpisodesItem
 
     /**
      * Episode Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -103,8 +88,6 @@ class WatchEpisodesdataItemEpisodesItem
 
     /**
      * For MyAnimeList Premium Users.
-     *
-     * @return bool
      */
     public function getPremium(): bool
     {
@@ -113,10 +96,6 @@ class WatchEpisodesdataItemEpisodesItem
 
     /**
      * For MyAnimeList Premium Users.
-     *
-     * @param bool $premium
-     *
-     * @return self
      */
     public function setPremium(bool $premium): self
     {

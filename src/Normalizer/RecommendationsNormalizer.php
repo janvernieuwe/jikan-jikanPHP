@@ -2,7 +2,11 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\PaginationPagination;
+use Jikan\JikanPHP\Model\Recommendations;
+use Jikan\JikanPHP\Model\RecommendationsdataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +23,12 @@ class RecommendationsNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\Recommendations' === $type;
+        return Recommendations::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\Recommendations' === get_class($data);
+        return is_object($data) && $data instanceof Recommendations;
     }
 
     /**
@@ -34,39 +38,44 @@ class RecommendationsNormalizer implements DenormalizerInterface, NormalizerInte
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|Recommendations
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\Recommendations();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $recommendations = new Recommendations();
+        if (null === $data || !\is_array($data)) {
+            return $recommendations;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\RecommendationsdataItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, RecommendationsdataItem::class, 'json', $context);
             }
-            $object->setData($values);
-        }
-        if (\array_key_exists('pagination', $data)) {
-            $object->setPagination($this->denormalizer->denormalize($data['pagination'], 'Jikan\\JikanPHP\\Model\\PaginationPagination', 'json', $context));
+
+            $recommendations->setData($values);
         }
 
-        return $object;
+        if (\array_key_exists('pagination', $data)) {
+            $recommendations->setPagination($this->denormalizer->denormalize($data['pagination'], PaginationPagination::class, 'json', $context));
+        }
+
+        return $recommendations;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getData()) {
@@ -74,8 +83,10 @@ class RecommendationsNormalizer implements DenormalizerInterface, NormalizerInte
             foreach ($object->getData() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['data'] = $values;
         }
+
         if (null !== $object->getPagination()) {
             $data['pagination'] = $this->normalizer->normalize($object->getPagination(), 'json', $context);
         }

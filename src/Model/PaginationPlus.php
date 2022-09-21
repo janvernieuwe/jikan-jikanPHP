@@ -9,22 +9,14 @@ class PaginationPlus
      */
     protected $pagination;
 
-    /**
-     * @return PaginationPlusPagination
-     */
     public function getPagination(): PaginationPlusPagination
     {
         return $this->pagination;
     }
 
-    /**
-     * @param PaginationPlusPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(PaginationPlusPagination $pagination): self
+    public function setPagination(PaginationPlusPagination $paginationPlusPagination): self
     {
-        $this->pagination = $pagination;
+        $this->pagination = $paginationPlusPagination;
 
         return $this;
     }

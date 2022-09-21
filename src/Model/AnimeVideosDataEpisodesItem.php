@@ -10,24 +10,28 @@ class AnimeVideosDataEpisodesItem
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Title.
      *
      * @var string
      */
     protected $title;
+
     /**
      * Episode.
      *
      * @var string
      */
     protected $episode;
+
     /**
      * @var CommonImages
      */
@@ -35,8 +39,6 @@ class AnimeVideosDataEpisodesItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -45,10 +47,6 @@ class AnimeVideosDataEpisodesItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -59,8 +57,6 @@ class AnimeVideosDataEpisodesItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -69,10 +65,6 @@ class AnimeVideosDataEpisodesItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -83,8 +75,6 @@ class AnimeVideosDataEpisodesItem
 
     /**
      * Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -93,10 +83,6 @@ class AnimeVideosDataEpisodesItem
 
     /**
      * Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -107,8 +93,6 @@ class AnimeVideosDataEpisodesItem
 
     /**
      * Episode.
-     *
-     * @return string
      */
     public function getEpisode(): string
     {
@@ -117,10 +101,6 @@ class AnimeVideosDataEpisodesItem
 
     /**
      * Episode.
-     *
-     * @param string $episode
-     *
-     * @return self
      */
     public function setEpisode(string $episode): self
     {
@@ -129,22 +109,14 @@ class AnimeVideosDataEpisodesItem
         return $this;
     }
 
-    /**
-     * @return CommonImages
-     */
     public function getImages(): CommonImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CommonImages $images
-     *
-     * @return self
-     */
-    public function setImages(CommonImages $images): self
+    public function setImages(CommonImages $commonImages): self
     {
-        $this->images = $images;
+        $this->images = $commonImages;
 
         return $this;
     }

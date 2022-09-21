@@ -9,22 +9,14 @@ class UsersUsernameFavoritesGetResponse200
      */
     protected $data;
 
-    /**
-     * @return UserFavorites
-     */
     public function getData(): UserFavorites
     {
         return $this->data;
     }
 
-    /**
-     * @param UserFavorites $data
-     *
-     * @return self
-     */
-    public function setData(UserFavorites $data): self
+    public function setData(UserFavorites $userFavorites): self
     {
-        $this->data = $data;
+        $this->data = $userFavorites;
 
         return $this;
     }

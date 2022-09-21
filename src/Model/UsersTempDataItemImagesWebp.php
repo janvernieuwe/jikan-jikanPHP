@@ -13,8 +13,6 @@ class UsersTempDataItemImagesWebp
 
     /**
      * Image URL WEBP (225x335).
-     *
-     * @return string
      */
     public function getImageUrl(): string
     {
@@ -23,10 +21,6 @@ class UsersTempDataItemImagesWebp
 
     /**
      * Image URL WEBP (225x335).
-     *
-     * @param string $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(string $imageUrl): self
     {

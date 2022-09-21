@@ -2,18 +2,20 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetAnimeStaff extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $id;
+use Jikan\JikanPHP\Exception\GetAnimeStaffBadRequestException;
+use Jikan\JikanPHP\Model\AnimeStaff;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\Serializer\SerializerInterface;
 
-    /**
-     * @param int $id
-     */
-    public function __construct(int $id)
+class GetAnimeStaff extends BaseEndpoint implements Endpoint
+{
+    public function __construct(protected int $id)
     {
-        $this->id = $id;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -25,12 +27,12 @@ class GetAnimeStaff extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implemen
         return str_replace(['{id}'], [$this->id], '/anime/{id}/staff');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
@@ -38,17 +40,18 @@ class GetAnimeStaff extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implemen
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeStaffBadRequestException
+     * @throws GetAnimeStaffBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeStaff
+     * @return null|AnimeStaff
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\AnimeStaff', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, AnimeStaff::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetAnimeStaffBadRequestException();
+            throw new GetAnimeStaffBadRequestException();
         }
     }
 

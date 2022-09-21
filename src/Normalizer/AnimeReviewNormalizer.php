@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\AnimeReview;
+use Jikan\JikanPHP\Model\AnimeReviewScores;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class AnimeReviewNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\AnimeReview' === $type;
+        return AnimeReview::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\AnimeReview' === get_class($data);
+        return is_object($data) && $data instanceof AnimeReview;
     }
 
     /**
@@ -34,76 +37,93 @@ class AnimeReviewNormalizer implements DenormalizerInterface, NormalizerInterfac
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeReview
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\AnimeReview();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('mal_id', $data)) {
-            $object->setMalId($data['mal_id']);
-        }
-        if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
-        }
-        if (\array_key_exists('type', $data)) {
-            $object->setType($data['type']);
-        }
-        if (\array_key_exists('votes', $data)) {
-            $object->setVotes($data['votes']);
-        }
-        if (\array_key_exists('date', $data)) {
-            $object->setDate($data['date']);
-        }
-        if (\array_key_exists('review', $data)) {
-            $object->setReview($data['review']);
-        }
-        if (\array_key_exists('episodes_watched', $data)) {
-            $object->setEpisodesWatched($data['episodes_watched']);
-        }
-        if (\array_key_exists('scores', $data)) {
-            $object->setScores($this->denormalizer->denormalize($data['scores'], 'Jikan\\JikanPHP\\Model\\AnimeReviewScores', 'json', $context));
+
+        $animeReview = new AnimeReview();
+        if (null === $data || !\is_array($data)) {
+            return $animeReview;
         }
 
-        return $object;
+        if (\array_key_exists('mal_id', $data)) {
+            $animeReview->setMalId($data['mal_id']);
+        }
+
+        if (\array_key_exists('url', $data)) {
+            $animeReview->setUrl($data['url']);
+        }
+
+        if (\array_key_exists('type', $data)) {
+            $animeReview->setType($data['type']);
+        }
+
+        if (\array_key_exists('votes', $data)) {
+            $animeReview->setVotes($data['votes']);
+        }
+
+        if (\array_key_exists('date', $data)) {
+            $animeReview->setDate($data['date']);
+        }
+
+        if (\array_key_exists('review', $data)) {
+            $animeReview->setReview($data['review']);
+        }
+
+        if (\array_key_exists('episodes_watched', $data)) {
+            $animeReview->setEpisodesWatched($data['episodes_watched']);
+        }
+
+        if (\array_key_exists('scores', $data)) {
+            $animeReview->setScores($this->denormalizer->denormalize($data['scores'], AnimeReviewScores::class, 'json', $context));
+        }
+
+        return $animeReview;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getMalId()) {
             $data['mal_id'] = $object->getMalId();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getType()) {
             $data['type'] = $object->getType();
         }
+
         if (null !== $object->getVotes()) {
             $data['votes'] = $object->getVotes();
         }
+
         if (null !== $object->getDate()) {
             $data['date'] = $object->getDate();
         }
+
         if (null !== $object->getReview()) {
             $data['review'] = $object->getReview();
         }
+
         if (null !== $object->getEpisodesWatched()) {
             $data['episodes_watched'] = $object->getEpisodesWatched();
         }
+
         if (null !== $object->getScores()) {
             $data['scores'] = $this->normalizer->normalize($object->getScores(), 'json', $context);
         }

@@ -10,12 +10,14 @@ class AnimeVideosDataMusicVideosItem
      * @var string
      */
     protected $title;
+
     /**
      * Youtube Details.
      *
      * @var Trailer
      */
     protected $video;
+
     /**
      * @var AnimeVideosDataMusicVideosItemMeta
      */
@@ -23,8 +25,6 @@ class AnimeVideosDataMusicVideosItem
 
     /**
      * Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -33,10 +33,6 @@ class AnimeVideosDataMusicVideosItem
 
     /**
      * Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -47,8 +43,6 @@ class AnimeVideosDataMusicVideosItem
 
     /**
      * Youtube Details.
-     *
-     * @return Trailer
      */
     public function getVideo(): Trailer
     {
@@ -57,34 +51,22 @@ class AnimeVideosDataMusicVideosItem
 
     /**
      * Youtube Details.
-     *
-     * @param Trailer $video
-     *
-     * @return self
      */
-    public function setVideo(Trailer $video): self
+    public function setVideo(Trailer $trailer): self
     {
-        $this->video = $video;
+        $this->video = $trailer;
 
         return $this;
     }
 
-    /**
-     * @return AnimeVideosDataMusicVideosItemMeta
-     */
     public function getMeta(): AnimeVideosDataMusicVideosItemMeta
     {
         return $this->meta;
     }
 
-    /**
-     * @param AnimeVideosDataMusicVideosItemMeta $meta
-     *
-     * @return self
-     */
-    public function setMeta(AnimeVideosDataMusicVideosItemMeta $meta): self
+    public function setMeta(AnimeVideosDataMusicVideosItemMeta $animeVideosDataMusicVideosItemMeta): self
     {
-        $this->meta = $meta;
+        $this->meta = $animeVideosDataMusicVideosItemMeta;
 
         return $this;
     }

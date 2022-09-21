@@ -8,35 +8,29 @@ class WatchEpisodesdataItem
      * @var AnimeMeta
      */
     protected $entry;
+
     /**
      * Recent Episodes (max 2 listed).
      *
      * @var WatchEpisodesdataItemEpisodesItem[]
      */
-    protected $episodes;
+    protected $episodes = [];
+
     /**
      * Region Locked Episode.
      *
      * @var bool
      */
-    protected $regionLocked;
+    protected $regionLocked = false;
 
-    /**
-     * @return AnimeMeta
-     */
     public function getEntry(): AnimeMeta
     {
         return $this->entry;
     }
 
-    /**
-     * @param AnimeMeta $entry
-     *
-     * @return self
-     */
-    public function setEntry(AnimeMeta $entry): self
+    public function setEntry(AnimeMeta $animeMeta): self
     {
-        $this->entry = $entry;
+        $this->entry = $animeMeta;
 
         return $this;
     }
@@ -55,8 +49,6 @@ class WatchEpisodesdataItem
      * Recent Episodes (max 2 listed).
      *
      * @param WatchEpisodesdataItemEpisodesItem[] $episodes
-     *
-     * @return self
      */
     public function setEpisodes(array $episodes): self
     {
@@ -67,8 +59,6 @@ class WatchEpisodesdataItem
 
     /**
      * Region Locked Episode.
-     *
-     * @return bool
      */
     public function getRegionLocked(): bool
     {
@@ -77,10 +67,6 @@ class WatchEpisodesdataItem
 
     /**
      * Region Locked Episode.
-     *
-     * @param bool $regionLocked
-     *
-     * @return self
      */
     public function setRegionLocked(bool $regionLocked): self
     {

@@ -7,7 +7,7 @@ class MangaIdRelationsGetResponse200
     /**
      * @var Relation[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return Relation[]
@@ -19,8 +19,6 @@ class MangaIdRelationsGetResponse200
 
     /**
      * @param Relation[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

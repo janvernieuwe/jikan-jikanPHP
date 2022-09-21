@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\ForumDataItemLastComment;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class ForumDataItemLastCommentNormalizer implements DenormalizerInterface, Norma
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\ForumDataItemLastComment' === $type;
+        return ForumDataItemLastComment::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\ForumDataItemLastComment' === get_class($data);
+        return is_object($data) && $data instanceof ForumDataItemLastComment;
     }
 
     /**
@@ -34,54 +36,63 @@ class ForumDataItemLastCommentNormalizer implements DenormalizerInterface, Norma
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|ForumDataItemLastComment
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\ForumDataItemLastComment();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
-        }
-        if (\array_key_exists('author_username', $data)) {
-            $object->setAuthorUsername($data['author_username']);
-        }
-        if (\array_key_exists('author_url', $data)) {
-            $object->setAuthorUrl($data['author_url']);
-        }
-        if (\array_key_exists('date', $data) && null !== $data['date']) {
-            $object->setDate($data['date']);
-        } elseif (\array_key_exists('date', $data) && null === $data['date']) {
-            $object->setDate(null);
+
+        $forumDataItemLastComment = new ForumDataItemLastComment();
+        if (null === $data || !\is_array($data)) {
+            return $forumDataItemLastComment;
         }
 
-        return $object;
+        if (\array_key_exists('url', $data)) {
+            $forumDataItemLastComment->setUrl($data['url']);
+        }
+
+        if (\array_key_exists('author_username', $data)) {
+            $forumDataItemLastComment->setAuthorUsername($data['author_username']);
+        }
+
+        if (\array_key_exists('author_url', $data)) {
+            $forumDataItemLastComment->setAuthorUrl($data['author_url']);
+        }
+
+        if (\array_key_exists('date', $data) && null !== $data['date']) {
+            $forumDataItemLastComment->setDate($data['date']);
+        } elseif (\array_key_exists('date', $data) && null === $data['date']) {
+            $forumDataItemLastComment->setDate(null);
+        }
+
+        return $forumDataItemLastComment;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getAuthorUsername()) {
             $data['author_username'] = $object->getAuthorUsername();
         }
+
         if (null !== $object->getAuthorUrl()) {
             $data['author_url'] = $object->getAuthorUrl();
         }
+
         if (null !== $object->getDate()) {
             $data['date'] = $object->getDate();
         }

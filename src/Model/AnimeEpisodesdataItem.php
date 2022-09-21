@@ -10,54 +10,63 @@ class AnimeEpisodesdataItem
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Title.
      *
      * @var string
      */
     protected $title;
+
     /**
      * Title Japanese.
      *
      * @var string|null
      */
     protected $titleJapanese;
+
     /**
      * title_romanji.
      *
      * @var string|null
      */
     protected $titleRomanji;
+
     /**
      * Episode duration in seconds.
      *
      * @var int|null
      */
     protected $duration;
+
     /**
      * Aired Date ISO8601.
      *
      * @var string|null
      */
     protected $aired;
+
     /**
      * Filler episode.
      *
      * @var bool
      */
-    protected $filler;
+    protected $filler = false;
+
     /**
      * Recap episode.
      *
      * @var bool
      */
-    protected $recap;
+    protected $recap = false;
+
     /**
      * Episode discussion forum URL.
      *
@@ -67,8 +76,6 @@ class AnimeEpisodesdataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -77,10 +84,6 @@ class AnimeEpisodesdataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -91,8 +94,6 @@ class AnimeEpisodesdataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -101,10 +102,6 @@ class AnimeEpisodesdataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -115,8 +112,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -125,10 +120,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -139,8 +130,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Title Japanese.
-     *
-     * @return string|null
      */
     public function getTitleJapanese(): ?string
     {
@@ -149,10 +138,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Title Japanese.
-     *
-     * @param string|null $titleJapanese
-     *
-     * @return self
      */
     public function setTitleJapanese(?string $titleJapanese): self
     {
@@ -163,8 +148,6 @@ class AnimeEpisodesdataItem
 
     /**
      * title_romanji.
-     *
-     * @return string|null
      */
     public function getTitleRomanji(): ?string
     {
@@ -173,10 +156,6 @@ class AnimeEpisodesdataItem
 
     /**
      * title_romanji.
-     *
-     * @param string|null $titleRomanji
-     *
-     * @return self
      */
     public function setTitleRomanji(?string $titleRomanji): self
     {
@@ -187,8 +166,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Episode duration in seconds.
-     *
-     * @return int|null
      */
     public function getDuration(): ?int
     {
@@ -197,10 +174,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Episode duration in seconds.
-     *
-     * @param int|null $duration
-     *
-     * @return self
      */
     public function setDuration(?int $duration): self
     {
@@ -211,8 +184,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Aired Date ISO8601.
-     *
-     * @return string|null
      */
     public function getAired(): ?string
     {
@@ -221,10 +192,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Aired Date ISO8601.
-     *
-     * @param string|null $aired
-     *
-     * @return self
      */
     public function setAired(?string $aired): self
     {
@@ -235,8 +202,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Filler episode.
-     *
-     * @return bool
      */
     public function getFiller(): bool
     {
@@ -245,10 +210,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Filler episode.
-     *
-     * @param bool $filler
-     *
-     * @return self
      */
     public function setFiller(bool $filler): self
     {
@@ -259,8 +220,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Recap episode.
-     *
-     * @return bool
      */
     public function getRecap(): bool
     {
@@ -269,10 +228,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Recap episode.
-     *
-     * @param bool $recap
-     *
-     * @return self
      */
     public function setRecap(bool $recap): self
     {
@@ -283,8 +238,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Episode discussion forum URL.
-     *
-     * @return string|null
      */
     public function getForumUrl(): ?string
     {
@@ -293,10 +246,6 @@ class AnimeEpisodesdataItem
 
     /**
      * Episode discussion forum URL.
-     *
-     * @param string|null $forumUrl
-     *
-     * @return self
      */
     public function setForumUrl(?string $forumUrl): self
     {

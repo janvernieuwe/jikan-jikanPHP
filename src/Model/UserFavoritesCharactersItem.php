@@ -10,28 +10,33 @@ class UserFavoritesCharactersItem
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var CharacterImages
      */
     protected $images;
+
     /**
      * Entry name.
      *
      * @var string
      */
     protected $name;
+
     /**
      * Type of resource.
      *
      * @var string
      */
     protected $type;
+
     /**
      * Resource Name/Title.
      *
@@ -41,8 +46,6 @@ class UserFavoritesCharactersItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -51,10 +54,6 @@ class UserFavoritesCharactersItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -65,8 +64,6 @@ class UserFavoritesCharactersItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -75,10 +72,6 @@ class UserFavoritesCharactersItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -87,30 +80,20 @@ class UserFavoritesCharactersItem
         return $this;
     }
 
-    /**
-     * @return CharacterImages
-     */
     public function getImages(): CharacterImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CharacterImages $images
-     *
-     * @return self
-     */
-    public function setImages(CharacterImages $images): self
+    public function setImages(CharacterImages $characterImages): self
     {
-        $this->images = $images;
+        $this->images = $characterImages;
 
         return $this;
     }
 
     /**
      * Entry name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -119,10 +102,6 @@ class UserFavoritesCharactersItem
 
     /**
      * Entry name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {
@@ -133,8 +112,6 @@ class UserFavoritesCharactersItem
 
     /**
      * Type of resource.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -143,10 +120,6 @@ class UserFavoritesCharactersItem
 
     /**
      * Type of resource.
-     *
-     * @param string $type
-     *
-     * @return self
      */
     public function setType(string $type): self
     {
@@ -157,8 +130,6 @@ class UserFavoritesCharactersItem
 
     /**
      * Resource Name/Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -167,10 +138,6 @@ class UserFavoritesCharactersItem
 
     /**
      * Resource Name/Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {

@@ -13,8 +13,6 @@ class UserImagesWebp
 
     /**
      * Image URL WEBP.
-     *
-     * @return string|null
      */
     public function getImageUrl(): ?string
     {
@@ -23,10 +21,6 @@ class UserImagesWebp
 
     /**
      * Image URL WEBP.
-     *
-     * @param string|null $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(?string $imageUrl): self
     {

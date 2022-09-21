@@ -7,15 +7,17 @@ class ClubRelationsData
     /**
      * @var MalUrl[]
      */
-    protected $anime;
+    protected $anime = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $manga;
+    protected $manga = [];
+
     /**
      * @var MalUrl[]
      */
-    protected $characters;
+    protected $characters = [];
 
     /**
      * @return MalUrl[]
@@ -27,8 +29,6 @@ class ClubRelationsData
 
     /**
      * @param MalUrl[] $anime
-     *
-     * @return self
      */
     public function setAnime(array $anime): self
     {
@@ -47,8 +47,6 @@ class ClubRelationsData
 
     /**
      * @param MalUrl[] $manga
-     *
-     * @return self
      */
     public function setManga(array $manga): self
     {
@@ -67,8 +65,6 @@ class ClubRelationsData
 
     /**
      * @param MalUrl[] $characters
-     *
-     * @return self
      */
     public function setCharacters(array $characters): self
     {

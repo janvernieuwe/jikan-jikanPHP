@@ -13,8 +13,6 @@ class CommonImages
 
     /**
      * Available images in JPG.
-     *
-     * @return CommonImagesJpg
      */
     public function getJpg(): CommonImagesJpg
     {
@@ -23,14 +21,10 @@ class CommonImages
 
     /**
      * Available images in JPG.
-     *
-     * @param CommonImagesJpg $jpg
-     *
-     * @return self
      */
-    public function setJpg(CommonImagesJpg $jpg): self
+    public function setJpg(CommonImagesJpg $commonImagesJpg): self
     {
-        $this->jpg = $jpg;
+        $this->jpg = $commonImagesJpg;
 
         return $this;
     }

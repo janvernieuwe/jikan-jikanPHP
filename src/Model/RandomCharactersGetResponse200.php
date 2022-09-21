@@ -13,8 +13,6 @@ class RandomCharactersGetResponse200
 
     /**
      * Character Resource.
-     *
-     * @return Character
      */
     public function getData(): Character
     {
@@ -23,14 +21,10 @@ class RandomCharactersGetResponse200
 
     /**
      * Character Resource.
-     *
-     * @param Character $data
-     *
-     * @return self
      */
-    public function setData(Character $data): self
+    public function setData(Character $character): self
     {
-        $this->data = $data;
+        $this->data = $character;
 
         return $this;
     }

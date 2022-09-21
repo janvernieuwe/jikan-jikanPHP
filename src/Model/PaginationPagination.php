@@ -8,24 +8,17 @@ class PaginationPagination
      * @var int
      */
     protected $lastVisiblePage;
+
     /**
      * @var bool
      */
-    protected $hasNextPage;
+    protected $hasNextPage = false;
 
-    /**
-     * @return int
-     */
     public function getLastVisiblePage(): int
     {
         return $this->lastVisiblePage;
     }
 
-    /**
-     * @param int $lastVisiblePage
-     *
-     * @return self
-     */
     public function setLastVisiblePage(int $lastVisiblePage): self
     {
         $this->lastVisiblePage = $lastVisiblePage;
@@ -33,19 +26,11 @@ class PaginationPagination
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function getHasNextPage(): bool
     {
         return $this->hasNextPage;
     }
 
-    /**
-     * @param bool $hasNextPage
-     *
-     * @return self
-     */
     public function setHasNextPage(bool $hasNextPage): self
     {
         $this->hasNextPage = $hasNextPage;

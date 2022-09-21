@@ -2,7 +2,12 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\AnimeVideosData;
+use Jikan\JikanPHP\Model\AnimeVideosDataEpisodesItem;
+use Jikan\JikanPHP\Model\AnimeVideosDataMusicVideosItem;
+use Jikan\JikanPHP\Model\AnimeVideosDataPromoItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +24,12 @@ class AnimeVideosDataNormalizer implements DenormalizerInterface, NormalizerInte
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\AnimeVideosData' === $type;
+        return AnimeVideosData::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\AnimeVideosData' === get_class($data);
+        return is_object($data) && $data instanceof AnimeVideosData;
     }
 
     /**
@@ -34,50 +39,58 @@ class AnimeVideosDataNormalizer implements DenormalizerInterface, NormalizerInte
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeVideosData
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\AnimeVideosData();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $animeVideosData = new AnimeVideosData();
+        if (null === $data || !\is_array($data)) {
+            return $animeVideosData;
         }
+
         if (\array_key_exists('promo', $data)) {
             $values = [];
             foreach ($data['promo'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\AnimeVideosDataPromoItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, AnimeVideosDataPromoItem::class, 'json', $context);
             }
-            $object->setPromo($values);
+
+            $animeVideosData->setPromo($values);
         }
+
         if (\array_key_exists('episodes', $data)) {
             $values_1 = [];
             foreach ($data['episodes'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, 'Jikan\\JikanPHP\\Model\\AnimeVideosDataEpisodesItem', 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, AnimeVideosDataEpisodesItem::class, 'json', $context);
             }
-            $object->setEpisodes($values_1);
+
+            $animeVideosData->setEpisodes($values_1);
         }
+
         if (\array_key_exists('music_videos', $data)) {
             $values_2 = [];
             foreach ($data['music_videos'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, 'Jikan\\JikanPHP\\Model\\AnimeVideosDataMusicVideosItem', 'json', $context);
+                $values_2[] = $this->denormalizer->denormalize($value_2, AnimeVideosDataMusicVideosItem::class, 'json', $context);
             }
-            $object->setMusicVideos($values_2);
+
+            $animeVideosData->setMusicVideos($values_2);
         }
 
-        return $object;
+        return $animeVideosData;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getPromo()) {
@@ -85,20 +98,25 @@ class AnimeVideosDataNormalizer implements DenormalizerInterface, NormalizerInte
             foreach ($object->getPromo() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['promo'] = $values;
         }
+
         if (null !== $object->getEpisodes()) {
             $values_1 = [];
-            foreach ($object->getEpisodes() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            foreach ($object->getEpisodes() as $episode) {
+                $values_1[] = $this->normalizer->normalize($episode, 'json', $context);
             }
+
             $data['episodes'] = $values_1;
         }
+
         if (null !== $object->getMusicVideos()) {
             $values_2 = [];
-            foreach ($object->getMusicVideos() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+            foreach ($object->getMusicVideos() as $musicVideo) {
+                $values_2[] = $this->normalizer->normalize($musicVideo, 'json', $context);
             }
+
             $data['music_videos'] = $values_2;
         }
 

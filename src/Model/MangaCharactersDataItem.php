@@ -8,6 +8,7 @@ class MangaCharactersDataItem
      * @var CharacterMeta
      */
     protected $character;
+
     /**
      * Character's Role.
      *
@@ -15,30 +16,20 @@ class MangaCharactersDataItem
      */
     protected $role;
 
-    /**
-     * @return CharacterMeta
-     */
     public function getCharacter(): CharacterMeta
     {
         return $this->character;
     }
 
-    /**
-     * @param CharacterMeta $character
-     *
-     * @return self
-     */
-    public function setCharacter(CharacterMeta $character): self
+    public function setCharacter(CharacterMeta $characterMeta): self
     {
-        $this->character = $character;
+        $this->character = $characterMeta;
 
         return $this;
     }
 
     /**
      * Character's Role.
-     *
-     * @return string
      */
     public function getRole(): string
     {
@@ -47,10 +38,6 @@ class MangaCharactersDataItem
 
     /**
      * Character's Role.
-     *
-     * @param string $role
-     *
-     * @return self
      */
     public function setRole(string $role): self
     {

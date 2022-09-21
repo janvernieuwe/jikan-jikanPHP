@@ -2,18 +2,20 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetUserStatistics extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $username;
+use Jikan\JikanPHP\Exception\GetUserStatisticsBadRequestException;
+use Jikan\JikanPHP\Model\UserStatistics;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\Serializer\SerializerInterface;
 
-    /**
-     * @param string $username
-     */
-    public function __construct(string $username)
+class GetUserStatistics extends BaseEndpoint implements Endpoint
+{
+    public function __construct(protected string $username)
     {
-        $this->username = $username;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -25,12 +27,12 @@ class GetUserStatistics extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impl
         return str_replace(['{username}'], [$this->username], '/users/{username}/statistics');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
@@ -38,17 +40,18 @@ class GetUserStatistics extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impl
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetUserStatisticsBadRequestException
+     * @throws GetUserStatisticsBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\UserStatistics
+     * @return null|UserStatistics
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\UserStatistics', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, UserStatistics::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetUserStatisticsBadRequestException();
+            throw new GetUserStatisticsBadRequestException();
         }
     }
 

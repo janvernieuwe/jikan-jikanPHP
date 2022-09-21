@@ -8,12 +8,14 @@ class UserFriendsdataItem
      * @var UserMeta
      */
     protected $user;
+
     /**
      * Last Online Date ISO8601 format.
      *
      * @var string
      */
     protected $lastOnline;
+
     /**
      * Friends Since Date ISO8601 format.
      *
@@ -21,30 +23,20 @@ class UserFriendsdataItem
      */
     protected $friendsSince;
 
-    /**
-     * @return UserMeta
-     */
     public function getUser(): UserMeta
     {
         return $this->user;
     }
 
-    /**
-     * @param UserMeta $user
-     *
-     * @return self
-     */
-    public function setUser(UserMeta $user): self
+    public function setUser(UserMeta $userMeta): self
     {
-        $this->user = $user;
+        $this->user = $userMeta;
 
         return $this;
     }
 
     /**
      * Last Online Date ISO8601 format.
-     *
-     * @return string
      */
     public function getLastOnline(): string
     {
@@ -53,10 +45,6 @@ class UserFriendsdataItem
 
     /**
      * Last Online Date ISO8601 format.
-     *
-     * @param string $lastOnline
-     *
-     * @return self
      */
     public function setLastOnline(string $lastOnline): self
     {
@@ -67,8 +55,6 @@ class UserFriendsdataItem
 
     /**
      * Friends Since Date ISO8601 format.
-     *
-     * @return string
      */
     public function getFriendsSince(): string
     {
@@ -77,10 +63,6 @@ class UserFriendsdataItem
 
     /**
      * Friends Since Date ISO8601 format.
-     *
-     * @param string $friendsSince
-     *
-     * @return self
      */
     public function setFriendsSince(string $friendsSince): self
     {

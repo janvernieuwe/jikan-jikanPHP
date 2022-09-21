@@ -2,10 +2,16 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetClubMembers extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $id;
+use Jikan\JikanPHP\Exception\GetClubMembersBadRequestException;
+use Jikan\JikanPHP\Model\ClubsIdMembersGetResponse200;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
 
+class GetClubMembers extends BaseEndpoint implements Endpoint
+{
     /**
      * @param int   $id
      * @param array $queryParameters {
@@ -13,12 +19,12 @@ class GetClubMembers extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
      *     @var int $page
      * }
      */
-    public function __construct(int $id, array $queryParameters = [])
+    public function __construct(protected int $id, array $queryParameters = [])
     {
-        $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -30,17 +36,17 @@ class GetClubMembers extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
         return str_replace(['{id}'], [$this->id], '/clubs/{id}/members');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['page']);
@@ -54,17 +60,18 @@ class GetClubMembers extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetClubMembersBadRequestException
+     * @throws GetClubMembersBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ClubsIdMembersGetResponse200
+     * @return null|ClubsIdMembersGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\ClubsIdMembersGetResponse200', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, ClubsIdMembersGetResponse200::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetClubMembersBadRequestException();
+            throw new GetClubMembersBadRequestException();
         }
     }
 

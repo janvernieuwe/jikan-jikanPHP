@@ -8,27 +8,20 @@ class MangaNews
      * @var PaginationPagination
      */
     protected $pagination;
+
     /**
      * @var NewsDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
-    /**
-     * @return PaginationPagination
-     */
     public function getPagination(): PaginationPagination
     {
         return $this->pagination;
     }
 
-    /**
-     * @param PaginationPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(PaginationPagination $pagination): self
+    public function setPagination(PaginationPagination $paginationPagination): self
     {
-        $this->pagination = $pagination;
+        $this->pagination = $paginationPagination;
 
         return $this;
     }
@@ -43,8 +36,6 @@ class MangaNews
 
     /**
      * @param NewsDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

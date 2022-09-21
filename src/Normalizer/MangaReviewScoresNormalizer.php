@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\MangaReviewScores;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class MangaReviewScoresNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\MangaReviewScores' === $type;
+        return MangaReviewScores::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\MangaReviewScores' === get_class($data);
+        return is_object($data) && $data instanceof MangaReviewScores;
     }
 
     /**
@@ -34,58 +36,69 @@ class MangaReviewScoresNormalizer implements DenormalizerInterface, NormalizerIn
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|MangaReviewScores
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\MangaReviewScores();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('overall', $data)) {
-            $object->setOverall($data['overall']);
-        }
-        if (\array_key_exists('story', $data)) {
-            $object->setStory($data['story']);
-        }
-        if (\array_key_exists('art', $data)) {
-            $object->setArt($data['art']);
-        }
-        if (\array_key_exists('character', $data)) {
-            $object->setCharacter($data['character']);
-        }
-        if (\array_key_exists('enjoyment', $data)) {
-            $object->setEnjoyment($data['enjoyment']);
+
+        $mangaReviewScores = new MangaReviewScores();
+        if (null === $data || !\is_array($data)) {
+            return $mangaReviewScores;
         }
 
-        return $object;
+        if (\array_key_exists('overall', $data)) {
+            $mangaReviewScores->setOverall($data['overall']);
+        }
+
+        if (\array_key_exists('story', $data)) {
+            $mangaReviewScores->setStory($data['story']);
+        }
+
+        if (\array_key_exists('art', $data)) {
+            $mangaReviewScores->setArt($data['art']);
+        }
+
+        if (\array_key_exists('character', $data)) {
+            $mangaReviewScores->setCharacter($data['character']);
+        }
+
+        if (\array_key_exists('enjoyment', $data)) {
+            $mangaReviewScores->setEnjoyment($data['enjoyment']);
+        }
+
+        return $mangaReviewScores;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getOverall()) {
             $data['overall'] = $object->getOverall();
         }
+
         if (null !== $object->getStory()) {
             $data['story'] = $object->getStory();
         }
+
         if (null !== $object->getArt()) {
             $data['art'] = $object->getArt();
         }
+
         if (null !== $object->getCharacter()) {
             $data['character'] = $object->getCharacter();
         }
+
         if (null !== $object->getEnjoyment()) {
             $data['enjoyment'] = $object->getEnjoyment();
         }

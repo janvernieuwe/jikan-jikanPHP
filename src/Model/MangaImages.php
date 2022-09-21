@@ -10,6 +10,7 @@ class MangaImages
      * @var MangaImagesJpg
      */
     protected $jpg;
+
     /**
      * Available images in WEBP.
      *
@@ -19,8 +20,6 @@ class MangaImages
 
     /**
      * Available images in JPG.
-     *
-     * @return MangaImagesJpg
      */
     public function getJpg(): MangaImagesJpg
     {
@@ -29,22 +28,16 @@ class MangaImages
 
     /**
      * Available images in JPG.
-     *
-     * @param MangaImagesJpg $jpg
-     *
-     * @return self
      */
-    public function setJpg(MangaImagesJpg $jpg): self
+    public function setJpg(MangaImagesJpg $mangaImagesJpg): self
     {
-        $this->jpg = $jpg;
+        $this->jpg = $mangaImagesJpg;
 
         return $this;
     }
 
     /**
      * Available images in WEBP.
-     *
-     * @return MangaImagesWebp
      */
     public function getWebp(): MangaImagesWebp
     {
@@ -53,14 +46,10 @@ class MangaImages
 
     /**
      * Available images in WEBP.
-     *
-     * @param MangaImagesWebp $webp
-     *
-     * @return self
      */
-    public function setWebp(MangaImagesWebp $webp): self
+    public function setWebp(MangaImagesWebp $mangaImagesWebp): self
     {
-        $this->webp = $webp;
+        $this->webp = $mangaImagesWebp;
 
         return $this;
     }

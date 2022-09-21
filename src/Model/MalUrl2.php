@@ -10,18 +10,21 @@ class MalUrl2
      * @var int
      */
     protected $malId;
+
     /**
      * Type of resource.
      *
      * @var string
      */
     protected $type;
+
     /**
      * Resource Name/Title.
      *
      * @var string
      */
     protected $title;
+
     /**
      * MyAnimeList URL.
      *
@@ -31,8 +34,6 @@ class MalUrl2
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -41,10 +42,6 @@ class MalUrl2
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -55,8 +52,6 @@ class MalUrl2
 
     /**
      * Type of resource.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -65,10 +60,6 @@ class MalUrl2
 
     /**
      * Type of resource.
-     *
-     * @param string $type
-     *
-     * @return self
      */
     public function setType(string $type): self
     {
@@ -79,8 +70,6 @@ class MalUrl2
 
     /**
      * Resource Name/Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -89,10 +78,6 @@ class MalUrl2
 
     /**
      * Resource Name/Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -103,8 +88,6 @@ class MalUrl2
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -113,10 +96,6 @@ class MalUrl2
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {

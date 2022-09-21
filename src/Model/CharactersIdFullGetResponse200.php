@@ -13,8 +13,6 @@ class CharactersIdFullGetResponse200
 
     /**
      * Character Resource.
-     *
-     * @return CharacterFull
      */
     public function getData(): CharacterFull
     {
@@ -23,14 +21,10 @@ class CharactersIdFullGetResponse200
 
     /**
      * Character Resource.
-     *
-     * @param CharacterFull $data
-     *
-     * @return self
      */
-    public function setData(CharacterFull $data): self
+    public function setData(CharacterFull $characterFull): self
     {
-        $this->data = $data;
+        $this->data = $characterFull;
 
         return $this;
     }

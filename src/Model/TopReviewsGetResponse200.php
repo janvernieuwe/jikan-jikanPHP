@@ -9,22 +9,14 @@ class TopReviewsGetResponse200
      */
     protected $data;
 
-    /**
-     * @return TopReviewsGetResponse200Data
-     */
     public function getData(): TopReviewsGetResponse200Data
     {
         return $this->data;
     }
 
-    /**
-     * @param TopReviewsGetResponse200Data $data
-     *
-     * @return self
-     */
-    public function setData(TopReviewsGetResponse200Data $data): self
+    public function setData(TopReviewsGetResponse200Data $topReviewsGetResponse200Data): self
     {
-        $this->data = $data;
+        $this->data = $topReviewsGetResponse200Data;
 
         return $this;
     }

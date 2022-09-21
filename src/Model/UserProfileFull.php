@@ -10,65 +10,73 @@ class UserProfileFull
      * @var int|null
      */
     protected $malId;
+
     /**
      * MyAnimeList Username.
      *
      * @var string
      */
     protected $username;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var UserImages
      */
     protected $images;
+
     /**
      * Last Online Date ISO8601.
      *
      * @var string|null
      */
     protected $lastOnline;
+
     /**
      * User Gender.
      *
      * @var string|null
      */
     protected $gender;
+
     /**
      * Birthday Date ISO8601.
      *
      * @var string|null
      */
     protected $birthday;
+
     /**
      * Location.
      *
      * @var string|null
      */
     protected $location;
+
     /**
      * Joined Date ISO8601.
      *
      * @var string|null
      */
     protected $joined;
+
     /**
      * @var UserProfileFullStatistics
      */
     protected $statistics;
+
     /**
      * @var UserProfileFullExternalItem[]
      */
-    protected $external;
+    protected $external = [];
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int|null
      */
     public function getMalId(): ?int
     {
@@ -77,10 +85,6 @@ class UserProfileFull
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int|null $malId
-     *
-     * @return self
      */
     public function setMalId(?int $malId): self
     {
@@ -91,8 +95,6 @@ class UserProfileFull
 
     /**
      * MyAnimeList Username.
-     *
-     * @return string
      */
     public function getUsername(): string
     {
@@ -101,10 +103,6 @@ class UserProfileFull
 
     /**
      * MyAnimeList Username.
-     *
-     * @param string $username
-     *
-     * @return self
      */
     public function setUsername(string $username): self
     {
@@ -115,8 +113,6 @@ class UserProfileFull
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -125,10 +121,6 @@ class UserProfileFull
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -137,30 +129,20 @@ class UserProfileFull
         return $this;
     }
 
-    /**
-     * @return UserImages
-     */
     public function getImages(): UserImages
     {
         return $this->images;
     }
 
-    /**
-     * @param UserImages $images
-     *
-     * @return self
-     */
-    public function setImages(UserImages $images): self
+    public function setImages(UserImages $userImages): self
     {
-        $this->images = $images;
+        $this->images = $userImages;
 
         return $this;
     }
 
     /**
      * Last Online Date ISO8601.
-     *
-     * @return string|null
      */
     public function getLastOnline(): ?string
     {
@@ -169,10 +151,6 @@ class UserProfileFull
 
     /**
      * Last Online Date ISO8601.
-     *
-     * @param string|null $lastOnline
-     *
-     * @return self
      */
     public function setLastOnline(?string $lastOnline): self
     {
@@ -183,8 +161,6 @@ class UserProfileFull
 
     /**
      * User Gender.
-     *
-     * @return string|null
      */
     public function getGender(): ?string
     {
@@ -193,10 +169,6 @@ class UserProfileFull
 
     /**
      * User Gender.
-     *
-     * @param string|null $gender
-     *
-     * @return self
      */
     public function setGender(?string $gender): self
     {
@@ -207,8 +179,6 @@ class UserProfileFull
 
     /**
      * Birthday Date ISO8601.
-     *
-     * @return string|null
      */
     public function getBirthday(): ?string
     {
@@ -217,10 +187,6 @@ class UserProfileFull
 
     /**
      * Birthday Date ISO8601.
-     *
-     * @param string|null $birthday
-     *
-     * @return self
      */
     public function setBirthday(?string $birthday): self
     {
@@ -231,8 +197,6 @@ class UserProfileFull
 
     /**
      * Location.
-     *
-     * @return string|null
      */
     public function getLocation(): ?string
     {
@@ -241,10 +205,6 @@ class UserProfileFull
 
     /**
      * Location.
-     *
-     * @param string|null $location
-     *
-     * @return self
      */
     public function setLocation(?string $location): self
     {
@@ -255,8 +215,6 @@ class UserProfileFull
 
     /**
      * Joined Date ISO8601.
-     *
-     * @return string|null
      */
     public function getJoined(): ?string
     {
@@ -265,10 +223,6 @@ class UserProfileFull
 
     /**
      * Joined Date ISO8601.
-     *
-     * @param string|null $joined
-     *
-     * @return self
      */
     public function setJoined(?string $joined): self
     {
@@ -277,22 +231,14 @@ class UserProfileFull
         return $this;
     }
 
-    /**
-     * @return UserProfileFullStatistics
-     */
     public function getStatistics(): UserProfileFullStatistics
     {
         return $this->statistics;
     }
 
-    /**
-     * @param UserProfileFullStatistics $statistics
-     *
-     * @return self
-     */
-    public function setStatistics(UserProfileFullStatistics $statistics): self
+    public function setStatistics(UserProfileFullStatistics $userProfileFullStatistics): self
     {
-        $this->statistics = $statistics;
+        $this->statistics = $userProfileFullStatistics;
 
         return $this;
     }
@@ -307,8 +253,6 @@ class UserProfileFull
 
     /**
      * @param UserProfileFullExternalItem[] $external
-     *
-     * @return self
      */
     public function setExternal(array $external): self
     {

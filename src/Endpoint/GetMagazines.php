@@ -2,7 +2,15 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetMagazines extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
+use Jikan\JikanPHP\Exception\GetMagazinesBadRequestException;
+use Jikan\JikanPHP\Model\Magazines;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
+
+class GetMagazines extends BaseEndpoint implements Endpoint
 {
     /**
      * @param array $queryParameters {
@@ -19,7 +27,8 @@ class GetMagazines extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implement
     {
         $this->queryParameters = $queryParameters;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -31,17 +40,17 @@ class GetMagazines extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implement
         return '/magazines';
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['page', 'limit', 'q', 'order_by', 'sort', 'letter']);
@@ -60,17 +69,18 @@ class GetMagazines extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implement
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMagazinesBadRequestException
+     * @throws GetMagazinesBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\Magazines
+     * @return null|Magazines
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\Magazines', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, Magazines::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetMagazinesBadRequestException();
+            throw new GetMagazinesBadRequestException();
         }
     }
 

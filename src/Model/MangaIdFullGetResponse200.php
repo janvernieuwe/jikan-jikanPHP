@@ -13,8 +13,6 @@ class MangaIdFullGetResponse200
 
     /**
      * Manga Resource.
-     *
-     * @return MangaFull
      */
     public function getData(): MangaFull
     {
@@ -23,14 +21,10 @@ class MangaIdFullGetResponse200
 
     /**
      * Manga Resource.
-     *
-     * @param MangaFull $data
-     *
-     * @return self
      */
-    public function setData(MangaFull $data): self
+    public function setData(MangaFull $mangaFull): self
     {
-        $this->data = $data;
+        $this->data = $mangaFull;
 
         return $this;
     }

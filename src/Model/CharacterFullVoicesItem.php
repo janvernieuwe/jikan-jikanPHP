@@ -10,6 +10,7 @@ class CharacterFullVoicesItem
      * @var string
      */
     protected $language;
+
     /**
      * @var PersonMeta
      */
@@ -17,8 +18,6 @@ class CharacterFullVoicesItem
 
     /**
      * Character's Role.
-     *
-     * @return string
      */
     public function getLanguage(): string
     {
@@ -27,10 +26,6 @@ class CharacterFullVoicesItem
 
     /**
      * Character's Role.
-     *
-     * @param string $language
-     *
-     * @return self
      */
     public function setLanguage(string $language): self
     {
@@ -39,22 +34,14 @@ class CharacterFullVoicesItem
         return $this;
     }
 
-    /**
-     * @return PersonMeta
-     */
     public function getPerson(): PersonMeta
     {
         return $this->person;
     }
 
-    /**
-     * @param PersonMeta $person
-     *
-     * @return self
-     */
-    public function setPerson(PersonMeta $person): self
+    public function setPerson(PersonMeta $personMeta): self
     {
-        $this->person = $person;
+        $this->person = $personMeta;
 
         return $this;
     }

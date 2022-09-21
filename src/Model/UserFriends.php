@@ -7,7 +7,8 @@ class UserFriends
     /**
      * @var UserFriendsdataItem[]
      */
-    protected $data;
+    protected $data = [];
+
     /**
      * @var PaginationPagination
      */
@@ -23,8 +24,6 @@ class UserFriends
 
     /**
      * @param UserFriendsdataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {
@@ -33,22 +32,14 @@ class UserFriends
         return $this;
     }
 
-    /**
-     * @return PaginationPagination
-     */
     public function getPagination(): PaginationPagination
     {
         return $this->pagination;
     }
 
-    /**
-     * @param PaginationPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(PaginationPagination $pagination): self
+    public function setPagination(PaginationPagination $paginationPagination): self
     {
-        $this->pagination = $pagination;
+        $this->pagination = $paginationPagination;
 
         return $this;
     }

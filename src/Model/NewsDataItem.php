@@ -10,52 +10,61 @@ class NewsDataItem
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Title.
      *
      * @var string
      */
     protected $title;
+
     /**
      * Post Date ISO8601.
      *
      * @var string
      */
     protected $date;
+
     /**
      * Author MyAnimeList Username.
      *
      * @var string
      */
     protected $authorUsername;
+
     /**
      * Author Profile URL.
      *
      * @var string
      */
     protected $authorUrl;
+
     /**
      * Forum topic URL.
      *
      * @var string
      */
     protected $forumUrl;
+
     /**
      * @var CommonImages
      */
     protected $images;
+
     /**
      * Comment count.
      *
      * @var int
      */
     protected $comments;
+
     /**
      * Excerpt.
      *
@@ -65,8 +74,6 @@ class NewsDataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -75,10 +82,6 @@ class NewsDataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -89,8 +92,6 @@ class NewsDataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -99,10 +100,6 @@ class NewsDataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -113,8 +110,6 @@ class NewsDataItem
 
     /**
      * Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -123,10 +118,6 @@ class NewsDataItem
 
     /**
      * Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -137,8 +128,6 @@ class NewsDataItem
 
     /**
      * Post Date ISO8601.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -147,10 +136,6 @@ class NewsDataItem
 
     /**
      * Post Date ISO8601.
-     *
-     * @param string $date
-     *
-     * @return self
      */
     public function setDate(string $date): self
     {
@@ -161,8 +146,6 @@ class NewsDataItem
 
     /**
      * Author MyAnimeList Username.
-     *
-     * @return string
      */
     public function getAuthorUsername(): string
     {
@@ -171,10 +154,6 @@ class NewsDataItem
 
     /**
      * Author MyAnimeList Username.
-     *
-     * @param string $authorUsername
-     *
-     * @return self
      */
     public function setAuthorUsername(string $authorUsername): self
     {
@@ -185,8 +164,6 @@ class NewsDataItem
 
     /**
      * Author Profile URL.
-     *
-     * @return string
      */
     public function getAuthorUrl(): string
     {
@@ -195,10 +172,6 @@ class NewsDataItem
 
     /**
      * Author Profile URL.
-     *
-     * @param string $authorUrl
-     *
-     * @return self
      */
     public function setAuthorUrl(string $authorUrl): self
     {
@@ -209,8 +182,6 @@ class NewsDataItem
 
     /**
      * Forum topic URL.
-     *
-     * @return string
      */
     public function getForumUrl(): string
     {
@@ -219,10 +190,6 @@ class NewsDataItem
 
     /**
      * Forum topic URL.
-     *
-     * @param string $forumUrl
-     *
-     * @return self
      */
     public function setForumUrl(string $forumUrl): self
     {
@@ -231,30 +198,20 @@ class NewsDataItem
         return $this;
     }
 
-    /**
-     * @return CommonImages
-     */
     public function getImages(): CommonImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CommonImages $images
-     *
-     * @return self
-     */
-    public function setImages(CommonImages $images): self
+    public function setImages(CommonImages $commonImages): self
     {
-        $this->images = $images;
+        $this->images = $commonImages;
 
         return $this;
     }
 
     /**
      * Comment count.
-     *
-     * @return int
      */
     public function getComments(): int
     {
@@ -263,10 +220,6 @@ class NewsDataItem
 
     /**
      * Comment count.
-     *
-     * @param int $comments
-     *
-     * @return self
      */
     public function setComments(int $comments): self
     {
@@ -277,8 +230,6 @@ class NewsDataItem
 
     /**
      * Excerpt.
-     *
-     * @return string
      */
     public function getExcerpt(): string
     {
@@ -287,10 +238,6 @@ class NewsDataItem
 
     /**
      * Excerpt.
-     *
-     * @param string $excerpt
-     *
-     * @return self
      */
     public function setExcerpt(string $excerpt): self
     {

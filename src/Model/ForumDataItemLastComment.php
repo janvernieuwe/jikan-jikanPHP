@@ -10,18 +10,21 @@ class ForumDataItemLastComment
      * @var string
      */
     protected $url;
+
     /**
      * Author MyAnimeList Username.
      *
      * @var string
      */
     protected $authorUsername;
+
     /**
      * Author Profile URL.
      *
      * @var string
      */
     protected $authorUrl;
+
     /**
      * Last comment date posted ISO8601.
      *
@@ -31,8 +34,6 @@ class ForumDataItemLastComment
 
     /**
      * Last comment URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -41,10 +42,6 @@ class ForumDataItemLastComment
 
     /**
      * Last comment URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -55,8 +52,6 @@ class ForumDataItemLastComment
 
     /**
      * Author MyAnimeList Username.
-     *
-     * @return string
      */
     public function getAuthorUsername(): string
     {
@@ -65,10 +60,6 @@ class ForumDataItemLastComment
 
     /**
      * Author MyAnimeList Username.
-     *
-     * @param string $authorUsername
-     *
-     * @return self
      */
     public function setAuthorUsername(string $authorUsername): self
     {
@@ -79,8 +70,6 @@ class ForumDataItemLastComment
 
     /**
      * Author Profile URL.
-     *
-     * @return string
      */
     public function getAuthorUrl(): string
     {
@@ -89,10 +78,6 @@ class ForumDataItemLastComment
 
     /**
      * Author Profile URL.
-     *
-     * @param string $authorUrl
-     *
-     * @return self
      */
     public function setAuthorUrl(string $authorUrl): self
     {
@@ -103,8 +88,6 @@ class ForumDataItemLastComment
 
     /**
      * Last comment date posted ISO8601.
-     *
-     * @return string|null
      */
     public function getDate(): ?string
     {
@@ -113,10 +96,6 @@ class ForumDataItemLastComment
 
     /**
      * Last comment date posted ISO8601.
-     *
-     * @param string|null $date
-     *
-     * @return self
      */
     public function setDate(?string $date): self
     {

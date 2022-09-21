@@ -13,8 +13,6 @@ class PeopleImages
 
     /**
      * Available images in JPG.
-     *
-     * @return PeopleImagesJpg
      */
     public function getJpg(): PeopleImagesJpg
     {
@@ -23,14 +21,10 @@ class PeopleImages
 
     /**
      * Available images in JPG.
-     *
-     * @param PeopleImagesJpg $jpg
-     *
-     * @return self
      */
-    public function setJpg(PeopleImagesJpg $jpg): self
+    public function setJpg(PeopleImagesJpg $peopleImagesJpg): self
     {
-        $this->jpg = $jpg;
+        $this->jpg = $peopleImagesJpg;
 
         return $this;
     }

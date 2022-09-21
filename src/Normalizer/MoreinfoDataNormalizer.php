@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\MoreinfoData;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class MoreinfoDataNormalizer implements DenormalizerInterface, NormalizerInterfa
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\MoreinfoData' === $type;
+        return MoreinfoData::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\MoreinfoData' === get_class($data);
+        return is_object($data) && $data instanceof MoreinfoData;
     }
 
     /**
@@ -34,32 +36,35 @@ class MoreinfoDataNormalizer implements DenormalizerInterface, NormalizerInterfa
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|MoreinfoData
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\MoreinfoData();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('moreinfo', $data) && null !== $data['moreinfo']) {
-            $object->setMoreinfo($data['moreinfo']);
-        } elseif (\array_key_exists('moreinfo', $data) && null === $data['moreinfo']) {
-            $object->setMoreinfo(null);
+
+        $moreinfoData = new MoreinfoData();
+        if (null === $data || !\is_array($data)) {
+            return $moreinfoData;
         }
 
-        return $object;
+        if (\array_key_exists('moreinfo', $data) && null !== $data['moreinfo']) {
+            $moreinfoData->setMoreinfo($data['moreinfo']);
+        } elseif (\array_key_exists('moreinfo', $data) && null === $data['moreinfo']) {
+            $moreinfoData->setMoreinfo(null);
+        }
+
+        return $moreinfoData;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {

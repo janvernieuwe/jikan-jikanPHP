@@ -10,6 +10,7 @@ class CharacterImagesWebp
      * @var string|null
      */
     protected $imageUrl;
+
     /**
      * Small Image URL WEBP.
      *
@@ -19,8 +20,6 @@ class CharacterImagesWebp
 
     /**
      * Image URL WEBP.
-     *
-     * @return string|null
      */
     public function getImageUrl(): ?string
     {
@@ -29,10 +28,6 @@ class CharacterImagesWebp
 
     /**
      * Image URL WEBP.
-     *
-     * @param string|null $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(?string $imageUrl): self
     {
@@ -43,8 +38,6 @@ class CharacterImagesWebp
 
     /**
      * Small Image URL WEBP.
-     *
-     * @return string|null
      */
     public function getSmallImageUrl(): ?string
     {
@@ -53,10 +46,6 @@ class CharacterImagesWebp
 
     /**
      * Small Image URL WEBP.
-     *
-     * @param string|null $smallImageUrl
-     *
-     * @return self
      */
     public function setSmallImageUrl(?string $smallImageUrl): self
     {

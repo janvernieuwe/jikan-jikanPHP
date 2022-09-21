@@ -13,8 +13,6 @@ class ClubsIdGetResponse200
 
     /**
      * Club Resource.
-     *
-     * @return Club
      */
     public function getData(): Club
     {
@@ -23,14 +21,10 @@ class ClubsIdGetResponse200
 
     /**
      * Club Resource.
-     *
-     * @param Club $data
-     *
-     * @return self
      */
-    public function setData(Club $data): self
+    public function setData(Club $club): self
     {
-        $this->data = $data;
+        $this->data = $club;
 
         return $this;
     }

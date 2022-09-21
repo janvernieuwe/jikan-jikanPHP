@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\AnimeVideosDataMusicVideosItemMeta;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class AnimeVideosDataMusicVideosItemMetaNormalizer implements DenormalizerInterf
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\AnimeVideosDataMusicVideosItemMeta' === $type;
+        return AnimeVideosDataMusicVideosItemMeta::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\AnimeVideosDataMusicVideosItemMeta' === get_class($data);
+        return is_object($data) && $data instanceof AnimeVideosDataMusicVideosItemMeta;
     }
 
     /**
@@ -34,44 +36,49 @@ class AnimeVideosDataMusicVideosItemMetaNormalizer implements DenormalizerInterf
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeVideosDataMusicVideosItemMeta
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\AnimeVideosDataMusicVideosItemMeta();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('title', $data) && null !== $data['title']) {
-            $object->setTitle($data['title']);
-        } elseif (\array_key_exists('title', $data) && null === $data['title']) {
-            $object->setTitle(null);
-        }
-        if (\array_key_exists('author', $data) && null !== $data['author']) {
-            $object->setAuthor($data['author']);
-        } elseif (\array_key_exists('author', $data) && null === $data['author']) {
-            $object->setAuthor(null);
+
+        $animeVideosDataMusicVideosItemMeta = new AnimeVideosDataMusicVideosItemMeta();
+        if (null === $data || !\is_array($data)) {
+            return $animeVideosDataMusicVideosItemMeta;
         }
 
-        return $object;
+        if (\array_key_exists('title', $data) && null !== $data['title']) {
+            $animeVideosDataMusicVideosItemMeta->setTitle($data['title']);
+        } elseif (\array_key_exists('title', $data) && null === $data['title']) {
+            $animeVideosDataMusicVideosItemMeta->setTitle(null);
+        }
+
+        if (\array_key_exists('author', $data) && null !== $data['author']) {
+            $animeVideosDataMusicVideosItemMeta->setAuthor($data['author']);
+        } elseif (\array_key_exists('author', $data) && null === $data['author']) {
+            $animeVideosDataMusicVideosItemMeta->setAuthor(null);
+        }
+
+        return $animeVideosDataMusicVideosItemMeta;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getTitle()) {
             $data['title'] = $object->getTitle();
         }
+
         if (null !== $object->getAuthor()) {
             $data['author'] = $object->getAuthor();
         }

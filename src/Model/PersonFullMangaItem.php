@@ -10,6 +10,7 @@ class PersonFullMangaItem
      * @var string
      */
     protected $position;
+
     /**
      * @var MangaMeta
      */
@@ -17,8 +18,6 @@ class PersonFullMangaItem
 
     /**
      * Person's position.
-     *
-     * @return string
      */
     public function getPosition(): string
     {
@@ -27,10 +26,6 @@ class PersonFullMangaItem
 
     /**
      * Person's position.
-     *
-     * @param string $position
-     *
-     * @return self
      */
     public function setPosition(string $position): self
     {
@@ -39,22 +34,14 @@ class PersonFullMangaItem
         return $this;
     }
 
-    /**
-     * @return MangaMeta
-     */
     public function getManga(): MangaMeta
     {
         return $this->manga;
     }
 
-    /**
-     * @param MangaMeta $manga
-     *
-     * @return self
-     */
-    public function setManga(MangaMeta $manga): self
+    public function setManga(MangaMeta $mangaMeta): self
     {
-        $this->manga = $manga;
+        $this->manga = $mangaMeta;
 
         return $this;
     }

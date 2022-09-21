@@ -10,16 +10,19 @@ class CharacterMeta
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var CharacterImages
      */
     protected $images;
+
     /**
      * Entry name.
      *
@@ -29,8 +32,6 @@ class CharacterMeta
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -39,10 +40,6 @@ class CharacterMeta
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -53,8 +50,6 @@ class CharacterMeta
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -63,10 +58,6 @@ class CharacterMeta
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -75,30 +66,20 @@ class CharacterMeta
         return $this;
     }
 
-    /**
-     * @return CharacterImages
-     */
     public function getImages(): CharacterImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CharacterImages $images
-     *
-     * @return self
-     */
-    public function setImages(CharacterImages $images): self
+    public function setImages(CharacterImages $characterImages): self
     {
-        $this->images = $images;
+        $this->images = $characterImages;
 
         return $this;
     }
 
     /**
      * Entry name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -107,10 +88,6 @@ class CharacterMeta
 
     /**
      * Entry name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {

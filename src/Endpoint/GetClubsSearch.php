@@ -2,7 +2,15 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetClubsSearch extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
+use Jikan\JikanPHP\Exception\GetClubsSearchBadRequestException;
+use Jikan\JikanPHP\Model\ClubsSearch;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
+
+class GetClubsSearch extends BaseEndpoint implements Endpoint
 {
     /**
      * @param array $queryParameters {
@@ -21,7 +29,8 @@ class GetClubsSearch extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
     {
         $this->queryParameters = $queryParameters;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -33,17 +42,17 @@ class GetClubsSearch extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
         return '/clubs';
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['page', 'limit', 'q', 'type', 'category', 'order_by', 'sort', 'letter']);
@@ -64,17 +73,18 @@ class GetClubsSearch extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetClubsSearchBadRequestException
+     * @throws GetClubsSearchBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\ClubsSearch
+     * @return null|ClubsSearch
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\ClubsSearch', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, ClubsSearch::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetClubsSearchBadRequestException();
+            throw new GetClubsSearchBadRequestException();
         }
     }
 

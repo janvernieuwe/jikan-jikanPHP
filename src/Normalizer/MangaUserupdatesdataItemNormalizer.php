@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\MangaUserupdatesdataItem;
+use Jikan\JikanPHP\Model\UserMeta;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class MangaUserupdatesdataItemNormalizer implements DenormalizerInterface, Norma
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\MangaUserupdatesdataItem' === $type;
+        return MangaUserupdatesdataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\MangaUserupdatesdataItem' === get_class($data);
+        return is_object($data) && $data instanceof MangaUserupdatesdataItem;
     }
 
     /**
@@ -34,78 +37,95 @@ class MangaUserupdatesdataItemNormalizer implements DenormalizerInterface, Norma
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|MangaUserupdatesdataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\MangaUserupdatesdataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('user', $data)) {
-            $object->setUser($this->denormalizer->denormalize($data['user'], 'Jikan\\JikanPHP\\Model\\UserMeta', 'json', $context));
-        }
-        if (\array_key_exists('score', $data) && null !== $data['score']) {
-            $object->setScore($data['score']);
-        } elseif (\array_key_exists('score', $data) && null === $data['score']) {
-            $object->setScore(null);
-        }
-        if (\array_key_exists('status', $data)) {
-            $object->setStatus($data['status']);
-        }
-        if (\array_key_exists('volumes_read', $data)) {
-            $object->setVolumesRead($data['volumes_read']);
-        }
-        if (\array_key_exists('volumes_total', $data)) {
-            $object->setVolumesTotal($data['volumes_total']);
-        }
-        if (\array_key_exists('chapters_read', $data)) {
-            $object->setChaptersRead($data['chapters_read']);
-        }
-        if (\array_key_exists('chapters_total', $data)) {
-            $object->setChaptersTotal($data['chapters_total']);
-        }
-        if (\array_key_exists('date', $data)) {
-            $object->setDate($data['date']);
+
+        $mangaUserupdatesdataItem = new MangaUserupdatesdataItem();
+        if (null === $data || !\is_array($data)) {
+            return $mangaUserupdatesdataItem;
         }
 
-        return $object;
+        if (\array_key_exists('user', $data)) {
+            $mangaUserupdatesdataItem->setUser($this->denormalizer->denormalize($data['user'], UserMeta::class, 'json', $context));
+        }
+
+        if (\array_key_exists('score', $data) && null !== $data['score']) {
+            $mangaUserupdatesdataItem->setScore($data['score']);
+        } elseif (\array_key_exists('score', $data) && null === $data['score']) {
+            $mangaUserupdatesdataItem->setScore(null);
+        }
+
+        if (\array_key_exists('status', $data)) {
+            $mangaUserupdatesdataItem->setStatus($data['status']);
+        }
+
+        if (\array_key_exists('volumes_read', $data)) {
+            $mangaUserupdatesdataItem->setVolumesRead($data['volumes_read']);
+        }
+
+        if (\array_key_exists('volumes_total', $data)) {
+            $mangaUserupdatesdataItem->setVolumesTotal($data['volumes_total']);
+        }
+
+        if (\array_key_exists('chapters_read', $data)) {
+            $mangaUserupdatesdataItem->setChaptersRead($data['chapters_read']);
+        }
+
+        if (\array_key_exists('chapters_total', $data)) {
+            $mangaUserupdatesdataItem->setChaptersTotal($data['chapters_total']);
+        }
+
+        if (\array_key_exists('date', $data)) {
+            $mangaUserupdatesdataItem->setDate($data['date']);
+        }
+
+        return $mangaUserupdatesdataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getUser()) {
             $data['user'] = $this->normalizer->normalize($object->getUser(), 'json', $context);
         }
+
         if (null !== $object->getScore()) {
             $data['score'] = $object->getScore();
         }
+
         if (null !== $object->getStatus()) {
             $data['status'] = $object->getStatus();
         }
+
         if (null !== $object->getVolumesRead()) {
             $data['volumes_read'] = $object->getVolumesRead();
         }
+
         if (null !== $object->getVolumesTotal()) {
             $data['volumes_total'] = $object->getVolumesTotal();
         }
+
         if (null !== $object->getChaptersRead()) {
             $data['chapters_read'] = $object->getChaptersRead();
         }
+
         if (null !== $object->getChaptersTotal()) {
             $data['chapters_total'] = $object->getChaptersTotal();
         }
+
         if (null !== $object->getDate()) {
             $data['date'] = $object->getDate();
         }

@@ -2,21 +2,20 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetAnimeEpisodeById extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $id;
-    protected $episode;
+use Jikan\JikanPHP\Exception\GetAnimeEpisodeByIdBadRequestException;
+use Jikan\JikanPHP\Model\AnimeIdEpisodesEpisodeGetResponse200;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\Serializer\SerializerInterface;
 
-    /**
-     * @param int $id
-     * @param int $episode
-     */
-    public function __construct(int $id, int $episode)
+class GetAnimeEpisodeById extends BaseEndpoint implements Endpoint
+{
+    public function __construct(protected int $id, protected int $episode)
     {
-        $this->id = $id;
-        $this->episode = $episode;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -28,12 +27,12 @@ class GetAnimeEpisodeById extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint im
         return str_replace(['{id}', '{episode}'], [$this->id, $this->episode], '/anime/{id}/episodes/{episode}');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
@@ -41,17 +40,18 @@ class GetAnimeEpisodeById extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint im
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetAnimeEpisodeByIdBadRequestException
+     * @throws GetAnimeEpisodeByIdBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeIdEpisodesEpisodeGetResponse200
+     * @return null|AnimeIdEpisodesEpisodeGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\AnimeIdEpisodesEpisodeGetResponse200', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, AnimeIdEpisodesEpisodeGetResponse200::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetAnimeEpisodeByIdBadRequestException();
+            throw new GetAnimeEpisodeByIdBadRequestException();
         }
     }
 

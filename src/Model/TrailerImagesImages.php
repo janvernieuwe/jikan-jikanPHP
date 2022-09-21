@@ -10,24 +10,28 @@ class TrailerImagesImages
      * @var string|null
      */
     protected $imageUrl;
+
     /**
      * Small Image Size URL (640x480).
      *
      * @var string|null
      */
     protected $smallImageUrl;
+
     /**
      * Medium Image Size URL (320x180).
      *
      * @var string|null
      */
     protected $mediumImageUrl;
+
     /**
      * Large Image Size URL (480x360).
      *
      * @var string|null
      */
     protected $largeImageUrl;
+
     /**
      * Maximum Image Size URL (1280x720).
      *
@@ -37,8 +41,6 @@ class TrailerImagesImages
 
     /**
      * Default Image Size URL (120x90).
-     *
-     * @return string|null
      */
     public function getImageUrl(): ?string
     {
@@ -47,10 +49,6 @@ class TrailerImagesImages
 
     /**
      * Default Image Size URL (120x90).
-     *
-     * @param string|null $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(?string $imageUrl): self
     {
@@ -61,8 +59,6 @@ class TrailerImagesImages
 
     /**
      * Small Image Size URL (640x480).
-     *
-     * @return string|null
      */
     public function getSmallImageUrl(): ?string
     {
@@ -71,10 +67,6 @@ class TrailerImagesImages
 
     /**
      * Small Image Size URL (640x480).
-     *
-     * @param string|null $smallImageUrl
-     *
-     * @return self
      */
     public function setSmallImageUrl(?string $smallImageUrl): self
     {
@@ -85,8 +77,6 @@ class TrailerImagesImages
 
     /**
      * Medium Image Size URL (320x180).
-     *
-     * @return string|null
      */
     public function getMediumImageUrl(): ?string
     {
@@ -95,10 +85,6 @@ class TrailerImagesImages
 
     /**
      * Medium Image Size URL (320x180).
-     *
-     * @param string|null $mediumImageUrl
-     *
-     * @return self
      */
     public function setMediumImageUrl(?string $mediumImageUrl): self
     {
@@ -109,8 +95,6 @@ class TrailerImagesImages
 
     /**
      * Large Image Size URL (480x360).
-     *
-     * @return string|null
      */
     public function getLargeImageUrl(): ?string
     {
@@ -119,10 +103,6 @@ class TrailerImagesImages
 
     /**
      * Large Image Size URL (480x360).
-     *
-     * @param string|null $largeImageUrl
-     *
-     * @return self
      */
     public function setLargeImageUrl(?string $largeImageUrl): self
     {
@@ -133,8 +113,6 @@ class TrailerImagesImages
 
     /**
      * Maximum Image Size URL (1280x720).
-     *
-     * @return string|null
      */
     public function getMaximumImageUrl(): ?string
     {
@@ -143,10 +121,6 @@ class TrailerImagesImages
 
     /**
      * Maximum Image Size URL (1280x720).
-     *
-     * @param string|null $maximumImageUrl
-     *
-     * @return self
      */
     public function setMaximumImageUrl(?string $maximumImageUrl): self
     {

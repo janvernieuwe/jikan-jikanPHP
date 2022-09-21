@@ -13,8 +13,6 @@ class ProducersIdFullGetResponse200
 
     /**
      * Producers Resource.
-     *
-     * @return ProducerFull
      */
     public function getData(): ProducerFull
     {
@@ -23,14 +21,10 @@ class ProducersIdFullGetResponse200
 
     /**
      * Producers Resource.
-     *
-     * @param ProducerFull $data
-     *
-     * @return self
      */
-    public function setData(ProducerFull $data): self
+    public function setData(ProducerFull $producerFull): self
     {
-        $this->data = $data;
+        $this->data = $producerFull;
 
         return $this;
     }

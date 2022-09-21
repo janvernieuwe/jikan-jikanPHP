@@ -9,22 +9,14 @@ class Pagination
      */
     protected $pagination;
 
-    /**
-     * @return PaginationPagination
-     */
     public function getPagination(): PaginationPagination
     {
         return $this->pagination;
     }
 
-    /**
-     * @param PaginationPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(PaginationPagination $pagination): self
+    public function setPagination(PaginationPagination $paginationPagination): self
     {
-        $this->pagination = $pagination;
+        $this->pagination = $paginationPagination;
 
         return $this;
     }

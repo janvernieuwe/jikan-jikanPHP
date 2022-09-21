@@ -10,54 +10,63 @@ class UsersTempDataItemAnimeStats
      * @var float
      */
     protected $daysWatched;
+
     /**
      * Mean Score.
      *
      * @var float
      */
     protected $meanScore;
+
     /**
      * Anime Watching.
      *
      * @var int
      */
     protected $watching;
+
     /**
      * Anime Completed.
      *
      * @var int
      */
     protected $completed;
+
     /**
      * Anime On-Hold.
      *
      * @var int
      */
     protected $onHold;
+
     /**
      * Anime Dropped.
      *
      * @var int
      */
     protected $dropped;
+
     /**
      * Anime Planned to Watch.
      *
      * @var int
      */
     protected $planToWatch;
+
     /**
      * Total Anime entries on User list.
      *
      * @var int
      */
     protected $totalEntries;
+
     /**
      * Anime re-watched.
      *
      * @var int
      */
     protected $rewatched;
+
     /**
      * Number of Anime Episodes Watched.
      *
@@ -67,8 +76,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Number of days spent watching Anime.
-     *
-     * @return float
      */
     public function getDaysWatched(): float
     {
@@ -77,10 +84,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Number of days spent watching Anime.
-     *
-     * @param float $daysWatched
-     *
-     * @return self
      */
     public function setDaysWatched(float $daysWatched): self
     {
@@ -91,8 +94,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Mean Score.
-     *
-     * @return float
      */
     public function getMeanScore(): float
     {
@@ -101,10 +102,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Mean Score.
-     *
-     * @param float $meanScore
-     *
-     * @return self
      */
     public function setMeanScore(float $meanScore): self
     {
@@ -115,8 +112,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime Watching.
-     *
-     * @return int
      */
     public function getWatching(): int
     {
@@ -125,10 +120,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime Watching.
-     *
-     * @param int $watching
-     *
-     * @return self
      */
     public function setWatching(int $watching): self
     {
@@ -139,8 +130,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime Completed.
-     *
-     * @return int
      */
     public function getCompleted(): int
     {
@@ -149,10 +138,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime Completed.
-     *
-     * @param int $completed
-     *
-     * @return self
      */
     public function setCompleted(int $completed): self
     {
@@ -163,8 +148,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime On-Hold.
-     *
-     * @return int
      */
     public function getOnHold(): int
     {
@@ -173,10 +156,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime On-Hold.
-     *
-     * @param int $onHold
-     *
-     * @return self
      */
     public function setOnHold(int $onHold): self
     {
@@ -187,8 +166,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime Dropped.
-     *
-     * @return int
      */
     public function getDropped(): int
     {
@@ -197,10 +174,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime Dropped.
-     *
-     * @param int $dropped
-     *
-     * @return self
      */
     public function setDropped(int $dropped): self
     {
@@ -211,8 +184,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime Planned to Watch.
-     *
-     * @return int
      */
     public function getPlanToWatch(): int
     {
@@ -221,10 +192,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime Planned to Watch.
-     *
-     * @param int $planToWatch
-     *
-     * @return self
      */
     public function setPlanToWatch(int $planToWatch): self
     {
@@ -235,8 +202,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Total Anime entries on User list.
-     *
-     * @return int
      */
     public function getTotalEntries(): int
     {
@@ -245,10 +210,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Total Anime entries on User list.
-     *
-     * @param int $totalEntries
-     *
-     * @return self
      */
     public function setTotalEntries(int $totalEntries): self
     {
@@ -259,8 +220,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime re-watched.
-     *
-     * @return int
      */
     public function getRewatched(): int
     {
@@ -269,10 +228,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Anime re-watched.
-     *
-     * @param int $rewatched
-     *
-     * @return self
      */
     public function setRewatched(int $rewatched): self
     {
@@ -283,8 +238,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Number of Anime Episodes Watched.
-     *
-     * @return int
      */
     public function getEpisodesWatched(): int
     {
@@ -293,10 +246,6 @@ class UsersTempDataItemAnimeStats
 
     /**
      * Number of Anime Episodes Watched.
-     *
-     * @param int $episodesWatched
-     *
-     * @return self
      */
     public function setEpisodesWatched(int $episodesWatched): self
     {

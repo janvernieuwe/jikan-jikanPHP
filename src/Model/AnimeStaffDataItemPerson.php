@@ -10,16 +10,19 @@ class AnimeStaffDataItemPerson
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var PeopleImages
      */
     protected $images;
+
     /**
      * Name.
      *
@@ -29,8 +32,6 @@ class AnimeStaffDataItemPerson
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -39,10 +40,6 @@ class AnimeStaffDataItemPerson
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -53,8 +50,6 @@ class AnimeStaffDataItemPerson
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -63,10 +58,6 @@ class AnimeStaffDataItemPerson
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -75,30 +66,20 @@ class AnimeStaffDataItemPerson
         return $this;
     }
 
-    /**
-     * @return PeopleImages
-     */
     public function getImages(): PeopleImages
     {
         return $this->images;
     }
 
-    /**
-     * @param PeopleImages $images
-     *
-     * @return self
-     */
-    public function setImages(PeopleImages $images): self
+    public function setImages(PeopleImages $peopleImages): self
     {
-        $this->images = $images;
+        $this->images = $peopleImages;
 
         return $this;
     }
 
     /**
      * Name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -107,10 +88,6 @@ class AnimeStaffDataItemPerson
 
     /**
      * Name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {

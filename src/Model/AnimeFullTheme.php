@@ -7,11 +7,12 @@ class AnimeFullTheme
     /**
      * @var string[]
      */
-    protected $openings;
+    protected $openings = [];
+
     /**
      * @var string[]
      */
-    protected $endings;
+    protected $endings = [];
 
     /**
      * @return string[]
@@ -23,8 +24,6 @@ class AnimeFullTheme
 
     /**
      * @param string[] $openings
-     *
-     * @return self
      */
     public function setOpenings(array $openings): self
     {
@@ -43,8 +42,6 @@ class AnimeFullTheme
 
     /**
      * @param string[] $endings
-     *
-     * @return self
      */
     public function setEndings(array $endings): self
     {

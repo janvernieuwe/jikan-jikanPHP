@@ -10,17 +10,16 @@ class AnimeStaffDataItem
      * @var AnimeStaffDataItemPerson
      */
     protected $person;
+
     /**
      * Staff Positions.
      *
      * @var string[]
      */
-    protected $positions;
+    protected $positions = [];
 
     /**
      * Person details.
-     *
-     * @return AnimeStaffDataItemPerson
      */
     public function getPerson(): AnimeStaffDataItemPerson
     {
@@ -29,14 +28,10 @@ class AnimeStaffDataItem
 
     /**
      * Person details.
-     *
-     * @param AnimeStaffDataItemPerson $person
-     *
-     * @return self
      */
-    public function setPerson(AnimeStaffDataItemPerson $person): self
+    public function setPerson(AnimeStaffDataItemPerson $animeStaffDataItemPerson): self
     {
-        $this->person = $person;
+        $this->person = $animeStaffDataItemPerson;
 
         return $this;
     }
@@ -55,8 +50,6 @@ class AnimeStaffDataItem
      * Staff Positions.
      *
      * @param string[] $positions
-     *
-     * @return self
      */
     public function setPositions(array $positions): self
     {

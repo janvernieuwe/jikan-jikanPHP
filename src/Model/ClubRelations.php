@@ -9,22 +9,14 @@ class ClubRelations
      */
     protected $data;
 
-    /**
-     * @return ClubRelationsData
-     */
     public function getData(): ClubRelationsData
     {
         return $this->data;
     }
 
-    /**
-     * @param ClubRelationsData $data
-     *
-     * @return self
-     */
-    public function setData(ClubRelationsData $data): self
+    public function setData(ClubRelationsData $clubRelationsData): self
     {
-        $this->data = $data;
+        $this->data = $clubRelationsData;
 
         return $this;
     }

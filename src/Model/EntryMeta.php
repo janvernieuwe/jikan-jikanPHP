@@ -10,18 +10,21 @@ class EntryMeta
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Image URL.
      *
      * @var string
      */
     protected $imageUrl;
+
     /**
      * Entry Name/Title.
      *
@@ -31,8 +34,6 @@ class EntryMeta
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -41,10 +42,6 @@ class EntryMeta
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -55,8 +52,6 @@ class EntryMeta
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -65,10 +60,6 @@ class EntryMeta
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -79,8 +70,6 @@ class EntryMeta
 
     /**
      * Image URL.
-     *
-     * @return string
      */
     public function getImageUrl(): string
     {
@@ -89,10 +78,6 @@ class EntryMeta
 
     /**
      * Image URL.
-     *
-     * @param string $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(string $imageUrl): self
     {
@@ -103,8 +88,6 @@ class EntryMeta
 
     /**
      * Entry Name/Title.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -113,10 +96,6 @@ class EntryMeta
 
     /**
      * Entry Name/Title.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {

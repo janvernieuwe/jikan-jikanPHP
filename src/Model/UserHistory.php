@@ -7,7 +7,7 @@ class UserHistory
     /**
      * @var History[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return History[]
@@ -19,8 +19,6 @@ class UserHistory
 
     /**
      * @param History[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

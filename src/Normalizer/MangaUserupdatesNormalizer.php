@@ -2,7 +2,11 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\MangaUserupdates;
+use Jikan\JikanPHP\Model\MangaUserupdatesdataItem;
+use Jikan\JikanPHP\Model\PaginationPagination;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +23,12 @@ class MangaUserupdatesNormalizer implements DenormalizerInterface, NormalizerInt
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\MangaUserupdates' === $type;
+        return MangaUserupdates::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\MangaUserupdates' === get_class($data);
+        return is_object($data) && $data instanceof MangaUserupdates;
     }
 
     /**
@@ -34,39 +38,44 @@ class MangaUserupdatesNormalizer implements DenormalizerInterface, NormalizerInt
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|MangaUserupdates
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\MangaUserupdates();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $mangaUserupdates = new MangaUserupdates();
+        if (null === $data || !\is_array($data)) {
+            return $mangaUserupdates;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\MangaUserupdatesdataItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, MangaUserupdatesdataItem::class, 'json', $context);
             }
-            $object->setData($values);
-        }
-        if (\array_key_exists('pagination', $data)) {
-            $object->setPagination($this->denormalizer->denormalize($data['pagination'], 'Jikan\\JikanPHP\\Model\\PaginationPagination', 'json', $context));
+
+            $mangaUserupdates->setData($values);
         }
 
-        return $object;
+        if (\array_key_exists('pagination', $data)) {
+            $mangaUserupdates->setPagination($this->denormalizer->denormalize($data['pagination'], PaginationPagination::class, 'json', $context));
+        }
+
+        return $mangaUserupdates;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getData()) {
@@ -74,8 +83,10 @@ class MangaUserupdatesNormalizer implements DenormalizerInterface, NormalizerInt
             foreach ($object->getData() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['data'] = $values;
         }
+
         if (null !== $object->getPagination()) {
             $data['pagination'] = $this->normalizer->normalize($object->getPagination(), 'json', $context);
         }

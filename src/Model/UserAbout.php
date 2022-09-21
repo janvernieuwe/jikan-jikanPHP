@@ -7,7 +7,7 @@ class UserAbout
     /**
      * @var UserAboutDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return UserAboutDataItem[]
@@ -19,8 +19,6 @@ class UserAbout
 
     /**
      * @param UserAboutDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

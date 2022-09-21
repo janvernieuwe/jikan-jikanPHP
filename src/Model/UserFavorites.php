@@ -9,25 +9,28 @@ class UserFavorites
      *
      * @var UserFavoritesAnimeItem[]
      */
-    protected $anime;
+    protected $anime = [];
+
     /**
      * Favorite Manga.
      *
      * @var UserFavoritesMangaItem[]
      */
-    protected $manga;
+    protected $manga = [];
+
     /**
      * Favorite Characters.
      *
      * @var UserFavoritesCharactersItem[]
      */
-    protected $characters;
+    protected $characters = [];
+
     /**
      * Favorite People.
      *
      * @var CharacterMeta[]
      */
-    protected $people;
+    protected $people = [];
 
     /**
      * Favorite Anime.
@@ -43,8 +46,6 @@ class UserFavorites
      * Favorite Anime.
      *
      * @param UserFavoritesAnimeItem[] $anime
-     *
-     * @return self
      */
     public function setAnime(array $anime): self
     {
@@ -67,8 +68,6 @@ class UserFavorites
      * Favorite Manga.
      *
      * @param UserFavoritesMangaItem[] $manga
-     *
-     * @return self
      */
     public function setManga(array $manga): self
     {
@@ -91,8 +90,6 @@ class UserFavorites
      * Favorite Characters.
      *
      * @param UserFavoritesCharactersItem[] $characters
-     *
-     * @return self
      */
     public function setCharacters(array $characters): self
     {
@@ -115,8 +112,6 @@ class UserFavorites
      * Favorite People.
      *
      * @param CharacterMeta[] $people
-     *
-     * @return self
      */
     public function setPeople(array $people): self
     {

@@ -13,8 +13,6 @@ class RandomMangaGetResponse200
 
     /**
      * Manga Resource.
-     *
-     * @return Manga
      */
     public function getData(): Manga
     {
@@ -23,14 +21,10 @@ class RandomMangaGetResponse200
 
     /**
      * Manga Resource.
-     *
-     * @param Manga $data
-     *
-     * @return self
      */
-    public function setData(Manga $data): self
+    public function setData(Manga $manga): self
     {
-        $this->data = $data;
+        $this->data = $manga;
 
         return $this;
     }

@@ -8,41 +8,33 @@ class WatchPromos
      * @var PaginationPagination
      */
     protected $pagination;
+
     /**
      * Promo Title.
      *
      * @var string
      */
     protected $title;
+
     /**
      * @var object[]
      */
-    protected $data;
+    protected $data = [];
 
-    /**
-     * @return PaginationPagination
-     */
     public function getPagination(): PaginationPagination
     {
         return $this->pagination;
     }
 
-    /**
-     * @param PaginationPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(PaginationPagination $pagination): self
+    public function setPagination(PaginationPagination $paginationPagination): self
     {
-        $this->pagination = $pagination;
+        $this->pagination = $paginationPagination;
 
         return $this;
     }
 
     /**
      * Promo Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -51,10 +43,6 @@ class WatchPromos
 
     /**
      * Promo Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -73,8 +61,6 @@ class WatchPromos
 
     /**
      * @param object[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

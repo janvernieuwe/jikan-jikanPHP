@@ -13,8 +13,6 @@ class AnimeIdEpisodesEpisodeGetResponse200
 
     /**
      * Anime Episode Resource.
-     *
-     * @return AnimeEpisode
      */
     public function getData(): AnimeEpisode
     {
@@ -23,14 +21,10 @@ class AnimeIdEpisodesEpisodeGetResponse200
 
     /**
      * Anime Episode Resource.
-     *
-     * @param AnimeEpisode $data
-     *
-     * @return self
      */
-    public function setData(AnimeEpisode $data): self
+    public function setData(AnimeEpisode $animeEpisode): self
     {
-        $this->data = $data;
+        $this->data = $animeEpisode;
 
         return $this;
     }

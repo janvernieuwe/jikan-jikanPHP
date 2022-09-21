@@ -8,7 +8,6 @@ class ClientTest extends TestCase
 {
     public function test_it_gets_anime(): void
     {
-        self::markTestSkipped('will perform actual request');
         $jikan = Client::create();
         /** @var AnimeIdGetResponse200 $response */
         $response = $jikan->getAnimeById(5114);

@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\UserUpdates;
+use Jikan\JikanPHP\Model\UserUpdatesData;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class UserUpdatesNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\UserUpdates' === $type;
+        return UserUpdates::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\UserUpdates' === get_class($data);
+        return is_object($data) && $data instanceof UserUpdates;
     }
 
     /**
@@ -34,32 +37,35 @@ class UserUpdatesNormalizer implements DenormalizerInterface, NormalizerInterfac
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserUpdates
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\UserUpdates();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('data', $data)) {
-            $object->setData($this->denormalizer->denormalize($data['data'], 'Jikan\\JikanPHP\\Model\\UserUpdatesData', 'json', $context));
+
+        $userUpdates = new UserUpdates();
+        if (null === $data || !\is_array($data)) {
+            return $userUpdates;
         }
 
-        return $object;
+        if (\array_key_exists('data', $data)) {
+            $userUpdates->setData($this->denormalizer->denormalize($data['data'], UserUpdatesData::class, 'json', $context));
+        }
+
+        return $userUpdates;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getData()) {

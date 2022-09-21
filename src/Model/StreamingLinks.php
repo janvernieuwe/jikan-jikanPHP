@@ -7,7 +7,7 @@ class StreamingLinks
     /**
      * @var StreamingLinksDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return StreamingLinksDataItem[]
@@ -19,8 +19,6 @@ class StreamingLinks
 
     /**
      * @param StreamingLinksDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\CharacterPicturesDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class CharacterPicturesDataItemNormalizer implements DenormalizerInterface, Norm
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\CharacterPicturesDataItem' === $type;
+        return CharacterPicturesDataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\CharacterPicturesDataItem' === get_class($data);
+        return is_object($data) && $data instanceof CharacterPicturesDataItem;
     }
 
     /**
@@ -34,44 +36,49 @@ class CharacterPicturesDataItemNormalizer implements DenormalizerInterface, Norm
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|CharacterPicturesDataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\CharacterPicturesDataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('image_url', $data) && null !== $data['image_url']) {
-            $object->setImageUrl($data['image_url']);
-        } elseif (\array_key_exists('image_url', $data) && null === $data['image_url']) {
-            $object->setImageUrl(null);
-        }
-        if (\array_key_exists('large_image_url', $data) && null !== $data['large_image_url']) {
-            $object->setLargeImageUrl($data['large_image_url']);
-        } elseif (\array_key_exists('large_image_url', $data) && null === $data['large_image_url']) {
-            $object->setLargeImageUrl(null);
+
+        $characterPicturesDataItem = new CharacterPicturesDataItem();
+        if (null === $data || !\is_array($data)) {
+            return $characterPicturesDataItem;
         }
 
-        return $object;
+        if (\array_key_exists('image_url', $data) && null !== $data['image_url']) {
+            $characterPicturesDataItem->setImageUrl($data['image_url']);
+        } elseif (\array_key_exists('image_url', $data) && null === $data['image_url']) {
+            $characterPicturesDataItem->setImageUrl(null);
+        }
+
+        if (\array_key_exists('large_image_url', $data) && null !== $data['large_image_url']) {
+            $characterPicturesDataItem->setLargeImageUrl($data['large_image_url']);
+        } elseif (\array_key_exists('large_image_url', $data) && null === $data['large_image_url']) {
+            $characterPicturesDataItem->setLargeImageUrl(null);
+        }
+
+        return $characterPicturesDataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getImageUrl()) {
             $data['image_url'] = $object->getImageUrl();
         }
+
         if (null !== $object->getLargeImageUrl()) {
             $data['large_image_url'] = $object->getLargeImageUrl();
         }

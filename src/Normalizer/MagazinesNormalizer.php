@@ -2,7 +2,11 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\Magazine;
+use Jikan\JikanPHP\Model\Magazines;
+use Jikan\JikanPHP\Model\PaginationPagination;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +23,12 @@ class MagazinesNormalizer implements DenormalizerInterface, NormalizerInterface,
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\Magazines' === $type;
+        return Magazines::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\Magazines' === get_class($data);
+        return is_object($data) && $data instanceof Magazines;
     }
 
     /**
@@ -34,39 +38,44 @@ class MagazinesNormalizer implements DenormalizerInterface, NormalizerInterface,
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|Magazines
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\Magazines();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $magazines = new Magazines();
+        if (null === $data || !\is_array($data)) {
+            return $magazines;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\Magazine', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, Magazine::class, 'json', $context);
             }
-            $object->setData($values);
-        }
-        if (\array_key_exists('pagination', $data)) {
-            $object->setPagination($this->denormalizer->denormalize($data['pagination'], 'Jikan\\JikanPHP\\Model\\PaginationPagination', 'json', $context));
+
+            $magazines->setData($values);
         }
 
-        return $object;
+        if (\array_key_exists('pagination', $data)) {
+            $magazines->setPagination($this->denormalizer->denormalize($data['pagination'], PaginationPagination::class, 'json', $context));
+        }
+
+        return $magazines;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getData()) {
@@ -74,8 +83,10 @@ class MagazinesNormalizer implements DenormalizerInterface, NormalizerInterface,
             foreach ($object->getData() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['data'] = $values;
         }
+
         if (null !== $object->getPagination()) {
             $data['pagination'] = $this->normalizer->normalize($object->getPagination(), 'json', $context);
         }

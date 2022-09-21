@@ -10,42 +10,49 @@ class AnimeReview
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Entry Type.
      *
      * @var string
      */
     protected $type;
+
     /**
      * Number of user votes on the Review.
      *
      * @var int
      */
     protected $votes;
+
     /**
      * Review created date ISO8601.
      *
      * @var string
      */
     protected $date;
+
     /**
      * Review content.
      *
      * @var string
      */
     protected $review;
+
     /**
      * Number of episodes watched.
      *
      * @var int
      */
     protected $episodesWatched;
+
     /**
      * Review Scores breakdown.
      *
@@ -55,8 +62,6 @@ class AnimeReview
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -65,10 +70,6 @@ class AnimeReview
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -79,8 +80,6 @@ class AnimeReview
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -89,10 +88,6 @@ class AnimeReview
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -103,8 +98,6 @@ class AnimeReview
 
     /**
      * Entry Type.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -113,10 +106,6 @@ class AnimeReview
 
     /**
      * Entry Type.
-     *
-     * @param string $type
-     *
-     * @return self
      */
     public function setType(string $type): self
     {
@@ -127,8 +116,6 @@ class AnimeReview
 
     /**
      * Number of user votes on the Review.
-     *
-     * @return int
      */
     public function getVotes(): int
     {
@@ -137,10 +124,6 @@ class AnimeReview
 
     /**
      * Number of user votes on the Review.
-     *
-     * @param int $votes
-     *
-     * @return self
      */
     public function setVotes(int $votes): self
     {
@@ -151,8 +134,6 @@ class AnimeReview
 
     /**
      * Review created date ISO8601.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -161,10 +142,6 @@ class AnimeReview
 
     /**
      * Review created date ISO8601.
-     *
-     * @param string $date
-     *
-     * @return self
      */
     public function setDate(string $date): self
     {
@@ -175,8 +152,6 @@ class AnimeReview
 
     /**
      * Review content.
-     *
-     * @return string
      */
     public function getReview(): string
     {
@@ -185,10 +160,6 @@ class AnimeReview
 
     /**
      * Review content.
-     *
-     * @param string $review
-     *
-     * @return self
      */
     public function setReview(string $review): self
     {
@@ -199,8 +170,6 @@ class AnimeReview
 
     /**
      * Number of episodes watched.
-     *
-     * @return int
      */
     public function getEpisodesWatched(): int
     {
@@ -209,10 +178,6 @@ class AnimeReview
 
     /**
      * Number of episodes watched.
-     *
-     * @param int $episodesWatched
-     *
-     * @return self
      */
     public function setEpisodesWatched(int $episodesWatched): self
     {
@@ -223,8 +188,6 @@ class AnimeReview
 
     /**
      * Review Scores breakdown.
-     *
-     * @return AnimeReviewScores
      */
     public function getScores(): AnimeReviewScores
     {
@@ -233,14 +196,10 @@ class AnimeReview
 
     /**
      * Review Scores breakdown.
-     *
-     * @param AnimeReviewScores $scores
-     *
-     * @return self
      */
-    public function setScores(AnimeReviewScores $scores): self
+    public function setScores(AnimeReviewScores $animeReviewScores): self
     {
-        $this->scores = $scores;
+        $this->scores = $animeReviewScores;
 
         return $this;
     }

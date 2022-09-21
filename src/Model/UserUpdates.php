@@ -9,22 +9,14 @@ class UserUpdates
      */
     protected $data;
 
-    /**
-     * @return UserUpdatesData
-     */
     public function getData(): UserUpdatesData
     {
         return $this->data;
     }
 
-    /**
-     * @param UserUpdatesData $data
-     *
-     * @return self
-     */
-    public function setData(UserUpdatesData $data): self
+    public function setData(UserUpdatesData $userUpdatesData): self
     {
-        $this->data = $data;
+        $this->data = $userUpdatesData;
 
         return $this;
     }

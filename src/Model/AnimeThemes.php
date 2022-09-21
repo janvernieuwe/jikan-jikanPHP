@@ -9,22 +9,14 @@ class AnimeThemes
      */
     protected $data;
 
-    /**
-     * @return AnimeThemesData
-     */
     public function getData(): AnimeThemesData
     {
         return $this->data;
     }
 
-    /**
-     * @param AnimeThemesData $data
-     *
-     * @return self
-     */
-    public function setData(AnimeThemesData $data): self
+    public function setData(AnimeThemesData $animeThemesData): self
     {
-        $this->data = $data;
+        $this->data = $animeThemesData;
 
         return $this;
     }

@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\AnimeFullTheme;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class AnimeFullThemeNormalizer implements DenormalizerInterface, NormalizerInter
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\AnimeFullTheme' === $type;
+        return AnimeFullTheme::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\AnimeFullTheme' === get_class($data);
+        return is_object($data) && $data instanceof AnimeFullTheme;
     }
 
     /**
@@ -34,57 +36,66 @@ class AnimeFullThemeNormalizer implements DenormalizerInterface, NormalizerInter
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeFullTheme
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\AnimeFullTheme();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $animeFullTheme = new AnimeFullTheme();
+        if (null === $data || !\is_array($data)) {
+            return $animeFullTheme;
         }
+
         if (\array_key_exists('openings', $data)) {
             $values = [];
             foreach ($data['openings'] as $value) {
                 $values[] = $value;
             }
-            $object->setOpenings($values);
+
+            $animeFullTheme->setOpenings($values);
         }
+
         if (\array_key_exists('endings', $data)) {
             $values_1 = [];
             foreach ($data['endings'] as $value_1) {
                 $values_1[] = $value_1;
             }
-            $object->setEndings($values_1);
+
+            $animeFullTheme->setEndings($values_1);
         }
 
-        return $object;
+        return $animeFullTheme;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getOpenings()) {
             $values = [];
-            foreach ($object->getOpenings() as $value) {
-                $values[] = $value;
+            foreach ($object->getOpenings() as $opening) {
+                $values[] = $opening;
             }
+
             $data['openings'] = $values;
         }
+
         if (null !== $object->getEndings()) {
             $values_1 = [];
-            foreach ($object->getEndings() as $value_1) {
-                $values_1[] = $value_1;
+            foreach ($object->getEndings() as $ending) {
+                $values_1[] = $ending;
             }
+
             $data['endings'] = $values_1;
         }
 

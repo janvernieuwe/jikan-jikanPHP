@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\Daterange;
+use Jikan\JikanPHP\Model\DaterangeProp;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class DaterangeNormalizer implements DenormalizerInterface, NormalizerInterface,
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\Daterange' === $type;
+        return Daterange::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\Daterange' === get_class($data);
+        return is_object($data) && $data instanceof Daterange;
     }
 
     /**
@@ -34,50 +37,57 @@ class DaterangeNormalizer implements DenormalizerInterface, NormalizerInterface,
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|Daterange
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\Daterange();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('from', $data) && null !== $data['from']) {
-            $object->setFrom($data['from']);
-        } elseif (\array_key_exists('from', $data) && null === $data['from']) {
-            $object->setFrom(null);
-        }
-        if (\array_key_exists('to', $data) && null !== $data['to']) {
-            $object->setTo($data['to']);
-        } elseif (\array_key_exists('to', $data) && null === $data['to']) {
-            $object->setTo(null);
-        }
-        if (\array_key_exists('prop', $data)) {
-            $object->setProp($this->denormalizer->denormalize($data['prop'], 'Jikan\\JikanPHP\\Model\\DaterangeProp', 'json', $context));
+
+        $daterange = new Daterange();
+        if (null === $data || !\is_array($data)) {
+            return $daterange;
         }
 
-        return $object;
+        if (\array_key_exists('from', $data) && null !== $data['from']) {
+            $daterange->setFrom($data['from']);
+        } elseif (\array_key_exists('from', $data) && null === $data['from']) {
+            $daterange->setFrom(null);
+        }
+
+        if (\array_key_exists('to', $data) && null !== $data['to']) {
+            $daterange->setTo($data['to']);
+        } elseif (\array_key_exists('to', $data) && null === $data['to']) {
+            $daterange->setTo(null);
+        }
+
+        if (\array_key_exists('prop', $data)) {
+            $daterange->setProp($this->denormalizer->denormalize($data['prop'], DaterangeProp::class, 'json', $context));
+        }
+
+        return $daterange;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getFrom()) {
             $data['from'] = $object->getFrom();
         }
+
         if (null !== $object->getTo()) {
             $data['to'] = $object->getTo();
         }
+
         if (null !== $object->getProp()) {
             $data['prop'] = $this->normalizer->normalize($object->getProp(), 'json', $context);
         }

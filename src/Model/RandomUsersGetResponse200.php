@@ -9,22 +9,14 @@ class RandomUsersGetResponse200
      */
     protected $data;
 
-    /**
-     * @return UserProfile
-     */
     public function getData(): UserProfile
     {
         return $this->data;
     }
 
-    /**
-     * @param UserProfile $data
-     *
-     * @return self
-     */
-    public function setData(UserProfile $data): self
+    public function setData(UserProfile $userProfile): self
     {
-        $this->data = $data;
+        $this->data = $userProfile;
 
         return $this;
     }

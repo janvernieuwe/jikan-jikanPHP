@@ -10,6 +10,7 @@ class AnimeVideosDataPromoItem
      * @var string
      */
     protected $title;
+
     /**
      * Youtube Details.
      *
@@ -19,8 +20,6 @@ class AnimeVideosDataPromoItem
 
     /**
      * Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -29,10 +28,6 @@ class AnimeVideosDataPromoItem
 
     /**
      * Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -43,8 +38,6 @@ class AnimeVideosDataPromoItem
 
     /**
      * Youtube Details.
-     *
-     * @return Trailer
      */
     public function getTrailer(): Trailer
     {
@@ -53,10 +46,6 @@ class AnimeVideosDataPromoItem
 
     /**
      * Youtube Details.
-     *
-     * @param Trailer $trailer
-     *
-     * @return self
      */
     public function setTrailer(Trailer $trailer): self
     {

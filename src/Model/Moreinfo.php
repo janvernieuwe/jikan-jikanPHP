@@ -9,22 +9,14 @@ class Moreinfo
      */
     protected $data;
 
-    /**
-     * @return MoreinfoData
-     */
     public function getData(): MoreinfoData
     {
         return $this->data;
     }
 
-    /**
-     * @param MoreinfoData $data
-     *
-     * @return self
-     */
-    public function setData(MoreinfoData $data): self
+    public function setData(MoreinfoData $moreinfoData): self
     {
-        $this->data = $data;
+        $this->data = $moreinfoData;
 
         return $this;
     }

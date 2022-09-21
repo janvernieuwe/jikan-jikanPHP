@@ -10,12 +10,14 @@ class MangaImagesWebp
      * @var string|null
      */
     protected $imageUrl;
+
     /**
      * Small Image URL WEBP.
      *
      * @var string|null
      */
     protected $smallImageUrl;
+
     /**
      * Image URL WEBP.
      *
@@ -25,8 +27,6 @@ class MangaImagesWebp
 
     /**
      * Image URL WEBP.
-     *
-     * @return string|null
      */
     public function getImageUrl(): ?string
     {
@@ -35,10 +35,6 @@ class MangaImagesWebp
 
     /**
      * Image URL WEBP.
-     *
-     * @param string|null $imageUrl
-     *
-     * @return self
      */
     public function setImageUrl(?string $imageUrl): self
     {
@@ -49,8 +45,6 @@ class MangaImagesWebp
 
     /**
      * Small Image URL WEBP.
-     *
-     * @return string|null
      */
     public function getSmallImageUrl(): ?string
     {
@@ -59,10 +53,6 @@ class MangaImagesWebp
 
     /**
      * Small Image URL WEBP.
-     *
-     * @param string|null $smallImageUrl
-     *
-     * @return self
      */
     public function setSmallImageUrl(?string $smallImageUrl): self
     {
@@ -73,8 +63,6 @@ class MangaImagesWebp
 
     /**
      * Image URL WEBP.
-     *
-     * @return string|null
      */
     public function getLargeImageUrl(): ?string
     {
@@ -83,10 +71,6 @@ class MangaImagesWebp
 
     /**
      * Image URL WEBP.
-     *
-     * @param string|null $largeImageUrl
-     *
-     * @return self
      */
     public function setLargeImageUrl(?string $largeImageUrl): self
     {

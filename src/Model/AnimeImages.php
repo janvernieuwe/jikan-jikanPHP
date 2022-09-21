@@ -10,6 +10,7 @@ class AnimeImages
      * @var AnimeImagesJpg
      */
     protected $jpg;
+
     /**
      * Available images in WEBP.
      *
@@ -19,8 +20,6 @@ class AnimeImages
 
     /**
      * Available images in JPG.
-     *
-     * @return AnimeImagesJpg
      */
     public function getJpg(): AnimeImagesJpg
     {
@@ -29,22 +28,16 @@ class AnimeImages
 
     /**
      * Available images in JPG.
-     *
-     * @param AnimeImagesJpg $jpg
-     *
-     * @return self
      */
-    public function setJpg(AnimeImagesJpg $jpg): self
+    public function setJpg(AnimeImagesJpg $animeImagesJpg): self
     {
-        $this->jpg = $jpg;
+        $this->jpg = $animeImagesJpg;
 
         return $this;
     }
 
     /**
      * Available images in WEBP.
-     *
-     * @return AnimeImagesWebp
      */
     public function getWebp(): AnimeImagesWebp
     {
@@ -53,14 +46,10 @@ class AnimeImages
 
     /**
      * Available images in WEBP.
-     *
-     * @param AnimeImagesWebp $webp
-     *
-     * @return self
      */
-    public function setWebp(AnimeImagesWebp $webp): self
+    public function setWebp(AnimeImagesWebp $animeImagesWebp): self
     {
-        $this->webp = $webp;
+        $this->webp = $animeImagesWebp;
 
         return $this;
     }

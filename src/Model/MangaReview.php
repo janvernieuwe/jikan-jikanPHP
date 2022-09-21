@@ -10,42 +10,49 @@ class MangaReview
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Entry Type.
      *
      * @var string
      */
     protected $type;
+
     /**
      * Number of user votes on the Review.
      *
      * @var int
      */
     protected $votes;
+
     /**
      * Review created date ISO8601.
      *
      * @var string
      */
     protected $date;
+
     /**
      * Number of chapters read by the reviewer.
      *
      * @var int
      */
     protected $chaptersRead;
+
     /**
      * Review content.
      *
      * @var string
      */
     protected $review;
+
     /**
      * Review Scores breakdown.
      *
@@ -55,8 +62,6 @@ class MangaReview
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -65,10 +70,6 @@ class MangaReview
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -79,8 +80,6 @@ class MangaReview
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -89,10 +88,6 @@ class MangaReview
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -103,8 +98,6 @@ class MangaReview
 
     /**
      * Entry Type.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -113,10 +106,6 @@ class MangaReview
 
     /**
      * Entry Type.
-     *
-     * @param string $type
-     *
-     * @return self
      */
     public function setType(string $type): self
     {
@@ -127,8 +116,6 @@ class MangaReview
 
     /**
      * Number of user votes on the Review.
-     *
-     * @return int
      */
     public function getVotes(): int
     {
@@ -137,10 +124,6 @@ class MangaReview
 
     /**
      * Number of user votes on the Review.
-     *
-     * @param int $votes
-     *
-     * @return self
      */
     public function setVotes(int $votes): self
     {
@@ -151,8 +134,6 @@ class MangaReview
 
     /**
      * Review created date ISO8601.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -161,10 +142,6 @@ class MangaReview
 
     /**
      * Review created date ISO8601.
-     *
-     * @param string $date
-     *
-     * @return self
      */
     public function setDate(string $date): self
     {
@@ -175,8 +152,6 @@ class MangaReview
 
     /**
      * Number of chapters read by the reviewer.
-     *
-     * @return int
      */
     public function getChaptersRead(): int
     {
@@ -185,10 +160,6 @@ class MangaReview
 
     /**
      * Number of chapters read by the reviewer.
-     *
-     * @param int $chaptersRead
-     *
-     * @return self
      */
     public function setChaptersRead(int $chaptersRead): self
     {
@@ -199,8 +170,6 @@ class MangaReview
 
     /**
      * Review content.
-     *
-     * @return string
      */
     public function getReview(): string
     {
@@ -209,10 +178,6 @@ class MangaReview
 
     /**
      * Review content.
-     *
-     * @param string $review
-     *
-     * @return self
      */
     public function setReview(string $review): self
     {
@@ -223,8 +188,6 @@ class MangaReview
 
     /**
      * Review Scores breakdown.
-     *
-     * @return MangaReviewScores
      */
     public function getScores(): MangaReviewScores
     {
@@ -233,14 +196,10 @@ class MangaReview
 
     /**
      * Review Scores breakdown.
-     *
-     * @param MangaReviewScores $scores
-     *
-     * @return self
      */
-    public function setScores(MangaReviewScores $scores): self
+    public function setScores(MangaReviewScores $mangaReviewScores): self
     {
-        $this->scores = $scores;
+        $this->scores = $mangaReviewScores;
 
         return $this;
     }

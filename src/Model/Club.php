@@ -10,40 +10,47 @@ class Club
      * @var int
      */
     protected $malId;
+
     /**
      * Club name.
      *
      * @var string
      */
     protected $name;
+
     /**
      * Club URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var CommonImages
      */
     protected $images;
+
     /**
      * Number of club members.
      *
      * @var int
      */
     protected $members;
+
     /**
      * Club Category.
      *
      * @var string
      */
     protected $category;
+
     /**
      * Date Created ISO8601.
      *
      * @var string
      */
     protected $created;
+
     /**
      * Club access.
      *
@@ -53,8 +60,6 @@ class Club
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -63,10 +68,6 @@ class Club
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -77,8 +78,6 @@ class Club
 
     /**
      * Club name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -87,10 +86,6 @@ class Club
 
     /**
      * Club name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {
@@ -101,8 +96,6 @@ class Club
 
     /**
      * Club URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -111,10 +104,6 @@ class Club
 
     /**
      * Club URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -123,30 +112,20 @@ class Club
         return $this;
     }
 
-    /**
-     * @return CommonImages
-     */
     public function getImages(): CommonImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CommonImages $images
-     *
-     * @return self
-     */
-    public function setImages(CommonImages $images): self
+    public function setImages(CommonImages $commonImages): self
     {
-        $this->images = $images;
+        $this->images = $commonImages;
 
         return $this;
     }
 
     /**
      * Number of club members.
-     *
-     * @return int
      */
     public function getMembers(): int
     {
@@ -155,10 +134,6 @@ class Club
 
     /**
      * Number of club members.
-     *
-     * @param int $members
-     *
-     * @return self
      */
     public function setMembers(int $members): self
     {
@@ -169,8 +144,6 @@ class Club
 
     /**
      * Club Category.
-     *
-     * @return string
      */
     public function getCategory(): string
     {
@@ -179,10 +152,6 @@ class Club
 
     /**
      * Club Category.
-     *
-     * @param string $category
-     *
-     * @return self
      */
     public function setCategory(string $category): self
     {
@@ -193,8 +162,6 @@ class Club
 
     /**
      * Date Created ISO8601.
-     *
-     * @return string
      */
     public function getCreated(): string
     {
@@ -203,10 +170,6 @@ class Club
 
     /**
      * Date Created ISO8601.
-     *
-     * @param string $created
-     *
-     * @return self
      */
     public function setCreated(string $created): self
     {
@@ -217,8 +180,6 @@ class Club
 
     /**
      * Club access.
-     *
-     * @return string
      */
     public function getAccess(): string
     {
@@ -227,10 +188,6 @@ class Club
 
     /**
      * Club access.
-     *
-     * @param string $access
-     *
-     * @return self
      */
     public function setAccess(string $access): self
     {

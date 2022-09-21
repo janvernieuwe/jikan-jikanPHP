@@ -10,6 +10,7 @@ class UsersTempDataItemImages
      * @var UsersTempDataItemImagesJpg
      */
     protected $jpg;
+
     /**
      * Available images in WEBP.
      *
@@ -19,8 +20,6 @@ class UsersTempDataItemImages
 
     /**
      * Available images in JPG.
-     *
-     * @return UsersTempDataItemImagesJpg
      */
     public function getJpg(): UsersTempDataItemImagesJpg
     {
@@ -29,22 +28,16 @@ class UsersTempDataItemImages
 
     /**
      * Available images in JPG.
-     *
-     * @param UsersTempDataItemImagesJpg $jpg
-     *
-     * @return self
      */
-    public function setJpg(UsersTempDataItemImagesJpg $jpg): self
+    public function setJpg(UsersTempDataItemImagesJpg $usersTempDataItemImagesJpg): self
     {
-        $this->jpg = $jpg;
+        $this->jpg = $usersTempDataItemImagesJpg;
 
         return $this;
     }
 
     /**
      * Available images in WEBP.
-     *
-     * @return UsersTempDataItemImagesWebp
      */
     public function getWebp(): UsersTempDataItemImagesWebp
     {
@@ -53,14 +46,10 @@ class UsersTempDataItemImages
 
     /**
      * Available images in WEBP.
-     *
-     * @param UsersTempDataItemImagesWebp $webp
-     *
-     * @return self
      */
-    public function setWebp(UsersTempDataItemImagesWebp $webp): self
+    public function setWebp(UsersTempDataItemImagesWebp $usersTempDataItemImagesWebp): self
     {
-        $this->webp = $webp;
+        $this->webp = $usersTempDataItemImagesWebp;
 
         return $this;
     }

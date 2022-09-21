@@ -10,24 +10,28 @@ class AnimeVideosEpisodesdataItem
      * @var int
      */
     protected $malId;
+
     /**
      * Episode Title.
      *
      * @var string
      */
     protected $title;
+
     /**
      * Episode Subtitle.
      *
      * @var string
      */
     protected $episode;
+
     /**
      * Episode Page URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var CommonImages
      */
@@ -35,8 +39,6 @@ class AnimeVideosEpisodesdataItem
 
     /**
      * MyAnimeList ID or Episode Number.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -45,10 +47,6 @@ class AnimeVideosEpisodesdataItem
 
     /**
      * MyAnimeList ID or Episode Number.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -59,8 +57,6 @@ class AnimeVideosEpisodesdataItem
 
     /**
      * Episode Title.
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -69,10 +65,6 @@ class AnimeVideosEpisodesdataItem
 
     /**
      * Episode Title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -83,8 +75,6 @@ class AnimeVideosEpisodesdataItem
 
     /**
      * Episode Subtitle.
-     *
-     * @return string
      */
     public function getEpisode(): string
     {
@@ -93,10 +83,6 @@ class AnimeVideosEpisodesdataItem
 
     /**
      * Episode Subtitle.
-     *
-     * @param string $episode
-     *
-     * @return self
      */
     public function setEpisode(string $episode): self
     {
@@ -107,8 +93,6 @@ class AnimeVideosEpisodesdataItem
 
     /**
      * Episode Page URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -117,10 +101,6 @@ class AnimeVideosEpisodesdataItem
 
     /**
      * Episode Page URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -129,22 +109,14 @@ class AnimeVideosEpisodesdataItem
         return $this;
     }
 
-    /**
-     * @return CommonImages
-     */
     public function getImages(): CommonImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CommonImages $images
-     *
-     * @return self
-     */
-    public function setImages(CommonImages $images): self
+    public function setImages(CommonImages $commonImages): self
     {
-        $this->images = $images;
+        $this->images = $commonImages;
 
         return $this;
     }

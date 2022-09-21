@@ -13,8 +13,6 @@ class UsersUserbyidIdGetResponse200
 
     /**
      * User Meta By ID.
-     *
-     * @return UserById
      */
     public function getData(): UserById
     {
@@ -23,14 +21,10 @@ class UsersUserbyidIdGetResponse200
 
     /**
      * User Meta By ID.
-     *
-     * @param UserById $data
-     *
-     * @return self
      */
-    public function setData(UserById $data): self
+    public function setData(UserById $userById): self
     {
-        $this->data = $data;
+        $this->data = $userById;
 
         return $this;
     }

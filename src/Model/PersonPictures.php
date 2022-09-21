@@ -7,7 +7,7 @@ class PersonPictures
     /**
      * @var PeopleImages[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return PeopleImages[]
@@ -19,8 +19,6 @@ class PersonPictures
 
     /**
      * @param PeopleImages[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

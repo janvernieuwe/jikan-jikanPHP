@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\AnimeEpisodesdataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class AnimeEpisodesdataItemNormalizer implements DenormalizerInterface, Normaliz
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\AnimeEpisodesdataItem' === $type;
+        return AnimeEpisodesdataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\AnimeEpisodesdataItem' === get_class($data);
+        return is_object($data) && $data instanceof AnimeEpisodesdataItem;
     }
 
     /**
@@ -34,98 +36,119 @@ class AnimeEpisodesdataItemNormalizer implements DenormalizerInterface, Normaliz
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeEpisodesdataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\AnimeEpisodesdataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('mal_id', $data)) {
-            $object->setMalId($data['mal_id']);
-        }
-        if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
-        }
-        if (\array_key_exists('title', $data)) {
-            $object->setTitle($data['title']);
-        }
-        if (\array_key_exists('title_japanese', $data) && null !== $data['title_japanese']) {
-            $object->setTitleJapanese($data['title_japanese']);
-        } elseif (\array_key_exists('title_japanese', $data) && null === $data['title_japanese']) {
-            $object->setTitleJapanese(null);
-        }
-        if (\array_key_exists('title_romanji', $data) && null !== $data['title_romanji']) {
-            $object->setTitleRomanji($data['title_romanji']);
-        } elseif (\array_key_exists('title_romanji', $data) && null === $data['title_romanji']) {
-            $object->setTitleRomanji(null);
-        }
-        if (\array_key_exists('duration', $data) && null !== $data['duration']) {
-            $object->setDuration($data['duration']);
-        } elseif (\array_key_exists('duration', $data) && null === $data['duration']) {
-            $object->setDuration(null);
-        }
-        if (\array_key_exists('aired', $data) && null !== $data['aired']) {
-            $object->setAired($data['aired']);
-        } elseif (\array_key_exists('aired', $data) && null === $data['aired']) {
-            $object->setAired(null);
-        }
-        if (\array_key_exists('filler', $data)) {
-            $object->setFiller($data['filler']);
-        }
-        if (\array_key_exists('recap', $data)) {
-            $object->setRecap($data['recap']);
-        }
-        if (\array_key_exists('forum_url', $data) && null !== $data['forum_url']) {
-            $object->setForumUrl($data['forum_url']);
-        } elseif (\array_key_exists('forum_url', $data) && null === $data['forum_url']) {
-            $object->setForumUrl(null);
+
+        $animeEpisodesdataItem = new AnimeEpisodesdataItem();
+        if (null === $data || !\is_array($data)) {
+            return $animeEpisodesdataItem;
         }
 
-        return $object;
+        if (\array_key_exists('mal_id', $data)) {
+            $animeEpisodesdataItem->setMalId($data['mal_id']);
+        }
+
+        if (\array_key_exists('url', $data)) {
+            $animeEpisodesdataItem->setUrl($data['url']);
+        }
+
+        if (\array_key_exists('title', $data)) {
+            $animeEpisodesdataItem->setTitle($data['title']);
+        }
+
+        if (\array_key_exists('title_japanese', $data) && null !== $data['title_japanese']) {
+            $animeEpisodesdataItem->setTitleJapanese($data['title_japanese']);
+        } elseif (\array_key_exists('title_japanese', $data) && null === $data['title_japanese']) {
+            $animeEpisodesdataItem->setTitleJapanese(null);
+        }
+
+        if (\array_key_exists('title_romanji', $data) && null !== $data['title_romanji']) {
+            $animeEpisodesdataItem->setTitleRomanji($data['title_romanji']);
+        } elseif (\array_key_exists('title_romanji', $data) && null === $data['title_romanji']) {
+            $animeEpisodesdataItem->setTitleRomanji(null);
+        }
+
+        if (\array_key_exists('duration', $data) && null !== $data['duration']) {
+            $animeEpisodesdataItem->setDuration($data['duration']);
+        } elseif (\array_key_exists('duration', $data) && null === $data['duration']) {
+            $animeEpisodesdataItem->setDuration(null);
+        }
+
+        if (\array_key_exists('aired', $data) && null !== $data['aired']) {
+            $animeEpisodesdataItem->setAired($data['aired']);
+        } elseif (\array_key_exists('aired', $data) && null === $data['aired']) {
+            $animeEpisodesdataItem->setAired(null);
+        }
+
+        if (\array_key_exists('filler', $data)) {
+            $animeEpisodesdataItem->setFiller($data['filler']);
+        }
+
+        if (\array_key_exists('recap', $data)) {
+            $animeEpisodesdataItem->setRecap($data['recap']);
+        }
+
+        if (\array_key_exists('forum_url', $data) && null !== $data['forum_url']) {
+            $animeEpisodesdataItem->setForumUrl($data['forum_url']);
+        } elseif (\array_key_exists('forum_url', $data) && null === $data['forum_url']) {
+            $animeEpisodesdataItem->setForumUrl(null);
+        }
+
+        return $animeEpisodesdataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getMalId()) {
             $data['mal_id'] = $object->getMalId();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getTitle()) {
             $data['title'] = $object->getTitle();
         }
+
         if (null !== $object->getTitleJapanese()) {
             $data['title_japanese'] = $object->getTitleJapanese();
         }
+
         if (null !== $object->getTitleRomanji()) {
             $data['title_romanji'] = $object->getTitleRomanji();
         }
+
         if (null !== $object->getDuration()) {
             $data['duration'] = $object->getDuration();
         }
+
         if (null !== $object->getAired()) {
             $data['aired'] = $object->getAired();
         }
+
         if (null !== $object->getFiller()) {
             $data['filler'] = $object->getFiller();
         }
+
         if (null !== $object->getRecap()) {
             $data['recap'] = $object->getRecap();
         }
+
         if (null !== $object->getForumUrl()) {
             $data['forum_url'] = $object->getForumUrl();
         }

@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\AnimeRelations;
+use Jikan\JikanPHP\Model\AnimeRelationsDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class AnimeRelationsNormalizer implements DenormalizerInterface, NormalizerInter
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\AnimeRelations' === $type;
+        return AnimeRelations::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\AnimeRelations' === get_class($data);
+        return is_object($data) && $data instanceof AnimeRelations;
     }
 
     /**
@@ -34,34 +37,38 @@ class AnimeRelationsNormalizer implements DenormalizerInterface, NormalizerInter
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeRelations
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\AnimeRelations();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $animeRelations = new AnimeRelations();
+        if (null === $data || !\is_array($data)) {
+            return $animeRelations;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\AnimeRelationsDataItem', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, AnimeRelationsDataItem::class, 'json', $context);
             }
-            $object->setData($values);
+
+            $animeRelations->setData($values);
         }
 
-        return $object;
+        return $animeRelations;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -71,6 +78,7 @@ class AnimeRelationsNormalizer implements DenormalizerInterface, NormalizerInter
             foreach ($object->getData() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['data'] = $values;
         }
 

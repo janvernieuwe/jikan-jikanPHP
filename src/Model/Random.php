@@ -7,7 +7,7 @@ class Random
     /**
      * @var mixed[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return mixed[]
@@ -19,8 +19,6 @@ class Random
 
     /**
      * @param mixed[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

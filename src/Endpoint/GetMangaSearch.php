@@ -2,7 +2,15 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetMangaSearch extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
+use Jikan\JikanPHP\Exception\GetMangaSearchBadRequestException;
+use Jikan\JikanPHP\Model\MangaSearch;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
+
+class GetMangaSearch extends BaseEndpoint implements Endpoint
 {
     /**
      * @param array $queryParameters {
@@ -30,7 +38,8 @@ class GetMangaSearch extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
     {
         $this->queryParameters = $queryParameters;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -42,17 +51,17 @@ class GetMangaSearch extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
         return '/manga';
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['page', 'limit', 'q', 'type', 'score', 'min_score', 'max_score', 'status', 'sfw', 'genres', 'genres_exclude', 'order_by', 'sort', 'letter', 'magazines', 'start_date', 'end_date']);
@@ -82,17 +91,18 @@ class GetMangaSearch extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint impleme
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetMangaSearchBadRequestException
+     * @throws GetMangaSearchBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\MangaSearch
+     * @return null|MangaSearch
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\MangaSearch', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, MangaSearch::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetMangaSearchBadRequestException();
+            throw new GetMangaSearchBadRequestException();
         }
     }
 

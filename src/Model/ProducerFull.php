@@ -10,55 +10,61 @@ class ProducerFull
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * All titles.
      *
      * @var string[]
      */
-    protected $titles;
+    protected $titles = [];
+
     /**
      * @var CommonImages
      */
     protected $images;
+
     /**
      * Producers's member favorites count.
      *
      * @var int
      */
     protected $favorites;
+
     /**
      * Producers's anime count.
      *
      * @var int
      */
     protected $count;
+
     /**
      * Established Date ISO8601.
      *
      * @var string|null
      */
     protected $established;
+
     /**
      * About the Producer.
      *
      * @var string|null
      */
     protected $about;
+
     /**
      * @var ProducerFullExternalItem[]
      */
-    protected $external;
+    protected $external = [];
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -67,10 +73,6 @@ class ProducerFull
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -81,8 +83,6 @@ class ProducerFull
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -91,10 +91,6 @@ class ProducerFull
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -117,8 +113,6 @@ class ProducerFull
      * All titles.
      *
      * @param string[] $titles
-     *
-     * @return self
      */
     public function setTitles(array $titles): self
     {
@@ -127,30 +121,20 @@ class ProducerFull
         return $this;
     }
 
-    /**
-     * @return CommonImages
-     */
     public function getImages(): CommonImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CommonImages $images
-     *
-     * @return self
-     */
-    public function setImages(CommonImages $images): self
+    public function setImages(CommonImages $commonImages): self
     {
-        $this->images = $images;
+        $this->images = $commonImages;
 
         return $this;
     }
 
     /**
      * Producers's member favorites count.
-     *
-     * @return int
      */
     public function getFavorites(): int
     {
@@ -159,10 +143,6 @@ class ProducerFull
 
     /**
      * Producers's member favorites count.
-     *
-     * @param int $favorites
-     *
-     * @return self
      */
     public function setFavorites(int $favorites): self
     {
@@ -173,8 +153,6 @@ class ProducerFull
 
     /**
      * Producers's anime count.
-     *
-     * @return int
      */
     public function getCount(): int
     {
@@ -183,10 +161,6 @@ class ProducerFull
 
     /**
      * Producers's anime count.
-     *
-     * @param int $count
-     *
-     * @return self
      */
     public function setCount(int $count): self
     {
@@ -197,8 +171,6 @@ class ProducerFull
 
     /**
      * Established Date ISO8601.
-     *
-     * @return string|null
      */
     public function getEstablished(): ?string
     {
@@ -207,10 +179,6 @@ class ProducerFull
 
     /**
      * Established Date ISO8601.
-     *
-     * @param string|null $established
-     *
-     * @return self
      */
     public function setEstablished(?string $established): self
     {
@@ -221,8 +189,6 @@ class ProducerFull
 
     /**
      * About the Producer.
-     *
-     * @return string|null
      */
     public function getAbout(): ?string
     {
@@ -231,10 +197,6 @@ class ProducerFull
 
     /**
      * About the Producer.
-     *
-     * @param string|null $about
-     *
-     * @return self
      */
     public function setAbout(?string $about): self
     {
@@ -253,8 +215,6 @@ class ProducerFull
 
     /**
      * @param ProducerFullExternalItem[] $external
-     *
-     * @return self
      */
     public function setExternal(array $external): self
     {

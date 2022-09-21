@@ -8,30 +8,37 @@ class UserUpdatesDataMangaItem
      * @var MangaMeta
      */
     protected $entry;
+
     /**
      * @var int|null
      */
     protected $score;
+
     /**
      * @var string
      */
     protected $status;
+
     /**
      * @var int|null
      */
     protected $chaptersRead;
+
     /**
      * @var int|null
      */
     protected $chaptersTotal;
+
     /**
      * @var int|null
      */
     protected $volumesRead;
+
     /**
      * @var int|null
      */
     protected $volumesTotal;
+
     /**
      * ISO8601 format.
      *
@@ -39,39 +46,23 @@ class UserUpdatesDataMangaItem
      */
     protected $date;
 
-    /**
-     * @return MangaMeta
-     */
     public function getEntry(): MangaMeta
     {
         return $this->entry;
     }
 
-    /**
-     * @param MangaMeta $entry
-     *
-     * @return self
-     */
-    public function setEntry(MangaMeta $entry): self
+    public function setEntry(MangaMeta $mangaMeta): self
     {
-        $this->entry = $entry;
+        $this->entry = $mangaMeta;
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getScore(): ?int
     {
         return $this->score;
     }
 
-    /**
-     * @param int|null $score
-     *
-     * @return self
-     */
     public function setScore(?int $score): self
     {
         $this->score = $score;
@@ -79,19 +70,11 @@ class UserUpdatesDataMangaItem
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     *
-     * @return self
-     */
     public function setStatus(string $status): self
     {
         $this->status = $status;
@@ -99,19 +82,11 @@ class UserUpdatesDataMangaItem
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getChaptersRead(): ?int
     {
         return $this->chaptersRead;
     }
 
-    /**
-     * @param int|null $chaptersRead
-     *
-     * @return self
-     */
     public function setChaptersRead(?int $chaptersRead): self
     {
         $this->chaptersRead = $chaptersRead;
@@ -119,19 +94,11 @@ class UserUpdatesDataMangaItem
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getChaptersTotal(): ?int
     {
         return $this->chaptersTotal;
     }
 
-    /**
-     * @param int|null $chaptersTotal
-     *
-     * @return self
-     */
     public function setChaptersTotal(?int $chaptersTotal): self
     {
         $this->chaptersTotal = $chaptersTotal;
@@ -139,19 +106,11 @@ class UserUpdatesDataMangaItem
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getVolumesRead(): ?int
     {
         return $this->volumesRead;
     }
 
-    /**
-     * @param int|null $volumesRead
-     *
-     * @return self
-     */
     public function setVolumesRead(?int $volumesRead): self
     {
         $this->volumesRead = $volumesRead;
@@ -159,19 +118,11 @@ class UserUpdatesDataMangaItem
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getVolumesTotal(): ?int
     {
         return $this->volumesTotal;
     }
 
-    /**
-     * @param int|null $volumesTotal
-     *
-     * @return self
-     */
     public function setVolumesTotal(?int $volumesTotal): self
     {
         $this->volumesTotal = $volumesTotal;
@@ -181,8 +132,6 @@ class UserUpdatesDataMangaItem
 
     /**
      * ISO8601 format.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -191,10 +140,6 @@ class UserUpdatesDataMangaItem
 
     /**
      * ISO8601 format.
-     *
-     * @param string $date
-     *
-     * @return self
      */
     public function setDate(string $date): self
     {

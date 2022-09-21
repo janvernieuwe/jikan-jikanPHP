@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\AnimeFull;
+use Jikan\JikanPHP\Model\AnimeIdFullGetResponse200;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class AnimeIdFullGetResponse200Normalizer implements DenormalizerInterface, Norm
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\AnimeIdFullGetResponse200' === $type;
+        return AnimeIdFullGetResponse200::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\AnimeIdFullGetResponse200' === get_class($data);
+        return is_object($data) && $data instanceof AnimeIdFullGetResponse200;
     }
 
     /**
@@ -34,32 +37,35 @@ class AnimeIdFullGetResponse200Normalizer implements DenormalizerInterface, Norm
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeIdFullGetResponse200
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\AnimeIdFullGetResponse200();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('data', $data)) {
-            $object->setData($this->denormalizer->denormalize($data['data'], 'Jikan\\JikanPHP\\Model\\AnimeFull', 'json', $context));
+
+        $animeIdFullGetResponse200 = new AnimeIdFullGetResponse200();
+        if (null === $data || !\is_array($data)) {
+            return $animeIdFullGetResponse200;
         }
 
-        return $object;
+        if (\array_key_exists('data', $data)) {
+            $animeIdFullGetResponse200->setData($this->denormalizer->denormalize($data['data'], AnimeFull::class, 'json', $context));
+        }
+
+        return $animeIdFullGetResponse200;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getData()) {

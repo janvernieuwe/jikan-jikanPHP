@@ -13,8 +13,6 @@ class AnimeIdFullGetResponse200
 
     /**
      * Full anime Resource.
-     *
-     * @return AnimeFull
      */
     public function getData(): AnimeFull
     {
@@ -23,14 +21,10 @@ class AnimeIdFullGetResponse200
 
     /**
      * Full anime Resource.
-     *
-     * @param AnimeFull $data
-     *
-     * @return self
      */
-    public function setData(AnimeFull $data): self
+    public function setData(AnimeFull $animeFull): self
     {
-        $this->data = $data;
+        $this->data = $animeFull;
 
         return $this;
     }

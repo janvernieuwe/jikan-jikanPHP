@@ -10,30 +10,35 @@ class AnimeReviewScores
      * @var int
      */
     protected $overall;
+
     /**
      * Story Score.
      *
      * @var int
      */
     protected $story;
+
     /**
      * Animation Score.
      *
      * @var int
      */
     protected $animation;
+
     /**
      * Sound Score.
      *
      * @var int
      */
     protected $sound;
+
     /**
      * Character Score.
      *
      * @var int
      */
     protected $character;
+
     /**
      * Enjoyment Score.
      *
@@ -43,8 +48,6 @@ class AnimeReviewScores
 
     /**
      * Overall Score.
-     *
-     * @return int
      */
     public function getOverall(): int
     {
@@ -53,10 +56,6 @@ class AnimeReviewScores
 
     /**
      * Overall Score.
-     *
-     * @param int $overall
-     *
-     * @return self
      */
     public function setOverall(int $overall): self
     {
@@ -67,8 +66,6 @@ class AnimeReviewScores
 
     /**
      * Story Score.
-     *
-     * @return int
      */
     public function getStory(): int
     {
@@ -77,10 +74,6 @@ class AnimeReviewScores
 
     /**
      * Story Score.
-     *
-     * @param int $story
-     *
-     * @return self
      */
     public function setStory(int $story): self
     {
@@ -91,8 +84,6 @@ class AnimeReviewScores
 
     /**
      * Animation Score.
-     *
-     * @return int
      */
     public function getAnimation(): int
     {
@@ -101,10 +92,6 @@ class AnimeReviewScores
 
     /**
      * Animation Score.
-     *
-     * @param int $animation
-     *
-     * @return self
      */
     public function setAnimation(int $animation): self
     {
@@ -115,8 +102,6 @@ class AnimeReviewScores
 
     /**
      * Sound Score.
-     *
-     * @return int
      */
     public function getSound(): int
     {
@@ -125,10 +110,6 @@ class AnimeReviewScores
 
     /**
      * Sound Score.
-     *
-     * @param int $sound
-     *
-     * @return self
      */
     public function setSound(int $sound): self
     {
@@ -139,8 +120,6 @@ class AnimeReviewScores
 
     /**
      * Character Score.
-     *
-     * @return int
      */
     public function getCharacter(): int
     {
@@ -149,10 +128,6 @@ class AnimeReviewScores
 
     /**
      * Character Score.
-     *
-     * @param int $character
-     *
-     * @return self
      */
     public function setCharacter(int $character): self
     {
@@ -163,8 +138,6 @@ class AnimeReviewScores
 
     /**
      * Enjoyment Score.
-     *
-     * @return int
      */
     public function getEnjoyment(): int
     {
@@ -173,10 +146,6 @@ class AnimeReviewScores
 
     /**
      * Enjoyment Score.
-     *
-     * @param int $enjoyment
-     *
-     * @return self
      */
     public function setEnjoyment(int $enjoyment): self
     {

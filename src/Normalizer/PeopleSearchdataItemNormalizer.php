@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\PeopleImages;
+use Jikan\JikanPHP\Model\PeopleSearchdataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class PeopleSearchdataItemNormalizer implements DenormalizerInterface, Normalize
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\PeopleSearchdataItem' === $type;
+        return PeopleSearchdataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\PeopleSearchdataItem' === get_class($data);
+        return is_object($data) && $data instanceof PeopleSearchdataItem;
     }
 
     /**
@@ -34,74 +37,88 @@ class PeopleSearchdataItemNormalizer implements DenormalizerInterface, Normalize
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|PeopleSearchdataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\PeopleSearchdataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $peopleSearchdataItem = new PeopleSearchdataItem();
+        if (null === $data || !\is_array($data)) {
+            return $peopleSearchdataItem;
         }
+
         if (\array_key_exists('mal_id', $data)) {
-            $object->setMalId($data['mal_id']);
+            $peopleSearchdataItem->setMalId($data['mal_id']);
         }
+
         if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
+            $peopleSearchdataItem->setUrl($data['url']);
         }
+
         if (\array_key_exists('website_url', $data) && null !== $data['website_url']) {
-            $object->setWebsiteUrl($data['website_url']);
+            $peopleSearchdataItem->setWebsiteUrl($data['website_url']);
         } elseif (\array_key_exists('website_url', $data) && null === $data['website_url']) {
-            $object->setWebsiteUrl(null);
+            $peopleSearchdataItem->setWebsiteUrl(null);
         }
+
         if (\array_key_exists('images', $data)) {
-            $object->setImages($this->denormalizer->denormalize($data['images'], 'Jikan\\JikanPHP\\Model\\PeopleImages', 'json', $context));
+            $peopleSearchdataItem->setImages($this->denormalizer->denormalize($data['images'], PeopleImages::class, 'json', $context));
         }
+
         if (\array_key_exists('name', $data)) {
-            $object->setName($data['name']);
+            $peopleSearchdataItem->setName($data['name']);
         }
+
         if (\array_key_exists('given_name', $data) && null !== $data['given_name']) {
-            $object->setGivenName($data['given_name']);
+            $peopleSearchdataItem->setGivenName($data['given_name']);
         } elseif (\array_key_exists('given_name', $data) && null === $data['given_name']) {
-            $object->setGivenName(null);
+            $peopleSearchdataItem->setGivenName(null);
         }
+
         if (\array_key_exists('family_name', $data) && null !== $data['family_name']) {
-            $object->setFamilyName($data['family_name']);
+            $peopleSearchdataItem->setFamilyName($data['family_name']);
         } elseif (\array_key_exists('family_name', $data) && null === $data['family_name']) {
-            $object->setFamilyName(null);
+            $peopleSearchdataItem->setFamilyName(null);
         }
+
         if (\array_key_exists('alternate_names', $data)) {
             $values = [];
             foreach ($data['alternate_names'] as $value) {
                 $values[] = $value;
             }
-            $object->setAlternateNames($values);
-        }
-        if (\array_key_exists('birthday', $data) && null !== $data['birthday']) {
-            $object->setBirthday($data['birthday']);
-        } elseif (\array_key_exists('birthday', $data) && null === $data['birthday']) {
-            $object->setBirthday(null);
-        }
-        if (\array_key_exists('favorites', $data)) {
-            $object->setFavorites($data['favorites']);
-        }
-        if (\array_key_exists('about', $data) && null !== $data['about']) {
-            $object->setAbout($data['about']);
-        } elseif (\array_key_exists('about', $data) && null === $data['about']) {
-            $object->setAbout(null);
+
+            $peopleSearchdataItem->setAlternateNames($values);
         }
 
-        return $object;
+        if (\array_key_exists('birthday', $data) && null !== $data['birthday']) {
+            $peopleSearchdataItem->setBirthday($data['birthday']);
+        } elseif (\array_key_exists('birthday', $data) && null === $data['birthday']) {
+            $peopleSearchdataItem->setBirthday(null);
+        }
+
+        if (\array_key_exists('favorites', $data)) {
+            $peopleSearchdataItem->setFavorites($data['favorites']);
+        }
+
+        if (\array_key_exists('about', $data) && null !== $data['about']) {
+            $peopleSearchdataItem->setAbout($data['about']);
+        } elseif (\array_key_exists('about', $data) && null === $data['about']) {
+            $peopleSearchdataItem->setAbout(null);
+        }
+
+        return $peopleSearchdataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -109,37 +126,48 @@ class PeopleSearchdataItemNormalizer implements DenormalizerInterface, Normalize
         if (null !== $object->getMalId()) {
             $data['mal_id'] = $object->getMalId();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getWebsiteUrl()) {
             $data['website_url'] = $object->getWebsiteUrl();
         }
+
         if (null !== $object->getImages()) {
             $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
         }
+
         if (null !== $object->getName()) {
             $data['name'] = $object->getName();
         }
+
         if (null !== $object->getGivenName()) {
             $data['given_name'] = $object->getGivenName();
         }
+
         if (null !== $object->getFamilyName()) {
             $data['family_name'] = $object->getFamilyName();
         }
+
         if (null !== $object->getAlternateNames()) {
             $values = [];
-            foreach ($object->getAlternateNames() as $value) {
-                $values[] = $value;
+            foreach ($object->getAlternateNames() as $alternateName) {
+                $values[] = $alternateName;
             }
+
             $data['alternate_names'] = $values;
         }
+
         if (null !== $object->getBirthday()) {
             $data['birthday'] = $object->getBirthday();
         }
+
         if (null !== $object->getFavorites()) {
             $data['favorites'] = $object->getFavorites();
         }
+
         if (null !== $object->getAbout()) {
             $data['about'] = $object->getAbout();
         }

@@ -8,48 +8,56 @@ class MangaReviewsdataItem
      * @var UserMeta
      */
     protected $user;
+
     /**
      * MyAnimeList ID.
      *
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Entry Type.
      *
      * @var string
      */
     protected $type;
+
     /**
      * Number of user votes on the Review.
      *
      * @var int
      */
     protected $votes;
+
     /**
      * Review created date ISO8601.
      *
      * @var string
      */
     protected $date;
+
     /**
      * Number of chapters read by the reviewer.
      *
      * @var int
      */
     protected $chaptersRead;
+
     /**
      * Review content.
      *
      * @var string
      */
     protected $review;
+
     /**
      * Review Scores breakdown.
      *
@@ -57,30 +65,20 @@ class MangaReviewsdataItem
      */
     protected $scores;
 
-    /**
-     * @return UserMeta
-     */
     public function getUser(): UserMeta
     {
         return $this->user;
     }
 
-    /**
-     * @param UserMeta $user
-     *
-     * @return self
-     */
-    public function setUser(UserMeta $user): self
+    public function setUser(UserMeta $userMeta): self
     {
-        $this->user = $user;
+        $this->user = $userMeta;
 
         return $this;
     }
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -89,10 +87,6 @@ class MangaReviewsdataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -103,8 +97,6 @@ class MangaReviewsdataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -113,10 +105,6 @@ class MangaReviewsdataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -127,8 +115,6 @@ class MangaReviewsdataItem
 
     /**
      * Entry Type.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -137,10 +123,6 @@ class MangaReviewsdataItem
 
     /**
      * Entry Type.
-     *
-     * @param string $type
-     *
-     * @return self
      */
     public function setType(string $type): self
     {
@@ -151,8 +133,6 @@ class MangaReviewsdataItem
 
     /**
      * Number of user votes on the Review.
-     *
-     * @return int
      */
     public function getVotes(): int
     {
@@ -161,10 +141,6 @@ class MangaReviewsdataItem
 
     /**
      * Number of user votes on the Review.
-     *
-     * @param int $votes
-     *
-     * @return self
      */
     public function setVotes(int $votes): self
     {
@@ -175,8 +151,6 @@ class MangaReviewsdataItem
 
     /**
      * Review created date ISO8601.
-     *
-     * @return string
      */
     public function getDate(): string
     {
@@ -185,10 +159,6 @@ class MangaReviewsdataItem
 
     /**
      * Review created date ISO8601.
-     *
-     * @param string $date
-     *
-     * @return self
      */
     public function setDate(string $date): self
     {
@@ -199,8 +169,6 @@ class MangaReviewsdataItem
 
     /**
      * Number of chapters read by the reviewer.
-     *
-     * @return int
      */
     public function getChaptersRead(): int
     {
@@ -209,10 +177,6 @@ class MangaReviewsdataItem
 
     /**
      * Number of chapters read by the reviewer.
-     *
-     * @param int $chaptersRead
-     *
-     * @return self
      */
     public function setChaptersRead(int $chaptersRead): self
     {
@@ -223,8 +187,6 @@ class MangaReviewsdataItem
 
     /**
      * Review content.
-     *
-     * @return string
      */
     public function getReview(): string
     {
@@ -233,10 +195,6 @@ class MangaReviewsdataItem
 
     /**
      * Review content.
-     *
-     * @param string $review
-     *
-     * @return self
      */
     public function setReview(string $review): self
     {
@@ -247,8 +205,6 @@ class MangaReviewsdataItem
 
     /**
      * Review Scores breakdown.
-     *
-     * @return MangaReviewScores
      */
     public function getScores(): MangaReviewScores
     {
@@ -257,14 +213,10 @@ class MangaReviewsdataItem
 
     /**
      * Review Scores breakdown.
-     *
-     * @param MangaReviewScores $scores
-     *
-     * @return self
      */
-    public function setScores(MangaReviewScores $scores): self
+    public function setScores(MangaReviewScores $mangaReviewScores): self
     {
-        $this->scores = $scores;
+        $this->scores = $mangaReviewScores;
 
         return $this;
     }

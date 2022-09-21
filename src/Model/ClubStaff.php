@@ -7,7 +7,7 @@ class ClubStaff
     /**
      * @var ClubStaffDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return ClubStaffDataItem[]
@@ -19,8 +19,6 @@ class ClubStaff
 
     /**
      * @param ClubStaffDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

@@ -10,6 +10,7 @@ class CharacterFullMangaItem
      * @var string
      */
     protected $role;
+
     /**
      * @var MangaMeta
      */
@@ -17,8 +18,6 @@ class CharacterFullMangaItem
 
     /**
      * Character's Role.
-     *
-     * @return string
      */
     public function getRole(): string
     {
@@ -27,10 +26,6 @@ class CharacterFullMangaItem
 
     /**
      * Character's Role.
-     *
-     * @param string $role
-     *
-     * @return self
      */
     public function setRole(string $role): self
     {
@@ -39,22 +34,14 @@ class CharacterFullMangaItem
         return $this;
     }
 
-    /**
-     * @return MangaMeta
-     */
     public function getManga(): MangaMeta
     {
         return $this->manga;
     }
 
-    /**
-     * @param MangaMeta $manga
-     *
-     * @return self
-     */
-    public function setManga(MangaMeta $manga): self
+    public function setManga(MangaMeta $mangaMeta): self
     {
-        $this->manga = $manga;
+        $this->manga = $mangaMeta;
 
         return $this;
     }

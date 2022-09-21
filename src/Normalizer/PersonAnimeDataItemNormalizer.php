@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\AnimeMeta;
+use Jikan\JikanPHP\Model\PersonAnimeDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class PersonAnimeDataItemNormalizer implements DenormalizerInterface, Normalizer
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\PersonAnimeDataItem' === $type;
+        return PersonAnimeDataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\PersonAnimeDataItem' === get_class($data);
+        return is_object($data) && $data instanceof PersonAnimeDataItem;
     }
 
     /**
@@ -34,40 +37,45 @@ class PersonAnimeDataItemNormalizer implements DenormalizerInterface, Normalizer
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|PersonAnimeDataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\PersonAnimeDataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('position', $data)) {
-            $object->setPosition($data['position']);
-        }
-        if (\array_key_exists('anime', $data)) {
-            $object->setAnime($this->denormalizer->denormalize($data['anime'], 'Jikan\\JikanPHP\\Model\\AnimeMeta', 'json', $context));
+
+        $personAnimeDataItem = new PersonAnimeDataItem();
+        if (null === $data || !\is_array($data)) {
+            return $personAnimeDataItem;
         }
 
-        return $object;
+        if (\array_key_exists('position', $data)) {
+            $personAnimeDataItem->setPosition($data['position']);
+        }
+
+        if (\array_key_exists('anime', $data)) {
+            $personAnimeDataItem->setAnime($this->denormalizer->denormalize($data['anime'], AnimeMeta::class, 'json', $context));
+        }
+
+        return $personAnimeDataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getPosition()) {
             $data['position'] = $object->getPosition();
         }
+
         if (null !== $object->getAnime()) {
             $data['anime'] = $this->normalizer->normalize($object->getAnime(), 'json', $context);
         }

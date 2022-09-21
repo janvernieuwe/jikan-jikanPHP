@@ -10,72 +10,84 @@ class UsersTempDataItem
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList Username.
      *
      * @var string
      */
     protected $username;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Images.
      *
      * @var UsersTempDataItemImages
      */
     protected $images;
+
     /**
      * Last Online Date ISO8601.
      *
      * @var string
      */
     protected $lastOnline;
+
     /**
      * User Gender.
      *
      * @var string
      */
     protected $gender;
+
     /**
      * Birthday Date ISO8601.
      *
      * @var string
      */
     protected $birthday;
+
     /**
      * Location.
      *
      * @var string
      */
     protected $location;
+
     /**
      * Joined Date ISO8601.
      *
      * @var string
      */
     protected $joined;
+
     /**
      * Anime Stats.
      *
      * @var UsersTempDataItemAnimeStats
      */
     protected $animeStats;
+
     /**
      * Manga Stats.
      *
      * @var UsersTempDataItemMangaStats
      */
     protected $mangaStats;
+
     /**
      * Favorite entries.
      *
      * @var UsersTempDataItemFavorites
      */
     protected $favorites;
+
     /**
      * User About. NOTE: About information is customizable by users through BBCode on MyAnimeList. This means users can add multimedia content, different text sizes, etc. Due to this freeform, Jikan returns parsed HTML. Validate on your end!
      *
@@ -85,8 +97,6 @@ class UsersTempDataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -95,10 +105,6 @@ class UsersTempDataItem
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -109,8 +115,6 @@ class UsersTempDataItem
 
     /**
      * MyAnimeList Username.
-     *
-     * @return string
      */
     public function getUsername(): string
     {
@@ -119,10 +123,6 @@ class UsersTempDataItem
 
     /**
      * MyAnimeList Username.
-     *
-     * @param string $username
-     *
-     * @return self
      */
     public function setUsername(string $username): self
     {
@@ -133,8 +133,6 @@ class UsersTempDataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -143,10 +141,6 @@ class UsersTempDataItem
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -157,8 +151,6 @@ class UsersTempDataItem
 
     /**
      * Images.
-     *
-     * @return UsersTempDataItemImages
      */
     public function getImages(): UsersTempDataItemImages
     {
@@ -167,22 +159,16 @@ class UsersTempDataItem
 
     /**
      * Images.
-     *
-     * @param UsersTempDataItemImages $images
-     *
-     * @return self
      */
-    public function setImages(UsersTempDataItemImages $images): self
+    public function setImages(UsersTempDataItemImages $usersTempDataItemImages): self
     {
-        $this->images = $images;
+        $this->images = $usersTempDataItemImages;
 
         return $this;
     }
 
     /**
      * Last Online Date ISO8601.
-     *
-     * @return string
      */
     public function getLastOnline(): string
     {
@@ -191,10 +177,6 @@ class UsersTempDataItem
 
     /**
      * Last Online Date ISO8601.
-     *
-     * @param string $lastOnline
-     *
-     * @return self
      */
     public function setLastOnline(string $lastOnline): self
     {
@@ -205,8 +187,6 @@ class UsersTempDataItem
 
     /**
      * User Gender.
-     *
-     * @return string
      */
     public function getGender(): string
     {
@@ -215,10 +195,6 @@ class UsersTempDataItem
 
     /**
      * User Gender.
-     *
-     * @param string $gender
-     *
-     * @return self
      */
     public function setGender(string $gender): self
     {
@@ -229,8 +205,6 @@ class UsersTempDataItem
 
     /**
      * Birthday Date ISO8601.
-     *
-     * @return string
      */
     public function getBirthday(): string
     {
@@ -239,10 +213,6 @@ class UsersTempDataItem
 
     /**
      * Birthday Date ISO8601.
-     *
-     * @param string $birthday
-     *
-     * @return self
      */
     public function setBirthday(string $birthday): self
     {
@@ -253,8 +223,6 @@ class UsersTempDataItem
 
     /**
      * Location.
-     *
-     * @return string
      */
     public function getLocation(): string
     {
@@ -263,10 +231,6 @@ class UsersTempDataItem
 
     /**
      * Location.
-     *
-     * @param string $location
-     *
-     * @return self
      */
     public function setLocation(string $location): self
     {
@@ -277,8 +241,6 @@ class UsersTempDataItem
 
     /**
      * Joined Date ISO8601.
-     *
-     * @return string
      */
     public function getJoined(): string
     {
@@ -287,10 +249,6 @@ class UsersTempDataItem
 
     /**
      * Joined Date ISO8601.
-     *
-     * @param string $joined
-     *
-     * @return self
      */
     public function setJoined(string $joined): self
     {
@@ -301,8 +259,6 @@ class UsersTempDataItem
 
     /**
      * Anime Stats.
-     *
-     * @return UsersTempDataItemAnimeStats
      */
     public function getAnimeStats(): UsersTempDataItemAnimeStats
     {
@@ -311,22 +267,16 @@ class UsersTempDataItem
 
     /**
      * Anime Stats.
-     *
-     * @param UsersTempDataItemAnimeStats $animeStats
-     *
-     * @return self
      */
-    public function setAnimeStats(UsersTempDataItemAnimeStats $animeStats): self
+    public function setAnimeStats(UsersTempDataItemAnimeStats $usersTempDataItemAnimeStats): self
     {
-        $this->animeStats = $animeStats;
+        $this->animeStats = $usersTempDataItemAnimeStats;
 
         return $this;
     }
 
     /**
      * Manga Stats.
-     *
-     * @return UsersTempDataItemMangaStats
      */
     public function getMangaStats(): UsersTempDataItemMangaStats
     {
@@ -335,22 +285,16 @@ class UsersTempDataItem
 
     /**
      * Manga Stats.
-     *
-     * @param UsersTempDataItemMangaStats $mangaStats
-     *
-     * @return self
      */
-    public function setMangaStats(UsersTempDataItemMangaStats $mangaStats): self
+    public function setMangaStats(UsersTempDataItemMangaStats $usersTempDataItemMangaStats): self
     {
-        $this->mangaStats = $mangaStats;
+        $this->mangaStats = $usersTempDataItemMangaStats;
 
         return $this;
     }
 
     /**
      * Favorite entries.
-     *
-     * @return UsersTempDataItemFavorites
      */
     public function getFavorites(): UsersTempDataItemFavorites
     {
@@ -359,22 +303,16 @@ class UsersTempDataItem
 
     /**
      * Favorite entries.
-     *
-     * @param UsersTempDataItemFavorites $favorites
-     *
-     * @return self
      */
-    public function setFavorites(UsersTempDataItemFavorites $favorites): self
+    public function setFavorites(UsersTempDataItemFavorites $usersTempDataItemFavorites): self
     {
-        $this->favorites = $favorites;
+        $this->favorites = $usersTempDataItemFavorites;
 
         return $this;
     }
 
     /**
      * User About. NOTE: About information is customizable by users through BBCode on MyAnimeList. This means users can add multimedia content, different text sizes, etc. Due to this freeform, Jikan returns parsed HTML. Validate on your end!
-     *
-     * @return string
      */
     public function getAbout(): string
     {
@@ -383,10 +321,6 @@ class UsersTempDataItem
 
     /**
      * User About. NOTE: About information is customizable by users through BBCode on MyAnimeList. This means users can add multimedia content, different text sizes, etc. Due to this freeform, Jikan returns parsed HTML. Validate on your end!
-     *
-     * @param string $about
-     *
-     * @return self
      */
     public function setAbout(string $about): self
     {

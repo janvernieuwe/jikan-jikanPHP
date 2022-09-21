@@ -2,11 +2,16 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-class GetSeason extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \Jikan\JikanPHP\Runtime\Client\Endpoint
-{
-    protected $year;
-    protected $season;
+use Jikan\JikanPHP\Exception\GetSeasonBadRequestException;
+use Jikan\JikanPHP\Model\AnimeSearch;
+use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
+use Jikan\JikanPHP\Runtime\Client\Endpoint;
+use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
 
+class GetSeason extends BaseEndpoint implements Endpoint
+{
     /**
      * @param int    $year
      * @param string $season
@@ -15,13 +20,12 @@ class GetSeason extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \
      *     @var int $page
      * }
      */
-    public function __construct(int $year, string $season, array $queryParameters = [])
+    public function __construct(protected int $year, protected string $season, array $queryParameters = [])
     {
-        $this->year = $year;
-        $this->season = $season;
         $this->queryParameters = $queryParameters;
     }
-    use \Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+
+    use EndpointTrait;
 
     public function getMethod(): string
     {
@@ -33,17 +37,17 @@ class GetSeason extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \
         return str_replace(['{year}', '{season}'], [$this->year, $this->season], '/seasons/{year}/{season}');
     }
 
-    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    public function getBody(SerializerInterface $serializer, $streamFactory = null): array
     {
         return [[], null];
     }
 
-    public function getExtraHeaders(): array
+    protected function getExtraHeaders(): array
     {
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    protected function getQueryOptionsResolver(): OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(['page']);
@@ -57,17 +61,18 @@ class GetSeason extends \Jikan\JikanPHP\Runtime\Client\BaseEndpoint implements \
     /**
      * {@inheritdoc}
      *
-     * @throws \Jikan\JikanPHP\Exception\GetSeasonBadRequestException
+     * @throws GetSeasonBadRequestException
      *
-     * @return null|\Jikan\JikanPHP\Model\AnimeSearch
+     * @return null|AnimeSearch
      */
-    protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
-            return $serializer->deserialize($body, 'Jikan\\JikanPHP\\Model\\AnimeSearch', 'json');
+        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+            return $serializer->deserialize($body, AnimeSearch::class, 'json');
         }
+
         if (400 === $status) {
-            throw new \Jikan\JikanPHP\Exception\GetSeasonBadRequestException();
+            throw new GetSeasonBadRequestException();
         }
     }
 

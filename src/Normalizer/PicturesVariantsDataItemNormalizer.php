@@ -2,7 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\CommonImages;
+use Jikan\JikanPHP\Model\PicturesVariantsDataItem;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +22,12 @@ class PicturesVariantsDataItemNormalizer implements DenormalizerInterface, Norma
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\PicturesVariantsDataItem' === $type;
+        return PicturesVariantsDataItem::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\PicturesVariantsDataItem' === get_class($data);
+        return is_object($data) && $data instanceof PicturesVariantsDataItem;
     }
 
     /**
@@ -34,32 +37,35 @@ class PicturesVariantsDataItemNormalizer implements DenormalizerInterface, Norma
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|PicturesVariantsDataItem
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\PicturesVariantsDataItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('images', $data)) {
-            $object->setImages($this->denormalizer->denormalize($data['images'], 'Jikan\\JikanPHP\\Model\\CommonImages', 'json', $context));
+
+        $picturesVariantsDataItem = new PicturesVariantsDataItem();
+        if (null === $data || !\is_array($data)) {
+            return $picturesVariantsDataItem;
         }
 
-        return $object;
+        if (\array_key_exists('images', $data)) {
+            $picturesVariantsDataItem->setImages($this->denormalizer->denormalize($data['images'], CommonImages::class, 'json', $context));
+        }
+
+        return $picturesVariantsDataItem;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getImages()) {

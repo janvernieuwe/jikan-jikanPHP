@@ -8,44 +8,29 @@ class AnimeCharactersDataItemVoiceActorsItem
      * @var AnimeCharactersDataItemVoiceActorsItemPerson
      */
     protected $person;
+
     /**
      * @var string
      */
     protected $language;
 
-    /**
-     * @return AnimeCharactersDataItemVoiceActorsItemPerson
-     */
     public function getPerson(): AnimeCharactersDataItemVoiceActorsItemPerson
     {
         return $this->person;
     }
 
-    /**
-     * @param AnimeCharactersDataItemVoiceActorsItemPerson $person
-     *
-     * @return self
-     */
-    public function setPerson(AnimeCharactersDataItemVoiceActorsItemPerson $person): self
+    public function setPerson(AnimeCharactersDataItemVoiceActorsItemPerson $animeCharactersDataItemVoiceActorsItemPerson): self
     {
-        $this->person = $person;
+        $this->person = $animeCharactersDataItemVoiceActorsItemPerson;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getLanguage(): string
     {
         return $this->language;
     }
 
-    /**
-     * @param string $language
-     *
-     * @return self
-     */
     public function setLanguage(string $language): self
     {
         $this->language = $language;

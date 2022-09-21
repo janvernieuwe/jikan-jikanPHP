@@ -2,6 +2,8 @@
 
 namespace Jikan\JikanPHP\Exception;
 
-interface ApiException extends \Throwable
+use Throwable;
+
+interface ApiException extends Throwable
 {
 }

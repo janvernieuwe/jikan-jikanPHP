@@ -10,46 +10,54 @@ class UserProfile
      * @var int|null
      */
     protected $malId;
+
     /**
      * MyAnimeList Username.
      *
      * @var string
      */
     protected $username;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var UserImages
      */
     protected $images;
+
     /**
      * Last Online Date ISO8601.
      *
      * @var string|null
      */
     protected $lastOnline;
+
     /**
      * User Gender.
      *
      * @var string|null
      */
     protected $gender;
+
     /**
      * Birthday Date ISO8601.
      *
      * @var string|null
      */
     protected $birthday;
+
     /**
      * Location.
      *
      * @var string|null
      */
     protected $location;
+
     /**
      * Joined Date ISO8601.
      *
@@ -59,8 +67,6 @@ class UserProfile
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int|null
      */
     public function getMalId(): ?int
     {
@@ -69,10 +75,6 @@ class UserProfile
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int|null $malId
-     *
-     * @return self
      */
     public function setMalId(?int $malId): self
     {
@@ -83,8 +85,6 @@ class UserProfile
 
     /**
      * MyAnimeList Username.
-     *
-     * @return string
      */
     public function getUsername(): string
     {
@@ -93,10 +93,6 @@ class UserProfile
 
     /**
      * MyAnimeList Username.
-     *
-     * @param string $username
-     *
-     * @return self
      */
     public function setUsername(string $username): self
     {
@@ -107,8 +103,6 @@ class UserProfile
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -117,10 +111,6 @@ class UserProfile
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -129,30 +119,20 @@ class UserProfile
         return $this;
     }
 
-    /**
-     * @return UserImages
-     */
     public function getImages(): UserImages
     {
         return $this->images;
     }
 
-    /**
-     * @param UserImages $images
-     *
-     * @return self
-     */
-    public function setImages(UserImages $images): self
+    public function setImages(UserImages $userImages): self
     {
-        $this->images = $images;
+        $this->images = $userImages;
 
         return $this;
     }
 
     /**
      * Last Online Date ISO8601.
-     *
-     * @return string|null
      */
     public function getLastOnline(): ?string
     {
@@ -161,10 +141,6 @@ class UserProfile
 
     /**
      * Last Online Date ISO8601.
-     *
-     * @param string|null $lastOnline
-     *
-     * @return self
      */
     public function setLastOnline(?string $lastOnline): self
     {
@@ -175,8 +151,6 @@ class UserProfile
 
     /**
      * User Gender.
-     *
-     * @return string|null
      */
     public function getGender(): ?string
     {
@@ -185,10 +159,6 @@ class UserProfile
 
     /**
      * User Gender.
-     *
-     * @param string|null $gender
-     *
-     * @return self
      */
     public function setGender(?string $gender): self
     {
@@ -199,8 +169,6 @@ class UserProfile
 
     /**
      * Birthday Date ISO8601.
-     *
-     * @return string|null
      */
     public function getBirthday(): ?string
     {
@@ -209,10 +177,6 @@ class UserProfile
 
     /**
      * Birthday Date ISO8601.
-     *
-     * @param string|null $birthday
-     *
-     * @return self
      */
     public function setBirthday(?string $birthday): self
     {
@@ -223,8 +187,6 @@ class UserProfile
 
     /**
      * Location.
-     *
-     * @return string|null
      */
     public function getLocation(): ?string
     {
@@ -233,10 +195,6 @@ class UserProfile
 
     /**
      * Location.
-     *
-     * @param string|null $location
-     *
-     * @return self
      */
     public function setLocation(?string $location): self
     {
@@ -247,8 +205,6 @@ class UserProfile
 
     /**
      * Joined Date ISO8601.
-     *
-     * @return string|null
      */
     public function getJoined(): ?string
     {
@@ -257,10 +213,6 @@ class UserProfile
 
     /**
      * Joined Date ISO8601.
-     *
-     * @param string|null $joined
-     *
-     * @return self
      */
     public function setJoined(?string $joined): self
     {

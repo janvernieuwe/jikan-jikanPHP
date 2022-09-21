@@ -7,7 +7,7 @@ class News
     /**
      * @var NewsDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return NewsDataItem[]
@@ -19,8 +19,6 @@ class News
 
     /**
      * @param NewsDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

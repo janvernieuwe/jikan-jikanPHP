@@ -9,22 +9,14 @@ class MangaStatistics
      */
     protected $data;
 
-    /**
-     * @return MangaStatisticsData
-     */
     public function getData(): MangaStatisticsData
     {
         return $this->data;
     }
 
-    /**
-     * @param MangaStatisticsData $data
-     *
-     * @return self
-     */
-    public function setData(MangaStatisticsData $data): self
+    public function setData(MangaStatisticsData $mangaStatisticsData): self
     {
-        $this->data = $data;
+        $this->data = $mangaStatisticsData;
 
         return $this;
     }

@@ -10,18 +10,21 @@ class RecommendationsdataItem
      * @var string
      */
     protected $malId;
+
     /**
      * Array of 2 entries that are being recommended to each other.
      *
      * @var mixed[]
      */
-    protected $entry;
+    protected $entry = [];
+
     /**
      * Recommendation context provided by the user.
      *
      * @var string
      */
     protected $content;
+
     /**
      * User Meta By ID.
      *
@@ -31,8 +34,6 @@ class RecommendationsdataItem
 
     /**
      * MAL IDs of recommendations is both of the MAL ID's with a `-` delimiter.
-     *
-     * @return string
      */
     public function getMalId(): string
     {
@@ -41,10 +42,6 @@ class RecommendationsdataItem
 
     /**
      * MAL IDs of recommendations is both of the MAL ID's with a `-` delimiter.
-     *
-     * @param string $malId
-     *
-     * @return self
      */
     public function setMalId(string $malId): self
     {
@@ -67,8 +64,6 @@ class RecommendationsdataItem
      * Array of 2 entries that are being recommended to each other.
      *
      * @param mixed[] $entry
-     *
-     * @return self
      */
     public function setEntry(array $entry): self
     {
@@ -79,8 +74,6 @@ class RecommendationsdataItem
 
     /**
      * Recommendation context provided by the user.
-     *
-     * @return string
      */
     public function getContent(): string
     {
@@ -89,10 +82,6 @@ class RecommendationsdataItem
 
     /**
      * Recommendation context provided by the user.
-     *
-     * @param string $content
-     *
-     * @return self
      */
     public function setContent(string $content): self
     {
@@ -103,8 +92,6 @@ class RecommendationsdataItem
 
     /**
      * User Meta By ID.
-     *
-     * @return UserById
      */
     public function getUser(): UserById
     {
@@ -113,14 +100,10 @@ class RecommendationsdataItem
 
     /**
      * User Meta By ID.
-     *
-     * @param UserById $user
-     *
-     * @return self
      */
-    public function setUser(UserById $user): self
+    public function setUser(UserById $userById): self
     {
-        $this->user = $user;
+        $this->user = $userById;
 
         return $this;
     }

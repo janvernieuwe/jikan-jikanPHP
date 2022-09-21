@@ -7,7 +7,7 @@ class CharacterPictures
     /**
      * @var CharacterPicturesDataItem[]
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * @return CharacterPicturesDataItem[]
@@ -19,8 +19,6 @@ class CharacterPictures
 
     /**
      * @param CharacterPicturesDataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {

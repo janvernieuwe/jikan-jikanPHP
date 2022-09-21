@@ -10,45 +10,49 @@ class MangaStatisticsData
      * @var int
      */
     protected $reading;
+
     /**
      * Number of users who have completed the resource.
      *
      * @var int
      */
     protected $completed;
+
     /**
      * Number of users who have put the resource on hold.
      *
      * @var int
      */
     protected $onHold;
+
     /**
      * Number of users who have dropped the resource.
      *
      * @var int
      */
     protected $dropped;
+
     /**
      * Number of users who have planned to read the resource.
      *
      * @var int
      */
     protected $planToRead;
+
     /**
      * Total number of users who have the resource added to their lists.
      *
      * @var int
      */
     protected $total;
+
     /**
      * @var MangaStatisticsDataScoresItem[]
      */
-    protected $scores;
+    protected $scores = [];
 
     /**
      * Number of users reading the resource.
-     *
-     * @return int
      */
     public function getReading(): int
     {
@@ -57,10 +61,6 @@ class MangaStatisticsData
 
     /**
      * Number of users reading the resource.
-     *
-     * @param int $reading
-     *
-     * @return self
      */
     public function setReading(int $reading): self
     {
@@ -71,8 +71,6 @@ class MangaStatisticsData
 
     /**
      * Number of users who have completed the resource.
-     *
-     * @return int
      */
     public function getCompleted(): int
     {
@@ -81,10 +79,6 @@ class MangaStatisticsData
 
     /**
      * Number of users who have completed the resource.
-     *
-     * @param int $completed
-     *
-     * @return self
      */
     public function setCompleted(int $completed): self
     {
@@ -95,8 +89,6 @@ class MangaStatisticsData
 
     /**
      * Number of users who have put the resource on hold.
-     *
-     * @return int
      */
     public function getOnHold(): int
     {
@@ -105,10 +97,6 @@ class MangaStatisticsData
 
     /**
      * Number of users who have put the resource on hold.
-     *
-     * @param int $onHold
-     *
-     * @return self
      */
     public function setOnHold(int $onHold): self
     {
@@ -119,8 +107,6 @@ class MangaStatisticsData
 
     /**
      * Number of users who have dropped the resource.
-     *
-     * @return int
      */
     public function getDropped(): int
     {
@@ -129,10 +115,6 @@ class MangaStatisticsData
 
     /**
      * Number of users who have dropped the resource.
-     *
-     * @param int $dropped
-     *
-     * @return self
      */
     public function setDropped(int $dropped): self
     {
@@ -143,8 +125,6 @@ class MangaStatisticsData
 
     /**
      * Number of users who have planned to read the resource.
-     *
-     * @return int
      */
     public function getPlanToRead(): int
     {
@@ -153,10 +133,6 @@ class MangaStatisticsData
 
     /**
      * Number of users who have planned to read the resource.
-     *
-     * @param int $planToRead
-     *
-     * @return self
      */
     public function setPlanToRead(int $planToRead): self
     {
@@ -167,8 +143,6 @@ class MangaStatisticsData
 
     /**
      * Total number of users who have the resource added to their lists.
-     *
-     * @return int
      */
     public function getTotal(): int
     {
@@ -177,10 +151,6 @@ class MangaStatisticsData
 
     /**
      * Total number of users who have the resource added to their lists.
-     *
-     * @param int $total
-     *
-     * @return self
      */
     public function setTotal(int $total): self
     {
@@ -199,8 +169,6 @@ class MangaStatisticsData
 
     /**
      * @param MangaStatisticsDataScoresItem[] $scores
-     *
-     * @return self
      */
     public function setScores(array $scores): self
     {

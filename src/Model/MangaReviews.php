@@ -7,7 +7,8 @@ class MangaReviews
     /**
      * @var MangaReviewsdataItem[]
      */
-    protected $data;
+    protected $data = [];
+
     /**
      * @var PaginationPagination
      */
@@ -23,8 +24,6 @@ class MangaReviews
 
     /**
      * @param MangaReviewsdataItem[] $data
-     *
-     * @return self
      */
     public function setData(array $data): self
     {
@@ -33,22 +32,14 @@ class MangaReviews
         return $this;
     }
 
-    /**
-     * @return PaginationPagination
-     */
     public function getPagination(): PaginationPagination
     {
         return $this->pagination;
     }
 
-    /**
-     * @param PaginationPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(PaginationPagination $pagination): self
+    public function setPagination(PaginationPagination $paginationPagination): self
     {
-        $this->pagination = $pagination;
+        $this->pagination = $paginationPagination;
 
         return $this;
     }

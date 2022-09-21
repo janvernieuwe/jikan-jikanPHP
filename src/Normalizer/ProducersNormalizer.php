@@ -2,7 +2,11 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\PaginationPagination;
+use Jikan\JikanPHP\Model\Producer;
+use Jikan\JikanPHP\Model\Producers;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +23,12 @@ class ProducersNormalizer implements DenormalizerInterface, NormalizerInterface,
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\Producers' === $type;
+        return Producers::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\Producers' === get_class($data);
+        return is_object($data) && $data instanceof Producers;
     }
 
     /**
@@ -34,39 +38,44 @@ class ProducersNormalizer implements DenormalizerInterface, NormalizerInterface,
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|Producers
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\Producers();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $producers = new Producers();
+        if (null === $data || !\is_array($data)) {
+            return $producers;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Jikan\\JikanPHP\\Model\\Producer', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, Producer::class, 'json', $context);
             }
-            $object->setData($values);
-        }
-        if (\array_key_exists('pagination', $data)) {
-            $object->setPagination($this->denormalizer->denormalize($data['pagination'], 'Jikan\\JikanPHP\\Model\\PaginationPagination', 'json', $context));
+
+            $producers->setData($values);
         }
 
-        return $object;
+        if (\array_key_exists('pagination', $data)) {
+            $producers->setPagination($this->denormalizer->denormalize($data['pagination'], PaginationPagination::class, 'json', $context));
+        }
+
+        return $producers;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getData()) {
@@ -74,8 +83,10 @@ class ProducersNormalizer implements DenormalizerInterface, NormalizerInterface,
             foreach ($object->getData() as $value) {
                 $values[] = $this->normalizer->normalize($value, 'json', $context);
             }
+
             $data['data'] = $values;
         }
+
         if (null !== $object->getPagination()) {
             $data['pagination'] = $this->normalizer->normalize($object->getPagination(), 'json', $context);
         }

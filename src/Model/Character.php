@@ -10,40 +10,47 @@ class Character
      * @var int
      */
     protected $malId;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * @var CharacterImages
      */
     protected $images;
+
     /**
      * Name.
      *
      * @var string
      */
     protected $name;
+
     /**
      * Name.
      *
      * @var string|null
      */
     protected $nameKanji;
+
     /**
      * Other Names.
      *
      * @var string[]
      */
-    protected $nicknames;
+    protected $nicknames = [];
+
     /**
      * Number of users who have favorited this entry.
      *
      * @var int
      */
     protected $favorites;
+
     /**
      * Biography.
      *
@@ -53,8 +60,6 @@ class Character
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -63,10 +68,6 @@ class Character
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -77,8 +78,6 @@ class Character
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -87,10 +86,6 @@ class Character
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -99,30 +94,20 @@ class Character
         return $this;
     }
 
-    /**
-     * @return CharacterImages
-     */
     public function getImages(): CharacterImages
     {
         return $this->images;
     }
 
-    /**
-     * @param CharacterImages $images
-     *
-     * @return self
-     */
-    public function setImages(CharacterImages $images): self
+    public function setImages(CharacterImages $characterImages): self
     {
-        $this->images = $images;
+        $this->images = $characterImages;
 
         return $this;
     }
 
     /**
      * Name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -131,10 +116,6 @@ class Character
 
     /**
      * Name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {
@@ -145,8 +126,6 @@ class Character
 
     /**
      * Name.
-     *
-     * @return string|null
      */
     public function getNameKanji(): ?string
     {
@@ -155,10 +134,6 @@ class Character
 
     /**
      * Name.
-     *
-     * @param string|null $nameKanji
-     *
-     * @return self
      */
     public function setNameKanji(?string $nameKanji): self
     {
@@ -181,8 +156,6 @@ class Character
      * Other Names.
      *
      * @param string[] $nicknames
-     *
-     * @return self
      */
     public function setNicknames(array $nicknames): self
     {
@@ -193,8 +166,6 @@ class Character
 
     /**
      * Number of users who have favorited this entry.
-     *
-     * @return int
      */
     public function getFavorites(): int
     {
@@ -203,10 +174,6 @@ class Character
 
     /**
      * Number of users who have favorited this entry.
-     *
-     * @param int $favorites
-     *
-     * @return self
      */
     public function setFavorites(int $favorites): self
     {
@@ -217,8 +184,6 @@ class Character
 
     /**
      * Biography.
-     *
-     * @return string|null
      */
     public function getAbout(): ?string
     {
@@ -227,10 +192,6 @@ class Character
 
     /**
      * Biography.
-     *
-     * @param string|null $about
-     *
-     * @return self
      */
     public function setAbout(?string $about): self
     {

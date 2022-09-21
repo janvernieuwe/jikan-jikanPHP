@@ -10,12 +10,14 @@ class TrailerBase
      * @var string|null
      */
     protected $youtubeId;
+
     /**
      * YouTube URL.
      *
      * @var string|null
      */
     protected $url;
+
     /**
      * Parsed Embed URL.
      *
@@ -25,8 +27,6 @@ class TrailerBase
 
     /**
      * YouTube ID.
-     *
-     * @return string|null
      */
     public function getYoutubeId(): ?string
     {
@@ -35,10 +35,6 @@ class TrailerBase
 
     /**
      * YouTube ID.
-     *
-     * @param string|null $youtubeId
-     *
-     * @return self
      */
     public function setYoutubeId(?string $youtubeId): self
     {
@@ -49,8 +45,6 @@ class TrailerBase
 
     /**
      * YouTube URL.
-     *
-     * @return string|null
      */
     public function getUrl(): ?string
     {
@@ -59,10 +53,6 @@ class TrailerBase
 
     /**
      * YouTube URL.
-     *
-     * @param string|null $url
-     *
-     * @return self
      */
     public function setUrl(?string $url): self
     {
@@ -73,8 +63,6 @@ class TrailerBase
 
     /**
      * Parsed Embed URL.
-     *
-     * @return string|null
      */
     public function getEmbedUrl(): ?string
     {
@@ -83,10 +71,6 @@ class TrailerBase
 
     /**
      * Parsed Embed URL.
-     *
-     * @param string|null $embedUrl
-     *
-     * @return self
      */
     public function setEmbedUrl(?string $embedUrl): self
     {

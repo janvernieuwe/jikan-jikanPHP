@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\ReviewsCollection;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class ReviewsCollectionNormalizer implements DenormalizerInterface, NormalizerIn
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\ReviewsCollection' === $type;
+        return ReviewsCollection::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\ReviewsCollection' === get_class($data);
+        return is_object($data) && $data instanceof ReviewsCollection;
     }
 
     /**
@@ -34,34 +36,38 @@ class ReviewsCollectionNormalizer implements DenormalizerInterface, NormalizerIn
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|ReviewsCollection
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\ReviewsCollection();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+
+        $reviewsCollection = new ReviewsCollection();
+        if (null === $data || !\is_array($data)) {
+            return $reviewsCollection;
         }
+
         if (\array_key_exists('data', $data)) {
             $values = [];
             foreach ($data['data'] as $value) {
                 $values[] = $value;
             }
-            $object->setData($values);
+
+            $reviewsCollection->setData($values);
         }
 
-        return $object;
+        return $reviewsCollection;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
     public function normalize($object, $format = null, array $context = [])
     {
@@ -71,6 +77,7 @@ class ReviewsCollectionNormalizer implements DenormalizerInterface, NormalizerIn
             foreach ($object->getData() as $value) {
                 $values[] = $value;
             }
+
             $data['data'] = $values;
         }
 

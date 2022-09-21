@@ -9,22 +9,14 @@ class AnimeVideos
      */
     protected $data;
 
-    /**
-     * @return AnimeVideosData
-     */
     public function getData(): AnimeVideosData
     {
         return $this->data;
     }
 
-    /**
-     * @param AnimeVideosData $data
-     *
-     * @return self
-     */
-    public function setData(AnimeVideosData $data): self
+    public function setData(AnimeVideosData $animeVideosData): self
     {
-        $this->data = $data;
+        $this->data = $animeVideosData;
 
         return $this;
     }

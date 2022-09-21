@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\Genre;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class GenreNormalizer implements DenormalizerInterface, NormalizerInterface, Den
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\Genre' === $type;
+        return Genre::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\Genre' === get_class($data);
+        return is_object($data) && $data instanceof Genre;
     }
 
     /**
@@ -34,52 +36,61 @@ class GenreNormalizer implements DenormalizerInterface, NormalizerInterface, Den
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|Genre
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\Genre();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('mal_id', $data)) {
-            $object->setMalId($data['mal_id']);
-        }
-        if (\array_key_exists('name', $data)) {
-            $object->setName($data['name']);
-        }
-        if (\array_key_exists('url', $data)) {
-            $object->setUrl($data['url']);
-        }
-        if (\array_key_exists('count', $data)) {
-            $object->setCount($data['count']);
+
+        $genre = new Genre();
+        if (null === $data || !\is_array($data)) {
+            return $genre;
         }
 
-        return $object;
+        if (\array_key_exists('mal_id', $data)) {
+            $genre->setMalId($data['mal_id']);
+        }
+
+        if (\array_key_exists('name', $data)) {
+            $genre->setName($data['name']);
+        }
+
+        if (\array_key_exists('url', $data)) {
+            $genre->setUrl($data['url']);
+        }
+
+        if (\array_key_exists('count', $data)) {
+            $genre->setCount($data['count']);
+        }
+
+        return $genre;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getMalId()) {
             $data['mal_id'] = $object->getMalId();
         }
+
         if (null !== $object->getName()) {
             $data['name'] = $object->getName();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getCount()) {
             $data['count'] = $object->getCount();
         }

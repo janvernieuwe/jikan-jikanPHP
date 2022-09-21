@@ -2,7 +2,9 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\TrailerBase;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -19,12 +21,12 @@ class TrailerBaseNormalizer implements DenormalizerInterface, NormalizerInterfac
 
     public function supportsDenormalization($data, $type, $format = null): bool
     {
-        return 'Jikan\\JikanPHP\\Model\\TrailerBase' === $type;
+        return TrailerBase::class === $type;
     }
 
     public function supportsNormalization($data, $format = null): bool
     {
-        return is_object($data) && 'Jikan\\JikanPHP\\Model\\TrailerBase' === get_class($data);
+        return is_object($data) && $data instanceof TrailerBase;
     }
 
     /**
@@ -34,52 +36,59 @@ class TrailerBaseNormalizer implements DenormalizerInterface, NormalizerInterfac
      *
      * @return mixed
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Reference|TrailerBase
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
+
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Jikan\JikanPHP\Model\TrailerBase();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('youtube_id', $data) && null !== $data['youtube_id']) {
-            $object->setYoutubeId($data['youtube_id']);
-        } elseif (\array_key_exists('youtube_id', $data) && null === $data['youtube_id']) {
-            $object->setYoutubeId(null);
-        }
-        if (\array_key_exists('url', $data) && null !== $data['url']) {
-            $object->setUrl($data['url']);
-        } elseif (\array_key_exists('url', $data) && null === $data['url']) {
-            $object->setUrl(null);
-        }
-        if (\array_key_exists('embed_url', $data) && null !== $data['embed_url']) {
-            $object->setEmbedUrl($data['embed_url']);
-        } elseif (\array_key_exists('embed_url', $data) && null === $data['embed_url']) {
-            $object->setEmbedUrl(null);
+
+        $trailerBase = new TrailerBase();
+        if (null === $data || !\is_array($data)) {
+            return $trailerBase;
         }
 
-        return $object;
+        if (\array_key_exists('youtube_id', $data) && null !== $data['youtube_id']) {
+            $trailerBase->setYoutubeId($data['youtube_id']);
+        } elseif (\array_key_exists('youtube_id', $data) && null === $data['youtube_id']) {
+            $trailerBase->setYoutubeId(null);
+        }
+
+        if (\array_key_exists('url', $data) && null !== $data['url']) {
+            $trailerBase->setUrl($data['url']);
+        } elseif (\array_key_exists('url', $data) && null === $data['url']) {
+            $trailerBase->setUrl(null);
+        }
+
+        if (\array_key_exists('embed_url', $data) && null !== $data['embed_url']) {
+            $trailerBase->setEmbedUrl($data['embed_url']);
+        } elseif (\array_key_exists('embed_url', $data) && null === $data['embed_url']) {
+            $trailerBase->setEmbedUrl(null);
+        }
+
+        return $trailerBase;
     }
 
     /**
      * @param mixed      $object
      * @param null|mixed $format
      *
-     * @return array|string|int|float|bool|\ArrayObject|null
+     * @return array|string|int|float|bool|ArrayObject|null
      */
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [];
         if (null !== $object->getYoutubeId()) {
             $data['youtube_id'] = $object->getYoutubeId();
         }
+
         if (null !== $object->getUrl()) {
             $data['url'] = $object->getUrl();
         }
+
         if (null !== $object->getEmbedUrl()) {
             $data['embed_url'] = $object->getEmbedUrl();
         }

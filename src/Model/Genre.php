@@ -10,18 +10,21 @@ class Genre
      * @var int
      */
     protected $malId;
+
     /**
      * Genre Name.
      *
      * @var string
      */
     protected $name;
+
     /**
      * MyAnimeList URL.
      *
      * @var string
      */
     protected $url;
+
     /**
      * Genre's entry count.
      *
@@ -31,8 +34,6 @@ class Genre
 
     /**
      * MyAnimeList ID.
-     *
-     * @return int
      */
     public function getMalId(): int
     {
@@ -41,10 +42,6 @@ class Genre
 
     /**
      * MyAnimeList ID.
-     *
-     * @param int $malId
-     *
-     * @return self
      */
     public function setMalId(int $malId): self
     {
@@ -55,8 +52,6 @@ class Genre
 
     /**
      * Genre Name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -65,10 +60,6 @@ class Genre
 
     /**
      * Genre Name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {
@@ -79,8 +70,6 @@ class Genre
 
     /**
      * MyAnimeList URL.
-     *
-     * @return string
      */
     public function getUrl(): string
     {
@@ -89,10 +78,6 @@ class Genre
 
     /**
      * MyAnimeList URL.
-     *
-     * @param string $url
-     *
-     * @return self
      */
     public function setUrl(string $url): self
     {
@@ -103,8 +88,6 @@ class Genre
 
     /**
      * Genre's entry count.
-     *
-     * @return int
      */
     public function getCount(): int
     {
@@ -113,10 +96,6 @@ class Genre
 
     /**
      * Genre's entry count.
-     *
-     * @param int $count
-     *
-     * @return self
      */
     public function setCount(int $count): self
     {
