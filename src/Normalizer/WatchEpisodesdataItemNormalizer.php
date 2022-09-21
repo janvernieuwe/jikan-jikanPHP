@@ -32,11 +32,7 @@ class WatchEpisodesdataItemNormalizer implements DenormalizerInterface, Normaliz
     }
 
     /**
-     * @param mixed      $data
-     * @param mixed      $class
      * @param null|mixed $format
-     *
-     * @return mixed
      */
     public function denormalize($data, $class, $format = null, array $context = []): Reference|WatchEpisodesdataItem
     {
@@ -74,7 +70,6 @@ class WatchEpisodesdataItemNormalizer implements DenormalizerInterface, Normaliz
     }
 
     /**
-     * @param mixed      $object
      * @param null|mixed $format
      *
      * @return array|string|int|float|bool|ArrayObject|null

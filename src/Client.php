@@ -342,7 +342,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -372,7 +371,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -419,7 +417,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -485,7 +482,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -503,7 +499,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -651,7 +646,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -785,7 +779,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -868,7 +861,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -886,7 +878,6 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int   $id
      * @param array $queryParameters {
      *
      *     @var int $page
@@ -1377,9 +1368,7 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param int    $year
-     * @param string $season
-     * @param array  $queryParameters {
+     * @param array $queryParameters {
      *
      *     @var int $page
      * }
@@ -1607,8 +1596,7 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param string $username
-     * @param array  $queryParameters {
+     * @param array $queryParameters {
      *
      *     @var string $type
      * }
@@ -1625,8 +1613,7 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param string $username
-     * @param array  $queryParameters {
+     * @param array $queryParameters {
      *
      *     @var int $page
      * }
@@ -1671,8 +1658,7 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param string $username
-     * @param array  $queryParameters {
+     * @param array $queryParameters {
      *
      *     @var int $page
      * }
@@ -1689,8 +1675,7 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param string $username
-     * @param array  $queryParameters {
+     * @param array $queryParameters {
      *
      *     @var int $page
      * }
@@ -1707,8 +1692,7 @@ class Client extends \Jikan\JikanPHP\Runtime\Client\Client
     }
 
     /**
-     * @param string $username
-     * @param array  $queryParameters {
+     * @param array $queryParameters {
      *
      *     @var int $page
      * }

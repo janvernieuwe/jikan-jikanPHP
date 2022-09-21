@@ -6,8 +6,8 @@ return (new PhpCsFixer\Config())
     ->setFinder(
         (new PhpCsFixer\Finder())
             ->in([
-                getcwd().'/src',
-                getcwd().'/tests',
+                getcwd() . '/src',
+                getcwd() . '/tests',
             ])
             ->exclude([
                 'var',
@@ -50,7 +50,7 @@ return (new PhpCsFixer\Config())
         'no_null_property_initialization' => true,
         'no_php4_constructor' => true,
         'no_superfluous_elseif' => true,
-        'no_superfluous_phpdoc_tags' => false,
+        'no_superfluous_phpdoc_tags' => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,

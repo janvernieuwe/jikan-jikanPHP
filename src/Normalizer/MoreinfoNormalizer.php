@@ -31,11 +31,7 @@ class MoreinfoNormalizer implements DenormalizerInterface, NormalizerInterface, 
     }
 
     /**
-     * @param mixed      $data
-     * @param mixed      $class
      * @param null|mixed $format
-     *
-     * @return mixed
      */
     public function denormalize($data, $class, $format = null, array $context = []): Reference|Moreinfo
     {
@@ -60,7 +56,6 @@ class MoreinfoNormalizer implements DenormalizerInterface, NormalizerInterface, 
     }
 
     /**
-     * @param mixed      $object
      * @param null|mixed $format
      *
      * @return array|string|int|float|bool|ArrayObject|null
