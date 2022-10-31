@@ -3,7 +3,7 @@
 [![License](https://poser.pugx.org/jikan/jikan-php/license)](https://packagist.org/packages/jikan/jikan-php)
 
 # jikan-jikanPHP
-[Jikan rest](https://github.com/jikan-me/jikan) api PHP client, PHP Client for the unofficial myanimelist api
+[Jikan rest](https://github.com/jikan-me/jikan) api PHP client, PHP Client for the unofficial myanimelist api, generated using janePHP.
 
 Install it with composer:
 
