@@ -2,6 +2,7 @@ parameters:
     git_dir: .
     bin_dir: vendor/bin
 grumphp:
+    process_timeout: 180 # GitHub actions are slow
     tasks:
         phpunit: ~
         phpstan:
