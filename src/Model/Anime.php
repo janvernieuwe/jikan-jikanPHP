@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Anime
+use ArrayObject;
+class Anime extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -35,14 +46,14 @@ class Anime
      *
      * @var bool
      */
-    protected $approved = false;
+    protected $approved;
 
     /**
      * All titles.
      *
-     * @var string[]
+     * @var list<Title>
      */
-    protected $titles = [];
+    protected $titles;
 
     /**
      * Title.
@@ -76,9 +87,9 @@ class Anime
      *
      * @deprecated
      *
-     * @var string[]
+     * @var list<string>
      */
-    protected $titleSynonyms = [];
+    protected $titleSynonyms;
 
     /**
      * Anime Type.
@@ -113,7 +124,7 @@ class Anime
      *
      * @var bool
      */
-    protected $airing = false;
+    protected $airing;
 
     /**
      * Date range.
@@ -214,39 +225,39 @@ class Anime
     protected $broadcast;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $producers = [];
+    protected $producers;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $licensors = [];
+    protected $licensors;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $studios = [];
+    protected $studios;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $genres = [];
+    protected $genres;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $explicitGenres = [];
+    protected $explicitGenres;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $themes = [];
+    protected $themes;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $demographics = [];
+    protected $demographics;
 
     /**
      * MyAnimeList ID.
@@ -261,6 +272,7 @@ class Anime
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -279,6 +291,7 @@ class Anime
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -289,9 +302,10 @@ class Anime
         return $this->images;
     }
 
-    public function setImages(AnimeImages $animeImages): self
+    public function setImages(AnimeImages $images): self
     {
-        $this->images = $animeImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -307,9 +321,10 @@ class Anime
     /**
      * Youtube Details.
      */
-    public function setTrailer(TrailerBase $trailerBase): self
+    public function setTrailer(TrailerBase $trailer): self
     {
-        $this->trailer = $trailerBase;
+        $this->initialized['trailer'] = true;
+        $this->trailer = $trailer;
 
         return $this;
     }
@@ -327,6 +342,7 @@ class Anime
      */
     public function setApproved(bool $approved): self
     {
+        $this->initialized['approved'] = true;
         $this->approved = $approved;
 
         return $this;
@@ -335,7 +351,7 @@ class Anime
     /**
      * All titles.
      *
-     * @return string[]
+     * @return list<Title>
      */
     public function getTitles(): array
     {
@@ -345,10 +361,11 @@ class Anime
     /**
      * All titles.
      *
-     * @param string[] $titles
+     * @param list<Title> $titles
      */
     public function setTitles(array $titles): self
     {
+        $this->initialized['titles'] = true;
         $this->titles = $titles;
 
         return $this;
@@ -371,6 +388,7 @@ class Anime
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -393,6 +411,7 @@ class Anime
      */
     public function setTitleEnglish(?string $titleEnglish): self
     {
+        $this->initialized['titleEnglish'] = true;
         $this->titleEnglish = $titleEnglish;
 
         return $this;
@@ -415,6 +434,7 @@ class Anime
      */
     public function setTitleJapanese(?string $titleJapanese): self
     {
+        $this->initialized['titleJapanese'] = true;
         $this->titleJapanese = $titleJapanese;
 
         return $this;
@@ -425,7 +445,7 @@ class Anime
      *
      * @deprecated
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getTitleSynonyms(): array
     {
@@ -435,12 +455,13 @@ class Anime
     /**
      * Other Titles.
      *
-     * @param string[] $titleSynonyms
+     * @param list<string> $titleSynonyms
      *
      * @deprecated
      */
     public function setTitleSynonyms(array $titleSynonyms): self
     {
+        $this->initialized['titleSynonyms'] = true;
         $this->titleSynonyms = $titleSynonyms;
 
         return $this;
@@ -459,6 +480,7 @@ class Anime
      */
     public function setType(?string $type): self
     {
+        $this->initialized['type'] = true;
         $this->type = $type;
 
         return $this;
@@ -477,6 +499,7 @@ class Anime
      */
     public function setSource(?string $source): self
     {
+        $this->initialized['source'] = true;
         $this->source = $source;
 
         return $this;
@@ -495,6 +518,7 @@ class Anime
      */
     public function setEpisodes(?int $episodes): self
     {
+        $this->initialized['episodes'] = true;
         $this->episodes = $episodes;
 
         return $this;
@@ -513,6 +537,7 @@ class Anime
      */
     public function setStatus(?string $status): self
     {
+        $this->initialized['status'] = true;
         $this->status = $status;
 
         return $this;
@@ -531,6 +556,7 @@ class Anime
      */
     public function setAiring(bool $airing): self
     {
+        $this->initialized['airing'] = true;
         $this->airing = $airing;
 
         return $this;
@@ -547,9 +573,10 @@ class Anime
     /**
      * Date range.
      */
-    public function setAired(Daterange $daterange): self
+    public function setAired(Daterange $aired): self
     {
-        $this->aired = $daterange;
+        $this->initialized['aired'] = true;
+        $this->aired = $aired;
 
         return $this;
     }
@@ -567,6 +594,7 @@ class Anime
      */
     public function setDuration(?string $duration): self
     {
+        $this->initialized['duration'] = true;
         $this->duration = $duration;
 
         return $this;
@@ -585,6 +613,7 @@ class Anime
      */
     public function setRating(?string $rating): self
     {
+        $this->initialized['rating'] = true;
         $this->rating = $rating;
 
         return $this;
@@ -603,6 +632,7 @@ class Anime
      */
     public function setScore(?float $score): self
     {
+        $this->initialized['score'] = true;
         $this->score = $score;
 
         return $this;
@@ -621,6 +651,7 @@ class Anime
      */
     public function setScoredBy(?int $scoredBy): self
     {
+        $this->initialized['scoredBy'] = true;
         $this->scoredBy = $scoredBy;
 
         return $this;
@@ -639,6 +670,7 @@ class Anime
      */
     public function setRank(?int $rank): self
     {
+        $this->initialized['rank'] = true;
         $this->rank = $rank;
 
         return $this;
@@ -657,6 +689,7 @@ class Anime
      */
     public function setPopularity(?int $popularity): self
     {
+        $this->initialized['popularity'] = true;
         $this->popularity = $popularity;
 
         return $this;
@@ -675,6 +708,7 @@ class Anime
      */
     public function setMembers(?int $members): self
     {
+        $this->initialized['members'] = true;
         $this->members = $members;
 
         return $this;
@@ -693,6 +727,7 @@ class Anime
      */
     public function setFavorites(?int $favorites): self
     {
+        $this->initialized['favorites'] = true;
         $this->favorites = $favorites;
 
         return $this;
@@ -711,6 +746,7 @@ class Anime
      */
     public function setSynopsis(?string $synopsis): self
     {
+        $this->initialized['synopsis'] = true;
         $this->synopsis = $synopsis;
 
         return $this;
@@ -729,6 +765,7 @@ class Anime
      */
     public function setBackground(?string $background): self
     {
+        $this->initialized['background'] = true;
         $this->background = $background;
 
         return $this;
@@ -747,6 +784,7 @@ class Anime
      */
     public function setSeason(?string $season): self
     {
+        $this->initialized['season'] = true;
         $this->season = $season;
 
         return $this;
@@ -765,6 +803,7 @@ class Anime
      */
     public function setYear(?int $year): self
     {
+        $this->initialized['year'] = true;
         $this->year = $year;
 
         return $this;
@@ -783,13 +822,14 @@ class Anime
      */
     public function setBroadcast(Broadcast $broadcast): self
     {
+        $this->initialized['broadcast'] = true;
         $this->broadcast = $broadcast;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getProducers(): array
     {
@@ -797,17 +837,18 @@ class Anime
     }
 
     /**
-     * @param MalUrl[] $producers
+     * @param list<MalUrl> $producers
      */
     public function setProducers(array $producers): self
     {
+        $this->initialized['producers'] = true;
         $this->producers = $producers;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getLicensors(): array
     {
@@ -815,17 +856,18 @@ class Anime
     }
 
     /**
-     * @param MalUrl[] $licensors
+     * @param list<MalUrl> $licensors
      */
     public function setLicensors(array $licensors): self
     {
+        $this->initialized['licensors'] = true;
         $this->licensors = $licensors;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getStudios(): array
     {
@@ -833,17 +875,18 @@ class Anime
     }
 
     /**
-     * @param MalUrl[] $studios
+     * @param list<MalUrl> $studios
      */
     public function setStudios(array $studios): self
     {
+        $this->initialized['studios'] = true;
         $this->studios = $studios;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getGenres(): array
     {
@@ -851,17 +894,18 @@ class Anime
     }
 
     /**
-     * @param MalUrl[] $genres
+     * @param list<MalUrl> $genres
      */
     public function setGenres(array $genres): self
     {
+        $this->initialized['genres'] = true;
         $this->genres = $genres;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getExplicitGenres(): array
     {
@@ -869,17 +913,18 @@ class Anime
     }
 
     /**
-     * @param MalUrl[] $explicitGenres
+     * @param list<MalUrl> $explicitGenres
      */
     public function setExplicitGenres(array $explicitGenres): self
     {
+        $this->initialized['explicitGenres'] = true;
         $this->explicitGenres = $explicitGenres;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getThemes(): array
     {
@@ -887,17 +932,18 @@ class Anime
     }
 
     /**
-     * @param MalUrl[] $themes
+     * @param list<MalUrl> $themes
      */
     public function setThemes(array $themes): self
     {
+        $this->initialized['themes'] = true;
         $this->themes = $themes;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getDemographics(): array
     {
@@ -905,10 +951,11 @@ class Anime
     }
 
     /**
-     * @param MalUrl[] $demographics
+     * @param list<MalUrl> $demographics
      */
     public function setDemographics(array $demographics): self
     {
+        $this->initialized['demographics'] = true;
         $this->demographics = $demographics;
 
         return $this;

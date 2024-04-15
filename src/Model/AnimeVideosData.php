@@ -2,25 +2,36 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeVideosData
+use ArrayObject;
+class AnimeVideosData extends ArrayObject
 {
     /**
-     * @var AnimeVideosDataPromoItem[]
+     * @var array
      */
-    protected $promo = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @var AnimeVideosDataEpisodesItem[]
+     * @var list<AnimeVideosDataPromoItem>
      */
-    protected $episodes = [];
+    protected $promo;
 
     /**
-     * @var AnimeVideosDataMusicVideosItem[]
+     * @var list<AnimeVideosDataEpisodesItem>
      */
-    protected $musicVideos = [];
+    protected $episodes;
 
     /**
-     * @return AnimeVideosDataPromoItem[]
+     * @var list<AnimeVideosDataMusicVideosItem>
+     */
+    protected $musicVideos;
+
+    /**
+     * @return list<AnimeVideosDataPromoItem>
      */
     public function getPromo(): array
     {
@@ -28,17 +39,18 @@ class AnimeVideosData
     }
 
     /**
-     * @param AnimeVideosDataPromoItem[] $promo
+     * @param list<AnimeVideosDataPromoItem> $promo
      */
     public function setPromo(array $promo): self
     {
+        $this->initialized['promo'] = true;
         $this->promo = $promo;
 
         return $this;
     }
 
     /**
-     * @return AnimeVideosDataEpisodesItem[]
+     * @return list<AnimeVideosDataEpisodesItem>
      */
     public function getEpisodes(): array
     {
@@ -46,17 +58,18 @@ class AnimeVideosData
     }
 
     /**
-     * @param AnimeVideosDataEpisodesItem[] $episodes
+     * @param list<AnimeVideosDataEpisodesItem> $episodes
      */
     public function setEpisodes(array $episodes): self
     {
+        $this->initialized['episodes'] = true;
         $this->episodes = $episodes;
 
         return $this;
     }
 
     /**
-     * @return AnimeVideosDataMusicVideosItem[]
+     * @return list<AnimeVideosDataMusicVideosItem>
      */
     public function getMusicVideos(): array
     {
@@ -64,10 +77,11 @@ class AnimeVideosData
     }
 
     /**
-     * @param AnimeVideosDataMusicVideosItem[] $musicVideos
+     * @param list<AnimeVideosDataMusicVideosItem> $musicVideos
      */
     public function setMusicVideos(array $musicVideos): self
     {
+        $this->initialized['musicVideos'] = true;
         $this->musicVideos = $musicVideos;
 
         return $this;

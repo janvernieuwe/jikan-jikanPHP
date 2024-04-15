@@ -2,12 +2,23 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class CharactersSearch
+use ArrayObject;
+class CharactersSearch extends ArrayObject
 {
     /**
-     * @var Character[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
+    /**
+     * @var list<Character>
+     */
+    protected $data;
 
     /**
      * @var PaginationPlusPagination
@@ -15,7 +26,7 @@ class CharactersSearch
     protected $pagination;
 
     /**
-     * @return Character[]
+     * @return list<Character>
      */
     public function getData(): array
     {
@@ -23,10 +34,11 @@ class CharactersSearch
     }
 
     /**
-     * @param Character[] $data
+     * @param list<Character> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;
@@ -37,9 +49,10 @@ class CharactersSearch
         return $this->pagination;
     }
 
-    public function setPagination(PaginationPlusPagination $paginationPlusPagination): self
+    public function setPagination(PaginationPlusPagination $pagination): self
     {
-        $this->pagination = $paginationPlusPagination;
+        $this->initialized['pagination'] = true;
+        $this->pagination = $pagination;
 
         return $this;
     }

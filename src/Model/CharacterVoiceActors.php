@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class CharacterVoiceActors
+use ArrayObject;
+class CharacterVoiceActors extends ArrayObject
 {
     /**
-     * @var CharacterVoiceActorsDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return CharacterVoiceActorsDataItem[]
+     * @var list<CharacterVoiceActorsDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<CharacterVoiceActorsDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class CharacterVoiceActors
     }
 
     /**
-     * @param CharacterVoiceActorsDataItem[] $data
+     * @param list<CharacterVoiceActorsDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

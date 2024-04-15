@@ -2,12 +2,23 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Magazines
+use ArrayObject;
+class Magazines extends ArrayObject
 {
     /**
-     * @var Magazine[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
+    /**
+     * @var list<Magazine>
+     */
+    protected $data;
 
     /**
      * @var PaginationPagination
@@ -15,7 +26,7 @@ class Magazines
     protected $pagination;
 
     /**
-     * @return Magazine[]
+     * @return list<Magazine>
      */
     public function getData(): array
     {
@@ -23,10 +34,11 @@ class Magazines
     }
 
     /**
-     * @param Magazine[] $data
+     * @param list<Magazine> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;
@@ -37,9 +49,10 @@ class Magazines
         return $this->pagination;
     }
 
-    public function setPagination(PaginationPagination $paginationPagination): self
+    public function setPagination(PaginationPagination $pagination): self
     {
-        $this->pagination = $paginationPagination;
+        $this->initialized['pagination'] = true;
+        $this->pagination = $pagination;
 
         return $this;
     }

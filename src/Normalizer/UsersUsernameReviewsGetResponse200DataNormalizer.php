@@ -2,11 +2,13 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use Jikan\JikanPHP\Model\UsersUsernameReviewsGetResponse200Data;
+use Jikan\JikanPHP\Model\PaginationPagination;
 use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Jikan\JikanPHP\Model\PaginationPagination;
-use Jikan\JikanPHP\Model\UsersUsernameReviewsGetResponse200Data;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -14,77 +16,186 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class UsersUsernameReviewsGetResponse200DataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class UsersUsernameReviewsGetResponse200DataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return UsersUsernameReviewsGetResponse200Data::class === $type;
-    }
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
 
-    public function supportsNormalization($data, $format = null): bool
-    {
-        return is_object($data) && $data instanceof UsersUsernameReviewsGetResponse200Data;
-    }
-
-    /**
-     * @param null|mixed $format
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|UsersUsernameReviewsGetResponse200Data
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return UsersUsernameReviewsGetResponse200Data::class === $type;
         }
 
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UsersUsernameReviewsGetResponse200Data;
         }
 
-        $usersUsernameReviewsGetResponse200Data = new UsersUsernameReviewsGetResponse200Data();
-        if (null === $data || !\is_array($data)) {
-            return $usersUsernameReviewsGetResponse200Data;
-        }
-
-        if (\array_key_exists('data', $data)) {
-            $values = [];
-            foreach ($data['data'] as $value) {
-                $values[] = $value;
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
             }
 
-            $usersUsernameReviewsGetResponse200Data->setData($values);
-        }
-
-        if (\array_key_exists('pagination', $data)) {
-            $usersUsernameReviewsGetResponse200Data->setPagination($this->denormalizer->denormalize($data['pagination'], PaginationPagination::class, 'json', $context));
-        }
-
-        return $usersUsernameReviewsGetResponse200Data;
-    }
-
-    /**
-     * @param null|mixed $format
-     *
-     * @return array|string|int|float|bool|ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = []): array
-    {
-        $data = [];
-        if (null !== $object->getData()) {
-            $values = [];
-            foreach ($object->getData() as $value) {
-                $values[] = $value;
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
             }
 
-            $data['data'] = $values;
+            $object = new UsersUsernameReviewsGetResponse200Data();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('data', $data)) {
+                $values = [];
+                foreach ($data['data'] as $value) {
+                    $values[] = $value;
+                }
+
+                $object->setData($values);
+                unset($data['data']);
+            }
+
+            if (\array_key_exists('pagination', $data)) {
+                $object->setPagination($this->denormalizer->denormalize($data['pagination'], PaginationPagination::class, 'json', $context));
+                unset($data['pagination']);
+            }
+
+            foreach ($data as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value_1;
+                }
+            }
+
+            return $object;
         }
 
-        if (null !== $object->getPagination()) {
-            $data['pagination'] = $this->normalizer->normalize($object->getPagination(), 'json', $context);
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('data') && null !== $object->getData()) {
+                $values = [];
+                foreach ($object->getData() as $value) {
+                    $values[] = $value;
+                }
+
+                $data['data'] = $values;
+            }
+
+            if ($object->isInitialized('pagination') && null !== $object->getPagination()) {
+                $data['pagination'] = $this->normalizer->normalize($object->getPagination(), 'json', $context);
+            }
+
+            foreach ($object as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value_1;
+                }
+            }
+
+            return $data;
         }
 
-        return $data;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UsersUsernameReviewsGetResponse200Data::class => false];
+        }
+    }
+} else {
+    class UsersUsernameReviewsGetResponse200DataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+    {
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return UsersUsernameReviewsGetResponse200Data::class === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UsersUsernameReviewsGetResponse200Data;
+        }
+
+        /**
+         * @param null|mixed $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new UsersUsernameReviewsGetResponse200Data();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('data', $data)) {
+                $values = [];
+                foreach ($data['data'] as $value) {
+                    $values[] = $value;
+                }
+
+                $object->setData($values);
+                unset($data['data']);
+            }
+
+            if (\array_key_exists('pagination', $data)) {
+                $object->setPagination($this->denormalizer->denormalize($data['pagination'], PaginationPagination::class, 'json', $context));
+                unset($data['pagination']);
+            }
+
+            foreach ($data as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value_1;
+                }
+            }
+
+            return $object;
+        }
+
+        /**
+         * @param null|mixed $format
+         *
+         * @return array|string|int|float|bool|ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('data') && null !== $object->getData()) {
+                $values = [];
+                foreach ($object->getData() as $value) {
+                    $values[] = $value;
+                }
+
+                $data['data'] = $values;
+            }
+
+            if ($object->isInitialized('pagination') && null !== $object->getPagination()) {
+                $data['pagination'] = $this->normalizer->normalize($object->getPagination(), 'json', $context);
+            }
+
+            foreach ($object as $key => $value_1) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value_1;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UsersUsernameReviewsGetResponse200Data::class => false];
+        }
     }
 }

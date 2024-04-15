@@ -2,17 +2,20 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-use Jikan\JikanPHP\Exception\GetClubStaffBadRequestException;
-use Jikan\JikanPHP\Model\ClubStaff;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Jikan\JikanPHP\Exception\GetClubStaffBadRequestException;
+use Jikan\JikanPHP\Model\ClubStaff;
+use Psr\Http\Message\ResponseInterface;
 class GetClubStaff extends BaseEndpoint implements Endpoint
 {
-    public function __construct(protected int $id)
+    protected $id;
+
+    public function __construct(int $id)
     {
+        $this->id = $id;
     }
 
     use EndpointTrait;
@@ -44,15 +47,19 @@ class GetClubStaff extends BaseEndpoint implements Endpoint
      *
      * @return null|ClubStaff
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, ClubStaff::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetClubStaffBadRequestException();
+            throw new GetClubStaffBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

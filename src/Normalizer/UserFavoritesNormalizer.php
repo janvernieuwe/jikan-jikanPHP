@@ -2,14 +2,13 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
-use ArrayObject;
-use Jane\Component\JsonSchemaRuntime\Reference;
-use Jikan\JikanPHP\Model\CharacterMeta;
 use Jikan\JikanPHP\Model\UserFavorites;
-use Jikan\JikanPHP\Model\UserFavoritesAnimeItem;
-use Jikan\JikanPHP\Model\UserFavoritesCharactersItem;
-use Jikan\JikanPHP\Model\UserFavoritesMangaItem;
+use ArrayObject;
+use Jikan\JikanPHP\Model\CharacterMeta;
+use Jane\Component\JsonSchemaRuntime\Reference;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -17,123 +16,342 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class UserFavoritesNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class UserFavoritesNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return UserFavorites::class === $type;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return UserFavorites::class === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UserFavorites;
+        }
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new UserFavorites();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('anime', $data)) {
+                $values = [];
+                foreach ($data['anime'] as $value) {
+                    $values_1 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value as $key => $value_1) {
+                        $values_1[$key] = $value_1;
+                    }
+
+                    $values[] = $values_1;
+                }
+
+                $object->setAnime($values);
+                unset($data['anime']);
+            }
+
+            if (\array_key_exists('manga', $data)) {
+                $values_2 = [];
+                foreach ($data['manga'] as $value_2) {
+                    $values_3 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value_2 as $key_1 => $value_3) {
+                        $values_3[$key_1] = $value_3;
+                    }
+
+                    $values_2[] = $values_3;
+                }
+
+                $object->setManga($values_2);
+                unset($data['manga']);
+            }
+
+            if (\array_key_exists('characters', $data)) {
+                $values_4 = [];
+                foreach ($data['characters'] as $value_4) {
+                    $values_5 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value_4 as $key_2 => $value_5) {
+                        $values_5[$key_2] = $value_5;
+                    }
+
+                    $values_4[] = $values_5;
+                }
+
+                $object->setCharacters($values_4);
+                unset($data['characters']);
+            }
+
+            if (\array_key_exists('people', $data)) {
+                $values_6 = [];
+                foreach ($data['people'] as $value_6) {
+                    $values_6[] = $this->denormalizer->denormalize($value_6, CharacterMeta::class, 'json', $context);
+                }
+
+                $object->setPeople($values_6);
+                unset($data['people']);
+            }
+
+            foreach ($data as $key_3 => $value_7) {
+                if (preg_match('/.*/', (string) $key_3)) {
+                    $object[$key_3] = $value_7;
+                }
+            }
+
+            return $object;
+        }
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('anime') && null !== $object->getAnime()) {
+                $values = [];
+                foreach ($object->getAnime() as $value) {
+                    $values_1 = [];
+                    foreach ($value as $key => $value_1) {
+                        $values_1[$key] = $value_1;
+                    }
+
+                    $values[] = $values_1;
+                }
+
+                $data['anime'] = $values;
+            }
+
+            if ($object->isInitialized('manga') && null !== $object->getManga()) {
+                $values_2 = [];
+                foreach ($object->getManga() as $value_2) {
+                    $values_3 = [];
+                    foreach ($value_2 as $key_1 => $value_3) {
+                        $values_3[$key_1] = $value_3;
+                    }
+
+                    $values_2[] = $values_3;
+                }
+
+                $data['manga'] = $values_2;
+            }
+
+            if ($object->isInitialized('characters') && null !== $object->getCharacters()) {
+                $values_4 = [];
+                foreach ($object->getCharacters() as $value_4) {
+                    $values_5 = [];
+                    foreach ($value_4 as $key_2 => $value_5) {
+                        $values_5[$key_2] = $value_5;
+                    }
+
+                    $values_4[] = $values_5;
+                }
+
+                $data['characters'] = $values_4;
+            }
+
+            if ($object->isInitialized('people') && null !== $object->getPeople()) {
+                $values_6 = [];
+                foreach ($object->getPeople() as $value_6) {
+                    $values_6[] = $this->normalizer->normalize($value_6, 'json', $context);
+                }
+
+                $data['people'] = $values_6;
+            }
+
+            foreach ($object as $key_3 => $value_7) {
+                if (preg_match('/.*/', (string) $key_3)) {
+                    $data[$key_3] = $value_7;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UserFavorites::class => false];
+        }
     }
-
-    public function supportsNormalization($data, $format = null): bool
+} else {
+    class UserFavoritesNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return is_object($data) && $data instanceof UserFavorites;
-    }
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
 
-    /**
-     * @param null|mixed $format
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserFavorites
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return UserFavorites::class === $type;
         }
 
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UserFavorites;
         }
 
-        $userFavorites = new UserFavorites();
-        if (null === $data || !\is_array($data)) {
-            return $userFavorites;
-        }
-
-        if (\array_key_exists('anime', $data)) {
-            $values = [];
-            foreach ($data['anime'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, UserFavoritesAnimeItem::class, 'json', $context);
+        /**
+         * @param null|mixed $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
             }
 
-            $userFavorites->setAnime($values);
-        }
-
-        if (\array_key_exists('manga', $data)) {
-            $values_1 = [];
-            foreach ($data['manga'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, UserFavoritesMangaItem::class, 'json', $context);
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
             }
 
-            $userFavorites->setManga($values_1);
-        }
-
-        if (\array_key_exists('characters', $data)) {
-            $values_2 = [];
-            foreach ($data['characters'] as $value_2) {
-                $values_2[] = $this->denormalizer->denormalize($value_2, UserFavoritesCharactersItem::class, 'json', $context);
+            $object = new UserFavorites();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
             }
 
-            $userFavorites->setCharacters($values_2);
-        }
+            if (\array_key_exists('anime', $data)) {
+                $values = [];
+                foreach ($data['anime'] as $value) {
+                    $values_1 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value as $key => $value_1) {
+                        $values_1[$key] = $value_1;
+                    }
 
-        if (\array_key_exists('people', $data)) {
-            $values_3 = [];
-            foreach ($data['people'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, CharacterMeta::class, 'json', $context);
+                    $values[] = $values_1;
+                }
+
+                $object->setAnime($values);
+                unset($data['anime']);
             }
 
-            $userFavorites->setPeople($values_3);
-        }
+            if (\array_key_exists('manga', $data)) {
+                $values_2 = [];
+                foreach ($data['manga'] as $value_2) {
+                    $values_3 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value_2 as $key_1 => $value_3) {
+                        $values_3[$key_1] = $value_3;
+                    }
 
-        return $userFavorites;
-    }
+                    $values_2[] = $values_3;
+                }
 
-    /**
-     * @param null|mixed $format
-     *
-     * @return array|string|int|float|bool|ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = []): array
-    {
-        $data = [];
-        if (null !== $object->getAnime()) {
-            $values = [];
-            foreach ($object->getAnime() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+                $object->setManga($values_2);
+                unset($data['manga']);
             }
 
-            $data['anime'] = $values;
-        }
+            if (\array_key_exists('characters', $data)) {
+                $values_4 = [];
+                foreach ($data['characters'] as $value_4) {
+                    $values_5 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value_4 as $key_2 => $value_5) {
+                        $values_5[$key_2] = $value_5;
+                    }
 
-        if (null !== $object->getManga()) {
-            $values_1 = [];
-            foreach ($object->getManga() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+                    $values_4[] = $values_5;
+                }
+
+                $object->setCharacters($values_4);
+                unset($data['characters']);
             }
 
-            $data['manga'] = $values_1;
-        }
+            if (\array_key_exists('people', $data)) {
+                $values_6 = [];
+                foreach ($data['people'] as $value_6) {
+                    $values_6[] = $this->denormalizer->denormalize($value_6, CharacterMeta::class, 'json', $context);
+                }
 
-        if (null !== $object->getCharacters()) {
-            $values_2 = [];
-            foreach ($object->getCharacters() as $character) {
-                $values_2[] = $this->normalizer->normalize($character, 'json', $context);
+                $object->setPeople($values_6);
+                unset($data['people']);
             }
 
-            $data['characters'] = $values_2;
-        }
-
-        if (null !== $object->getPeople()) {
-            $values_3 = [];
-            foreach ($object->getPeople() as $person) {
-                $values_3[] = $this->normalizer->normalize($person, 'json', $context);
+            foreach ($data as $key_3 => $value_7) {
+                if (preg_match('/.*/', (string) $key_3)) {
+                    $object[$key_3] = $value_7;
+                }
             }
 
-            $data['people'] = $values_3;
+            return $object;
         }
 
-        return $data;
+        /**
+         * @param null|mixed $format
+         *
+         * @return array|string|int|float|bool|ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('anime') && null !== $object->getAnime()) {
+                $values = [];
+                foreach ($object->getAnime() as $value) {
+                    $values_1 = [];
+                    foreach ($value as $key => $value_1) {
+                        $values_1[$key] = $value_1;
+                    }
+
+                    $values[] = $values_1;
+                }
+
+                $data['anime'] = $values;
+            }
+
+            if ($object->isInitialized('manga') && null !== $object->getManga()) {
+                $values_2 = [];
+                foreach ($object->getManga() as $value_2) {
+                    $values_3 = [];
+                    foreach ($value_2 as $key_1 => $value_3) {
+                        $values_3[$key_1] = $value_3;
+                    }
+
+                    $values_2[] = $values_3;
+                }
+
+                $data['manga'] = $values_2;
+            }
+
+            if ($object->isInitialized('characters') && null !== $object->getCharacters()) {
+                $values_4 = [];
+                foreach ($object->getCharacters() as $value_4) {
+                    $values_5 = [];
+                    foreach ($value_4 as $key_2 => $value_5) {
+                        $values_5[$key_2] = $value_5;
+                    }
+
+                    $values_4[] = $values_5;
+                }
+
+                $data['characters'] = $values_4;
+            }
+
+            if ($object->isInitialized('people') && null !== $object->getPeople()) {
+                $values_6 = [];
+                foreach ($object->getPeople() as $value_6) {
+                    $values_6[] = $this->normalizer->normalize($value_6, 'json', $context);
+                }
+
+                $data['people'] = $values_6;
+            }
+
+            foreach ($object as $key_3 => $value_7) {
+                if (preg_match('/.*/', (string) $key_3)) {
+                    $data[$key_3] = $value_7;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UserFavorites::class => false];
+        }
     }
 }

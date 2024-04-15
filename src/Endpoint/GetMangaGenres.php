@@ -2,21 +2,21 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-use Jikan\JikanPHP\Exception\GetMangaGenresBadRequestException;
-use Jikan\JikanPHP\Model\Genres;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Jikan\JikanPHP\Exception\GetMangaGenresBadRequestException;
+use Jikan\JikanPHP\Model\Genres;
+use Psr\Http\Message\ResponseInterface;
 class GetMangaGenres extends BaseEndpoint implements Endpoint
 {
     /**
      * @param array $queryParameters {
      *
-     *     @var string $filter
-     * }
+     * @var string $filter
+     *             }
      */
     public function __construct(array $queryParameters = [])
     {
@@ -51,7 +51,7 @@ class GetMangaGenres extends BaseEndpoint implements Endpoint
         $optionsResolver->setDefined(['filter']);
         $optionsResolver->setRequired([]);
         $optionsResolver->setDefaults([]);
-        $optionsResolver->setAllowedTypes('filter', ['string']);
+        $optionsResolver->addAllowedTypes('filter', ['string']);
 
         return $optionsResolver;
     }
@@ -63,15 +63,19 @@ class GetMangaGenres extends BaseEndpoint implements Endpoint
      *
      * @return null|Genres
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, Genres::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetMangaGenresBadRequestException();
+            throw new GetMangaGenresBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

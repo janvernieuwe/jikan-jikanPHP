@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Magazine
+use ArrayObject;
+class Magazine extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -45,6 +56,7 @@ class Magazine
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -63,6 +75,7 @@ class Magazine
      */
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -81,6 +94,7 @@ class Magazine
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -99,6 +113,7 @@ class Magazine
      */
     public function setCount(int $count): self
     {
+        $this->initialized['count'] = true;
         $this->count = $count;
 
         return $this;

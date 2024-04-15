@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class MangaMeta
+use ArrayObject;
+class MangaMeta extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -43,6 +54,7 @@ class MangaMeta
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -61,6 +73,7 @@ class MangaMeta
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -71,9 +84,10 @@ class MangaMeta
         return $this->images;
     }
 
-    public function setImages(MangaImages $mangaImages): self
+    public function setImages(MangaImages $images): self
     {
-        $this->images = $mangaImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -91,6 +105,7 @@ class MangaMeta
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;

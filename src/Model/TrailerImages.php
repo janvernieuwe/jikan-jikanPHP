@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class TrailerImages
+use ArrayObject;
+class TrailerImages extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var TrailerImagesImages
      */
@@ -14,9 +25,10 @@ class TrailerImages
         return $this->images;
     }
 
-    public function setImages(TrailerImagesImages $trailerImagesImages): self
+    public function setImages(TrailerImagesImages $images): self
     {
-        $this->images = $trailerImagesImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }

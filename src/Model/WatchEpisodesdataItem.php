@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class WatchEpisodesdataItem
+use ArrayObject;
+class WatchEpisodesdataItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var AnimeMeta
      */
@@ -12,25 +23,26 @@ class WatchEpisodesdataItem
     /**
      * Recent Episodes (max 2 listed).
      *
-     * @var WatchEpisodesdataItemEpisodesItem[]
+     * @var list<WatchEpisodesdataItemEpisodesItem>
      */
-    protected $episodes = [];
+    protected $episodes;
 
     /**
      * Region Locked Episode.
      *
      * @var bool
      */
-    protected $regionLocked = false;
+    protected $regionLocked;
 
     public function getEntry(): AnimeMeta
     {
         return $this->entry;
     }
 
-    public function setEntry(AnimeMeta $animeMeta): self
+    public function setEntry(AnimeMeta $entry): self
     {
-        $this->entry = $animeMeta;
+        $this->initialized['entry'] = true;
+        $this->entry = $entry;
 
         return $this;
     }
@@ -38,7 +50,7 @@ class WatchEpisodesdataItem
     /**
      * Recent Episodes (max 2 listed).
      *
-     * @return WatchEpisodesdataItemEpisodesItem[]
+     * @return list<WatchEpisodesdataItemEpisodesItem>
      */
     public function getEpisodes(): array
     {
@@ -48,10 +60,11 @@ class WatchEpisodesdataItem
     /**
      * Recent Episodes (max 2 listed).
      *
-     * @param WatchEpisodesdataItemEpisodesItem[] $episodes
+     * @param list<WatchEpisodesdataItemEpisodesItem> $episodes
      */
     public function setEpisodes(array $episodes): self
     {
+        $this->initialized['episodes'] = true;
         $this->episodes = $episodes;
 
         return $this;
@@ -70,6 +83,7 @@ class WatchEpisodesdataItem
      */
     public function setRegionLocked(bool $regionLocked): self
     {
+        $this->initialized['regionLocked'] = true;
         $this->regionLocked = $regionLocked;
 
         return $this;

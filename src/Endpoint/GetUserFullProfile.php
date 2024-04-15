@@ -2,17 +2,20 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-use Jikan\JikanPHP\Exception\GetUserFullProfileBadRequestException;
-use Jikan\JikanPHP\Model\UsersUsernameFullGetResponse200;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Jikan\JikanPHP\Exception\GetUserFullProfileBadRequestException;
+use Jikan\JikanPHP\Model\UsersUsernameFullGetResponse200;
+use Psr\Http\Message\ResponseInterface;
 class GetUserFullProfile extends BaseEndpoint implements Endpoint
 {
-    public function __construct(protected string $username)
+    protected $username;
+
+    public function __construct(string $username)
     {
+        $this->username = $username;
     }
 
     use EndpointTrait;
@@ -44,15 +47,19 @@ class GetUserFullProfile extends BaseEndpoint implements Endpoint
      *
      * @return null|UsersUsernameFullGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, UsersUsernameFullGetResponse200::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetUserFullProfileBadRequestException();
+            throw new GetUserFullProfileBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

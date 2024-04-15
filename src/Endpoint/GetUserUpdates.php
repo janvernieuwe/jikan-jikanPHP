@@ -2,17 +2,20 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-use Jikan\JikanPHP\Exception\GetUserUpdatesBadRequestException;
-use Jikan\JikanPHP\Model\UserUpdates;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Jikan\JikanPHP\Exception\GetUserUpdatesBadRequestException;
+use Jikan\JikanPHP\Model\UserUpdates;
+use Psr\Http\Message\ResponseInterface;
 class GetUserUpdates extends BaseEndpoint implements Endpoint
 {
-    public function __construct(protected string $username)
+    protected $username;
+
+    public function __construct(string $username)
     {
+        $this->username = $username;
     }
 
     use EndpointTrait;
@@ -44,15 +47,19 @@ class GetUserUpdates extends BaseEndpoint implements Endpoint
      *
      * @return null|UserUpdates
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, UserUpdates::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetUserUpdatesBadRequestException();
+            throw new GetUserUpdatesBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeVideosEpisodesdataItem
+use ArrayObject;
+class AnimeVideosEpisodesdataItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID or Episode Number.
      *
@@ -50,6 +61,7 @@ class AnimeVideosEpisodesdataItem
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -68,6 +80,7 @@ class AnimeVideosEpisodesdataItem
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -86,6 +99,7 @@ class AnimeVideosEpisodesdataItem
      */
     public function setEpisode(string $episode): self
     {
+        $this->initialized['episode'] = true;
         $this->episode = $episode;
 
         return $this;
@@ -104,6 +118,7 @@ class AnimeVideosEpisodesdataItem
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -114,9 +129,10 @@ class AnimeVideosEpisodesdataItem
         return $this->images;
     }
 
-    public function setImages(CommonImages $commonImages): self
+    public function setImages(CommonImages $images): self
     {
-        $this->images = $commonImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }

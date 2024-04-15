@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ProducersIdGetResponse200
+use ArrayObject;
+class ProducersIdGetResponse200 extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Producers Resource.
      *
@@ -22,9 +33,10 @@ class ProducersIdGetResponse200
     /**
      * Producers Resource.
      */
-    public function setData(Producer $producer): self
+    public function setData(Producer $data): self
     {
-        $this->data = $producer;
+        $this->initialized['data'] = true;
+        $this->data = $data;
 
         return $this;
     }

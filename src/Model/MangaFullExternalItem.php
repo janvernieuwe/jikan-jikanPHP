@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class MangaFullExternalItem
+use ArrayObject;
+class MangaFullExternalItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var string
      */
@@ -21,6 +32,7 @@ class MangaFullExternalItem
 
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -33,6 +45,7 @@ class MangaFullExternalItem
 
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;

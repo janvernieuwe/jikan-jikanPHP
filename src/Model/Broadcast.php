@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Broadcast
+use ArrayObject;
+class Broadcast extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Day of the week.
      *
@@ -45,6 +56,7 @@ class Broadcast
      */
     public function setDay(?string $day): self
     {
+        $this->initialized['day'] = true;
         $this->day = $day;
 
         return $this;
@@ -63,6 +75,7 @@ class Broadcast
      */
     public function setTime(?string $time): self
     {
+        $this->initialized['time'] = true;
         $this->time = $time;
 
         return $this;
@@ -81,6 +94,7 @@ class Broadcast
      */
     public function setTimezone(?string $timezone): self
     {
+        $this->initialized['timezone'] = true;
         $this->timezone = $timezone;
 
         return $this;
@@ -99,6 +113,7 @@ class Broadcast
      */
     public function setString(?string $string): self
     {
+        $this->initialized['string'] = true;
         $this->string = $string;
 
         return $this;

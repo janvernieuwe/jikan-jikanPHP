@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class History
+use ArrayObject;
+class History extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Parsed URL Data.
      *
@@ -36,9 +47,10 @@ class History
     /**
      * Parsed URL Data.
      */
-    public function setEntry(MalUrl $malUrl): self
+    public function setEntry(MalUrl $entry): self
     {
-        $this->entry = $malUrl;
+        $this->initialized['entry'] = true;
+        $this->entry = $entry;
 
         return $this;
     }
@@ -56,6 +68,7 @@ class History
      */
     public function setIncrement(int $increment): self
     {
+        $this->initialized['increment'] = true;
         $this->increment = $increment;
 
         return $this;
@@ -74,6 +87,7 @@ class History
      */
     public function setDate(string $date): self
     {
+        $this->initialized['date'] = true;
         $this->date = $date;
 
         return $this;

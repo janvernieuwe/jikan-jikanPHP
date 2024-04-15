@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserHistory
+use ArrayObject;
+class UserHistory extends ArrayObject
 {
     /**
-     * @var History[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return History[]
+     * @var list<History>
+     */
+    protected $data;
+
+    /**
+     * @return list<History>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class UserHistory
     }
 
     /**
-     * @param History[] $data
+     * @param list<History> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

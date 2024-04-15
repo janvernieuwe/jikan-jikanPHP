@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class SeasonsDataItem
+use ArrayObject;
+class SeasonsDataItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Year.
      *
@@ -14,9 +25,9 @@ class SeasonsDataItem
     /**
      * List of available seasons.
      *
-     * @var string[]
+     * @var list<string>
      */
-    protected $seasons = [];
+    protected $seasons;
 
     /**
      * Year.
@@ -31,6 +42,7 @@ class SeasonsDataItem
      */
     public function setYear(int $year): self
     {
+        $this->initialized['year'] = true;
         $this->year = $year;
 
         return $this;
@@ -39,7 +51,7 @@ class SeasonsDataItem
     /**
      * List of available seasons.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getSeasons(): array
     {
@@ -49,10 +61,11 @@ class SeasonsDataItem
     /**
      * List of available seasons.
      *
-     * @param string[] $seasons
+     * @param list<string> $seasons
      */
     public function setSeasons(array $seasons): self
     {
+        $this->initialized['seasons'] = true;
         $this->seasons = $seasons;
 
         return $this;

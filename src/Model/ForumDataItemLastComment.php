@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ForumDataItemLastComment
+use ArrayObject;
+class ForumDataItemLastComment extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Last comment URL.
      *
@@ -45,6 +56,7 @@ class ForumDataItemLastComment
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -63,6 +75,7 @@ class ForumDataItemLastComment
      */
     public function setAuthorUsername(string $authorUsername): self
     {
+        $this->initialized['authorUsername'] = true;
         $this->authorUsername = $authorUsername;
 
         return $this;
@@ -81,6 +94,7 @@ class ForumDataItemLastComment
      */
     public function setAuthorUrl(string $authorUrl): self
     {
+        $this->initialized['authorUrl'] = true;
         $this->authorUrl = $authorUrl;
 
         return $this;
@@ -99,6 +113,7 @@ class ForumDataItemLastComment
      */
     public function setDate(?string $date): self
     {
+        $this->initialized['date'] = true;
         $this->date = $date;
 
         return $this;

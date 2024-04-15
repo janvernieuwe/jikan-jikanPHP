@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ClubStaff
+use ArrayObject;
+class ClubStaff extends ArrayObject
 {
     /**
-     * @var ClubStaffDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return ClubStaffDataItem[]
+     * @var list<ClubStaffDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<ClubStaffDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class ClubStaff
     }
 
     /**
-     * @param ClubStaffDataItem[] $data
+     * @param list<ClubStaffDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

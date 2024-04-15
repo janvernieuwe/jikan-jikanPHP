@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Random
+use ArrayObject;
+class Random extends ArrayObject
 {
     /**
-     * @var mixed[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return mixed[]
+     * @var list<array<string, mixed>>
+     */
+    protected $data;
+
+    /**
+     * @return list<array<string, mixed>>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class Random
     }
 
     /**
-     * @param mixed[] $data
+     * @param list<array<string, mixed>> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

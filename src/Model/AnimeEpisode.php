@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeEpisode
+use ArrayObject;
+class AnimeEpisode extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -58,14 +69,14 @@ class AnimeEpisode
      *
      * @var bool
      */
-    protected $filler = false;
+    protected $filler;
 
     /**
      * Recap episode.
      *
      * @var bool
      */
-    protected $recap = false;
+    protected $recap;
 
     /**
      * Episode Synopsis.
@@ -87,6 +98,7 @@ class AnimeEpisode
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -105,6 +117,7 @@ class AnimeEpisode
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -123,6 +136,7 @@ class AnimeEpisode
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -141,6 +155,7 @@ class AnimeEpisode
      */
     public function setTitleJapanese(?string $titleJapanese): self
     {
+        $this->initialized['titleJapanese'] = true;
         $this->titleJapanese = $titleJapanese;
 
         return $this;
@@ -159,6 +174,7 @@ class AnimeEpisode
      */
     public function setTitleRomanji(?string $titleRomanji): self
     {
+        $this->initialized['titleRomanji'] = true;
         $this->titleRomanji = $titleRomanji;
 
         return $this;
@@ -177,6 +193,7 @@ class AnimeEpisode
      */
     public function setDuration(?int $duration): self
     {
+        $this->initialized['duration'] = true;
         $this->duration = $duration;
 
         return $this;
@@ -195,6 +212,7 @@ class AnimeEpisode
      */
     public function setAired(?string $aired): self
     {
+        $this->initialized['aired'] = true;
         $this->aired = $aired;
 
         return $this;
@@ -213,6 +231,7 @@ class AnimeEpisode
      */
     public function setFiller(bool $filler): self
     {
+        $this->initialized['filler'] = true;
         $this->filler = $filler;
 
         return $this;
@@ -231,6 +250,7 @@ class AnimeEpisode
      */
     public function setRecap(bool $recap): self
     {
+        $this->initialized['recap'] = true;
         $this->recap = $recap;
 
         return $this;
@@ -249,6 +269,7 @@ class AnimeEpisode
      */
     public function setSynopsis(?string $synopsis): self
     {
+        $this->initialized['synopsis'] = true;
         $this->synopsis = $synopsis;
 
         return $this;

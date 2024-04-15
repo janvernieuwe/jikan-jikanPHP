@@ -2,12 +2,23 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class WatchEpisodes
+use ArrayObject;
+class WatchEpisodes extends ArrayObject
 {
     /**
-     * @var WatchEpisodesdataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
+    /**
+     * @var list<WatchEpisodesdataItem>
+     */
+    protected $data;
 
     /**
      * @var PaginationPagination
@@ -15,7 +26,7 @@ class WatchEpisodes
     protected $pagination;
 
     /**
-     * @return WatchEpisodesdataItem[]
+     * @return list<WatchEpisodesdataItem>
      */
     public function getData(): array
     {
@@ -23,10 +34,11 @@ class WatchEpisodes
     }
 
     /**
-     * @param WatchEpisodesdataItem[] $data
+     * @param list<WatchEpisodesdataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;
@@ -37,9 +49,10 @@ class WatchEpisodes
         return $this->pagination;
     }
 
-    public function setPagination(PaginationPagination $paginationPagination): self
+    public function setPagination(PaginationPagination $pagination): self
     {
-        $this->pagination = $paginationPagination;
+        $this->initialized['pagination'] = true;
+        $this->pagination = $pagination;
 
         return $this;
     }

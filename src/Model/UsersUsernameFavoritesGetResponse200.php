@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UsersUsernameFavoritesGetResponse200
+use ArrayObject;
+class UsersUsernameFavoritesGetResponse200 extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var UserFavorites
      */
@@ -14,9 +25,10 @@ class UsersUsernameFavoritesGetResponse200
         return $this->data;
     }
 
-    public function setData(UserFavorites $userFavorites): self
+    public function setData(UserFavorites $data): self
     {
-        $this->data = $userFavorites;
+        $this->initialized['data'] = true;
+        $this->data = $data;
 
         return $this;
     }

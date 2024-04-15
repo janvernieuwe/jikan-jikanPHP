@@ -2,12 +2,23 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeSearch
+use ArrayObject;
+class AnimeSearch extends ArrayObject
 {
     /**
-     * @var Anime[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
+    /**
+     * @var list<Anime>
+     */
+    protected $data;
 
     /**
      * @var PaginationPlusPagination
@@ -15,7 +26,7 @@ class AnimeSearch
     protected $pagination;
 
     /**
-     * @return Anime[]
+     * @return list<Anime>
      */
     public function getData(): array
     {
@@ -23,10 +34,11 @@ class AnimeSearch
     }
 
     /**
-     * @param Anime[] $data
+     * @param list<Anime> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;
@@ -37,9 +49,10 @@ class AnimeSearch
         return $this->pagination;
     }
 
-    public function setPagination(PaginationPlusPagination $paginationPlusPagination): self
+    public function setPagination(PaginationPlusPagination $pagination): self
     {
-        $this->pagination = $paginationPlusPagination;
+        $this->initialized['pagination'] = true;
+        $this->pagination = $pagination;
 
         return $this;
     }

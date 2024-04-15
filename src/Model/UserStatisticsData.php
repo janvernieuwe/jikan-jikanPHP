@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserStatisticsData
+use ArrayObject;
+class UserStatisticsData extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Anime Statistics.
      *
@@ -29,9 +40,10 @@ class UserStatisticsData
     /**
      * Anime Statistics.
      */
-    public function setAnime(UserStatisticsDataAnime $userStatisticsDataAnime): self
+    public function setAnime(UserStatisticsDataAnime $anime): self
     {
-        $this->anime = $userStatisticsDataAnime;
+        $this->initialized['anime'] = true;
+        $this->anime = $anime;
 
         return $this;
     }
@@ -47,9 +59,10 @@ class UserStatisticsData
     /**
      * Manga Statistics.
      */
-    public function setManga(UserStatisticsDataManga $userStatisticsDataManga): self
+    public function setManga(UserStatisticsDataManga $manga): self
     {
-        $this->manga = $userStatisticsDataManga;
+        $this->initialized['manga'] = true;
+        $this->manga = $manga;
 
         return $this;
     }

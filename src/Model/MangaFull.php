@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class MangaFull
+use ArrayObject;
+class MangaFull extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -28,14 +39,14 @@ class MangaFull
      *
      * @var bool
      */
-    protected $approved = false;
+    protected $approved;
 
     /**
      * All Titles.
      *
-     * @var string[]
+     * @var list<Title>
      */
-    protected $titles = [];
+    protected $titles;
 
     /**
      * Title.
@@ -69,9 +80,9 @@ class MangaFull
      *
      * @deprecated
      *
-     * @var string[]
+     * @var list<string>
      */
-    protected $titleSynonyms = [];
+    protected $titleSynonyms;
 
     /**
      * Manga Type.
@@ -106,7 +117,7 @@ class MangaFull
      *
      * @var bool
      */
-    protected $publishing = false;
+    protected $publishing;
 
     /**
      * Date range.
@@ -172,44 +183,44 @@ class MangaFull
     protected $background;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $authors = [];
+    protected $authors;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $serializations = [];
+    protected $serializations;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $genres = [];
+    protected $genres;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $explicitGenres = [];
+    protected $explicitGenres;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $themes = [];
+    protected $themes;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $demographics = [];
+    protected $demographics;
 
     /**
-     * @var MangaFullRelationsItem[]
+     * @var list<MangaFullRelationsItem>
      */
-    protected $relations = [];
+    protected $relations;
 
     /**
-     * @var MangaFullExternalItem[]
+     * @var list<MangaFullExternalItem>
      */
-    protected $external = [];
+    protected $external;
 
     /**
      * MyAnimeList ID.
@@ -224,6 +235,7 @@ class MangaFull
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -242,6 +254,7 @@ class MangaFull
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -252,9 +265,10 @@ class MangaFull
         return $this->images;
     }
 
-    public function setImages(MangaImages $mangaImages): self
+    public function setImages(MangaImages $images): self
     {
-        $this->images = $mangaImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -272,6 +286,7 @@ class MangaFull
      */
     public function setApproved(bool $approved): self
     {
+        $this->initialized['approved'] = true;
         $this->approved = $approved;
 
         return $this;
@@ -280,7 +295,7 @@ class MangaFull
     /**
      * All Titles.
      *
-     * @return string[]
+     * @return list<Title>
      */
     public function getTitles(): array
     {
@@ -290,10 +305,11 @@ class MangaFull
     /**
      * All Titles.
      *
-     * @param string[] $titles
+     * @param list<Title> $titles
      */
     public function setTitles(array $titles): self
     {
+        $this->initialized['titles'] = true;
         $this->titles = $titles;
 
         return $this;
@@ -316,6 +332,7 @@ class MangaFull
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -338,6 +355,7 @@ class MangaFull
      */
     public function setTitleEnglish(?string $titleEnglish): self
     {
+        $this->initialized['titleEnglish'] = true;
         $this->titleEnglish = $titleEnglish;
 
         return $this;
@@ -360,6 +378,7 @@ class MangaFull
      */
     public function setTitleJapanese(?string $titleJapanese): self
     {
+        $this->initialized['titleJapanese'] = true;
         $this->titleJapanese = $titleJapanese;
 
         return $this;
@@ -370,7 +389,7 @@ class MangaFull
      *
      * @deprecated
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getTitleSynonyms(): array
     {
@@ -380,12 +399,13 @@ class MangaFull
     /**
      * Other Titles.
      *
-     * @param string[] $titleSynonyms
+     * @param list<string> $titleSynonyms
      *
      * @deprecated
      */
     public function setTitleSynonyms(array $titleSynonyms): self
     {
+        $this->initialized['titleSynonyms'] = true;
         $this->titleSynonyms = $titleSynonyms;
 
         return $this;
@@ -404,6 +424,7 @@ class MangaFull
      */
     public function setType(?string $type): self
     {
+        $this->initialized['type'] = true;
         $this->type = $type;
 
         return $this;
@@ -422,6 +443,7 @@ class MangaFull
      */
     public function setChapters(?int $chapters): self
     {
+        $this->initialized['chapters'] = true;
         $this->chapters = $chapters;
 
         return $this;
@@ -440,6 +462,7 @@ class MangaFull
      */
     public function setVolumes(?int $volumes): self
     {
+        $this->initialized['volumes'] = true;
         $this->volumes = $volumes;
 
         return $this;
@@ -458,6 +481,7 @@ class MangaFull
      */
     public function setStatus(string $status): self
     {
+        $this->initialized['status'] = true;
         $this->status = $status;
 
         return $this;
@@ -476,6 +500,7 @@ class MangaFull
      */
     public function setPublishing(bool $publishing): self
     {
+        $this->initialized['publishing'] = true;
         $this->publishing = $publishing;
 
         return $this;
@@ -492,9 +517,10 @@ class MangaFull
     /**
      * Date range.
      */
-    public function setPublished(Daterange $daterange): self
+    public function setPublished(Daterange $published): self
     {
-        $this->published = $daterange;
+        $this->initialized['published'] = true;
+        $this->published = $published;
 
         return $this;
     }
@@ -512,6 +538,7 @@ class MangaFull
      */
     public function setScore(?float $score): self
     {
+        $this->initialized['score'] = true;
         $this->score = $score;
 
         return $this;
@@ -530,6 +557,7 @@ class MangaFull
      */
     public function setScoredBy(?int $scoredBy): self
     {
+        $this->initialized['scoredBy'] = true;
         $this->scoredBy = $scoredBy;
 
         return $this;
@@ -548,6 +576,7 @@ class MangaFull
      */
     public function setRank(?int $rank): self
     {
+        $this->initialized['rank'] = true;
         $this->rank = $rank;
 
         return $this;
@@ -566,6 +595,7 @@ class MangaFull
      */
     public function setPopularity(?int $popularity): self
     {
+        $this->initialized['popularity'] = true;
         $this->popularity = $popularity;
 
         return $this;
@@ -584,6 +614,7 @@ class MangaFull
      */
     public function setMembers(?int $members): self
     {
+        $this->initialized['members'] = true;
         $this->members = $members;
 
         return $this;
@@ -602,6 +633,7 @@ class MangaFull
      */
     public function setFavorites(?int $favorites): self
     {
+        $this->initialized['favorites'] = true;
         $this->favorites = $favorites;
 
         return $this;
@@ -620,6 +652,7 @@ class MangaFull
      */
     public function setSynopsis(?string $synopsis): self
     {
+        $this->initialized['synopsis'] = true;
         $this->synopsis = $synopsis;
 
         return $this;
@@ -638,13 +671,14 @@ class MangaFull
      */
     public function setBackground(?string $background): self
     {
+        $this->initialized['background'] = true;
         $this->background = $background;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getAuthors(): array
     {
@@ -652,17 +686,18 @@ class MangaFull
     }
 
     /**
-     * @param MalUrl[] $authors
+     * @param list<MalUrl> $authors
      */
     public function setAuthors(array $authors): self
     {
+        $this->initialized['authors'] = true;
         $this->authors = $authors;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getSerializations(): array
     {
@@ -670,17 +705,18 @@ class MangaFull
     }
 
     /**
-     * @param MalUrl[] $serializations
+     * @param list<MalUrl> $serializations
      */
     public function setSerializations(array $serializations): self
     {
+        $this->initialized['serializations'] = true;
         $this->serializations = $serializations;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getGenres(): array
     {
@@ -688,17 +724,18 @@ class MangaFull
     }
 
     /**
-     * @param MalUrl[] $genres
+     * @param list<MalUrl> $genres
      */
     public function setGenres(array $genres): self
     {
+        $this->initialized['genres'] = true;
         $this->genres = $genres;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getExplicitGenres(): array
     {
@@ -706,17 +743,18 @@ class MangaFull
     }
 
     /**
-     * @param MalUrl[] $explicitGenres
+     * @param list<MalUrl> $explicitGenres
      */
     public function setExplicitGenres(array $explicitGenres): self
     {
+        $this->initialized['explicitGenres'] = true;
         $this->explicitGenres = $explicitGenres;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getThemes(): array
     {
@@ -724,17 +762,18 @@ class MangaFull
     }
 
     /**
-     * @param MalUrl[] $themes
+     * @param list<MalUrl> $themes
      */
     public function setThemes(array $themes): self
     {
+        $this->initialized['themes'] = true;
         $this->themes = $themes;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getDemographics(): array
     {
@@ -742,17 +781,18 @@ class MangaFull
     }
 
     /**
-     * @param MalUrl[] $demographics
+     * @param list<MalUrl> $demographics
      */
     public function setDemographics(array $demographics): self
     {
+        $this->initialized['demographics'] = true;
         $this->demographics = $demographics;
 
         return $this;
     }
 
     /**
-     * @return MangaFullRelationsItem[]
+     * @return list<MangaFullRelationsItem>
      */
     public function getRelations(): array
     {
@@ -760,17 +800,18 @@ class MangaFull
     }
 
     /**
-     * @param MangaFullRelationsItem[] $relations
+     * @param list<MangaFullRelationsItem> $relations
      */
     public function setRelations(array $relations): self
     {
+        $this->initialized['relations'] = true;
         $this->relations = $relations;
 
         return $this;
     }
 
     /**
-     * @return MangaFullExternalItem[]
+     * @return list<MangaFullExternalItem>
      */
     public function getExternal(): array
     {
@@ -778,10 +819,11 @@ class MangaFull
     }
 
     /**
-     * @param MangaFullExternalItem[] $external
+     * @param list<MangaFullExternalItem> $external
      */
     public function setExternal(array $external): self
     {
+        $this->initialized['external'] = true;
         $this->external = $external;
 
         return $this;

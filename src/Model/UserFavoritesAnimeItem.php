@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserFavoritesAnimeItem
+use ArrayObject;
+class UserFavoritesAnimeItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var string
      */
@@ -47,6 +58,7 @@ class UserFavoritesAnimeItem
 
     public function setType(string $type): self
     {
+        $this->initialized['type'] = true;
         $this->type = $type;
 
         return $this;
@@ -59,6 +71,7 @@ class UserFavoritesAnimeItem
 
     public function setStartYear(int $startYear): self
     {
+        $this->initialized['startYear'] = true;
         $this->startYear = $startYear;
 
         return $this;
@@ -77,6 +90,7 @@ class UserFavoritesAnimeItem
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -95,6 +109,7 @@ class UserFavoritesAnimeItem
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -105,9 +120,10 @@ class UserFavoritesAnimeItem
         return $this->images;
     }
 
-    public function setImages(AnimeImages $animeImages): self
+    public function setImages(AnimeImages $images): self
     {
-        $this->images = $animeImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -125,6 +141,7 @@ class UserFavoritesAnimeItem
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;

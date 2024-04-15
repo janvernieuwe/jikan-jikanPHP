@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class CharacterPicturesDataItem
+use ArrayObject;
+class CharacterPicturesDataItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Default JPG Image Size URL.
      *
@@ -31,6 +42,7 @@ class CharacterPicturesDataItem
      */
     public function setImageUrl(?string $imageUrl): self
     {
+        $this->initialized['imageUrl'] = true;
         $this->imageUrl = $imageUrl;
 
         return $this;
@@ -49,6 +61,7 @@ class CharacterPicturesDataItem
      */
     public function setLargeImageUrl(?string $largeImageUrl): self
     {
+        $this->initialized['largeImageUrl'] = true;
         $this->largeImageUrl = $largeImageUrl;
 
         return $this;

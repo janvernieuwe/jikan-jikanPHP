@@ -2,10 +2,12 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use Jikan\JikanPHP\Model\UsersTempDataItemAnimeStats;
 use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Jikan\JikanPHP\Model\UsersTempDataItemAnimeStats;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -13,139 +15,326 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class UsersTempDataItemAnimeStatsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class UsersTempDataItemAnimeStatsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return UsersTempDataItemAnimeStats::class === $type;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return UsersTempDataItemAnimeStats::class === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UsersTempDataItemAnimeStats;
+        }
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new UsersTempDataItemAnimeStats();
+            if (\array_key_exists('days_watched', $data) && \is_int($data['days_watched'])) {
+                $data['days_watched'] = (float) $data['days_watched'];
+            }
+
+            if (\array_key_exists('mean_score', $data) && \is_int($data['mean_score'])) {
+                $data['mean_score'] = (float) $data['mean_score'];
+            }
+
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('days_watched', $data)) {
+                $object->setDaysWatched($data['days_watched']);
+                unset($data['days_watched']);
+            }
+
+            if (\array_key_exists('mean_score', $data)) {
+                $object->setMeanScore($data['mean_score']);
+                unset($data['mean_score']);
+            }
+
+            if (\array_key_exists('watching', $data)) {
+                $object->setWatching($data['watching']);
+                unset($data['watching']);
+            }
+
+            if (\array_key_exists('completed', $data)) {
+                $object->setCompleted($data['completed']);
+                unset($data['completed']);
+            }
+
+            if (\array_key_exists('on_hold', $data)) {
+                $object->setOnHold($data['on_hold']);
+                unset($data['on_hold']);
+            }
+
+            if (\array_key_exists('dropped', $data)) {
+                $object->setDropped($data['dropped']);
+                unset($data['dropped']);
+            }
+
+            if (\array_key_exists('plan_to_watch', $data)) {
+                $object->setPlanToWatch($data['plan_to_watch']);
+                unset($data['plan_to_watch']);
+            }
+
+            if (\array_key_exists('total_entries', $data)) {
+                $object->setTotalEntries($data['total_entries']);
+                unset($data['total_entries']);
+            }
+
+            if (\array_key_exists('rewatched', $data)) {
+                $object->setRewatched($data['rewatched']);
+                unset($data['rewatched']);
+            }
+
+            if (\array_key_exists('episodes_watched', $data)) {
+                $object->setEpisodesWatched($data['episodes_watched']);
+                unset($data['episodes_watched']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
+        }
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('daysWatched') && null !== $object->getDaysWatched()) {
+                $data['days_watched'] = $object->getDaysWatched();
+            }
+
+            if ($object->isInitialized('meanScore') && null !== $object->getMeanScore()) {
+                $data['mean_score'] = $object->getMeanScore();
+            }
+
+            if ($object->isInitialized('watching') && null !== $object->getWatching()) {
+                $data['watching'] = $object->getWatching();
+            }
+
+            if ($object->isInitialized('completed') && null !== $object->getCompleted()) {
+                $data['completed'] = $object->getCompleted();
+            }
+
+            if ($object->isInitialized('onHold') && null !== $object->getOnHold()) {
+                $data['on_hold'] = $object->getOnHold();
+            }
+
+            if ($object->isInitialized('dropped') && null !== $object->getDropped()) {
+                $data['dropped'] = $object->getDropped();
+            }
+
+            if ($object->isInitialized('planToWatch') && null !== $object->getPlanToWatch()) {
+                $data['plan_to_watch'] = $object->getPlanToWatch();
+            }
+
+            if ($object->isInitialized('totalEntries') && null !== $object->getTotalEntries()) {
+                $data['total_entries'] = $object->getTotalEntries();
+            }
+
+            if ($object->isInitialized('rewatched') && null !== $object->getRewatched()) {
+                $data['rewatched'] = $object->getRewatched();
+            }
+
+            if ($object->isInitialized('episodesWatched') && null !== $object->getEpisodesWatched()) {
+                $data['episodes_watched'] = $object->getEpisodesWatched();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UsersTempDataItemAnimeStats::class => false];
+        }
     }
-
-    public function supportsNormalization($data, $format = null): bool
+} else {
+    class UsersTempDataItemAnimeStatsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return is_object($data) && $data instanceof UsersTempDataItemAnimeStats;
-    }
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
 
-    /**
-     * @param null|mixed $format
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|UsersTempDataItemAnimeStats
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return UsersTempDataItemAnimeStats::class === $type;
         }
 
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UsersTempDataItemAnimeStats;
         }
 
-        $usersTempDataItemAnimeStats = new UsersTempDataItemAnimeStats();
-        if (\array_key_exists('days_watched', $data) && \is_int($data['days_watched'])) {
-            $data['days_watched'] = (float) $data['days_watched'];
+        /**
+         * @param null|mixed $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new UsersTempDataItemAnimeStats();
+            if (\array_key_exists('days_watched', $data) && \is_int($data['days_watched'])) {
+                $data['days_watched'] = (float) $data['days_watched'];
+            }
+
+            if (\array_key_exists('mean_score', $data) && \is_int($data['mean_score'])) {
+                $data['mean_score'] = (float) $data['mean_score'];
+            }
+
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('days_watched', $data)) {
+                $object->setDaysWatched($data['days_watched']);
+                unset($data['days_watched']);
+            }
+
+            if (\array_key_exists('mean_score', $data)) {
+                $object->setMeanScore($data['mean_score']);
+                unset($data['mean_score']);
+            }
+
+            if (\array_key_exists('watching', $data)) {
+                $object->setWatching($data['watching']);
+                unset($data['watching']);
+            }
+
+            if (\array_key_exists('completed', $data)) {
+                $object->setCompleted($data['completed']);
+                unset($data['completed']);
+            }
+
+            if (\array_key_exists('on_hold', $data)) {
+                $object->setOnHold($data['on_hold']);
+                unset($data['on_hold']);
+            }
+
+            if (\array_key_exists('dropped', $data)) {
+                $object->setDropped($data['dropped']);
+                unset($data['dropped']);
+            }
+
+            if (\array_key_exists('plan_to_watch', $data)) {
+                $object->setPlanToWatch($data['plan_to_watch']);
+                unset($data['plan_to_watch']);
+            }
+
+            if (\array_key_exists('total_entries', $data)) {
+                $object->setTotalEntries($data['total_entries']);
+                unset($data['total_entries']);
+            }
+
+            if (\array_key_exists('rewatched', $data)) {
+                $object->setRewatched($data['rewatched']);
+                unset($data['rewatched']);
+            }
+
+            if (\array_key_exists('episodes_watched', $data)) {
+                $object->setEpisodesWatched($data['episodes_watched']);
+                unset($data['episodes_watched']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
         }
 
-        if (\array_key_exists('mean_score', $data) && \is_int($data['mean_score'])) {
-            $data['mean_score'] = (float) $data['mean_score'];
+        /**
+         * @param null|mixed $format
+         *
+         * @return array|string|int|float|bool|ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('daysWatched') && null !== $object->getDaysWatched()) {
+                $data['days_watched'] = $object->getDaysWatched();
+            }
+
+            if ($object->isInitialized('meanScore') && null !== $object->getMeanScore()) {
+                $data['mean_score'] = $object->getMeanScore();
+            }
+
+            if ($object->isInitialized('watching') && null !== $object->getWatching()) {
+                $data['watching'] = $object->getWatching();
+            }
+
+            if ($object->isInitialized('completed') && null !== $object->getCompleted()) {
+                $data['completed'] = $object->getCompleted();
+            }
+
+            if ($object->isInitialized('onHold') && null !== $object->getOnHold()) {
+                $data['on_hold'] = $object->getOnHold();
+            }
+
+            if ($object->isInitialized('dropped') && null !== $object->getDropped()) {
+                $data['dropped'] = $object->getDropped();
+            }
+
+            if ($object->isInitialized('planToWatch') && null !== $object->getPlanToWatch()) {
+                $data['plan_to_watch'] = $object->getPlanToWatch();
+            }
+
+            if ($object->isInitialized('totalEntries') && null !== $object->getTotalEntries()) {
+                $data['total_entries'] = $object->getTotalEntries();
+            }
+
+            if ($object->isInitialized('rewatched') && null !== $object->getRewatched()) {
+                $data['rewatched'] = $object->getRewatched();
+            }
+
+            if ($object->isInitialized('episodesWatched') && null !== $object->getEpisodesWatched()) {
+                $data['episodes_watched'] = $object->getEpisodesWatched();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
         }
 
-        if (null === $data || !\is_array($data)) {
-            return $usersTempDataItemAnimeStats;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UsersTempDataItemAnimeStats::class => false];
         }
-
-        if (\array_key_exists('days_watched', $data)) {
-            $usersTempDataItemAnimeStats->setDaysWatched($data['days_watched']);
-        }
-
-        if (\array_key_exists('mean_score', $data)) {
-            $usersTempDataItemAnimeStats->setMeanScore($data['mean_score']);
-        }
-
-        if (\array_key_exists('watching', $data)) {
-            $usersTempDataItemAnimeStats->setWatching($data['watching']);
-        }
-
-        if (\array_key_exists('completed', $data)) {
-            $usersTempDataItemAnimeStats->setCompleted($data['completed']);
-        }
-
-        if (\array_key_exists('on_hold', $data)) {
-            $usersTempDataItemAnimeStats->setOnHold($data['on_hold']);
-        }
-
-        if (\array_key_exists('dropped', $data)) {
-            $usersTempDataItemAnimeStats->setDropped($data['dropped']);
-        }
-
-        if (\array_key_exists('plan_to_watch', $data)) {
-            $usersTempDataItemAnimeStats->setPlanToWatch($data['plan_to_watch']);
-        }
-
-        if (\array_key_exists('total_entries', $data)) {
-            $usersTempDataItemAnimeStats->setTotalEntries($data['total_entries']);
-        }
-
-        if (\array_key_exists('rewatched', $data)) {
-            $usersTempDataItemAnimeStats->setRewatched($data['rewatched']);
-        }
-
-        if (\array_key_exists('episodes_watched', $data)) {
-            $usersTempDataItemAnimeStats->setEpisodesWatched($data['episodes_watched']);
-        }
-
-        return $usersTempDataItemAnimeStats;
-    }
-
-    /**
-     * @param null|mixed $format
-     *
-     * @return array|string|int|float|bool|ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = []): array
-    {
-        $data = [];
-        if (null !== $object->getDaysWatched()) {
-            $data['days_watched'] = $object->getDaysWatched();
-        }
-
-        if (null !== $object->getMeanScore()) {
-            $data['mean_score'] = $object->getMeanScore();
-        }
-
-        if (null !== $object->getWatching()) {
-            $data['watching'] = $object->getWatching();
-        }
-
-        if (null !== $object->getCompleted()) {
-            $data['completed'] = $object->getCompleted();
-        }
-
-        if (null !== $object->getOnHold()) {
-            $data['on_hold'] = $object->getOnHold();
-        }
-
-        if (null !== $object->getDropped()) {
-            $data['dropped'] = $object->getDropped();
-        }
-
-        if (null !== $object->getPlanToWatch()) {
-            $data['plan_to_watch'] = $object->getPlanToWatch();
-        }
-
-        if (null !== $object->getTotalEntries()) {
-            $data['total_entries'] = $object->getTotalEntries();
-        }
-
-        if (null !== $object->getRewatched()) {
-            $data['rewatched'] = $object->getRewatched();
-        }
-
-        if (null !== $object->getEpisodesWatched()) {
-            $data['episodes_watched'] = $object->getEpisodesWatched();
-        }
-
-        return $data;
     }
 }

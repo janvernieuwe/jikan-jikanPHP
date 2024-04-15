@@ -2,11 +2,13 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
-use ArrayObject;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Jikan\JikanPHP\Model\AnimeCharactersDataItemVoiceActorsItem;
 use Jikan\JikanPHP\Model\AnimeCharactersDataItemVoiceActorsItemPerson;
+use ArrayObject;
+use Jane\Component\JsonSchemaRuntime\Reference;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -14,67 +16,166 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class AnimeCharactersDataItemVoiceActorsItemNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class AnimeCharactersDataItemVoiceActorsItemNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return AnimeCharactersDataItemVoiceActorsItem::class === $type;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return AnimeCharactersDataItemVoiceActorsItem::class === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof AnimeCharactersDataItemVoiceActorsItem;
+        }
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new AnimeCharactersDataItemVoiceActorsItem();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('person', $data)) {
+                $object->setPerson($this->denormalizer->denormalize($data['person'], AnimeCharactersDataItemVoiceActorsItemPerson::class, 'json', $context));
+                unset($data['person']);
+            }
+
+            if (\array_key_exists('language', $data)) {
+                $object->setLanguage($data['language']);
+                unset($data['language']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
+        }
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('person') && null !== $object->getPerson()) {
+                $data['person'] = $this->normalizer->normalize($object->getPerson(), 'json', $context);
+            }
+
+            if ($object->isInitialized('language') && null !== $object->getLanguage()) {
+                $data['language'] = $object->getLanguage();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [AnimeCharactersDataItemVoiceActorsItem::class => false];
+        }
     }
-
-    public function supportsNormalization($data, $format = null): bool
+} else {
+    class AnimeCharactersDataItemVoiceActorsItemNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return is_object($data) && $data instanceof AnimeCharactersDataItemVoiceActorsItem;
-    }
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
 
-    /**
-     * @param null|mixed $format
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|AnimeCharactersDataItemVoiceActorsItem
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return AnimeCharactersDataItemVoiceActorsItem::class === $type;
         }
 
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof AnimeCharactersDataItemVoiceActorsItem;
         }
 
-        $animeCharactersDataItemVoiceActorsItem = new AnimeCharactersDataItemVoiceActorsItem();
-        if (null === $data || !\is_array($data)) {
-            return $animeCharactersDataItemVoiceActorsItem;
+        /**
+         * @param null|mixed $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new AnimeCharactersDataItemVoiceActorsItem();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('person', $data)) {
+                $object->setPerson($this->denormalizer->denormalize($data['person'], AnimeCharactersDataItemVoiceActorsItemPerson::class, 'json', $context));
+                unset($data['person']);
+            }
+
+            if (\array_key_exists('language', $data)) {
+                $object->setLanguage($data['language']);
+                unset($data['language']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
         }
 
-        if (\array_key_exists('person', $data)) {
-            $animeCharactersDataItemVoiceActorsItem->setPerson($this->denormalizer->denormalize($data['person'], AnimeCharactersDataItemVoiceActorsItemPerson::class, 'json', $context));
+        /**
+         * @param null|mixed $format
+         *
+         * @return array|string|int|float|bool|ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('person') && null !== $object->getPerson()) {
+                $data['person'] = $this->normalizer->normalize($object->getPerson(), 'json', $context);
+            }
+
+            if ($object->isInitialized('language') && null !== $object->getLanguage()) {
+                $data['language'] = $object->getLanguage();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
         }
 
-        if (\array_key_exists('language', $data)) {
-            $animeCharactersDataItemVoiceActorsItem->setLanguage($data['language']);
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [AnimeCharactersDataItemVoiceActorsItem::class => false];
         }
-
-        return $animeCharactersDataItemVoiceActorsItem;
-    }
-
-    /**
-     * @param null|mixed $format
-     *
-     * @return array|string|int|float|bool|ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = []): array
-    {
-        $data = [];
-        if (null !== $object->getPerson()) {
-            $data['person'] = $this->normalizer->normalize($object->getPerson(), 'json', $context);
-        }
-
-        if (null !== $object->getLanguage()) {
-            $data['language'] = $object->getLanguage();
-        }
-
-        return $data;
     }
 }

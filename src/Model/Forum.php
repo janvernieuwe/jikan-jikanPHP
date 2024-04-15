@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Forum
+use ArrayObject;
+class Forum extends ArrayObject
 {
     /**
-     * @var ForumDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return ForumDataItem[]
+     * @var list<ForumDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<ForumDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class Forum
     }
 
     /**
-     * @param ForumDataItem[] $data
+     * @param list<ForumDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ClubStaffDataItem
+use ArrayObject;
+class ClubStaffDataItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * User URL.
      *
@@ -31,6 +42,7 @@ class ClubStaffDataItem
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -49,6 +61,7 @@ class ClubStaffDataItem
      */
     public function setUsername(string $username): self
     {
+        $this->initialized['username'] = true;
         $this->username = $username;
 
         return $this;

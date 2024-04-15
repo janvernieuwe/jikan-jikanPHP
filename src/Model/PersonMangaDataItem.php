@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class PersonMangaDataItem
+use ArrayObject;
+class PersonMangaDataItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Person's position.
      *
@@ -29,6 +40,7 @@ class PersonMangaDataItem
      */
     public function setPosition(string $position): self
     {
+        $this->initialized['position'] = true;
         $this->position = $position;
 
         return $this;
@@ -39,9 +51,10 @@ class PersonMangaDataItem
         return $this->manga;
     }
 
-    public function setManga(MangaMeta $mangaMeta): self
+    public function setManga(MangaMeta $manga): self
     {
-        $this->manga = $mangaMeta;
+        $this->initialized['manga'] = true;
+        $this->manga = $manga;
 
         return $this;
     }

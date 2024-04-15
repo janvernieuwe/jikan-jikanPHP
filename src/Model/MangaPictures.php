@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class MangaPictures
+use ArrayObject;
+class MangaPictures extends ArrayObject
 {
     /**
-     * @var MangaImages[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return MangaImages[]
+     * @var list<MangaImages>
+     */
+    protected $data;
+
+    /**
+     * @return list<MangaImages>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class MangaPictures
     }
 
     /**
-     * @param MangaImages[] $data
+     * @param list<MangaImages> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

@@ -2,24 +2,24 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-use Jikan\JikanPHP\Exception\GetTopMangaBadRequestException;
-use Jikan\JikanPHP\Model\MangaSearch;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Jikan\JikanPHP\Exception\GetTopMangaBadRequestException;
+use Jikan\JikanPHP\Model\MangaSearch;
+use Psr\Http\Message\ResponseInterface;
 class GetTopManga extends BaseEndpoint implements Endpoint
 {
     /**
      * @param array $queryParameters {
      *
-     *     @var string $type
-     *     @var string $filter
-     *     @var int $page
-     *     @var int $limit
-     * }
+     * @var string $type
+     * @var string $filter
+     * @var int    $page
+     * @var int    $limit
+     *             }
      */
     public function __construct(array $queryParameters = [])
     {
@@ -54,10 +54,10 @@ class GetTopManga extends BaseEndpoint implements Endpoint
         $optionsResolver->setDefined(['type', 'filter', 'page', 'limit']);
         $optionsResolver->setRequired([]);
         $optionsResolver->setDefaults([]);
-        $optionsResolver->setAllowedTypes('type', ['string']);
-        $optionsResolver->setAllowedTypes('filter', ['string']);
-        $optionsResolver->setAllowedTypes('page', ['int']);
-        $optionsResolver->setAllowedTypes('limit', ['int']);
+        $optionsResolver->addAllowedTypes('type', ['string']);
+        $optionsResolver->addAllowedTypes('filter', ['string']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('limit', ['int']);
 
         return $optionsResolver;
     }
@@ -69,15 +69,19 @@ class GetTopManga extends BaseEndpoint implements Endpoint
      *
      * @return null|MangaSearch
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, MangaSearch::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetTopMangaBadRequestException();
+            throw new GetTopMangaBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

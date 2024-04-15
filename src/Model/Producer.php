@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Producer
+use ArrayObject;
+class Producer extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -21,9 +32,9 @@ class Producer
     /**
      * All titles.
      *
-     * @var string[]
+     * @var list<Title>
      */
-    protected $titles = [];
+    protected $titles;
 
     /**
      * @var CommonImages
@@ -71,6 +82,7 @@ class Producer
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -89,6 +101,7 @@ class Producer
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -97,7 +110,7 @@ class Producer
     /**
      * All titles.
      *
-     * @return string[]
+     * @return list<Title>
      */
     public function getTitles(): array
     {
@@ -107,10 +120,11 @@ class Producer
     /**
      * All titles.
      *
-     * @param string[] $titles
+     * @param list<Title> $titles
      */
     public function setTitles(array $titles): self
     {
+        $this->initialized['titles'] = true;
         $this->titles = $titles;
 
         return $this;
@@ -121,9 +135,10 @@ class Producer
         return $this->images;
     }
 
-    public function setImages(CommonImages $commonImages): self
+    public function setImages(CommonImages $images): self
     {
-        $this->images = $commonImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -141,6 +156,7 @@ class Producer
      */
     public function setFavorites(int $favorites): self
     {
+        $this->initialized['favorites'] = true;
         $this->favorites = $favorites;
 
         return $this;
@@ -159,6 +175,7 @@ class Producer
      */
     public function setCount(int $count): self
     {
+        $this->initialized['count'] = true;
         $this->count = $count;
 
         return $this;
@@ -177,6 +194,7 @@ class Producer
      */
     public function setEstablished(?string $established): self
     {
+        $this->initialized['established'] = true;
         $this->established = $established;
 
         return $this;
@@ -195,6 +213,7 @@ class Producer
      */
     public function setAbout(?string $about): self
     {
+        $this->initialized['about'] = true;
         $this->about = $about;
 
         return $this;

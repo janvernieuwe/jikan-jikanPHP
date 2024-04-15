@@ -2,20 +2,31 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeThemesData
+use ArrayObject;
+class AnimeThemesData extends ArrayObject
 {
     /**
-     * @var string[]
+     * @var array
      */
-    protected $openings = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @var string[]
+     * @var list<string>
      */
-    protected $endings = [];
+    protected $openings;
 
     /**
-     * @return string[]
+     * @var list<string>
+     */
+    protected $endings;
+
+    /**
+     * @return list<string>
      */
     public function getOpenings(): array
     {
@@ -23,17 +34,18 @@ class AnimeThemesData
     }
 
     /**
-     * @param string[] $openings
+     * @param list<string> $openings
      */
     public function setOpenings(array $openings): self
     {
+        $this->initialized['openings'] = true;
         $this->openings = $openings;
 
         return $this;
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     public function getEndings(): array
     {
@@ -41,10 +53,11 @@ class AnimeThemesData
     }
 
     /**
-     * @param string[] $endings
+     * @param list<string> $endings
      */
     public function setEndings(array $endings): self
     {
+        $this->initialized['endings'] = true;
         $this->endings = $endings;
 
         return $this;

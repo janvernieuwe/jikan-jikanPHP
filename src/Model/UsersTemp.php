@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UsersTemp
+use ArrayObject;
+class UsersTemp extends ArrayObject
 {
     /**
-     * @var UsersTempDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return UsersTempDataItem[]
+     * @var list<UsersTempDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<UsersTempDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class UsersTemp
     }
 
     /**
-     * @param UsersTempDataItem[] $data
+     * @param list<UsersTempDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UsersUsernameFullGetResponse200
+use ArrayObject;
+class UsersUsernameFullGetResponse200 extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -22,9 +33,10 @@ class UsersUsernameFullGetResponse200
     /**
      * Transform the resource into an array.
      */
-    public function setData(UserProfileFull $userProfileFull): self
+    public function setData(UserProfileFull $data): self
     {
-        $this->data = $userProfileFull;
+        $this->initialized['data'] = true;
+        $this->data = $data;
 
         return $this;
     }

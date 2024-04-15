@@ -2,11 +2,13 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use Jikan\JikanPHP\Model\UserProfile;
+use Jikan\JikanPHP\Model\UserImages;
 use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Jikan\JikanPHP\Model\UserImages;
-use Jikan\JikanPHP\Model\UserProfile;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -14,135 +16,316 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return UserProfile::class === $type;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return UserProfile::class === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UserProfile;
+        }
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new UserProfile();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('mal_id', $data) && null !== $data['mal_id']) {
+                $object->setMalId($data['mal_id']);
+                unset($data['mal_id']);
+            } elseif (\array_key_exists('mal_id', $data) && null === $data['mal_id']) {
+                $object->setMalId(null);
+            }
+
+            if (\array_key_exists('username', $data)) {
+                $object->setUsername($data['username']);
+                unset($data['username']);
+            }
+
+            if (\array_key_exists('url', $data)) {
+                $object->setUrl($data['url']);
+                unset($data['url']);
+            }
+
+            if (\array_key_exists('images', $data)) {
+                $object->setImages($this->denormalizer->denormalize($data['images'], UserImages::class, 'json', $context));
+                unset($data['images']);
+            }
+
+            if (\array_key_exists('last_online', $data) && null !== $data['last_online']) {
+                $object->setLastOnline($data['last_online']);
+                unset($data['last_online']);
+            } elseif (\array_key_exists('last_online', $data) && null === $data['last_online']) {
+                $object->setLastOnline(null);
+            }
+
+            if (\array_key_exists('gender', $data) && null !== $data['gender']) {
+                $object->setGender($data['gender']);
+                unset($data['gender']);
+            } elseif (\array_key_exists('gender', $data) && null === $data['gender']) {
+                $object->setGender(null);
+            }
+
+            if (\array_key_exists('birthday', $data) && null !== $data['birthday']) {
+                $object->setBirthday($data['birthday']);
+                unset($data['birthday']);
+            } elseif (\array_key_exists('birthday', $data) && null === $data['birthday']) {
+                $object->setBirthday(null);
+            }
+
+            if (\array_key_exists('location', $data) && null !== $data['location']) {
+                $object->setLocation($data['location']);
+                unset($data['location']);
+            } elseif (\array_key_exists('location', $data) && null === $data['location']) {
+                $object->setLocation(null);
+            }
+
+            if (\array_key_exists('joined', $data) && null !== $data['joined']) {
+                $object->setJoined($data['joined']);
+                unset($data['joined']);
+            } elseif (\array_key_exists('joined', $data) && null === $data['joined']) {
+                $object->setJoined(null);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
+        }
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('malId') && null !== $object->getMalId()) {
+                $data['mal_id'] = $object->getMalId();
+            }
+
+            if ($object->isInitialized('username') && null !== $object->getUsername()) {
+                $data['username'] = $object->getUsername();
+            }
+
+            if ($object->isInitialized('url') && null !== $object->getUrl()) {
+                $data['url'] = $object->getUrl();
+            }
+
+            if ($object->isInitialized('images') && null !== $object->getImages()) {
+                $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
+            }
+
+            if ($object->isInitialized('lastOnline') && null !== $object->getLastOnline()) {
+                $data['last_online'] = $object->getLastOnline();
+            }
+
+            if ($object->isInitialized('gender') && null !== $object->getGender()) {
+                $data['gender'] = $object->getGender();
+            }
+
+            if ($object->isInitialized('birthday') && null !== $object->getBirthday()) {
+                $data['birthday'] = $object->getBirthday();
+            }
+
+            if ($object->isInitialized('location') && null !== $object->getLocation()) {
+                $data['location'] = $object->getLocation();
+            }
+
+            if ($object->isInitialized('joined') && null !== $object->getJoined()) {
+                $data['joined'] = $object->getJoined();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UserProfile::class => false];
+        }
     }
-
-    public function supportsNormalization($data, $format = null): bool
+} else {
+    class UserProfileNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return is_object($data) && $data instanceof UserProfile;
-    }
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
 
-    /**
-     * @param null|mixed $format
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserProfile
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return UserProfile::class === $type;
         }
 
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UserProfile;
         }
 
-        $userProfile = new UserProfile();
-        if (null === $data || !\is_array($data)) {
-            return $userProfile;
+        /**
+         * @param null|mixed $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new UserProfile();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('mal_id', $data) && null !== $data['mal_id']) {
+                $object->setMalId($data['mal_id']);
+                unset($data['mal_id']);
+            } elseif (\array_key_exists('mal_id', $data) && null === $data['mal_id']) {
+                $object->setMalId(null);
+            }
+
+            if (\array_key_exists('username', $data)) {
+                $object->setUsername($data['username']);
+                unset($data['username']);
+            }
+
+            if (\array_key_exists('url', $data)) {
+                $object->setUrl($data['url']);
+                unset($data['url']);
+            }
+
+            if (\array_key_exists('images', $data)) {
+                $object->setImages($this->denormalizer->denormalize($data['images'], UserImages::class, 'json', $context));
+                unset($data['images']);
+            }
+
+            if (\array_key_exists('last_online', $data) && null !== $data['last_online']) {
+                $object->setLastOnline($data['last_online']);
+                unset($data['last_online']);
+            } elseif (\array_key_exists('last_online', $data) && null === $data['last_online']) {
+                $object->setLastOnline(null);
+            }
+
+            if (\array_key_exists('gender', $data) && null !== $data['gender']) {
+                $object->setGender($data['gender']);
+                unset($data['gender']);
+            } elseif (\array_key_exists('gender', $data) && null === $data['gender']) {
+                $object->setGender(null);
+            }
+
+            if (\array_key_exists('birthday', $data) && null !== $data['birthday']) {
+                $object->setBirthday($data['birthday']);
+                unset($data['birthday']);
+            } elseif (\array_key_exists('birthday', $data) && null === $data['birthday']) {
+                $object->setBirthday(null);
+            }
+
+            if (\array_key_exists('location', $data) && null !== $data['location']) {
+                $object->setLocation($data['location']);
+                unset($data['location']);
+            } elseif (\array_key_exists('location', $data) && null === $data['location']) {
+                $object->setLocation(null);
+            }
+
+            if (\array_key_exists('joined', $data) && null !== $data['joined']) {
+                $object->setJoined($data['joined']);
+                unset($data['joined']);
+            } elseif (\array_key_exists('joined', $data) && null === $data['joined']) {
+                $object->setJoined(null);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
         }
 
-        if (\array_key_exists('mal_id', $data) && null !== $data['mal_id']) {
-            $userProfile->setMalId($data['mal_id']);
-        } elseif (\array_key_exists('mal_id', $data) && null === $data['mal_id']) {
-            $userProfile->setMalId(null);
+        /**
+         * @param null|mixed $format
+         *
+         * @return array|string|int|float|bool|ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('malId') && null !== $object->getMalId()) {
+                $data['mal_id'] = $object->getMalId();
+            }
+
+            if ($object->isInitialized('username') && null !== $object->getUsername()) {
+                $data['username'] = $object->getUsername();
+            }
+
+            if ($object->isInitialized('url') && null !== $object->getUrl()) {
+                $data['url'] = $object->getUrl();
+            }
+
+            if ($object->isInitialized('images') && null !== $object->getImages()) {
+                $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
+            }
+
+            if ($object->isInitialized('lastOnline') && null !== $object->getLastOnline()) {
+                $data['last_online'] = $object->getLastOnline();
+            }
+
+            if ($object->isInitialized('gender') && null !== $object->getGender()) {
+                $data['gender'] = $object->getGender();
+            }
+
+            if ($object->isInitialized('birthday') && null !== $object->getBirthday()) {
+                $data['birthday'] = $object->getBirthday();
+            }
+
+            if ($object->isInitialized('location') && null !== $object->getLocation()) {
+                $data['location'] = $object->getLocation();
+            }
+
+            if ($object->isInitialized('joined') && null !== $object->getJoined()) {
+                $data['joined'] = $object->getJoined();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
         }
 
-        if (\array_key_exists('username', $data)) {
-            $userProfile->setUsername($data['username']);
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UserProfile::class => false];
         }
-
-        if (\array_key_exists('url', $data)) {
-            $userProfile->setUrl($data['url']);
-        }
-
-        if (\array_key_exists('images', $data)) {
-            $userProfile->setImages($this->denormalizer->denormalize($data['images'], UserImages::class, 'json', $context));
-        }
-
-        if (\array_key_exists('last_online', $data) && null !== $data['last_online']) {
-            $userProfile->setLastOnline($data['last_online']);
-        } elseif (\array_key_exists('last_online', $data) && null === $data['last_online']) {
-            $userProfile->setLastOnline(null);
-        }
-
-        if (\array_key_exists('gender', $data) && null !== $data['gender']) {
-            $userProfile->setGender($data['gender']);
-        } elseif (\array_key_exists('gender', $data) && null === $data['gender']) {
-            $userProfile->setGender(null);
-        }
-
-        if (\array_key_exists('birthday', $data) && null !== $data['birthday']) {
-            $userProfile->setBirthday($data['birthday']);
-        } elseif (\array_key_exists('birthday', $data) && null === $data['birthday']) {
-            $userProfile->setBirthday(null);
-        }
-
-        if (\array_key_exists('location', $data) && null !== $data['location']) {
-            $userProfile->setLocation($data['location']);
-        } elseif (\array_key_exists('location', $data) && null === $data['location']) {
-            $userProfile->setLocation(null);
-        }
-
-        if (\array_key_exists('joined', $data) && null !== $data['joined']) {
-            $userProfile->setJoined($data['joined']);
-        } elseif (\array_key_exists('joined', $data) && null === $data['joined']) {
-            $userProfile->setJoined(null);
-        }
-
-        return $userProfile;
-    }
-
-    /**
-     * @param null|mixed $format
-     *
-     * @return array|string|int|float|bool|ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = []): array
-    {
-        $data = [];
-        if (null !== $object->getMalId()) {
-            $data['mal_id'] = $object->getMalId();
-        }
-
-        if (null !== $object->getUsername()) {
-            $data['username'] = $object->getUsername();
-        }
-
-        if (null !== $object->getUrl()) {
-            $data['url'] = $object->getUrl();
-        }
-
-        if (null !== $object->getImages()) {
-            $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
-        }
-
-        if (null !== $object->getLastOnline()) {
-            $data['last_online'] = $object->getLastOnline();
-        }
-
-        if (null !== $object->getGender()) {
-            $data['gender'] = $object->getGender();
-        }
-
-        if (null !== $object->getBirthday()) {
-            $data['birthday'] = $object->getBirthday();
-        }
-
-        if (null !== $object->getLocation()) {
-            $data['location'] = $object->getLocation();
-        }
-
-        if (null !== $object->getJoined()) {
-            $data['joined'] = $object->getJoined();
-        }
-
-        return $data;
     }
 }

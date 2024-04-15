@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserMeta
+use ArrayObject;
+class UserMeta extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList Username.
      *
@@ -36,6 +47,7 @@ class UserMeta
      */
     public function setUsername(string $username): self
     {
+        $this->initialized['username'] = true;
         $this->username = $username;
 
         return $this;
@@ -54,6 +66,7 @@ class UserMeta
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -64,9 +77,10 @@ class UserMeta
         return $this->images;
     }
 
-    public function setImages(UserImages $userImages): self
+    public function setImages(UserImages $images): self
     {
-        $this->images = $userImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }

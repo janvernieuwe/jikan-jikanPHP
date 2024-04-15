@@ -2,13 +2,13 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-use Jikan\JikanPHP\Exception\GetRandomAnimeBadRequestException;
-use Jikan\JikanPHP\Model\RandomAnimeGetResponse200;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Jikan\JikanPHP\Exception\GetRandomAnimeBadRequestException;
+use Jikan\JikanPHP\Model\RandomAnimeGetResponse200;
+use Psr\Http\Message\ResponseInterface;
 class GetRandomAnime extends BaseEndpoint implements Endpoint
 {
     use EndpointTrait;
@@ -40,15 +40,19 @@ class GetRandomAnime extends BaseEndpoint implements Endpoint
      *
      * @return null|RandomAnimeGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, RandomAnimeGetResponse200::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetRandomAnimeBadRequestException();
+            throw new GetRandomAnimeBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

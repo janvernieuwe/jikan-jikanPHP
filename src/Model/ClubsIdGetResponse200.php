@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ClubsIdGetResponse200
+use ArrayObject;
+class ClubsIdGetResponse200 extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Club Resource.
      *
@@ -22,9 +33,10 @@ class ClubsIdGetResponse200
     /**
      * Club Resource.
      */
-    public function setData(Club $club): self
+    public function setData(Club $data): self
     {
-        $this->data = $club;
+        $this->initialized['data'] = true;
+        $this->data = $data;
 
         return $this;
     }

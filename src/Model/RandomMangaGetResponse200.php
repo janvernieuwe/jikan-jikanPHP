@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class RandomMangaGetResponse200
+use ArrayObject;
+class RandomMangaGetResponse200 extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Manga Resource.
      *
@@ -22,9 +33,10 @@ class RandomMangaGetResponse200
     /**
      * Manga Resource.
      */
-    public function setData(Manga $manga): self
+    public function setData(Manga $data): self
     {
-        $this->data = $manga;
+        $this->initialized['data'] = true;
+        $this->data = $data;
 
         return $this;
     }

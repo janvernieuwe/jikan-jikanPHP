@@ -2,10 +2,12 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use Jikan\JikanPHP\Model\PaginationPagination;
 use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Jikan\JikanPHP\Model\PaginationPagination;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -13,67 +15,166 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class PaginationPaginationNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class PaginationPaginationNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return PaginationPagination::class === $type;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return PaginationPagination::class === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof PaginationPagination;
+        }
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new PaginationPagination();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('last_visible_page', $data)) {
+                $object->setLastVisiblePage($data['last_visible_page']);
+                unset($data['last_visible_page']);
+            }
+
+            if (\array_key_exists('has_next_page', $data)) {
+                $object->setHasNextPage($data['has_next_page']);
+                unset($data['has_next_page']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
+        }
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('lastVisiblePage') && null !== $object->getLastVisiblePage()) {
+                $data['last_visible_page'] = $object->getLastVisiblePage();
+            }
+
+            if ($object->isInitialized('hasNextPage') && null !== $object->getHasNextPage()) {
+                $data['has_next_page'] = $object->getHasNextPage();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [PaginationPagination::class => false];
+        }
     }
-
-    public function supportsNormalization($data, $format = null): bool
+} else {
+    class PaginationPaginationNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return is_object($data) && $data instanceof PaginationPagination;
-    }
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
 
-    /**
-     * @param null|mixed $format
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|PaginationPagination
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return PaginationPagination::class === $type;
         }
 
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof PaginationPagination;
         }
 
-        $paginationPagination = new PaginationPagination();
-        if (null === $data || !\is_array($data)) {
-            return $paginationPagination;
+        /**
+         * @param null|mixed $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new PaginationPagination();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('last_visible_page', $data)) {
+                $object->setLastVisiblePage($data['last_visible_page']);
+                unset($data['last_visible_page']);
+            }
+
+            if (\array_key_exists('has_next_page', $data)) {
+                $object->setHasNextPage($data['has_next_page']);
+                unset($data['has_next_page']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
         }
 
-        if (\array_key_exists('last_visible_page', $data)) {
-            $paginationPagination->setLastVisiblePage($data['last_visible_page']);
+        /**
+         * @param null|mixed $format
+         *
+         * @return array|string|int|float|bool|ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('lastVisiblePage') && null !== $object->getLastVisiblePage()) {
+                $data['last_visible_page'] = $object->getLastVisiblePage();
+            }
+
+            if ($object->isInitialized('hasNextPage') && null !== $object->getHasNextPage()) {
+                $data['has_next_page'] = $object->getHasNextPage();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
         }
 
-        if (\array_key_exists('has_next_page', $data)) {
-            $paginationPagination->setHasNextPage($data['has_next_page']);
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [PaginationPagination::class => false];
         }
-
-        return $paginationPagination;
-    }
-
-    /**
-     * @param null|mixed $format
-     *
-     * @return array|string|int|float|bool|ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = []): array
-    {
-        $data = [];
-        if (null !== $object->getLastVisiblePage()) {
-            $data['last_visible_page'] = $object->getLastVisiblePage();
-        }
-
-        if (null !== $object->getHasNextPage()) {
-            $data['has_next_page'] = $object->getHasNextPage();
-        }
-
-        return $data;
     }
 }

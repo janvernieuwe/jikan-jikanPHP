@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeStaff
+use ArrayObject;
+class AnimeStaff extends ArrayObject
 {
     /**
-     * @var AnimeStaffDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return AnimeStaffDataItem[]
+     * @var list<AnimeStaffDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<AnimeStaffDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class AnimeStaff
     }
 
     /**
-     * @param AnimeStaffDataItem[] $data
+     * @param list<AnimeStaffDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

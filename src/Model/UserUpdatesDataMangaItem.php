@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserUpdatesDataMangaItem
+use ArrayObject;
+class UserUpdatesDataMangaItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var MangaMeta
      */
@@ -51,9 +62,10 @@ class UserUpdatesDataMangaItem
         return $this->entry;
     }
 
-    public function setEntry(MangaMeta $mangaMeta): self
+    public function setEntry(MangaMeta $entry): self
     {
-        $this->entry = $mangaMeta;
+        $this->initialized['entry'] = true;
+        $this->entry = $entry;
 
         return $this;
     }
@@ -65,6 +77,7 @@ class UserUpdatesDataMangaItem
 
     public function setScore(?int $score): self
     {
+        $this->initialized['score'] = true;
         $this->score = $score;
 
         return $this;
@@ -77,6 +90,7 @@ class UserUpdatesDataMangaItem
 
     public function setStatus(string $status): self
     {
+        $this->initialized['status'] = true;
         $this->status = $status;
 
         return $this;
@@ -89,6 +103,7 @@ class UserUpdatesDataMangaItem
 
     public function setChaptersRead(?int $chaptersRead): self
     {
+        $this->initialized['chaptersRead'] = true;
         $this->chaptersRead = $chaptersRead;
 
         return $this;
@@ -101,6 +116,7 @@ class UserUpdatesDataMangaItem
 
     public function setChaptersTotal(?int $chaptersTotal): self
     {
+        $this->initialized['chaptersTotal'] = true;
         $this->chaptersTotal = $chaptersTotal;
 
         return $this;
@@ -113,6 +129,7 @@ class UserUpdatesDataMangaItem
 
     public function setVolumesRead(?int $volumesRead): self
     {
+        $this->initialized['volumesRead'] = true;
         $this->volumesRead = $volumesRead;
 
         return $this;
@@ -125,6 +142,7 @@ class UserUpdatesDataMangaItem
 
     public function setVolumesTotal(?int $volumesTotal): self
     {
+        $this->initialized['volumesTotal'] = true;
         $this->volumesTotal = $volumesTotal;
 
         return $this;
@@ -143,6 +161,7 @@ class UserUpdatesDataMangaItem
      */
     public function setDate(string $date): self
     {
+        $this->initialized['date'] = true;
         $this->date = $date;
 
         return $this;

@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class PersonFullAnimeItem
+use ArrayObject;
+class PersonFullAnimeItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Person's position.
      *
@@ -29,6 +40,7 @@ class PersonFullAnimeItem
      */
     public function setPosition(string $position): self
     {
+        $this->initialized['position'] = true;
         $this->position = $position;
 
         return $this;
@@ -39,9 +51,10 @@ class PersonFullAnimeItem
         return $this->anime;
     }
 
-    public function setAnime(AnimeMeta $animeMeta): self
+    public function setAnime(AnimeMeta $anime): self
     {
-        $this->anime = $animeMeta;
+        $this->initialized['anime'] = true;
+        $this->anime = $anime;
 
         return $this;
     }

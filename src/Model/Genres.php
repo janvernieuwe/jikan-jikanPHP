@@ -2,15 +2,26 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Genres
+use ArrayObject;
+class Genres extends ArrayObject
 {
     /**
-     * @var Genre[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return Genre[]
+     * @var list<Genre>
+     */
+    protected $data;
+
+    /**
+     * @return list<Genre>
      */
     public function getData(): array
     {
@@ -18,10 +29,11 @@ class Genres
     }
 
     /**
-     * @param Genre[] $data
+     * @param list<Genre> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

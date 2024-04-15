@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class EntryMeta
+use ArrayObject;
+class EntryMeta extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -45,6 +56,7 @@ class EntryMeta
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -63,6 +75,7 @@ class EntryMeta
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -81,6 +94,7 @@ class EntryMeta
      */
     public function setImageUrl(string $imageUrl): self
     {
+        $this->initialized['imageUrl'] = true;
         $this->imageUrl = $imageUrl;
 
         return $this;
@@ -99,6 +113,7 @@ class EntryMeta
      */
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;

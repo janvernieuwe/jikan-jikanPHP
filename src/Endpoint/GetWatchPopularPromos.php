@@ -2,27 +2,15 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-use Jikan\JikanPHP\Exception\GetWatchPopularPromosBadRequestException;
-use Jikan\JikanPHP\Model\WatchPromos;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Jikan\JikanPHP\Exception\GetWatchPopularPromosBadRequestException;
+use Jikan\JikanPHP\Model\WatchPromos;
+use Psr\Http\Message\ResponseInterface;
 class GetWatchPopularPromos extends BaseEndpoint implements Endpoint
 {
-    /**
-     * @param array $queryParameters {
-     *
-     *     @var int $limit
-     * }
-     */
-    public function __construct(array $queryParameters = [])
-    {
-        $this->queryParameters = $queryParameters;
-    }
-
     use EndpointTrait;
 
     public function getMethod(): string
@@ -45,17 +33,6 @@ class GetWatchPopularPromos extends BaseEndpoint implements Endpoint
         return ['Accept' => ['application/json']];
     }
 
-    protected function getQueryOptionsResolver(): OptionsResolver
-    {
-        $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(['limit']);
-        $optionsResolver->setRequired([]);
-        $optionsResolver->setDefaults([]);
-        $optionsResolver->setAllowedTypes('limit', ['int']);
-
-        return $optionsResolver;
-    }
-
     /**
      * {@inheritdoc}
      *
@@ -63,15 +40,19 @@ class GetWatchPopularPromos extends BaseEndpoint implements Endpoint
      *
      * @return null|WatchPromos
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, WatchPromos::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetWatchPopularPromosBadRequestException();
+            throw new GetWatchPopularPromosBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

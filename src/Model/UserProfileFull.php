@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserProfileFull
+use ArrayObject;
+class UserProfileFull extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -71,9 +82,9 @@ class UserProfileFull
     protected $statistics;
 
     /**
-     * @var UserProfileFullExternalItem[]
+     * @var list<UserProfileFullExternalItem>
      */
-    protected $external = [];
+    protected $external;
 
     /**
      * MyAnimeList ID.
@@ -88,6 +99,7 @@ class UserProfileFull
      */
     public function setMalId(?int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -106,6 +118,7 @@ class UserProfileFull
      */
     public function setUsername(string $username): self
     {
+        $this->initialized['username'] = true;
         $this->username = $username;
 
         return $this;
@@ -124,6 +137,7 @@ class UserProfileFull
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -134,9 +148,10 @@ class UserProfileFull
         return $this->images;
     }
 
-    public function setImages(UserImages $userImages): self
+    public function setImages(UserImages $images): self
     {
-        $this->images = $userImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -154,6 +169,7 @@ class UserProfileFull
      */
     public function setLastOnline(?string $lastOnline): self
     {
+        $this->initialized['lastOnline'] = true;
         $this->lastOnline = $lastOnline;
 
         return $this;
@@ -172,6 +188,7 @@ class UserProfileFull
      */
     public function setGender(?string $gender): self
     {
+        $this->initialized['gender'] = true;
         $this->gender = $gender;
 
         return $this;
@@ -190,6 +207,7 @@ class UserProfileFull
      */
     public function setBirthday(?string $birthday): self
     {
+        $this->initialized['birthday'] = true;
         $this->birthday = $birthday;
 
         return $this;
@@ -208,6 +226,7 @@ class UserProfileFull
      */
     public function setLocation(?string $location): self
     {
+        $this->initialized['location'] = true;
         $this->location = $location;
 
         return $this;
@@ -226,6 +245,7 @@ class UserProfileFull
      */
     public function setJoined(?string $joined): self
     {
+        $this->initialized['joined'] = true;
         $this->joined = $joined;
 
         return $this;
@@ -236,15 +256,16 @@ class UserProfileFull
         return $this->statistics;
     }
 
-    public function setStatistics(UserProfileFullStatistics $userProfileFullStatistics): self
+    public function setStatistics(UserProfileFullStatistics $statistics): self
     {
-        $this->statistics = $userProfileFullStatistics;
+        $this->initialized['statistics'] = true;
+        $this->statistics = $statistics;
 
         return $this;
     }
 
     /**
-     * @return UserProfileFullExternalItem[]
+     * @return list<UserProfileFullExternalItem>
      */
     public function getExternal(): array
     {
@@ -252,10 +273,11 @@ class UserProfileFull
     }
 
     /**
-     * @param UserProfileFullExternalItem[] $external
+     * @param list<UserProfileFullExternalItem> $external
      */
     public function setExternal(array $external): self
     {
+        $this->initialized['external'] = true;
         $this->external = $external;
 
         return $this;

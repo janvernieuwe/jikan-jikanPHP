@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeImages
+use ArrayObject;
+class AnimeImages extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Available images in JPG.
      *
@@ -29,9 +40,10 @@ class AnimeImages
     /**
      * Available images in JPG.
      */
-    public function setJpg(AnimeImagesJpg $animeImagesJpg): self
+    public function setJpg(AnimeImagesJpg $jpg): self
     {
-        $this->jpg = $animeImagesJpg;
+        $this->initialized['jpg'] = true;
+        $this->jpg = $jpg;
 
         return $this;
     }
@@ -47,9 +59,10 @@ class AnimeImages
     /**
      * Available images in WEBP.
      */
-    public function setWebp(AnimeImagesWebp $animeImagesWebp): self
+    public function setWebp(AnimeImagesWebp $webp): self
     {
-        $this->webp = $animeImagesWebp;
+        $this->initialized['webp'] = true;
+        $this->webp = $webp;
 
         return $this;
     }

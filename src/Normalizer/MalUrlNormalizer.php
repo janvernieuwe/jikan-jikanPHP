@@ -2,10 +2,12 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use Jikan\JikanPHP\Model\MalUrl;
 use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
-use Jikan\JikanPHP\Model\MalUrl;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -13,83 +15,202 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class MalUrlNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class MalUrlNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return MalUrl::class === $type;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return MalUrl::class === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof MalUrl;
+        }
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new MalUrl();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('mal_id', $data)) {
+                $object->setMalId($data['mal_id']);
+                unset($data['mal_id']);
+            }
+
+            if (\array_key_exists('type', $data)) {
+                $object->setType($data['type']);
+                unset($data['type']);
+            }
+
+            if (\array_key_exists('name', $data)) {
+                $object->setName($data['name']);
+                unset($data['name']);
+            }
+
+            if (\array_key_exists('url', $data)) {
+                $object->setUrl($data['url']);
+                unset($data['url']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
+        }
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('malId') && null !== $object->getMalId()) {
+                $data['mal_id'] = $object->getMalId();
+            }
+
+            if ($object->isInitialized('type') && null !== $object->getType()) {
+                $data['type'] = $object->getType();
+            }
+
+            if ($object->isInitialized('name') && null !== $object->getName()) {
+                $data['name'] = $object->getName();
+            }
+
+            if ($object->isInitialized('url') && null !== $object->getUrl()) {
+                $data['url'] = $object->getUrl();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [MalUrl::class => false];
+        }
     }
-
-    public function supportsNormalization($data, $format = null): bool
+} else {
+    class MalUrlNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return is_object($data) && $data instanceof MalUrl;
-    }
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
 
-    /**
-     * @param null|mixed $format
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|MalUrl
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return MalUrl::class === $type;
         }
 
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof MalUrl;
         }
 
-        $malUrl = new MalUrl();
-        if (null === $data || !\is_array($data)) {
-            return $malUrl;
+        /**
+         * @param null|mixed $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new MalUrl();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('mal_id', $data)) {
+                $object->setMalId($data['mal_id']);
+                unset($data['mal_id']);
+            }
+
+            if (\array_key_exists('type', $data)) {
+                $object->setType($data['type']);
+                unset($data['type']);
+            }
+
+            if (\array_key_exists('name', $data)) {
+                $object->setName($data['name']);
+                unset($data['name']);
+            }
+
+            if (\array_key_exists('url', $data)) {
+                $object->setUrl($data['url']);
+                unset($data['url']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
         }
 
-        if (\array_key_exists('mal_id', $data)) {
-            $malUrl->setMalId($data['mal_id']);
+        /**
+         * @param null|mixed $format
+         *
+         * @return array|string|int|float|bool|ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('malId') && null !== $object->getMalId()) {
+                $data['mal_id'] = $object->getMalId();
+            }
+
+            if ($object->isInitialized('type') && null !== $object->getType()) {
+                $data['type'] = $object->getType();
+            }
+
+            if ($object->isInitialized('name') && null !== $object->getName()) {
+                $data['name'] = $object->getName();
+            }
+
+            if ($object->isInitialized('url') && null !== $object->getUrl()) {
+                $data['url'] = $object->getUrl();
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
         }
 
-        if (\array_key_exists('type', $data)) {
-            $malUrl->setType($data['type']);
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [MalUrl::class => false];
         }
-
-        if (\array_key_exists('name', $data)) {
-            $malUrl->setName($data['name']);
-        }
-
-        if (\array_key_exists('url', $data)) {
-            $malUrl->setUrl($data['url']);
-        }
-
-        return $malUrl;
-    }
-
-    /**
-     * @param null|mixed $format
-     *
-     * @return array|string|int|float|bool|ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = []): array
-    {
-        $data = [];
-        if (null !== $object->getMalId()) {
-            $data['mal_id'] = $object->getMalId();
-        }
-
-        if (null !== $object->getType()) {
-            $data['type'] = $object->getType();
-        }
-
-        if (null !== $object->getName()) {
-            $data['name'] = $object->getName();
-        }
-
-        if (null !== $object->getUrl()) {
-            $data['url'] = $object->getUrl();
-        }
-
-        return $data;
     }
 }

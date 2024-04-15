@@ -3,12 +3,14 @@
 namespace Jikan\JikanPHP\Runtime\Client;
 
 use Http\Message\MultipartStream\MultipartStreamBuilder;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
 abstract class BaseEndpoint implements Endpoint
 {
-    public $formParameters;
+    protected $formParameters = [];
+
     protected $queryParameters = [];
 
     protected $headerParameters = [];
@@ -23,7 +25,7 @@ abstract class BaseEndpoint implements Endpoint
 
     abstract public function getAuthenticationScopes(): array;
 
-    abstract protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null);
+    abstract protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null);
 
     protected function getExtraHeaders(): array
     {
@@ -62,13 +64,13 @@ abstract class BaseEndpoint implements Endpoint
 
     protected function getMultipartBody($streamFactory = null): array
     {
-        $multipartStreamBuilder = new MultipartStreamBuilder($streamFactory);
+        $bodyBuilder = new MultipartStreamBuilder($streamFactory);
         $formParameters = $this->getFormOptionsResolver()->resolve($this->formParameters);
         foreach ($formParameters as $key => $value) {
-            $multipartStreamBuilder->addResource($key, $value);
+            $bodyBuilder->addResource($key, $value);
         }
 
-        return [['Content-Type' => ['multipart/form-data; boundary="'.($multipartStreamBuilder->getBoundary().'"')]], $multipartStreamBuilder->build()];
+        return [['Content-Type' => ['multipart/form-data; boundary="'.($bodyBuilder->getBoundary().'"')]], $bodyBuilder->build()];
     }
 
     protected function getFormOptionsResolver(): OptionsResolver

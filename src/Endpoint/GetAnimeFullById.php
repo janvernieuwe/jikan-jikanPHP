@@ -2,17 +2,20 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
-use Jikan\JikanPHP\Exception\GetAnimeFullByIdBadRequestException;
-use Jikan\JikanPHP\Model\AnimeIdFullGetResponse200;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Jikan\JikanPHP\Exception\GetAnimeFullByIdBadRequestException;
+use Jikan\JikanPHP\Model\AnimeIdFullGetResponse200;
+use Psr\Http\Message\ResponseInterface;
 class GetAnimeFullById extends BaseEndpoint implements Endpoint
 {
-    public function __construct(protected int $id)
+    protected $id;
+
+    public function __construct(int $id)
     {
+        $this->id = $id;
     }
 
     use EndpointTrait;
@@ -44,15 +47,19 @@ class GetAnimeFullById extends BaseEndpoint implements Endpoint
      *
      * @return null|AnimeIdFullGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, AnimeIdFullGetResponse200::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetAnimeFullByIdBadRequestException();
+            throw new GetAnimeFullByIdBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

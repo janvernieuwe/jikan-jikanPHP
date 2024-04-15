@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeReview
+use ArrayObject;
+class AnimeReview extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -12,25 +23,25 @@ class AnimeReview
     protected $malId;
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList review URL.
      *
      * @var string
      */
     protected $url;
 
     /**
-     * Entry Type.
+     * Entry type.
      *
      * @var string
      */
     protected $type;
 
     /**
-     * Number of user votes on the Review.
+     * User reaction count on the review.
      *
-     * @var int
+     * @var AnimeReviewReactions
      */
-    protected $votes;
+    protected $reactions;
 
     /**
      * Review created date ISO8601.
@@ -47,18 +58,39 @@ class AnimeReview
     protected $review;
 
     /**
+     * Number of user votes on the Review.
+     *
+     * @var int
+     */
+    protected $score;
+
+    /**
+     * Review tags.
+     *
+     * @var list<string>
+     */
+    protected $tags;
+
+    /**
+     * The review contains spoiler.
+     *
+     * @var bool
+     */
+    protected $isSpoiler;
+
+    /**
+     * The review was made before the entry was completed.
+     *
+     * @var bool
+     */
+    protected $isPreliminary;
+
+    /**
      * Number of episodes watched.
      *
      * @var int
      */
     protected $episodesWatched;
-
-    /**
-     * Review Scores breakdown.
-     *
-     * @var AnimeReviewScores
-     */
-    protected $scores;
 
     /**
      * MyAnimeList ID.
@@ -73,13 +105,14 @@ class AnimeReview
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
     }
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList review URL.
      */
     public function getUrl(): string
     {
@@ -87,17 +120,18 @@ class AnimeReview
     }
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList review URL.
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
     }
 
     /**
-     * Entry Type.
+     * Entry type.
      */
     public function getType(): string
     {
@@ -105,29 +139,31 @@ class AnimeReview
     }
 
     /**
-     * Entry Type.
+     * Entry type.
      */
     public function setType(string $type): self
     {
+        $this->initialized['type'] = true;
         $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Number of user votes on the Review.
+     * User reaction count on the review.
      */
-    public function getVotes(): int
+    public function getReactions(): AnimeReviewReactions
     {
-        return $this->votes;
+        return $this->reactions;
     }
 
     /**
-     * Number of user votes on the Review.
+     * User reaction count on the review.
      */
-    public function setVotes(int $votes): self
+    public function setReactions(AnimeReviewReactions $reactions): self
     {
-        $this->votes = $votes;
+        $this->initialized['reactions'] = true;
+        $this->reactions = $reactions;
 
         return $this;
     }
@@ -145,6 +181,7 @@ class AnimeReview
      */
     public function setDate(string $date): self
     {
+        $this->initialized['date'] = true;
         $this->date = $date;
 
         return $this;
@@ -163,7 +200,88 @@ class AnimeReview
      */
     public function setReview(string $review): self
     {
+        $this->initialized['review'] = true;
         $this->review = $review;
+
+        return $this;
+    }
+
+    /**
+     * Number of user votes on the Review.
+     */
+    public function getScore(): int
+    {
+        return $this->score;
+    }
+
+    /**
+     * Number of user votes on the Review.
+     */
+    public function setScore(int $score): self
+    {
+        $this->initialized['score'] = true;
+        $this->score = $score;
+
+        return $this;
+    }
+
+    /**
+     * Review tags.
+     *
+     * @return list<string>
+     */
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Review tags.
+     *
+     * @param list<string> $tags
+     */
+    public function setTags(array $tags): self
+    {
+        $this->initialized['tags'] = true;
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * The review contains spoiler.
+     */
+    public function getIsSpoiler(): bool
+    {
+        return $this->isSpoiler;
+    }
+
+    /**
+     * The review contains spoiler.
+     */
+    public function setIsSpoiler(bool $isSpoiler): self
+    {
+        $this->initialized['isSpoiler'] = true;
+        $this->isSpoiler = $isSpoiler;
+
+        return $this;
+    }
+
+    /**
+     * The review was made before the entry was completed.
+     */
+    public function getIsPreliminary(): bool
+    {
+        return $this->isPreliminary;
+    }
+
+    /**
+     * The review was made before the entry was completed.
+     */
+    public function setIsPreliminary(bool $isPreliminary): self
+    {
+        $this->initialized['isPreliminary'] = true;
+        $this->isPreliminary = $isPreliminary;
 
         return $this;
     }
@@ -181,25 +299,8 @@ class AnimeReview
      */
     public function setEpisodesWatched(int $episodesWatched): self
     {
+        $this->initialized['episodesWatched'] = true;
         $this->episodesWatched = $episodesWatched;
-
-        return $this;
-    }
-
-    /**
-     * Review Scores breakdown.
-     */
-    public function getScores(): AnimeReviewScores
-    {
-        return $this->scores;
-    }
-
-    /**
-     * Review Scores breakdown.
-     */
-    public function setScores(AnimeReviewScores $animeReviewScores): self
-    {
-        $this->scores = $animeReviewScores;
 
         return $this;
     }

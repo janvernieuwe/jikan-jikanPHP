@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UsersTempDataItem
+use ArrayObject;
+class UsersTempDataItem extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -108,6 +119,7 @@ class UsersTempDataItem
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -126,6 +138,7 @@ class UsersTempDataItem
      */
     public function setUsername(string $username): self
     {
+        $this->initialized['username'] = true;
         $this->username = $username;
 
         return $this;
@@ -144,6 +157,7 @@ class UsersTempDataItem
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -160,9 +174,10 @@ class UsersTempDataItem
     /**
      * Images.
      */
-    public function setImages(UsersTempDataItemImages $usersTempDataItemImages): self
+    public function setImages(UsersTempDataItemImages $images): self
     {
-        $this->images = $usersTempDataItemImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -180,6 +195,7 @@ class UsersTempDataItem
      */
     public function setLastOnline(string $lastOnline): self
     {
+        $this->initialized['lastOnline'] = true;
         $this->lastOnline = $lastOnline;
 
         return $this;
@@ -198,6 +214,7 @@ class UsersTempDataItem
      */
     public function setGender(string $gender): self
     {
+        $this->initialized['gender'] = true;
         $this->gender = $gender;
 
         return $this;
@@ -216,6 +233,7 @@ class UsersTempDataItem
      */
     public function setBirthday(string $birthday): self
     {
+        $this->initialized['birthday'] = true;
         $this->birthday = $birthday;
 
         return $this;
@@ -234,6 +252,7 @@ class UsersTempDataItem
      */
     public function setLocation(string $location): self
     {
+        $this->initialized['location'] = true;
         $this->location = $location;
 
         return $this;
@@ -252,6 +271,7 @@ class UsersTempDataItem
      */
     public function setJoined(string $joined): self
     {
+        $this->initialized['joined'] = true;
         $this->joined = $joined;
 
         return $this;
@@ -268,9 +288,10 @@ class UsersTempDataItem
     /**
      * Anime Stats.
      */
-    public function setAnimeStats(UsersTempDataItemAnimeStats $usersTempDataItemAnimeStats): self
+    public function setAnimeStats(UsersTempDataItemAnimeStats $animeStats): self
     {
-        $this->animeStats = $usersTempDataItemAnimeStats;
+        $this->initialized['animeStats'] = true;
+        $this->animeStats = $animeStats;
 
         return $this;
     }
@@ -286,9 +307,10 @@ class UsersTempDataItem
     /**
      * Manga Stats.
      */
-    public function setMangaStats(UsersTempDataItemMangaStats $usersTempDataItemMangaStats): self
+    public function setMangaStats(UsersTempDataItemMangaStats $mangaStats): self
     {
-        $this->mangaStats = $usersTempDataItemMangaStats;
+        $this->initialized['mangaStats'] = true;
+        $this->mangaStats = $mangaStats;
 
         return $this;
     }
@@ -304,9 +326,10 @@ class UsersTempDataItem
     /**
      * Favorite entries.
      */
-    public function setFavorites(UsersTempDataItemFavorites $usersTempDataItemFavorites): self
+    public function setFavorites(UsersTempDataItemFavorites $favorites): self
     {
-        $this->favorites = $usersTempDataItemFavorites;
+        $this->initialized['favorites'] = true;
+        $this->favorites = $favorites;
 
         return $this;
     }
@@ -324,6 +347,7 @@ class UsersTempDataItem
      */
     public function setAbout(string $about): self
     {
+        $this->initialized['about'] = true;
         $this->about = $about;
 
         return $this;

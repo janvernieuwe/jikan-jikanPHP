@@ -2,8 +2,19 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeVideosDataMusicVideosItemMeta
+use ArrayObject;
+class AnimeVideosDataMusicVideosItemMeta extends ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var string|null
      */
@@ -21,6 +32,7 @@ class AnimeVideosDataMusicVideosItemMeta
 
     public function setTitle(?string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -33,6 +45,7 @@ class AnimeVideosDataMusicVideosItemMeta
 
     public function setAuthor(?string $author): self
     {
+        $this->initialized['author'] = true;
         $this->author = $author;
 
         return $this;

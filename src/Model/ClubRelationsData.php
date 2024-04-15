@@ -2,25 +2,36 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ClubRelationsData
+use ArrayObject;
+class ClubRelationsData extends ArrayObject
 {
     /**
-     * @var MalUrl[]
+     * @var array
      */
-    protected $anime = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $manga = [];
+    protected $anime;
 
     /**
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $characters = [];
+    protected $manga;
 
     /**
-     * @return MalUrl[]
+     * @var list<MalUrl>
+     */
+    protected $characters;
+
+    /**
+     * @return list<MalUrl>
      */
     public function getAnime(): array
     {
@@ -28,17 +39,18 @@ class ClubRelationsData
     }
 
     /**
-     * @param MalUrl[] $anime
+     * @param list<MalUrl> $anime
      */
     public function setAnime(array $anime): self
     {
+        $this->initialized['anime'] = true;
         $this->anime = $anime;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getManga(): array
     {
@@ -46,17 +58,18 @@ class ClubRelationsData
     }
 
     /**
-     * @param MalUrl[] $manga
+     * @param list<MalUrl> $manga
      */
     public function setManga(array $manga): self
     {
+        $this->initialized['manga'] = true;
         $this->manga = $manga;
 
         return $this;
     }
 
     /**
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getCharacters(): array
     {
@@ -64,10 +77,11 @@ class ClubRelationsData
     }
 
     /**
-     * @param MalUrl[] $characters
+     * @param list<MalUrl> $characters
      */
     public function setCharacters(array $characters): self
     {
+        $this->initialized['characters'] = true;
         $this->characters = $characters;
 
         return $this;
