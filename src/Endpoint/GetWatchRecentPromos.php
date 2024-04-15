@@ -7,10 +7,23 @@ use Jikan\JikanPHP\Model\WatchPromos;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetWatchRecentPromos extends BaseEndpoint implements Endpoint
 {
+    /**
+     * @param array $queryParameters {
+     *
+     * @var int $page
+     *          }
+     */
+    public function __construct(array $queryParameters = [])
+    {
+        $this->queryParameters = $queryParameters;
+    }
+
     use EndpointTrait;
 
     public function getMethod(): string
@@ -33,6 +46,17 @@ class GetWatchRecentPromos extends BaseEndpoint implements Endpoint
         return ['Accept' => ['application/json']];
     }
 
+    protected function getQueryOptionsResolver(): OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(['page']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('page', ['int']);
+
+        return $optionsResolver;
+    }
+
     /**
      * {@inheritdoc}
      *
@@ -40,15 +64,19 @@ class GetWatchRecentPromos extends BaseEndpoint implements Endpoint
      *
      * @return null|WatchPromos
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, WatchPromos::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetWatchRecentPromosBadRequestException();
+            throw new GetWatchRecentPromosBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class MangaIdRelationsGetResponse200
+class MangaIdRelationsGetResponse200 extends \ArrayObject
 {
     /**
-     * @var Relation[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return Relation[]
+     * @var list<Relation>
+     */
+    protected $data;
+
+    /**
+     * @return list<Relation>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class MangaIdRelationsGetResponse200
     }
 
     /**
-     * @param Relation[] $data
+     * @param list<Relation> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

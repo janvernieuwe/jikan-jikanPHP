@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class DaterangeProp
+class DaterangeProp extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Date Prop From.
      *
@@ -36,9 +46,10 @@ class DaterangeProp
     /**
      * Date Prop From.
      */
-    public function setFrom(DaterangePropFrom $daterangePropFrom): self
+    public function setFrom(DaterangePropFrom $from): self
     {
-        $this->from = $daterangePropFrom;
+        $this->initialized['from'] = true;
+        $this->from = $from;
 
         return $this;
     }
@@ -54,9 +65,10 @@ class DaterangeProp
     /**
      * Date Prop To.
      */
-    public function setTo(DaterangePropTo $daterangePropTo): self
+    public function setTo(DaterangePropTo $to): self
     {
-        $this->to = $daterangePropTo;
+        $this->initialized['to'] = true;
+        $this->to = $to;
 
         return $this;
     }
@@ -74,6 +86,7 @@ class DaterangeProp
      */
     public function setString(?string $string): self
     {
+        $this->initialized['string'] = true;
         $this->string = $string;
 
         return $this;

@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UsersTempDataItemMangaStats
+class UsersTempDataItemMangaStats extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Number of days spent reading Manga.
      *
@@ -94,6 +104,7 @@ class UsersTempDataItemMangaStats
      */
     public function setDaysRead(float $daysRead): self
     {
+        $this->initialized['daysRead'] = true;
         $this->daysRead = $daysRead;
 
         return $this;
@@ -112,6 +123,7 @@ class UsersTempDataItemMangaStats
      */
     public function setMeanScore(float $meanScore): self
     {
+        $this->initialized['meanScore'] = true;
         $this->meanScore = $meanScore;
 
         return $this;
@@ -130,6 +142,7 @@ class UsersTempDataItemMangaStats
      */
     public function setReading(int $reading): self
     {
+        $this->initialized['reading'] = true;
         $this->reading = $reading;
 
         return $this;
@@ -148,6 +161,7 @@ class UsersTempDataItemMangaStats
      */
     public function setCompleted(int $completed): self
     {
+        $this->initialized['completed'] = true;
         $this->completed = $completed;
 
         return $this;
@@ -166,6 +180,7 @@ class UsersTempDataItemMangaStats
      */
     public function setOnHold(int $onHold): self
     {
+        $this->initialized['onHold'] = true;
         $this->onHold = $onHold;
 
         return $this;
@@ -184,6 +199,7 @@ class UsersTempDataItemMangaStats
      */
     public function setDropped(int $dropped): self
     {
+        $this->initialized['dropped'] = true;
         $this->dropped = $dropped;
 
         return $this;
@@ -202,6 +218,7 @@ class UsersTempDataItemMangaStats
      */
     public function setPlanToRead(int $planToRead): self
     {
+        $this->initialized['planToRead'] = true;
         $this->planToRead = $planToRead;
 
         return $this;
@@ -220,6 +237,7 @@ class UsersTempDataItemMangaStats
      */
     public function setTotalEntries(int $totalEntries): self
     {
+        $this->initialized['totalEntries'] = true;
         $this->totalEntries = $totalEntries;
 
         return $this;
@@ -238,6 +256,7 @@ class UsersTempDataItemMangaStats
      */
     public function setReread(int $reread): self
     {
+        $this->initialized['reread'] = true;
         $this->reread = $reread;
 
         return $this;
@@ -256,6 +275,7 @@ class UsersTempDataItemMangaStats
      */
     public function setChaptersRead(int $chaptersRead): self
     {
+        $this->initialized['chaptersRead'] = true;
         $this->chaptersRead = $chaptersRead;
 
         return $this;
@@ -274,6 +294,7 @@ class UsersTempDataItemMangaStats
      */
     public function setVolumesRead(int $volumesRead): self
     {
+        $this->initialized['volumesRead'] = true;
         $this->volumesRead = $volumesRead;
 
         return $this;

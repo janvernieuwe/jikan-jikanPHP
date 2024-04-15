@@ -7,6 +7,7 @@ use Jikan\JikanPHP\Model\Recommendations;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -15,8 +16,8 @@ class GetRecentAnimeRecommendations extends BaseEndpoint implements Endpoint
     /**
      * @param array $queryParameters {
      *
-     *     @var int $page
-     * }
+     * @var int $page
+     *          }
      */
     public function __construct(array $queryParameters = [])
     {
@@ -51,7 +52,7 @@ class GetRecentAnimeRecommendations extends BaseEndpoint implements Endpoint
         $optionsResolver->setDefined(['page']);
         $optionsResolver->setRequired([]);
         $optionsResolver->setDefaults([]);
-        $optionsResolver->setAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
 
         return $optionsResolver;
     }
@@ -63,15 +64,19 @@ class GetRecentAnimeRecommendations extends BaseEndpoint implements Endpoint
      *
      * @return null|Recommendations
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, Recommendations::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetRecentAnimeRecommendationsBadRequestException();
+            throw new GetRecentAnimeRecommendationsBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

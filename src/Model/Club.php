@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Club
+class Club extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -71,6 +81,7 @@ class Club
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -89,6 +100,7 @@ class Club
      */
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -107,6 +119,7 @@ class Club
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -117,9 +130,10 @@ class Club
         return $this->images;
     }
 
-    public function setImages(CommonImages $commonImages): self
+    public function setImages(CommonImages $images): self
     {
-        $this->images = $commonImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -137,6 +151,7 @@ class Club
      */
     public function setMembers(int $members): self
     {
+        $this->initialized['members'] = true;
         $this->members = $members;
 
         return $this;
@@ -155,6 +170,7 @@ class Club
      */
     public function setCategory(string $category): self
     {
+        $this->initialized['category'] = true;
         $this->category = $category;
 
         return $this;
@@ -173,6 +189,7 @@ class Club
      */
     public function setCreated(string $created): self
     {
+        $this->initialized['created'] = true;
         $this->created = $created;
 
         return $this;
@@ -191,6 +208,7 @@ class Club
      */
     public function setAccess(string $access): self
     {
+        $this->initialized['access'] = true;
         $this->access = $access;
 
         return $this;

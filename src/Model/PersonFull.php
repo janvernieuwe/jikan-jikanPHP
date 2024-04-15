@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class PersonFull
+class PersonFull extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -54,9 +64,9 @@ class PersonFull
     /**
      * Other Names.
      *
-     * @var string[]
+     * @var list<string>
      */
-    protected $alternateNames = [];
+    protected $alternateNames;
 
     /**
      * Birthday Date ISO8601.
@@ -80,19 +90,19 @@ class PersonFull
     protected $about;
 
     /**
-     * @var PersonFullAnimeItem[]
+     * @var list<PersonFullAnimeItem>
      */
-    protected $anime = [];
+    protected $anime;
 
     /**
-     * @var PersonFullMangaItem[]
+     * @var list<PersonFullMangaItem>
      */
-    protected $manga = [];
+    protected $manga;
 
     /**
-     * @var PersonFullVoicesItem[]
+     * @var list<PersonFullVoicesItem>
      */
-    protected $voices = [];
+    protected $voices;
 
     /**
      * MyAnimeList ID.
@@ -107,6 +117,7 @@ class PersonFull
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -125,6 +136,7 @@ class PersonFull
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -143,6 +155,7 @@ class PersonFull
      */
     public function setWebsiteUrl(?string $websiteUrl): self
     {
+        $this->initialized['websiteUrl'] = true;
         $this->websiteUrl = $websiteUrl;
 
         return $this;
@@ -153,9 +166,10 @@ class PersonFull
         return $this->images;
     }
 
-    public function setImages(PeopleImages $peopleImages): self
+    public function setImages(PeopleImages $images): self
     {
-        $this->images = $peopleImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -173,6 +187,7 @@ class PersonFull
      */
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -191,6 +206,7 @@ class PersonFull
      */
     public function setGivenName(?string $givenName): self
     {
+        $this->initialized['givenName'] = true;
         $this->givenName = $givenName;
 
         return $this;
@@ -209,6 +225,7 @@ class PersonFull
      */
     public function setFamilyName(?string $familyName): self
     {
+        $this->initialized['familyName'] = true;
         $this->familyName = $familyName;
 
         return $this;
@@ -217,7 +234,7 @@ class PersonFull
     /**
      * Other Names.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getAlternateNames(): array
     {
@@ -227,10 +244,11 @@ class PersonFull
     /**
      * Other Names.
      *
-     * @param string[] $alternateNames
+     * @param list<string> $alternateNames
      */
     public function setAlternateNames(array $alternateNames): self
     {
+        $this->initialized['alternateNames'] = true;
         $this->alternateNames = $alternateNames;
 
         return $this;
@@ -249,6 +267,7 @@ class PersonFull
      */
     public function setBirthday(?string $birthday): self
     {
+        $this->initialized['birthday'] = true;
         $this->birthday = $birthday;
 
         return $this;
@@ -267,6 +286,7 @@ class PersonFull
      */
     public function setFavorites(int $favorites): self
     {
+        $this->initialized['favorites'] = true;
         $this->favorites = $favorites;
 
         return $this;
@@ -285,13 +305,14 @@ class PersonFull
      */
     public function setAbout(?string $about): self
     {
+        $this->initialized['about'] = true;
         $this->about = $about;
 
         return $this;
     }
 
     /**
-     * @return PersonFullAnimeItem[]
+     * @return list<PersonFullAnimeItem>
      */
     public function getAnime(): array
     {
@@ -299,17 +320,18 @@ class PersonFull
     }
 
     /**
-     * @param PersonFullAnimeItem[] $anime
+     * @param list<PersonFullAnimeItem> $anime
      */
     public function setAnime(array $anime): self
     {
+        $this->initialized['anime'] = true;
         $this->anime = $anime;
 
         return $this;
     }
 
     /**
-     * @return PersonFullMangaItem[]
+     * @return list<PersonFullMangaItem>
      */
     public function getManga(): array
     {
@@ -317,17 +339,18 @@ class PersonFull
     }
 
     /**
-     * @param PersonFullMangaItem[] $manga
+     * @param list<PersonFullMangaItem> $manga
      */
     public function setManga(array $manga): self
     {
+        $this->initialized['manga'] = true;
         $this->manga = $manga;
 
         return $this;
     }
 
     /**
-     * @return PersonFullVoicesItem[]
+     * @return list<PersonFullVoicesItem>
      */
     public function getVoices(): array
     {
@@ -335,10 +358,11 @@ class PersonFull
     }
 
     /**
-     * @param PersonFullVoicesItem[] $voices
+     * @param list<PersonFullVoicesItem> $voices
      */
     public function setVoices(array $voices): self
     {
+        $this->initialized['voices'] = true;
         $this->voices = $voices;
 
         return $this;

@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class MangaReviewsdataItem
+class MangaReviewsdataItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var UserMeta
      */
@@ -17,25 +27,25 @@ class MangaReviewsdataItem
     protected $malId;
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList review URL.
      *
      * @var string
      */
     protected $url;
 
     /**
-     * Entry Type.
+     * Entry type.
      *
      * @var string
      */
     protected $type;
 
     /**
-     * Number of user votes on the Review.
+     * User reaction count on the review.
      *
-     * @var int
+     * @var MangaReviewReactions
      */
-    protected $votes;
+    protected $reactions;
 
     /**
      * Review created date ISO8601.
@@ -45,13 +55,6 @@ class MangaReviewsdataItem
     protected $date;
 
     /**
-     * Number of chapters read by the reviewer.
-     *
-     * @var int
-     */
-    protected $chaptersRead;
-
-    /**
      * Review content.
      *
      * @var string
@@ -59,20 +62,42 @@ class MangaReviewsdataItem
     protected $review;
 
     /**
-     * Review Scores breakdown.
+     * Number of user votes on the Review.
      *
-     * @var MangaReviewScores
+     * @var int
      */
-    protected $scores;
+    protected $score;
+
+    /**
+     * Review tags.
+     *
+     * @var list<string>
+     */
+    protected $tags;
+
+    /**
+     * The review contains spoiler.
+     *
+     * @var bool
+     */
+    protected $isSpoiler;
+
+    /**
+     * The review was made before the entry was completed.
+     *
+     * @var bool
+     */
+    protected $isPreliminary;
 
     public function getUser(): UserMeta
     {
         return $this->user;
     }
 
-    public function setUser(UserMeta $userMeta): self
+    public function setUser(UserMeta $user): self
     {
-        $this->user = $userMeta;
+        $this->initialized['user'] = true;
+        $this->user = $user;
 
         return $this;
     }
@@ -90,13 +115,14 @@ class MangaReviewsdataItem
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
     }
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList review URL.
      */
     public function getUrl(): string
     {
@@ -104,17 +130,18 @@ class MangaReviewsdataItem
     }
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList review URL.
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
     }
 
     /**
-     * Entry Type.
+     * Entry type.
      */
     public function getType(): string
     {
@@ -122,29 +149,31 @@ class MangaReviewsdataItem
     }
 
     /**
-     * Entry Type.
+     * Entry type.
      */
     public function setType(string $type): self
     {
+        $this->initialized['type'] = true;
         $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Number of user votes on the Review.
+     * User reaction count on the review.
      */
-    public function getVotes(): int
+    public function getReactions(): MangaReviewReactions
     {
-        return $this->votes;
+        return $this->reactions;
     }
 
     /**
-     * Number of user votes on the Review.
+     * User reaction count on the review.
      */
-    public function setVotes(int $votes): self
+    public function setReactions(MangaReviewReactions $reactions): self
     {
-        $this->votes = $votes;
+        $this->initialized['reactions'] = true;
+        $this->reactions = $reactions;
 
         return $this;
     }
@@ -162,25 +191,8 @@ class MangaReviewsdataItem
      */
     public function setDate(string $date): self
     {
+        $this->initialized['date'] = true;
         $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Number of chapters read by the reviewer.
-     */
-    public function getChaptersRead(): int
-    {
-        return $this->chaptersRead;
-    }
-
-    /**
-     * Number of chapters read by the reviewer.
-     */
-    public function setChaptersRead(int $chaptersRead): self
-    {
-        $this->chaptersRead = $chaptersRead;
 
         return $this;
     }
@@ -198,25 +210,88 @@ class MangaReviewsdataItem
      */
     public function setReview(string $review): self
     {
+        $this->initialized['review'] = true;
         $this->review = $review;
 
         return $this;
     }
 
     /**
-     * Review Scores breakdown.
+     * Number of user votes on the Review.
      */
-    public function getScores(): MangaReviewScores
+    public function getScore(): int
     {
-        return $this->scores;
+        return $this->score;
     }
 
     /**
-     * Review Scores breakdown.
+     * Number of user votes on the Review.
      */
-    public function setScores(MangaReviewScores $mangaReviewScores): self
+    public function setScore(int $score): self
     {
-        $this->scores = $mangaReviewScores;
+        $this->initialized['score'] = true;
+        $this->score = $score;
+
+        return $this;
+    }
+
+    /**
+     * Review tags.
+     *
+     * @return list<string>
+     */
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Review tags.
+     *
+     * @param list<string> $tags
+     */
+    public function setTags(array $tags): self
+    {
+        $this->initialized['tags'] = true;
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * The review contains spoiler.
+     */
+    public function getIsSpoiler(): bool
+    {
+        return $this->isSpoiler;
+    }
+
+    /**
+     * The review contains spoiler.
+     */
+    public function setIsSpoiler(bool $isSpoiler): self
+    {
+        $this->initialized['isSpoiler'] = true;
+        $this->isSpoiler = $isSpoiler;
+
+        return $this;
+    }
+
+    /**
+     * The review was made before the entry was completed.
+     */
+    public function getIsPreliminary(): bool
+    {
+        return $this->isPreliminary;
+    }
+
+    /**
+     * The review was made before the entry was completed.
+     */
+    public function setIsPreliminary(bool $isPreliminary): self
+    {
+        $this->initialized['isPreliminary'] = true;
+        $this->isPreliminary = $isPreliminary;
 
         return $this;
     }

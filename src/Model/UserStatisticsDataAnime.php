@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserStatisticsDataAnime
+class UserStatisticsDataAnime extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Number of days spent watching Anime.
      *
@@ -87,6 +97,7 @@ class UserStatisticsDataAnime
      */
     public function setDaysWatched(float $daysWatched): self
     {
+        $this->initialized['daysWatched'] = true;
         $this->daysWatched = $daysWatched;
 
         return $this;
@@ -105,6 +116,7 @@ class UserStatisticsDataAnime
      */
     public function setMeanScore(float $meanScore): self
     {
+        $this->initialized['meanScore'] = true;
         $this->meanScore = $meanScore;
 
         return $this;
@@ -123,6 +135,7 @@ class UserStatisticsDataAnime
      */
     public function setWatching(int $watching): self
     {
+        $this->initialized['watching'] = true;
         $this->watching = $watching;
 
         return $this;
@@ -141,6 +154,7 @@ class UserStatisticsDataAnime
      */
     public function setCompleted(int $completed): self
     {
+        $this->initialized['completed'] = true;
         $this->completed = $completed;
 
         return $this;
@@ -159,6 +173,7 @@ class UserStatisticsDataAnime
      */
     public function setOnHold(int $onHold): self
     {
+        $this->initialized['onHold'] = true;
         $this->onHold = $onHold;
 
         return $this;
@@ -177,6 +192,7 @@ class UserStatisticsDataAnime
      */
     public function setDropped(int $dropped): self
     {
+        $this->initialized['dropped'] = true;
         $this->dropped = $dropped;
 
         return $this;
@@ -195,6 +211,7 @@ class UserStatisticsDataAnime
      */
     public function setPlanToWatch(int $planToWatch): self
     {
+        $this->initialized['planToWatch'] = true;
         $this->planToWatch = $planToWatch;
 
         return $this;
@@ -213,6 +230,7 @@ class UserStatisticsDataAnime
      */
     public function setTotalEntries(int $totalEntries): self
     {
+        $this->initialized['totalEntries'] = true;
         $this->totalEntries = $totalEntries;
 
         return $this;
@@ -231,6 +249,7 @@ class UserStatisticsDataAnime
      */
     public function setRewatched(int $rewatched): self
     {
+        $this->initialized['rewatched'] = true;
         $this->rewatched = $rewatched;
 
         return $this;
@@ -249,6 +268,7 @@ class UserStatisticsDataAnime
      */
     public function setEpisodesWatched(int $episodesWatched): self
     {
+        $this->initialized['episodesWatched'] = true;
         $this->episodesWatched = $episodesWatched;
 
         return $this;

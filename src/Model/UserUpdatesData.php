@@ -2,26 +2,36 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserUpdatesData
+class UserUpdatesData extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Last updated Anime.
      *
-     * @var UserUpdatesDataAnimeItem[]
+     * @var list<array<string, mixed>>
      */
-    protected $anime = [];
+    protected $anime;
 
     /**
      * Last updated Manga.
      *
-     * @var UserUpdatesDataMangaItem[]
+     * @var list<array<string, mixed>>
      */
-    protected $manga = [];
+    protected $manga;
 
     /**
      * Last updated Anime.
      *
-     * @return UserUpdatesDataAnimeItem[]
+     * @return list<array<string, mixed>>
      */
     public function getAnime(): array
     {
@@ -31,10 +41,11 @@ class UserUpdatesData
     /**
      * Last updated Anime.
      *
-     * @param UserUpdatesDataAnimeItem[] $anime
+     * @param list<array<string, mixed>> $anime
      */
     public function setAnime(array $anime): self
     {
+        $this->initialized['anime'] = true;
         $this->anime = $anime;
 
         return $this;
@@ -43,7 +54,7 @@ class UserUpdatesData
     /**
      * Last updated Manga.
      *
-     * @return UserUpdatesDataMangaItem[]
+     * @return list<array<string, mixed>>
      */
     public function getManga(): array
     {
@@ -53,10 +64,11 @@ class UserUpdatesData
     /**
      * Last updated Manga.
      *
-     * @param UserUpdatesDataMangaItem[] $manga
+     * @param list<array<string, mixed>> $manga
      */
     public function setManga(array $manga): self
     {
+        $this->initialized['manga'] = true;
         $this->manga = $manga;
 
         return $this;

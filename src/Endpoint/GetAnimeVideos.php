@@ -7,12 +7,16 @@ use Jikan\JikanPHP\Model\AnimeVideos;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetAnimeVideos extends BaseEndpoint implements Endpoint
 {
-    public function __construct(protected int $id)
+    protected $id;
+
+    public function __construct(int $id)
     {
+        $this->id = $id;
     }
 
     use EndpointTrait;
@@ -44,15 +48,19 @@ class GetAnimeVideos extends BaseEndpoint implements Endpoint
      *
      * @return null|AnimeVideos
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, AnimeVideos::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetAnimeVideosBadRequestException();
+            throw new GetAnimeVideosBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

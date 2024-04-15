@@ -2,40 +2,50 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UsersTempDataItemFavorites
+class UsersTempDataItemFavorites extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Favorite Anime.
      *
-     * @var EntryMeta[]
+     * @var list<EntryMeta>
      */
-    protected $anime = [];
+    protected $anime;
 
     /**
      * Favorite Manga.
      *
-     * @var EntryMeta[]
+     * @var list<EntryMeta>
      */
-    protected $manga = [];
+    protected $manga;
 
     /**
      * Favorite Characters.
      *
-     * @var EntryMeta[]
+     * @var list<EntryMeta>
      */
-    protected $characters = [];
+    protected $characters;
 
     /**
      * Favorite People.
      *
-     * @var EntryMeta[]
+     * @var list<EntryMeta>
      */
-    protected $people = [];
+    protected $people;
 
     /**
      * Favorite Anime.
      *
-     * @return EntryMeta[]
+     * @return list<EntryMeta>
      */
     public function getAnime(): array
     {
@@ -45,10 +55,11 @@ class UsersTempDataItemFavorites
     /**
      * Favorite Anime.
      *
-     * @param EntryMeta[] $anime
+     * @param list<EntryMeta> $anime
      */
     public function setAnime(array $anime): self
     {
+        $this->initialized['anime'] = true;
         $this->anime = $anime;
 
         return $this;
@@ -57,7 +68,7 @@ class UsersTempDataItemFavorites
     /**
      * Favorite Manga.
      *
-     * @return EntryMeta[]
+     * @return list<EntryMeta>
      */
     public function getManga(): array
     {
@@ -67,10 +78,11 @@ class UsersTempDataItemFavorites
     /**
      * Favorite Manga.
      *
-     * @param EntryMeta[] $manga
+     * @param list<EntryMeta> $manga
      */
     public function setManga(array $manga): self
     {
+        $this->initialized['manga'] = true;
         $this->manga = $manga;
 
         return $this;
@@ -79,7 +91,7 @@ class UsersTempDataItemFavorites
     /**
      * Favorite Characters.
      *
-     * @return EntryMeta[]
+     * @return list<EntryMeta>
      */
     public function getCharacters(): array
     {
@@ -89,10 +101,11 @@ class UsersTempDataItemFavorites
     /**
      * Favorite Characters.
      *
-     * @param EntryMeta[] $characters
+     * @param list<EntryMeta> $characters
      */
     public function setCharacters(array $characters): self
     {
+        $this->initialized['characters'] = true;
         $this->characters = $characters;
 
         return $this;
@@ -101,7 +114,7 @@ class UsersTempDataItemFavorites
     /**
      * Favorite People.
      *
-     * @return EntryMeta[]
+     * @return list<EntryMeta>
      */
     public function getPeople(): array
     {
@@ -111,10 +124,11 @@ class UsersTempDataItemFavorites
     /**
      * Favorite People.
      *
-     * @param EntryMeta[] $people
+     * @param list<EntryMeta> $people
      */
     public function setPeople(array $people): self
     {
+        $this->initialized['people'] = true;
         $this->people = $people;
 
         return $this;

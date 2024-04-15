@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UsersUsernameReviewsGetResponse200
+class UsersUsernameReviewsGetResponse200 extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var UsersUsernameReviewsGetResponse200Data
      */
@@ -14,9 +24,10 @@ class UsersUsernameReviewsGetResponse200
         return $this->data;
     }
 
-    public function setData(UsersUsernameReviewsGetResponse200Data $usersUsernameReviewsGetResponse200Data): self
+    public function setData(UsersUsernameReviewsGetResponse200Data $data): self
     {
-        $this->data = $usersUsernameReviewsGetResponse200Data;
+        $this->initialized['data'] = true;
+        $this->data = $data;
 
         return $this;
     }

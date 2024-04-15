@@ -7,19 +7,23 @@ use Jikan\JikanPHP\Model\AnimeEpisodes;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetAnimeEpisodes extends BaseEndpoint implements Endpoint
 {
+    protected $id;
+
     /**
      * @param array $queryParameters {
      *
-     *     @var int $page
-     * }
+     * @var int $page
+     *          }
      */
-    public function __construct(protected int $id, array $queryParameters = [])
+    public function __construct(int $id, array $queryParameters = [])
     {
+        $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
 
@@ -51,7 +55,7 @@ class GetAnimeEpisodes extends BaseEndpoint implements Endpoint
         $optionsResolver->setDefined(['page']);
         $optionsResolver->setRequired([]);
         $optionsResolver->setDefaults([]);
-        $optionsResolver->setAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
 
         return $optionsResolver;
     }
@@ -63,15 +67,19 @@ class GetAnimeEpisodes extends BaseEndpoint implements Endpoint
      *
      * @return null|AnimeEpisodes
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, AnimeEpisodes::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetAnimeEpisodesBadRequestException();
+            throw new GetAnimeEpisodesBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

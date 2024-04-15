@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class TrailerImagesImages
+class TrailerImagesImages extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Default Image Size URL (120x90).
      *
@@ -52,6 +62,7 @@ class TrailerImagesImages
      */
     public function setImageUrl(?string $imageUrl): self
     {
+        $this->initialized['imageUrl'] = true;
         $this->imageUrl = $imageUrl;
 
         return $this;
@@ -70,6 +81,7 @@ class TrailerImagesImages
      */
     public function setSmallImageUrl(?string $smallImageUrl): self
     {
+        $this->initialized['smallImageUrl'] = true;
         $this->smallImageUrl = $smallImageUrl;
 
         return $this;
@@ -88,6 +100,7 @@ class TrailerImagesImages
      */
     public function setMediumImageUrl(?string $mediumImageUrl): self
     {
+        $this->initialized['mediumImageUrl'] = true;
         $this->mediumImageUrl = $mediumImageUrl;
 
         return $this;
@@ -106,6 +119,7 @@ class TrailerImagesImages
      */
     public function setLargeImageUrl(?string $largeImageUrl): self
     {
+        $this->initialized['largeImageUrl'] = true;
         $this->largeImageUrl = $largeImageUrl;
 
         return $this;
@@ -124,6 +138,7 @@ class TrailerImagesImages
      */
     public function setMaximumImageUrl(?string $maximumImageUrl): self
     {
+        $this->initialized['maximumImageUrl'] = true;
         $this->maximumImageUrl = $maximumImageUrl;
 
         return $this;

@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class WatchEpisodesdataItemEpisodesItem
+class WatchEpisodesdataItemEpisodesItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -30,7 +40,7 @@ class WatchEpisodesdataItemEpisodesItem
      *
      * @var bool
      */
-    protected $premium = false;
+    protected $premium;
 
     /**
      * MyAnimeList ID.
@@ -45,6 +55,7 @@ class WatchEpisodesdataItemEpisodesItem
      */
     public function setMalId(string $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -63,6 +74,7 @@ class WatchEpisodesdataItemEpisodesItem
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -81,6 +93,7 @@ class WatchEpisodesdataItemEpisodesItem
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -99,6 +112,7 @@ class WatchEpisodesdataItemEpisodesItem
      */
     public function setPremium(bool $premium): self
     {
+        $this->initialized['premium'] = true;
         $this->premium = $premium;
 
         return $this;

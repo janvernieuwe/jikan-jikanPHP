@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ExternalLinks
+class ExternalLinks extends \ArrayObject
 {
     /**
-     * @var ExternalLinksDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return ExternalLinksDataItem[]
+     * @var list<ExternalLinksDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<ExternalLinksDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class ExternalLinks
     }
 
     /**
-     * @param ExternalLinksDataItem[] $data
+     * @param list<ExternalLinksDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

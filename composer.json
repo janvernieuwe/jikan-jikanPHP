@@ -6,17 +6,18 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^8",
+        "php": "^8.2",
         "ext-json": "*",
-        "jane-php/open-api-runtime": "^7.3"
+        "jane-php/open-api-runtime": "^7.6.1",
+        "symfony/http-kernel": "^6.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.11",
-        "jane-php/open-api-3": "^7.3",
+        "jane-php/open-api-3": "^7.6.1",
         "php-http/guzzle7-adapter": "^1.0",
         "phpro/grumphp": "^1.13",
         "phpunit/phpunit": "^9.5",
-        "rector/rector": "^0.14.2",
+        "rector/rector": "^1.0.4",
         "squizlabs/php_codesniffer": "^3.7"
     },
     "autoload": {
@@ -36,13 +37,16 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "phpro/grumphp": true
+            "phpro/grumphp": true,
+            "php-http/discovery": true
         }
     },
     "scripts": {
         "update-jikan": [
             "rm -rf src/*",
             "php vendor/bin/jane-openapi generate --config-file=config/jikan.php",
+            "find ./src/ -type f -name \"*Normalizer.php\" -exec sed -i 's/public function denormalize($data, $type, $format = null, array $context = \\[\\])/public function denormalize($data, $type, $format = null, array $context = \\[\\]):mixed/g' {} \\;",
+            "find ./src/ -type f -name \"*Normalizer.php\" -exec sed -i 's/public function normalize($object, $format = null, array $context = \\[\\])/public function normalize($object, $format = null, array $context = \\[\\]):array|\\\\ArrayObject|bool|float|int|string|null/g' {} \\;",
             "php vendor/bin/php-cs-fixer -q --allow-risky=yes --config=config/.php-cs-fixer.dist.php fix",
             "php vendor/bin/rector --no-diffs --clear-cache --config=config/rector.php",
             "php vendor/bin/php-cs-fixer -q --allow-risky=yes --config=config/.php-cs-fixer.dist.php fix",

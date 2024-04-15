@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ProducerFullExternalItem
+class ProducerFullExternalItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var string
      */
@@ -21,6 +31,7 @@ class ProducerFullExternalItem
 
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -33,6 +44,7 @@ class ProducerFullExternalItem
 
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;

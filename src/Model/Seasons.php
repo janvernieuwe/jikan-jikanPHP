@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Seasons
+class Seasons extends \ArrayObject
 {
     /**
-     * @var SeasonsDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return SeasonsDataItem[]
+     * @var list<SeasonsDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<SeasonsDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class Seasons
     }
 
     /**
-     * @param SeasonsDataItem[] $data
+     * @param list<SeasonsDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

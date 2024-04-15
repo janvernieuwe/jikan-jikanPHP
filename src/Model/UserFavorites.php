@@ -2,40 +2,50 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserFavorites
+class UserFavorites extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Favorite Anime.
      *
-     * @var UserFavoritesAnimeItem[]
+     * @var list<array<string, mixed>>
      */
-    protected $anime = [];
+    protected $anime;
 
     /**
      * Favorite Manga.
      *
-     * @var UserFavoritesMangaItem[]
+     * @var list<array<string, mixed>>
      */
-    protected $manga = [];
+    protected $manga;
 
     /**
      * Favorite Characters.
      *
-     * @var UserFavoritesCharactersItem[]
+     * @var list<array<string, mixed>>
      */
-    protected $characters = [];
+    protected $characters;
 
     /**
      * Favorite People.
      *
-     * @var CharacterMeta[]
+     * @var list<CharacterMeta>
      */
-    protected $people = [];
+    protected $people;
 
     /**
      * Favorite Anime.
      *
-     * @return UserFavoritesAnimeItem[]
+     * @return list<array<string, mixed>>
      */
     public function getAnime(): array
     {
@@ -45,10 +55,11 @@ class UserFavorites
     /**
      * Favorite Anime.
      *
-     * @param UserFavoritesAnimeItem[] $anime
+     * @param list<array<string, mixed>> $anime
      */
     public function setAnime(array $anime): self
     {
+        $this->initialized['anime'] = true;
         $this->anime = $anime;
 
         return $this;
@@ -57,7 +68,7 @@ class UserFavorites
     /**
      * Favorite Manga.
      *
-     * @return UserFavoritesMangaItem[]
+     * @return list<array<string, mixed>>
      */
     public function getManga(): array
     {
@@ -67,10 +78,11 @@ class UserFavorites
     /**
      * Favorite Manga.
      *
-     * @param UserFavoritesMangaItem[] $manga
+     * @param list<array<string, mixed>> $manga
      */
     public function setManga(array $manga): self
     {
+        $this->initialized['manga'] = true;
         $this->manga = $manga;
 
         return $this;
@@ -79,7 +91,7 @@ class UserFavorites
     /**
      * Favorite Characters.
      *
-     * @return UserFavoritesCharactersItem[]
+     * @return list<array<string, mixed>>
      */
     public function getCharacters(): array
     {
@@ -89,10 +101,11 @@ class UserFavorites
     /**
      * Favorite Characters.
      *
-     * @param UserFavoritesCharactersItem[] $characters
+     * @param list<array<string, mixed>> $characters
      */
     public function setCharacters(array $characters): self
     {
+        $this->initialized['characters'] = true;
         $this->characters = $characters;
 
         return $this;
@@ -101,7 +114,7 @@ class UserFavorites
     /**
      * Favorite People.
      *
-     * @return CharacterMeta[]
+     * @return list<CharacterMeta>
      */
     public function getPeople(): array
     {
@@ -111,10 +124,11 @@ class UserFavorites
     /**
      * Favorite People.
      *
-     * @param CharacterMeta[] $people
+     * @param list<CharacterMeta> $people
      */
     public function setPeople(array $people): self
     {
+        $this->initialized['people'] = true;
         $this->people = $people;
 
         return $this;

@@ -7,6 +7,7 @@ use Jikan\JikanPHP\Model\UsersSearch;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -15,14 +16,14 @@ class GetUsersSearch extends BaseEndpoint implements Endpoint
     /**
      * @param array $queryParameters {
      *
-     *     @var int $page
-     *     @var int $limit
-     *     @var string $q
-     *     @var string $gender
-     *     @var string $location
-     *     @var int $maxAge
-     *     @var int $minAge
-     * }
+     * @var int    $page
+     * @var int    $limit
+     * @var string $q
+     * @var string $gender
+     * @var string $location
+     * @var int    $maxAge
+     * @var int    $minAge
+     *             }
      */
     public function __construct(array $queryParameters = [])
     {
@@ -57,13 +58,13 @@ class GetUsersSearch extends BaseEndpoint implements Endpoint
         $optionsResolver->setDefined(['page', 'limit', 'q', 'gender', 'location', 'maxAge', 'minAge']);
         $optionsResolver->setRequired([]);
         $optionsResolver->setDefaults([]);
-        $optionsResolver->setAllowedTypes('page', ['int']);
-        $optionsResolver->setAllowedTypes('limit', ['int']);
-        $optionsResolver->setAllowedTypes('q', ['string']);
-        $optionsResolver->setAllowedTypes('gender', ['string']);
-        $optionsResolver->setAllowedTypes('location', ['string']);
-        $optionsResolver->setAllowedTypes('maxAge', ['int']);
-        $optionsResolver->setAllowedTypes('minAge', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('limit', ['int']);
+        $optionsResolver->addAllowedTypes('q', ['string']);
+        $optionsResolver->addAllowedTypes('gender', ['string']);
+        $optionsResolver->addAllowedTypes('location', ['string']);
+        $optionsResolver->addAllowedTypes('maxAge', ['int']);
+        $optionsResolver->addAllowedTypes('minAge', ['int']);
 
         return $optionsResolver;
     }
@@ -75,15 +76,19 @@ class GetUsersSearch extends BaseEndpoint implements Endpoint
      *
      * @return null|UsersSearch
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, UsersSearch::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetUsersSearchBadRequestException();
+            throw new GetUsersSearchBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

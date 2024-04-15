@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserById
+class UserById extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList URL.
      *
@@ -31,6 +41,7 @@ class UserById
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -49,6 +60,7 @@ class UserById
      */
     public function setUsername(string $username): self
     {
+        $this->initialized['username'] = true;
         $this->username = $username;
 
         return $this;

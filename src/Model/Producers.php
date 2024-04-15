@@ -2,12 +2,22 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Producers
+class Producers extends \ArrayObject
 {
     /**
-     * @var Producer[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
+    /**
+     * @var list<Producer>
+     */
+    protected $data;
 
     /**
      * @var PaginationPagination
@@ -15,7 +25,7 @@ class Producers
     protected $pagination;
 
     /**
-     * @return Producer[]
+     * @return list<Producer>
      */
     public function getData(): array
     {
@@ -23,10 +33,11 @@ class Producers
     }
 
     /**
-     * @param Producer[] $data
+     * @param list<Producer> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;
@@ -37,9 +48,10 @@ class Producers
         return $this->pagination;
     }
 
-    public function setPagination(PaginationPagination $paginationPagination): self
+    public function setPagination(PaginationPagination $pagination): self
     {
-        $this->pagination = $paginationPagination;
+        $this->initialized['pagination'] = true;
+        $this->pagination = $pagination;
 
         return $this;
     }

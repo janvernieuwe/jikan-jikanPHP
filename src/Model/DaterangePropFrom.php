@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class DaterangePropFrom
+class DaterangePropFrom extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Day.
      *
@@ -38,6 +48,7 @@ class DaterangePropFrom
      */
     public function setDay(?int $day): self
     {
+        $this->initialized['day'] = true;
         $this->day = $day;
 
         return $this;
@@ -56,6 +67,7 @@ class DaterangePropFrom
      */
     public function setMonth(?int $month): self
     {
+        $this->initialized['month'] = true;
         $this->month = $month;
 
         return $this;
@@ -74,6 +86,7 @@ class DaterangePropFrom
      */
     public function setYear(?int $year): self
     {
+        $this->initialized['year'] = true;
         $this->year = $year;
 
         return $this;

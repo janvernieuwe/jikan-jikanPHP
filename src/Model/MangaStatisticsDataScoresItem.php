@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class MangaStatisticsDataScoresItem
+class MangaStatisticsDataScoresItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Scoring value.
      *
@@ -38,6 +48,7 @@ class MangaStatisticsDataScoresItem
      */
     public function setScore(int $score): self
     {
+        $this->initialized['score'] = true;
         $this->score = $score;
 
         return $this;
@@ -56,6 +67,7 @@ class MangaStatisticsDataScoresItem
      */
     public function setVotes(int $votes): self
     {
+        $this->initialized['votes'] = true;
         $this->votes = $votes;
 
         return $this;
@@ -74,6 +86,7 @@ class MangaStatisticsDataScoresItem
      */
     public function setPercentage(float $percentage): self
     {
+        $this->initialized['percentage'] = true;
         $this->percentage = $percentage;
 
         return $this;

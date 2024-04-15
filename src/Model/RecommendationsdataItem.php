@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class RecommendationsdataItem
+class RecommendationsdataItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MAL IDs of recommendations is both of the MAL ID's with a `-` delimiter.
      *
@@ -14,9 +24,9 @@ class RecommendationsdataItem
     /**
      * Array of 2 entries that are being recommended to each other.
      *
-     * @var mixed[]
+     * @var list<array<string, mixed>>
      */
-    protected $entry = [];
+    protected $entry;
 
     /**
      * Recommendation context provided by the user.
@@ -45,6 +55,7 @@ class RecommendationsdataItem
      */
     public function setMalId(string $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -53,7 +64,7 @@ class RecommendationsdataItem
     /**
      * Array of 2 entries that are being recommended to each other.
      *
-     * @return mixed[]
+     * @return list<array<string, mixed>>
      */
     public function getEntry(): array
     {
@@ -63,10 +74,11 @@ class RecommendationsdataItem
     /**
      * Array of 2 entries that are being recommended to each other.
      *
-     * @param mixed[] $entry
+     * @param list<array<string, mixed>> $entry
      */
     public function setEntry(array $entry): self
     {
+        $this->initialized['entry'] = true;
         $this->entry = $entry;
 
         return $this;
@@ -85,6 +97,7 @@ class RecommendationsdataItem
      */
     public function setContent(string $content): self
     {
+        $this->initialized['content'] = true;
         $this->content = $content;
 
         return $this;
@@ -101,9 +114,10 @@ class RecommendationsdataItem
     /**
      * User Meta By ID.
      */
-    public function setUser(UserById $userById): self
+    public function setUser(UserById $user): self
     {
-        $this->user = $userById;
+        $this->initialized['user'] = true;
+        $this->user = $user;
 
         return $this;
     }

@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class ForumDataItem
+class ForumDataItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -73,6 +83,7 @@ class ForumDataItem
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -91,6 +102,7 @@ class ForumDataItem
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -109,6 +121,7 @@ class ForumDataItem
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -127,6 +140,7 @@ class ForumDataItem
      */
     public function setDate(string $date): self
     {
+        $this->initialized['date'] = true;
         $this->date = $date;
 
         return $this;
@@ -145,6 +159,7 @@ class ForumDataItem
      */
     public function setAuthorUsername(string $authorUsername): self
     {
+        $this->initialized['authorUsername'] = true;
         $this->authorUsername = $authorUsername;
 
         return $this;
@@ -163,6 +178,7 @@ class ForumDataItem
      */
     public function setAuthorUrl(string $authorUrl): self
     {
+        $this->initialized['authorUrl'] = true;
         $this->authorUrl = $authorUrl;
 
         return $this;
@@ -181,6 +197,7 @@ class ForumDataItem
      */
     public function setComments(int $comments): self
     {
+        $this->initialized['comments'] = true;
         $this->comments = $comments;
 
         return $this;
@@ -197,9 +214,10 @@ class ForumDataItem
     /**
      * Last comment details.
      */
-    public function setLastComment(ForumDataItemLastComment $forumDataItemLastComment): self
+    public function setLastComment(ForumDataItemLastComment $lastComment): self
     {
-        $this->lastComment = $forumDataItemLastComment;
+        $this->initialized['lastComment'] = true;
+        $this->lastComment = $lastComment;
 
         return $this;
     }

@@ -7,12 +7,16 @@ use Jikan\JikanPHP\Model\ExternalLinks;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetUserExternal extends BaseEndpoint implements Endpoint
 {
-    public function __construct(protected string $username)
+    protected $username;
+
+    public function __construct(string $username)
     {
+        $this->username = $username;
     }
 
     use EndpointTrait;
@@ -44,15 +48,19 @@ class GetUserExternal extends BaseEndpoint implements Endpoint
      *
      * @return null|ExternalLinks
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, ExternalLinks::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetUserExternalBadRequestException();
+            throw new GetUserExternalBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

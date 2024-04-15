@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class CharacterFull
+class CharacterFull extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -40,9 +50,9 @@ class CharacterFull
     /**
      * Other Names.
      *
-     * @var string[]
+     * @var list<string>
      */
-    protected $nicknames = [];
+    protected $nicknames;
 
     /**
      * Number of users who have favorited this entry.
@@ -59,19 +69,19 @@ class CharacterFull
     protected $about;
 
     /**
-     * @var CharacterFullAnimeItem[]
+     * @var list<CharacterFullAnimeItem>
      */
-    protected $anime = [];
+    protected $anime;
 
     /**
-     * @var CharacterFullMangaItem[]
+     * @var list<CharacterFullMangaItem>
      */
-    protected $manga = [];
+    protected $manga;
 
     /**
-     * @var CharacterFullVoicesItem[]
+     * @var list<CharacterFullVoicesItem>
      */
-    protected $voices = [];
+    protected $voices;
 
     /**
      * MyAnimeList ID.
@@ -86,6 +96,7 @@ class CharacterFull
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -104,6 +115,7 @@ class CharacterFull
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -114,9 +126,10 @@ class CharacterFull
         return $this->images;
     }
 
-    public function setImages(CharacterImages $characterImages): self
+    public function setImages(CharacterImages $images): self
     {
-        $this->images = $characterImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -134,6 +147,7 @@ class CharacterFull
      */
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -152,6 +166,7 @@ class CharacterFull
      */
     public function setNameKanji(?string $nameKanji): self
     {
+        $this->initialized['nameKanji'] = true;
         $this->nameKanji = $nameKanji;
 
         return $this;
@@ -160,7 +175,7 @@ class CharacterFull
     /**
      * Other Names.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getNicknames(): array
     {
@@ -170,10 +185,11 @@ class CharacterFull
     /**
      * Other Names.
      *
-     * @param string[] $nicknames
+     * @param list<string> $nicknames
      */
     public function setNicknames(array $nicknames): self
     {
+        $this->initialized['nicknames'] = true;
         $this->nicknames = $nicknames;
 
         return $this;
@@ -192,6 +208,7 @@ class CharacterFull
      */
     public function setFavorites(int $favorites): self
     {
+        $this->initialized['favorites'] = true;
         $this->favorites = $favorites;
 
         return $this;
@@ -210,13 +227,14 @@ class CharacterFull
      */
     public function setAbout(?string $about): self
     {
+        $this->initialized['about'] = true;
         $this->about = $about;
 
         return $this;
     }
 
     /**
-     * @return CharacterFullAnimeItem[]
+     * @return list<CharacterFullAnimeItem>
      */
     public function getAnime(): array
     {
@@ -224,17 +242,18 @@ class CharacterFull
     }
 
     /**
-     * @param CharacterFullAnimeItem[] $anime
+     * @param list<CharacterFullAnimeItem> $anime
      */
     public function setAnime(array $anime): self
     {
+        $this->initialized['anime'] = true;
         $this->anime = $anime;
 
         return $this;
     }
 
     /**
-     * @return CharacterFullMangaItem[]
+     * @return list<CharacterFullMangaItem>
      */
     public function getManga(): array
     {
@@ -242,17 +261,18 @@ class CharacterFull
     }
 
     /**
-     * @param CharacterFullMangaItem[] $manga
+     * @param list<CharacterFullMangaItem> $manga
      */
     public function setManga(array $manga): self
     {
+        $this->initialized['manga'] = true;
         $this->manga = $manga;
 
         return $this;
     }
 
     /**
-     * @return CharacterFullVoicesItem[]
+     * @return list<CharacterFullVoicesItem>
      */
     public function getVoices(): array
     {
@@ -260,10 +280,11 @@ class CharacterFull
     }
 
     /**
-     * @param CharacterFullVoicesItem[] $voices
+     * @param list<CharacterFullVoicesItem> $voices
      */
     public function setVoices(array $voices): self
     {
+        $this->initialized['voices'] = true;
         $this->voices = $voices;
 
         return $this;

@@ -7,12 +7,19 @@ use Jikan\JikanPHP\Model\AnimeIdEpisodesEpisodeGetResponse200;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetAnimeEpisodeById extends BaseEndpoint implements Endpoint
 {
-    public function __construct(protected int $id, protected int $episode)
+    protected $id;
+
+    protected $episode;
+
+    public function __construct(int $id, int $episode)
     {
+        $this->id = $id;
+        $this->episode = $episode;
     }
 
     use EndpointTrait;
@@ -44,15 +51,19 @@ class GetAnimeEpisodeById extends BaseEndpoint implements Endpoint
      *
      * @return null|AnimeIdEpisodesEpisodeGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, AnimeIdEpisodesEpisodeGetResponse200::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetAnimeEpisodeByIdBadRequestException();
+            throw new GetAnimeEpisodeByIdBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

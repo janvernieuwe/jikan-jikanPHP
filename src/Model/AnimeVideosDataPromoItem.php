@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeVideosDataPromoItem
+class AnimeVideosDataPromoItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Title.
      *
@@ -14,7 +24,7 @@ class AnimeVideosDataPromoItem
     /**
      * Youtube Details.
      *
-     * @var Trailer
+     * @var array<string, mixed>
      */
     protected $trailer;
 
@@ -31,6 +41,7 @@ class AnimeVideosDataPromoItem
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -38,17 +49,22 @@ class AnimeVideosDataPromoItem
 
     /**
      * Youtube Details.
+     *
+     * @return array<string, mixed>
      */
-    public function getTrailer(): Trailer
+    public function getTrailer(): iterable
     {
         return $this->trailer;
     }
 
     /**
      * Youtube Details.
+     *
+     * @param array<string, mixed> $trailer
      */
-    public function setTrailer(Trailer $trailer): self
+    public function setTrailer(iterable $trailer): self
     {
+        $this->initialized['trailer'] = true;
         $this->trailer = $trailer;
 
         return $this;

@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class StreamingLinks
+class StreamingLinks extends \ArrayObject
 {
     /**
-     * @var StreamingLinksDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return StreamingLinksDataItem[]
+     * @var list<StreamingLinksDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<StreamingLinksDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class StreamingLinks
     }
 
     /**
-     * @param StreamingLinksDataItem[] $data
+     * @param list<StreamingLinksDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class CharacterPictures
+class CharacterPictures extends \ArrayObject
 {
     /**
-     * @var CharacterPicturesDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return CharacterPicturesDataItem[]
+     * @var list<CharacterPicturesDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<CharacterPicturesDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class CharacterPictures
     }
 
     /**
-     * @param CharacterPicturesDataItem[] $data
+     * @param list<CharacterPicturesDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

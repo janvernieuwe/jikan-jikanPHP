@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Relation
+class Relation extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Relation type.
      *
@@ -14,9 +24,9 @@ class Relation
     /**
      * Related entries.
      *
-     * @var MalUrl[]
+     * @var list<MalUrl>
      */
-    protected $entry = [];
+    protected $entry;
 
     /**
      * Relation type.
@@ -31,6 +41,7 @@ class Relation
      */
     public function setRelation(string $relation): self
     {
+        $this->initialized['relation'] = true;
         $this->relation = $relation;
 
         return $this;
@@ -39,7 +50,7 @@ class Relation
     /**
      * Related entries.
      *
-     * @return MalUrl[]
+     * @return list<MalUrl>
      */
     public function getEntry(): array
     {
@@ -49,10 +60,11 @@ class Relation
     /**
      * Related entries.
      *
-     * @param MalUrl[] $entry
+     * @param list<MalUrl> $entry
      */
     public function setEntry(array $entry): self
     {
+        $this->initialized['entry'] = true;
         $this->entry = $entry;
 
         return $this;

@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class EntryRecommendations
+class EntryRecommendations extends \ArrayObject
 {
     /**
-     * @var EntryRecommendationsDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return EntryRecommendationsDataItem[]
+     * @var list<EntryRecommendationsDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<EntryRecommendationsDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class EntryRecommendations
     }
 
     /**
-     * @param EntryRecommendationsDataItem[] $data
+     * @param list<EntryRecommendationsDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

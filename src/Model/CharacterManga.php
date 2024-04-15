@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class CharacterManga
+class CharacterManga extends \ArrayObject
 {
     /**
-     * @var CharacterMangaDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return CharacterMangaDataItem[]
+     * @var list<CharacterMangaDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<CharacterMangaDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class CharacterManga
     }
 
     /**
-     * @param CharacterMangaDataItem[] $data
+     * @param list<CharacterMangaDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

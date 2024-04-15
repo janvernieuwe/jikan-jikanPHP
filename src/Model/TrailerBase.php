@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class TrailerBase
+class TrailerBase extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * YouTube ID.
      *
@@ -38,6 +48,7 @@ class TrailerBase
      */
     public function setYoutubeId(?string $youtubeId): self
     {
+        $this->initialized['youtubeId'] = true;
         $this->youtubeId = $youtubeId;
 
         return $this;
@@ -56,6 +67,7 @@ class TrailerBase
      */
     public function setUrl(?string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -74,6 +86,7 @@ class TrailerBase
      */
     public function setEmbedUrl(?string $embedUrl): self
     {
+        $this->initialized['embedUrl'] = true;
         $this->embedUrl = $embedUrl;
 
         return $this;

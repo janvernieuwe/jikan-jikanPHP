@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Genre
+class Genre extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -45,6 +55,7 @@ class Genre
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -63,6 +74,7 @@ class Genre
      */
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -81,6 +93,7 @@ class Genre
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -99,6 +112,7 @@ class Genre
      */
     public function setCount(int $count): self
     {
+        $this->initialized['count'] = true;
         $this->count = $count;
 
         return $this;

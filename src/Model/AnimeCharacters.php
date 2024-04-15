@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeCharacters
+class AnimeCharacters extends \ArrayObject
 {
     /**
-     * @var AnimeCharactersDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return AnimeCharactersDataItem[]
+     * @var list<AnimeCharactersDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<AnimeCharactersDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class AnimeCharacters
     }
 
     /**
-     * @param AnimeCharactersDataItem[] $data
+     * @param list<AnimeCharactersDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

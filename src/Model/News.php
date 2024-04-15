@@ -2,15 +2,25 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class News
+class News extends \ArrayObject
 {
     /**
-     * @var NewsDataItem[]
+     * @var array
      */
-    protected $data = [];
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
 
     /**
-     * @return NewsDataItem[]
+     * @var list<NewsDataItem>
+     */
+    protected $data;
+
+    /**
+     * @return list<NewsDataItem>
      */
     public function getData(): array
     {
@@ -18,10 +28,11 @@ class News
     }
 
     /**
-     * @param NewsDataItem[] $data
+     * @param list<NewsDataItem> $data
      */
     public function setData(array $data): self
     {
+        $this->initialized['data'] = true;
         $this->data = $data;
 
         return $this;

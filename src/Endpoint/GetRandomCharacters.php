@@ -7,6 +7,7 @@ use Jikan\JikanPHP\Model\RandomCharactersGetResponse200;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetRandomCharacters extends BaseEndpoint implements Endpoint
@@ -40,15 +41,19 @@ class GetRandomCharacters extends BaseEndpoint implements Endpoint
      *
      * @return null|RandomCharactersGetResponse200
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, RandomCharactersGetResponse200::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetRandomCharactersBadRequestException();
+            throw new GetRandomCharactersBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

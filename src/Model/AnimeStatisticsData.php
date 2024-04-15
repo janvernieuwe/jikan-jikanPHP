@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeStatisticsData
+class AnimeStatisticsData extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Number of users watching the resource.
      *
@@ -47,9 +57,9 @@ class AnimeStatisticsData
     protected $total;
 
     /**
-     * @var AnimeStatisticsDataScoresItem[]
+     * @var list<AnimeStatisticsDataScoresItem>
      */
-    protected $scores = [];
+    protected $scores;
 
     /**
      * Number of users watching the resource.
@@ -64,6 +74,7 @@ class AnimeStatisticsData
      */
     public function setWatching(int $watching): self
     {
+        $this->initialized['watching'] = true;
         $this->watching = $watching;
 
         return $this;
@@ -82,6 +93,7 @@ class AnimeStatisticsData
      */
     public function setCompleted(int $completed): self
     {
+        $this->initialized['completed'] = true;
         $this->completed = $completed;
 
         return $this;
@@ -100,6 +112,7 @@ class AnimeStatisticsData
      */
     public function setOnHold(int $onHold): self
     {
+        $this->initialized['onHold'] = true;
         $this->onHold = $onHold;
 
         return $this;
@@ -118,6 +131,7 @@ class AnimeStatisticsData
      */
     public function setDropped(int $dropped): self
     {
+        $this->initialized['dropped'] = true;
         $this->dropped = $dropped;
 
         return $this;
@@ -136,6 +150,7 @@ class AnimeStatisticsData
      */
     public function setPlanToWatch(int $planToWatch): self
     {
+        $this->initialized['planToWatch'] = true;
         $this->planToWatch = $planToWatch;
 
         return $this;
@@ -154,13 +169,14 @@ class AnimeStatisticsData
      */
     public function setTotal(int $total): self
     {
+        $this->initialized['total'] = true;
         $this->total = $total;
 
         return $this;
     }
 
     /**
-     * @return AnimeStatisticsDataScoresItem[]
+     * @return list<AnimeStatisticsDataScoresItem>
      */
     public function getScores(): array
     {
@@ -168,10 +184,11 @@ class AnimeStatisticsData
     }
 
     /**
-     * @param AnimeStatisticsDataScoresItem[] $scores
+     * @param list<AnimeStatisticsDataScoresItem> $scores
      */
     public function setScores(array $scores): self
     {
+        $this->initialized['scores'] = true;
         $this->scores = $scores;
 
         return $this;

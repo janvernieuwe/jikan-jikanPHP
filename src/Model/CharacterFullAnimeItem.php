@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class CharacterFullAnimeItem
+class CharacterFullAnimeItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Character's Role.
      *
@@ -29,6 +39,7 @@ class CharacterFullAnimeItem
      */
     public function setRole(string $role): self
     {
+        $this->initialized['role'] = true;
         $this->role = $role;
 
         return $this;
@@ -39,9 +50,10 @@ class CharacterFullAnimeItem
         return $this->anime;
     }
 
-    public function setAnime(AnimeMeta $animeMeta): self
+    public function setAnime(AnimeMeta $anime): self
     {
-        $this->anime = $animeMeta;
+        $this->initialized['anime'] = true;
+        $this->anime = $anime;
 
         return $this;
     }

@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class CharacterImagesWebp
+class CharacterImagesWebp extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Image URL WEBP.
      *
@@ -31,6 +41,7 @@ class CharacterImagesWebp
      */
     public function setImageUrl(?string $imageUrl): self
     {
+        $this->initialized['imageUrl'] = true;
         $this->imageUrl = $imageUrl;
 
         return $this;
@@ -49,6 +60,7 @@ class CharacterImagesWebp
      */
     public function setSmallImageUrl(?string $smallImageUrl): self
     {
+        $this->initialized['smallImageUrl'] = true;
         $this->smallImageUrl = $smallImageUrl;
 
         return $this;

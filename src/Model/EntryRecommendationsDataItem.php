@@ -2,17 +2,37 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class EntryRecommendationsDataItem
+class EntryRecommendationsDataItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
+    /**
+     * @var array<string, mixed>
+     */
     protected $entry;
 
-    public function getEntry()
+    /**
+     * @return array<string, mixed>
+     */
+    public function getEntry(): iterable
     {
         return $this->entry;
     }
 
-    public function setEntry($entry): self
+    /**
+     * @param array<string, mixed> $entry
+     */
+    public function setEntry(iterable $entry): self
     {
+        $this->initialized['entry'] = true;
         $this->entry = $entry;
 
         return $this;

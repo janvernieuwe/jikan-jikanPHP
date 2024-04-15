@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UsersSearchdataItem
+class UsersSearchdataItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList URL.
      *
@@ -43,6 +53,7 @@ class UsersSearchdataItem
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -61,6 +72,7 @@ class UsersSearchdataItem
      */
     public function setUsername(string $username): self
     {
+        $this->initialized['username'] = true;
         $this->username = $username;
 
         return $this;
@@ -71,9 +83,10 @@ class UsersSearchdataItem
         return $this->images;
     }
 
-    public function setImages(UserImages $userImages): self
+    public function setImages(UserImages $images): self
     {
-        $this->images = $userImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -91,6 +104,7 @@ class UsersSearchdataItem
      */
     public function setLastOnline(string $lastOnline): self
     {
+        $this->initialized['lastOnline'] = true;
         $this->lastOnline = $lastOnline;
 
         return $this;

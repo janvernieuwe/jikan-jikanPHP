@@ -7,6 +7,7 @@ use Jikan\JikanPHP\Model\PeopleSearch;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -15,9 +16,9 @@ class GetTopPeople extends BaseEndpoint implements Endpoint
     /**
      * @param array $queryParameters {
      *
-     *     @var int $page
-     *     @var int $limit
-     * }
+     * @var int $page
+     * @var int $limit
+     *          }
      */
     public function __construct(array $queryParameters = [])
     {
@@ -52,8 +53,8 @@ class GetTopPeople extends BaseEndpoint implements Endpoint
         $optionsResolver->setDefined(['page', 'limit']);
         $optionsResolver->setRequired([]);
         $optionsResolver->setDefaults([]);
-        $optionsResolver->setAllowedTypes('page', ['int']);
-        $optionsResolver->setAllowedTypes('limit', ['int']);
+        $optionsResolver->addAllowedTypes('page', ['int']);
+        $optionsResolver->addAllowedTypes('limit', ['int']);
 
         return $optionsResolver;
     }
@@ -65,15 +66,19 @@ class GetTopPeople extends BaseEndpoint implements Endpoint
      *
      * @return null|PeopleSearch
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, PeopleSearch::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetTopPeopleBadRequestException();
+            throw new GetTopPeopleBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

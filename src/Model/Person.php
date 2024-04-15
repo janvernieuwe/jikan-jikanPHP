@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class Person
+class Person extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -54,9 +64,9 @@ class Person
     /**
      * Other Names.
      *
-     * @var string[]
+     * @var list<string>
      */
-    protected $alternateNames = [];
+    protected $alternateNames;
 
     /**
      * Birthday Date ISO8601.
@@ -92,6 +102,7 @@ class Person
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -110,6 +121,7 @@ class Person
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -128,6 +140,7 @@ class Person
      */
     public function setWebsiteUrl(?string $websiteUrl): self
     {
+        $this->initialized['websiteUrl'] = true;
         $this->websiteUrl = $websiteUrl;
 
         return $this;
@@ -138,9 +151,10 @@ class Person
         return $this->images;
     }
 
-    public function setImages(PeopleImages $peopleImages): self
+    public function setImages(PeopleImages $images): self
     {
-        $this->images = $peopleImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -158,6 +172,7 @@ class Person
      */
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;
@@ -176,6 +191,7 @@ class Person
      */
     public function setGivenName(?string $givenName): self
     {
+        $this->initialized['givenName'] = true;
         $this->givenName = $givenName;
 
         return $this;
@@ -194,6 +210,7 @@ class Person
      */
     public function setFamilyName(?string $familyName): self
     {
+        $this->initialized['familyName'] = true;
         $this->familyName = $familyName;
 
         return $this;
@@ -202,7 +219,7 @@ class Person
     /**
      * Other Names.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getAlternateNames(): array
     {
@@ -212,10 +229,11 @@ class Person
     /**
      * Other Names.
      *
-     * @param string[] $alternateNames
+     * @param list<string> $alternateNames
      */
     public function setAlternateNames(array $alternateNames): self
     {
+        $this->initialized['alternateNames'] = true;
         $this->alternateNames = $alternateNames;
 
         return $this;
@@ -234,6 +252,7 @@ class Person
      */
     public function setBirthday(?string $birthday): self
     {
+        $this->initialized['birthday'] = true;
         $this->birthday = $birthday;
 
         return $this;
@@ -252,6 +271,7 @@ class Person
      */
     public function setFavorites(int $favorites): self
     {
+        $this->initialized['favorites'] = true;
         $this->favorites = $favorites;
 
         return $this;
@@ -270,6 +290,7 @@ class Person
      */
     public function setAbout(?string $about): self
     {
+        $this->initialized['about'] = true;
         $this->about = $about;
 
         return $this;

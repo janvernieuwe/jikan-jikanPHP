@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeStaffDataItemPerson
+class AnimeStaffDataItemPerson extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -43,6 +53,7 @@ class AnimeStaffDataItemPerson
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -61,6 +72,7 @@ class AnimeStaffDataItemPerson
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -71,9 +83,10 @@ class AnimeStaffDataItemPerson
         return $this->images;
     }
 
-    public function setImages(PeopleImages $peopleImages): self
+    public function setImages(PeopleImages $images): self
     {
-        $this->images = $peopleImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -91,6 +104,7 @@ class AnimeStaffDataItemPerson
      */
     public function setName(string $name): self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
 
         return $this;

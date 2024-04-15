@@ -7,6 +7,7 @@ use Jikan\JikanPHP\Model\Seasons;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class GetSeasonsList extends BaseEndpoint implements Endpoint
@@ -40,15 +41,19 @@ class GetSeasonsList extends BaseEndpoint implements Endpoint
      *
      * @return null|Seasons
      */
-    protected function transformResponseBody(string $body, int $status, SerializerInterface $serializer, ?string $contentType = null)
+    protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null)
     {
-        if (!is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (false === is_null($contentType) && (200 === $status && false !== mb_strpos($contentType, 'application/json'))) {
             return $serializer->deserialize($body, Seasons::class, 'json');
         }
 
         if (400 === $status) {
-            throw new GetSeasonsListBadRequestException();
+            throw new GetSeasonsListBadRequestException($response);
         }
+
+        return null;
     }
 
     public function getAuthenticationScopes(): array

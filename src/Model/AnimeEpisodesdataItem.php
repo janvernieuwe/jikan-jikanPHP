@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class AnimeEpisodesdataItem
+class AnimeEpisodesdataItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -12,9 +22,9 @@ class AnimeEpisodesdataItem
     protected $malId;
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList URL. This is the URL of the episode's video. If there is no video url, this will be null.
      *
-     * @var string
+     * @var string|null
      */
     protected $url;
 
@@ -58,14 +68,14 @@ class AnimeEpisodesdataItem
      *
      * @var bool
      */
-    protected $filler = false;
+    protected $filler;
 
     /**
      * Recap episode.
      *
      * @var bool
      */
-    protected $recap = false;
+    protected $recap;
 
     /**
      * Episode discussion forum URL.
@@ -87,24 +97,26 @@ class AnimeEpisodesdataItem
      */
     public function setMalId(int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
     }
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList URL. This is the URL of the episode's video. If there is no video url, this will be null.
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * MyAnimeList URL.
+     * MyAnimeList URL. This is the URL of the episode's video. If there is no video url, this will be null.
      */
-    public function setUrl(string $url): self
+    public function setUrl(?string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -123,6 +135,7 @@ class AnimeEpisodesdataItem
      */
     public function setTitle(string $title): self
     {
+        $this->initialized['title'] = true;
         $this->title = $title;
 
         return $this;
@@ -141,6 +154,7 @@ class AnimeEpisodesdataItem
      */
     public function setTitleJapanese(?string $titleJapanese): self
     {
+        $this->initialized['titleJapanese'] = true;
         $this->titleJapanese = $titleJapanese;
 
         return $this;
@@ -159,6 +173,7 @@ class AnimeEpisodesdataItem
      */
     public function setTitleRomanji(?string $titleRomanji): self
     {
+        $this->initialized['titleRomanji'] = true;
         $this->titleRomanji = $titleRomanji;
 
         return $this;
@@ -177,6 +192,7 @@ class AnimeEpisodesdataItem
      */
     public function setDuration(?int $duration): self
     {
+        $this->initialized['duration'] = true;
         $this->duration = $duration;
 
         return $this;
@@ -195,6 +211,7 @@ class AnimeEpisodesdataItem
      */
     public function setAired(?string $aired): self
     {
+        $this->initialized['aired'] = true;
         $this->aired = $aired;
 
         return $this;
@@ -213,6 +230,7 @@ class AnimeEpisodesdataItem
      */
     public function setFiller(bool $filler): self
     {
+        $this->initialized['filler'] = true;
         $this->filler = $filler;
 
         return $this;
@@ -231,6 +249,7 @@ class AnimeEpisodesdataItem
      */
     public function setRecap(bool $recap): self
     {
+        $this->initialized['recap'] = true;
         $this->recap = $recap;
 
         return $this;
@@ -249,6 +268,7 @@ class AnimeEpisodesdataItem
      */
     public function setForumUrl(?string $forumUrl): self
     {
+        $this->initialized['forumUrl'] = true;
         $this->forumUrl = $forumUrl;
 
         return $this;

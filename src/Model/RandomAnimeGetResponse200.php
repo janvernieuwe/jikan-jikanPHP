@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class RandomAnimeGetResponse200
+class RandomAnimeGetResponse200 extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * Anime Resource.
      *
@@ -22,9 +32,10 @@ class RandomAnimeGetResponse200
     /**
      * Anime Resource.
      */
-    public function setData(Anime $anime): self
+    public function setData(Anime $data): self
     {
-        $this->data = $anime;
+        $this->initialized['data'] = true;
+        $this->data = $data;
 
         return $this;
     }

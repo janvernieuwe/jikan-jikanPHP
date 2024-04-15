@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserUpdatesDataAnimeItem
+class UserUpdatesDataAnimeItem extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * @var AnimeMeta
      */
@@ -41,9 +51,10 @@ class UserUpdatesDataAnimeItem
         return $this->entry;
     }
 
-    public function setEntry(AnimeMeta $animeMeta): self
+    public function setEntry(AnimeMeta $entry): self
     {
-        $this->entry = $animeMeta;
+        $this->initialized['entry'] = true;
+        $this->entry = $entry;
 
         return $this;
     }
@@ -55,6 +66,7 @@ class UserUpdatesDataAnimeItem
 
     public function setScore(?int $score): self
     {
+        $this->initialized['score'] = true;
         $this->score = $score;
 
         return $this;
@@ -67,6 +79,7 @@ class UserUpdatesDataAnimeItem
 
     public function setStatus(string $status): self
     {
+        $this->initialized['status'] = true;
         $this->status = $status;
 
         return $this;
@@ -79,6 +92,7 @@ class UserUpdatesDataAnimeItem
 
     public function setEpisodesSeen(?int $episodesSeen): self
     {
+        $this->initialized['episodesSeen'] = true;
         $this->episodesSeen = $episodesSeen;
 
         return $this;
@@ -91,6 +105,7 @@ class UserUpdatesDataAnimeItem
 
     public function setEpisodesTotal(?int $episodesTotal): self
     {
+        $this->initialized['episodesTotal'] = true;
         $this->episodesTotal = $episodesTotal;
 
         return $this;
@@ -109,6 +124,7 @@ class UserUpdatesDataAnimeItem
      */
     public function setDate(string $date): self
     {
+        $this->initialized['date'] = true;
         $this->date = $date;
 
         return $this;

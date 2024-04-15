@@ -2,11 +2,12 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
-use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Jikan\JikanPHP\Model\UserImages;
 use Jikan\JikanPHP\Model\UserMeta;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
+use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -14,75 +15,182 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class UserMetaNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-
-    public function supportsDenormalization($data, $type, $format = null): bool
+if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_VERSION === 4)) {
+    class UserMetaNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return UserMeta::class === $type;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+
+        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
+        {
+            return UserMeta::class === $type;
+        }
+
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UserMeta;
+        }
+
+        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new UserMeta();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('username', $data)) {
+                $object->setUsername($data['username']);
+                unset($data['username']);
+            }
+
+            if (\array_key_exists('url', $data)) {
+                $object->setUrl($data['url']);
+                unset($data['url']);
+            }
+
+            if (\array_key_exists('images', $data)) {
+                $object->setImages($this->denormalizer->denormalize($data['images'], UserImages::class, 'json', $context));
+                unset($data['images']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
+        }
+
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('username') && null !== $object->getUsername()) {
+                $data['username'] = $object->getUsername();
+            }
+
+            if ($object->isInitialized('url') && null !== $object->getUrl()) {
+                $data['url'] = $object->getUrl();
+            }
+
+            if ($object->isInitialized('images') && null !== $object->getImages()) {
+                $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
+        }
+
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UserMeta::class => false];
+        }
     }
-
-    public function supportsNormalization($data, $format = null): bool
+} else {
+    class UserMetaNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return is_object($data) && $data instanceof UserMeta;
-    }
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
 
-    /**
-     * @param null|mixed $format
-     */
-    public function denormalize($data, $class, $format = null, array $context = []): Reference|UserMeta
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
+        {
+            return UserMeta::class === $type;
         }
 
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
+        {
+            return $data instanceof UserMeta;
         }
 
-        $userMeta = new UserMeta();
-        if (null === $data || !\is_array($data)) {
-            return $userMeta;
+        /**
+         * @param null|mixed $format
+         */
+        public function denormalize($data, $type, $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+
+            $object = new UserMeta();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+
+            if (\array_key_exists('username', $data)) {
+                $object->setUsername($data['username']);
+                unset($data['username']);
+            }
+
+            if (\array_key_exists('url', $data)) {
+                $object->setUrl($data['url']);
+                unset($data['url']);
+            }
+
+            if (\array_key_exists('images', $data)) {
+                $object->setImages($this->denormalizer->denormalize($data['images'], UserImages::class, 'json', $context));
+                unset($data['images']);
+            }
+
+            foreach ($data as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $object[$key] = $value;
+                }
+            }
+
+            return $object;
         }
 
-        if (\array_key_exists('username', $data)) {
-            $userMeta->setUsername($data['username']);
+        /**
+         * @param null|mixed $format
+         */
+        public function normalize($object, $format = null, array $context = []): array|\ArrayObject|bool|float|int|string|null
+        {
+            $data = [];
+            if ($object->isInitialized('username') && null !== $object->getUsername()) {
+                $data['username'] = $object->getUsername();
+            }
+
+            if ($object->isInitialized('url') && null !== $object->getUrl()) {
+                $data['url'] = $object->getUrl();
+            }
+
+            if ($object->isInitialized('images') && null !== $object->getImages()) {
+                $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
+            }
+
+            foreach ($object as $key => $value) {
+                if (preg_match('/.*/', (string) $key)) {
+                    $data[$key] = $value;
+                }
+            }
+
+            return $data;
         }
 
-        if (\array_key_exists('url', $data)) {
-            $userMeta->setUrl($data['url']);
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [UserMeta::class => false];
         }
-
-        if (\array_key_exists('images', $data)) {
-            $userMeta->setImages($this->denormalizer->denormalize($data['images'], UserImages::class, 'json', $context));
-        }
-
-        return $userMeta;
-    }
-
-    /**
-     * @param null|mixed $format
-     *
-     * @return array|string|int|float|bool|ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = []): array
-    {
-        $data = [];
-        if (null !== $object->getUsername()) {
-            $data['username'] = $object->getUsername();
-        }
-
-        if (null !== $object->getUrl()) {
-            $data['url'] = $object->getUrl();
-        }
-
-        if (null !== $object->getImages()) {
-            $data['images'] = $this->normalizer->normalize($object->getImages(), 'json', $context);
-        }
-
-        return $data;
     }
 }

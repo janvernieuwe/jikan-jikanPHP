@@ -2,8 +2,18 @@
 
 namespace Jikan\JikanPHP\Model;
 
-class UserProfile
+class UserProfile extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = [];
+
+    public function isInitialized($property): bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
+
     /**
      * MyAnimeList ID.
      *
@@ -78,6 +88,7 @@ class UserProfile
      */
     public function setMalId(?int $malId): self
     {
+        $this->initialized['malId'] = true;
         $this->malId = $malId;
 
         return $this;
@@ -96,6 +107,7 @@ class UserProfile
      */
     public function setUsername(string $username): self
     {
+        $this->initialized['username'] = true;
         $this->username = $username;
 
         return $this;
@@ -114,6 +126,7 @@ class UserProfile
      */
     public function setUrl(string $url): self
     {
+        $this->initialized['url'] = true;
         $this->url = $url;
 
         return $this;
@@ -124,9 +137,10 @@ class UserProfile
         return $this->images;
     }
 
-    public function setImages(UserImages $userImages): self
+    public function setImages(UserImages $images): self
     {
-        $this->images = $userImages;
+        $this->initialized['images'] = true;
+        $this->images = $images;
 
         return $this;
     }
@@ -144,6 +158,7 @@ class UserProfile
      */
     public function setLastOnline(?string $lastOnline): self
     {
+        $this->initialized['lastOnline'] = true;
         $this->lastOnline = $lastOnline;
 
         return $this;
@@ -162,6 +177,7 @@ class UserProfile
      */
     public function setGender(?string $gender): self
     {
+        $this->initialized['gender'] = true;
         $this->gender = $gender;
 
         return $this;
@@ -180,6 +196,7 @@ class UserProfile
      */
     public function setBirthday(?string $birthday): self
     {
+        $this->initialized['birthday'] = true;
         $this->birthday = $birthday;
 
         return $this;
@@ -198,6 +215,7 @@ class UserProfile
      */
     public function setLocation(?string $location): self
     {
+        $this->initialized['location'] = true;
         $this->location = $location;
 
         return $this;
@@ -216,6 +234,7 @@ class UserProfile
      */
     public function setJoined(?string $joined): self
     {
+        $this->initialized['joined'] = true;
         $this->joined = $joined;
 
         return $this;
