@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetRandomMangaBadRequestException;
+use Jikan\JikanPHP\Model\RandomMangaGetResponse200;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Jikan\JikanPHP\Exception\GetRandomMangaBadRequestException;
-use Jikan\JikanPHP\Model\RandomMangaGetResponse200;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetRandomManga extends BaseEndpoint implements Endpoint
 {
     use EndpointTrait;

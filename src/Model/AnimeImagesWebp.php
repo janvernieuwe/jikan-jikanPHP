@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class AnimeImagesWebp extends ArrayObject
+class AnimeImagesWebp extends \ArrayObject
 {
     /**
      * @var array

@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Exception;
 
-use RuntimeException;
-class BadRequestException extends RuntimeException implements ClientException
+class BadRequestException extends \RuntimeException implements ClientException
 {
     public function __construct(string $message)
     {

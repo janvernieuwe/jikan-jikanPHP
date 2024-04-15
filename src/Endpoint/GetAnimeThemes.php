@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetAnimeThemesBadRequestException;
+use Jikan\JikanPHP\Model\AnimeThemes;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Jikan\JikanPHP\Exception\GetAnimeThemesBadRequestException;
-use Jikan\JikanPHP\Model\AnimeThemes;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetAnimeThemes extends BaseEndpoint implements Endpoint
 {
     protected $id;

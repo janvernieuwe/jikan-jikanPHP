@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class Magazine extends ArrayObject
+class Magazine extends \ArrayObject
 {
     /**
      * @var array

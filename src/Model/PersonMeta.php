@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class PersonMeta extends ArrayObject
+class PersonMeta extends \ArrayObject
 {
     /**
      * @var array

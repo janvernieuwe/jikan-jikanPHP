@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetUserMangaListBadRequestException;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Jikan\JikanPHP\Exception\GetUserMangaListBadRequestException;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetUserMangaList extends BaseEndpoint implements Endpoint
 {
     protected $username;

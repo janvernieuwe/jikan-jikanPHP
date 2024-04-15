@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetCharacterMangaBadRequestException;
+use Jikan\JikanPHP\Model\CharacterManga;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Jikan\JikanPHP\Exception\GetCharacterMangaBadRequestException;
-use Jikan\JikanPHP\Model\CharacterManga;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetCharacterManga extends BaseEndpoint implements Endpoint
 {
     protected $id;

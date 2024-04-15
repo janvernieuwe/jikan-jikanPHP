@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class Relation extends ArrayObject
+class Relation extends \ArrayObject
 {
     /**
      * @var array

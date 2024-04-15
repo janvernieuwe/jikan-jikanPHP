@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class UsersSearch extends ArrayObject
+class UsersSearch extends \ArrayObject
 {
     /**
      * @var array

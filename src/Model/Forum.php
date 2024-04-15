@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class Forum extends ArrayObject
+class Forum extends \ArrayObject
 {
     /**
      * @var array

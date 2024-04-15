@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class PaginationPlusPaginationItems extends ArrayObject
+class PaginationPlusPaginationItems extends \ArrayObject
 {
     /**
      * @var array

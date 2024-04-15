@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class ExternalLinksDataItem extends ArrayObject
+class ExternalLinksDataItem extends \ArrayObject
 {
     /**
      * @var array

@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetAnimeStatisticsBadRequestException;
+use Jikan\JikanPHP\Model\AnimeStatistics;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Jikan\JikanPHP\Exception\GetAnimeStatisticsBadRequestException;
-use Jikan\JikanPHP\Model\AnimeStatistics;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetAnimeStatistics extends BaseEndpoint implements Endpoint
 {
     protected $id;

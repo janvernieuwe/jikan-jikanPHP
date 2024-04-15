@@ -2,7 +2,6 @@
 
 namespace Jikan\JikanPHP\Runtime\Normalizer;
 
-use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -13,7 +12,7 @@ if (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_V
         /**
          * {@inheritdoc}
          */
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
         {
             return ['$ref' => (string) $object->getReferenceUri()];
         }
@@ -24,6 +23,11 @@ if (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_V
         public function supportsNormalization($data, $format = null, array $context = []): bool
         {
             return $data instanceof Reference;
+        }
+
+        public function getSupportedTypes(?string $format): array
+        {
+            return [];
         }
     }
 } else {
@@ -32,7 +36,7 @@ if (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_V
         /**
          * {@inheritdoc}
          */
-        public function normalize($object, $format = null, array $context = [])
+        public function normalize($object, $format = null, array $context = []): array|\ArrayObject|bool|float|int|string|null
         {
             return ['$ref' => (string) $object->getReferenceUri()];
         }
@@ -43,6 +47,11 @@ if (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR_VERSION === 6 && Kernel::MINOR_V
         public function supportsNormalization($data, $format = null, array $context = []): bool
         {
             return $data instanceof Reference;
+        }
+
+        public function getSupportedTypes(?string $format): array
+        {
+            return [];
         }
     }
 }

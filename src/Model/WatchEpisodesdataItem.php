@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class WatchEpisodesdataItem extends ArrayObject
+class WatchEpisodesdataItem extends \ArrayObject
 {
     /**
      * @var array

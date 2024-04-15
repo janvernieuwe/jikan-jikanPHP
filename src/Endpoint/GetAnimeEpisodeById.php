@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetAnimeEpisodeByIdBadRequestException;
+use Jikan\JikanPHP\Model\AnimeIdEpisodesEpisodeGetResponse200;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Jikan\JikanPHP\Exception\GetAnimeEpisodeByIdBadRequestException;
-use Jikan\JikanPHP\Model\AnimeIdEpisodesEpisodeGetResponse200;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetAnimeEpisodeById extends BaseEndpoint implements Endpoint
 {
     protected $id;

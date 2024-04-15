@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class CommonImagesJpg extends ArrayObject
+class CommonImagesJpg extends \ArrayObject
 {
     /**
      * @var array

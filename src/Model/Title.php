@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class Title extends ArrayObject
+class Title extends \ArrayObject
 {
     /**
      * @var array

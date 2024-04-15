@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetCharacterVoiceActorsBadRequestException;
+use Jikan\JikanPHP\Model\CharacterVoiceActors;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Jikan\JikanPHP\Exception\GetCharacterVoiceActorsBadRequestException;
-use Jikan\JikanPHP\Model\CharacterVoiceActors;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetCharacterVoiceActors extends BaseEndpoint implements Endpoint
 {
     protected $id;

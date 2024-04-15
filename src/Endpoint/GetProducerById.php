@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetProducerByIdBadRequestException;
+use Jikan\JikanPHP\Model\ProducersIdGetResponse200;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Jikan\JikanPHP\Exception\GetProducerByIdBadRequestException;
-use Jikan\JikanPHP\Model\ProducersIdGetResponse200;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetProducerById extends BaseEndpoint implements Endpoint
 {
     protected $id;

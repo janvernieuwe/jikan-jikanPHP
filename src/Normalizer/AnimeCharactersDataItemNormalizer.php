@@ -2,11 +2,10 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
+use Jane\Component\JsonSchemaRuntime\Reference;
 use Jikan\JikanPHP\Model\AnimeCharactersDataItem;
 use Jikan\JikanPHP\Model\AnimeCharactersDataItemCharacter;
 use Jikan\JikanPHP\Model\AnimeCharactersDataItemVoiceActorsItem;
-use ArrayObject;
-use Jane\Component\JsonSchemaRuntime\Reference;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
 use Symfony\Component\HttpKernel\Kernel;
@@ -79,7 +78,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
             return $object;
         }
 
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
         {
             $data = [];
             if ($object->isInitialized('character') && null !== $object->getCharacter()) {
@@ -134,7 +133,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
         /**
          * @param null|mixed $format
          */
-        public function denormalize($data, $type, $format = null, array $context = [])
+        public function denormalize($data, $type, $format = null, array $context = []): mixed
         {
             if (isset($data['$ref'])) {
                 return new Reference($data['$ref'], $context['document-origin']);
@@ -180,10 +179,8 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
 
         /**
          * @param null|mixed $format
-         *
-         * @return array|string|int|float|bool|ArrayObject|null
          */
-        public function normalize($object, $format = null, array $context = [])
+        public function normalize($object, $format = null, array $context = []): array|\ArrayObject|bool|float|int|string|null
         {
             $data = [];
             if ($object->isInitialized('character') && null !== $object->getCharacter()) {

@@ -2,9 +2,8 @@
 
 namespace Jikan\JikanPHP\Normalizer;
 
-use Jikan\JikanPHP\Model\UserUpdatesData;
-use ArrayObject;
 use Jane\Component\JsonSchemaRuntime\Reference;
+use Jikan\JikanPHP\Model\UserUpdatesData;
 use Jikan\JikanPHP\Runtime\Normalizer\CheckArray;
 use Jikan\JikanPHP\Runtime\Normalizer\ValidatorTrait;
 use Symfony\Component\HttpKernel\Kernel;
@@ -51,7 +50,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
             if (\array_key_exists('anime', $data)) {
                 $values = [];
                 foreach ($data['anime'] as $value) {
-                    $values_1 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
                     foreach ($value as $key => $value_1) {
                         $values_1[$key] = $value_1;
                     }
@@ -66,7 +65,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
             if (\array_key_exists('manga', $data)) {
                 $values_2 = [];
                 foreach ($data['manga'] as $value_2) {
-                    $values_3 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
                     foreach ($value_2 as $key_1 => $value_3) {
                         $values_3[$key_1] = $value_3;
                     }
@@ -87,7 +86,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
             return $object;
         }
 
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
+        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
         {
             $data = [];
             if ($object->isInitialized('anime') && null !== $object->getAnime()) {
@@ -153,7 +152,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
         /**
          * @param null|mixed $format
          */
-        public function denormalize($data, $type, $format = null, array $context = [])
+        public function denormalize($data, $type, $format = null, array $context = []): mixed
         {
             if (isset($data['$ref'])) {
                 return new Reference($data['$ref'], $context['document-origin']);
@@ -171,7 +170,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
             if (\array_key_exists('anime', $data)) {
                 $values = [];
                 foreach ($data['anime'] as $value) {
-                    $values_1 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
                     foreach ($value as $key => $value_1) {
                         $values_1[$key] = $value_1;
                     }
@@ -186,7 +185,7 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
             if (\array_key_exists('manga', $data)) {
                 $values_2 = [];
                 foreach ($data['manga'] as $value_2) {
-                    $values_3 = new ArrayObject([], ArrayObject::ARRAY_AS_PROPS);
+                    $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
                     foreach ($value_2 as $key_1 => $value_3) {
                         $values_3[$key_1] = $value_3;
                     }
@@ -209,10 +208,8 @@ if (!class_exists(Kernel::class) || (Kernel::MAJOR_VERSION >= 7 || Kernel::MAJOR
 
         /**
          * @param null|mixed $format
-         *
-         * @return array|string|int|float|bool|ArrayObject|null
          */
-        public function normalize($object, $format = null, array $context = [])
+        public function normalize($object, $format = null, array $context = []): array|\ArrayObject|bool|float|int|string|null
         {
             $data = [];
             if ($object->isInitialized('anime') && null !== $object->getAnime()) {

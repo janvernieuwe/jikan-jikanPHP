@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class TrailerImages extends ArrayObject
+class TrailerImages extends \ArrayObject
 {
     /**
      * @var array

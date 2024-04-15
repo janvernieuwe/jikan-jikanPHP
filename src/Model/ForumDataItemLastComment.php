@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class ForumDataItemLastComment extends ArrayObject
+class ForumDataItemLastComment extends \ArrayObject
 {
     /**
      * @var array

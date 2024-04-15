@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class ClubsIdGetResponse200 extends ArrayObject
+class ClubsIdGetResponse200 extends \ArrayObject
 {
     /**
      * @var array

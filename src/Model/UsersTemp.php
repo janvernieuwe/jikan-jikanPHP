@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class UsersTemp extends ArrayObject
+class UsersTemp extends \ArrayObject
 {
     /**
      * @var array

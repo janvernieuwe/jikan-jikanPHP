@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class MangaSearch extends ArrayObject
+class MangaSearch extends \ArrayObject
 {
     /**
      * @var array

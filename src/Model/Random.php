@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class Random extends ArrayObject
+class Random extends \ArrayObject
 {
     /**
      * @var array

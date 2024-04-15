@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class UserProfileFullExternalItem extends ArrayObject
+class UserProfileFullExternalItem extends \ArrayObject
 {
     /**
      * @var array

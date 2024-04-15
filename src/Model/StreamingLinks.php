@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class StreamingLinks extends ArrayObject
+class StreamingLinks extends \ArrayObject
 {
     /**
      * @var array

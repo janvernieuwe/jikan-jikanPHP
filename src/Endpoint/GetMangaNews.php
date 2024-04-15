@@ -2,14 +2,15 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetMangaNewsBadRequestException;
+use Jikan\JikanPHP\Model\MangaNews;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Jikan\JikanPHP\Exception\GetMangaNewsBadRequestException;
-use Jikan\JikanPHP\Model\MangaNews;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetMangaNews extends BaseEndpoint implements Endpoint
 {
     protected $id;

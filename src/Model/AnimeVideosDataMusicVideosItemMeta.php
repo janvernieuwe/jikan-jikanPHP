@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class AnimeVideosDataMusicVideosItemMeta extends ArrayObject
+class AnimeVideosDataMusicVideosItemMeta extends \ArrayObject
 {
     /**
      * @var array

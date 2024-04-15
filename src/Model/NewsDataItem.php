@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class NewsDataItem extends ArrayObject
+class NewsDataItem extends \ArrayObject
 {
     /**
      * @var array

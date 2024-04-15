@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class AnimeUserupdates extends ArrayObject
+class AnimeUserupdates extends \ArrayObject
 {
     /**
      * @var array

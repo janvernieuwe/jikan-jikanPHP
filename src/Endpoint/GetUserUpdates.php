@@ -2,13 +2,14 @@
 
 namespace Jikan\JikanPHP\Endpoint;
 
+use Jikan\JikanPHP\Exception\GetUserUpdatesBadRequestException;
+use Jikan\JikanPHP\Model\UserUpdates;
 use Jikan\JikanPHP\Runtime\Client\BaseEndpoint;
 use Jikan\JikanPHP\Runtime\Client\Endpoint;
 use Jikan\JikanPHP\Runtime\Client\EndpointTrait;
-use Symfony\Component\Serializer\SerializerInterface;
-use Jikan\JikanPHP\Exception\GetUserUpdatesBadRequestException;
-use Jikan\JikanPHP\Model\UserUpdates;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+
 class GetUserUpdates extends BaseEndpoint implements Endpoint
 {
     protected $username;

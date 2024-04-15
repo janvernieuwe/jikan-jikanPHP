@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class MangaFull extends ArrayObject
+class MangaFull extends \ArrayObject
 {
     /**
      * @var array

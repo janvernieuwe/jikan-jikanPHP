@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class AnimeFullStreamingItem extends ArrayObject
+class AnimeFullStreamingItem extends \ArrayObject
 {
     /**
      * @var array

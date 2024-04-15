@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class DaterangePropTo extends ArrayObject
+class DaterangePropTo extends \ArrayObject
 {
     /**
      * @var array

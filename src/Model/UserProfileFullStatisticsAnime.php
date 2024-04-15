@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class UserProfileFullStatisticsAnime extends ArrayObject
+class UserProfileFullStatisticsAnime extends \ArrayObject
 {
     /**
      * @var array

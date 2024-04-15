@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class MalUrl extends ArrayObject
+class MalUrl extends \ArrayObject
 {
     /**
      * @var array

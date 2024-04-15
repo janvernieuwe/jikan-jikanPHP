@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class UserHistory extends ArrayObject
+class UserHistory extends \ArrayObject
 {
     /**
      * @var array

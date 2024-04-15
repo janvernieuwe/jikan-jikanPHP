@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class Broadcast extends ArrayObject
+class Broadcast extends \ArrayObject
 {
     /**
      * @var array

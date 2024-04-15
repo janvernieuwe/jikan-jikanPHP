@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class ProducerFull extends ArrayObject
+class ProducerFull extends \ArrayObject
 {
     /**
      * @var array

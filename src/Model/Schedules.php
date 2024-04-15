@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class Schedules extends ArrayObject
+class Schedules extends \ArrayObject
 {
     /**
      * @var array

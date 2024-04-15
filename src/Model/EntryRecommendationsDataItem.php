@@ -2,8 +2,7 @@
 
 namespace Jikan\JikanPHP\Model;
 
-use ArrayObject;
-class EntryRecommendationsDataItem extends ArrayObject
+class EntryRecommendationsDataItem extends \ArrayObject
 {
     /**
      * @var array
